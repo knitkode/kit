@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import { generate } from "../src/helpers";
+import { generate } from "../helpers";
 
 test("test runs", async () => {
   await generate({

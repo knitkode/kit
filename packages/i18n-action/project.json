@@ -1,0 +1,40 @@
+{
+  "name": "i18n-action",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/i18n-action",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      }
+    },
+    "build-esm": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "dummy"
+      }
+    },
+    "build-cjs": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "dummy"
+      }
+    },
+    "build-swc": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "dummy"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/i18n-action/**/*.ts"]
+      }
+    }
+  }
+}

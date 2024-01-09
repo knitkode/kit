@@ -20,6 +20,10 @@ npm i @koine/dom
 
 ## Dev notes
 
+## Github actions
+
+- See this [discussion](https://github.com/orgs/community/discussions/24990) and the [`CodeQL` action repo](https://github.com/github/codeql-action) regarding the ability to publish multiple actions from the same monorepo.
+
 ## Nxplugins used
 
 - [@jscutlery/semver](https://github.com/jscutlery/semver)

@@ -1,0 +1,50 @@
+name: 'Koine i18n'
+description: 'Create i18n metadata and types'
+branding:
+  icon: align-justify
+  color: black
+inputs:
+  default_locale:
+    description: 'default locale'
+    required: false
+    default: 'en'
+  output_data:
+    description: 'name and location for the .json data generated file.'
+    required: false
+    default: '.github/index'
+  output_types:
+    description: 'name and location for the .d.ts types generated file.'
+    required: false
+    default: '.github/types.d.ts'
+# outputs:
+#   contents: # output will be available to future steps
+#     description: 'A json object containing the indexed data.'
+# runs:
+#   using: 'node20'
+#   main: './index.js'
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+
+    # see https://github.com/orgs/community/discussions/26248
+    - name: Generate i18n files
+      run: node ${{ github.action_path }}/index.js
+      shell: bash
+
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git add .
+        git commit -m "chore(i18n): auto-update" -a
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}

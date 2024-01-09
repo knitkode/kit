@@ -1,1 +1,1 @@
-# @koine/browser
+# @koine/i18n
