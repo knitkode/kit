@@ -35,3 +35,5 @@ runs:
     - name: Generate i18n files
       run: node ${{ github.action_path }}/index.js
       shell: bash
+      env:
+        GITHUB_ACTOR: ${{ github.actor }}

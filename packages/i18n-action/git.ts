@@ -61,13 +61,13 @@ export class Git {
 
       await git.addConfig(
         "user.name",
-        process.env["GITHUB_REPOSITORY_OWNER"] || "knitkode",
+        process.env["GITHUB_ACTOR"] || "knitkode",
         undefined,
         log,
       );
       await git.addConfig(
         "author.name",
-        process.env["GITHUB_REPOSITORY_OWNER"] || "knitkode",
+        process.env["GITHUB_ACTOR"] || "knitkode",
         undefined,
         log,
       );
