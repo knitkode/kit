@@ -59,14 +59,7 @@ export class Git {
     if (changedFiles) {
       core.info(`> Found ${changedFiles} changed files.`);
 
-      await git
-        .addConfig("user.name", "github-actions[bot]", undefined, log)
-        .addConfig(
-          "user.email",
-          "github-actions[bot]@users.noreply.github.com",
-          undefined,
-          log,
-        );
+      await git.addConfig("user.name", "github-actions[bot]", undefined, log);
 
       await git.fetch(["--tags", "--force"], log);
 
