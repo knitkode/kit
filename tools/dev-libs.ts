@@ -20,6 +20,7 @@ const libsConfig: LibConfig[] = [
   { name: "api", type: "module", minify: false },
   { name: "browser", type: "module", minify: false },
   { name: "dom", type: "module", minify: false },
+  { name: "i18n", type: "module", minify: false },
   { name: "react", type: "module", minify: false },
   { name: "next", type: "module", minify: false },
   { name: "utils", type: "module", minify: false },

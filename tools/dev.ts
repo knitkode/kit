@@ -1,6 +1,5 @@
 import chalk from "chalk";
 import { Option, program } from "commander";
-import { fuse } from "./dev-fuse.js";
 import { libs } from "./dev-libs.js";
 import { link } from "./dev-link.js";
 import { postbuild } from "./dev-postbuild.js";
@@ -31,5 +30,4 @@ program
   .addCommand(link())
   .addCommand(postbuild())
   .addCommand(publish())
-  .addCommand(fuse())
   .parseAsync();
