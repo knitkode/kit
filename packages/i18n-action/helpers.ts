@@ -147,9 +147,7 @@ export async function generateTypes(options: {
   const header = `
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-namespace */
-/**
- * Auto-generated on ${new Date().toISOString()}
- */
+
 declare namespace Koine {
   interface Translations {
 `;
