@@ -28,16 +28,14 @@ runs:
     - name: Checkout the repo
       uses: actions/checkout@v4
       with:
+        persist-credentials: false
         fetch-depth: 0
-    - name: set git
+    - name: Set git config
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
       shell: bash
-
     # see https://github.com/orgs/community/discussions/26248
     - name: Generate i18n files
       run: node ${{ github.action_path }}/index.js
       shell: bash
-      env:
-        GITHUB_ACTOR: ${{ github.actor }}
