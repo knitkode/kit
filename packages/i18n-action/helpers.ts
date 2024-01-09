@@ -145,6 +145,8 @@ export async function generateTypes(options: {
   const outputDir = join(root, dirname(output));
   const outputPath = join(root, output);
   const header = `
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-namespace */
 /**
  * Auto-generated on ${new Date().toISOString()}
  */
