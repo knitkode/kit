@@ -29,6 +29,10 @@ runs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+    - name: set git
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
 
     # see https://github.com/orgs/community/discussions/26248
     - name: Generate i18n files
