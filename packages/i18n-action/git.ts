@@ -59,7 +59,14 @@ export class Git {
     if (changedFiles) {
       core.info(`> Found ${changedFiles} changed files.`);
 
-      await git.addConfig("user.name", "github-actions[bot]", undefined, log);
+      await git.addConfig(
+        "user.name",
+        process.env["GITHUB_REPOSITORY_OWNER"] || "knitkode",
+        undefined,
+        log,
+      );
+      // await git.addConfig("author.name", process.env["GITHUB_REPOSITORY_OWNER"] || "@knitkode/koine", undefined, log);
+      // await git.addConfig("user.name", "github-actions[bot]", undefined, log);
 
       await git.fetch(["--tags", "--force"], log);
 
