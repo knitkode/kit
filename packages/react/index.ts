@@ -44,9 +44,5 @@ export { useTraceUpdate } from "./useTraceUpdate";
 export { useUpdateEffect } from "./useUpdateEffect";
 export { useWindowSize } from "./useWindowSize";
 
+export type { Polymorphic } from "./Polymorphic";
 export type { Translate, Option } from "./types";
-
-// we need to alias the star export otherwise the named exports would collide
-// export * as css from "./css";
-// export * as sc from "./sc";
-// export * as tw from "./tw";

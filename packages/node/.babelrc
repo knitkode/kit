@@ -1,0 +1,12 @@
+{
+  "presets": [
+    [
+      "@nx/web/babel",
+      {
+        "runtime": "automatic",
+        "useBuiltIns": "usage"
+      }
+    ]
+  ],
+  "plugins": []
+}

@@ -53,7 +53,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["coverage/packages/next"],
+      "outputs": ["{workspaceRoot}/coverage/packages/next"],
       "options": {
         "jestConfig": "packages/next/jest.config.js",
         "passWithNoTests": true

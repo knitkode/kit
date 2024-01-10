@@ -8,10 +8,13 @@
     "_build": "ncc build src/index.ts -o dist --license licenses.txt --minify",
     "_test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dummy": "echo ok",
-    "build": "ncc build ./index.ts -o ../../actions/i18n --minify --no-cache --no-source-map-register --license licenses.txt"
+    "build-ncc": "ncc build ./index.ts -o ../../actions/i18n --minify --no-cache --no-source-map-register --license licenses.txt",
+    "build-clean": "find ../../actions -name '*.index.js' -delete",
+    "build": "pnpm build-ncc && pnpm build-clean"
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
+    "@koine/i18n": "*",
     "glob": "^10.3.10",
     "prettier": "^3.1.1",
     "simple-git": "^3.22.0"

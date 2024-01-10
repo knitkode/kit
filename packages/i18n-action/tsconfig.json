@@ -1,16 +1,19 @@
 {
+  "extends": "../../tsconfig.base.json",
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"],
     "target": "ES2022",
     "module": "NodeNext",
-    "rootDir": "./",
     "moduleResolution": "NodeNext",
-    "baseUrl": "./",
-    "noImplicitAny": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "skipLibCheck": true
+    // for @vercel/ncc:
+    "rootDir": "../../",
+    "baseUrl": "../../",
+    "declaration": false
   },
-  "exclude": ["./__tests__", "./coverage"]
+  "files": [],
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
 }

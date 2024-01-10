@@ -8,10 +8,6 @@ inputs:
     description: 'default locale'
     required: false
     default: 'en'
-  output_data:
-    description: 'name and location for the .json data generated file.'
-    required: false
-    default: '.github/index'
   output_types:
     description: 'name and location for the .d.ts types generated file.'
     required: false

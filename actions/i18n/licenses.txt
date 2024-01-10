@@ -1,3 +1,6 @@
+@koine/koine
+MIT
+
 prettier
 MIT
 # Prettier license

@@ -9,41 +9,41 @@ type Comparable =
   | Record<string, ComparablePrimitive>
   | Array<ComparablePrimitive>;
 
+/**
+ */
 function areEqualArrays(
   a: Array<ComparablePrimitive>,
-  b?: Array<ComparablePrimitive>
+  b?: Array<ComparablePrimitive>,
 ) {
   if (!b) return false;
   if (a.length !== b.length) return false;
 
   for (let i = 0; i < a.length; i++) {
-    const aValue = a[i];
-    const bValue = b[i];
-
-    if (!areEqual(aValue, bValue)) return false;
+    if (!areEqual(a[i], b[i])) return false;
   }
   return true;
 }
 
+/**
+ * NOTE: Since we do not care about `undefined` values we do not check for equal
+ * `Object.keys().length` equality
+ */
 function areEqualObjects(
   a: object | Record<string, unknown>,
-  b?: object | Record<string, unknown>
+  b?: object | Record<string, unknown>,
 ) {
   if (!b) return false;
 
   const aKeys = Object.keys(a);
-  const bKeys = Object.keys(b);
+  // const bKeys = Object.keys(b);
 
-  if (aKeys.length !== bKeys.length) {
-    return false;
-  }
+  // if (aKeys.length !== bKeys.length) {
+  //   return false;
+  // }
 
   for (const _key of aKeys) {
     const key = _key as keyof typeof a;
-    const aValue = a[key];
-    const bValue = b[key];
-
-    if (!areEqual(aValue, bValue)) {
+    if (!areEqual(a[key], b[key])) {
       return false;
     }
   }

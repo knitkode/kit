@@ -9,7 +9,8 @@
       "executor": "nx:run-script",
       "options": {
         "script": "build"
-      }
+      },
+      "outputs": ["{workspaceRoot}/actions/i18n"]
     },
     "build-esm": {
       "executor": "nx:run-script",

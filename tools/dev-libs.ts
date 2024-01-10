@@ -23,6 +23,7 @@ const libsConfig: LibConfig[] = [
   { name: "i18n", type: "module", minify: false },
   { name: "react", type: "module", minify: false },
   { name: "next", type: "module", minify: false },
+  { name: "node", type: "module", minify: false },
   { name: "utils", type: "module", minify: false },
 ];
 
