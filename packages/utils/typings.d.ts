@@ -2,6 +2,10 @@
  * List here the global variables used by third party scripts supported within
  * the `koine` ecosystem.
  */
+/**
+ * List here the global variables used by third party scripts supported within
+ * the `koine` ecosystem.
+ */
 
 // as in type-fest start
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
@@ -34,18 +38,22 @@ declare type Tweak<
   TReplacements extends Partial<Record<keyof TModel, unknown>> | false = false,
 > = TReplacements extends false
   ? Simplify<
-      Except<TModel, TRequiredKeys> &
-        Required<{
-          [K in TRequiredKeys]: NonNullable<TModel[K]>;
-        }>
+      TRequiredKeys extends false
+        ? TModel
+        : Except<TModel, TRequiredKeys> &
+            Required<{
+              [K in TRequiredKeys]: NonNullable<TModel[K]>;
+            }>
     >
   : Simplify<
-      Omit<
-        Except<TModel, TRequiredKeys> &
-          Required<{
-            [K in TRequiredKeys]: NonNullable<TModel[K]>;
-          }>,
-        keyof TReplacements
-      > &
-        TReplacements
+      TRequiredKeys extends false
+        ? TModel & TReplacements
+        : Omit<
+            Except<TModel, TRequiredKeys> &
+              Required<{
+                [K in TRequiredKeys]: NonNullable<TModel[K]>;
+              }>,
+            keyof TReplacements
+          > &
+            TReplacements
     >;
