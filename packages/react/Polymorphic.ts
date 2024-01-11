@@ -13,26 +13,18 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Polymorphic {
-  type AsProp<TComponent extends React.ElementType> = {
-    as?: TComponent;
-  };
+  type Merge<P1 = Record<string, never>, P2 = Record<string, never>> = Omit<
+    P1,
+    keyof P2
+  > &
+    P2;
 
   type ComponentTypes =
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     | React.ComponentClass<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     | React.FunctionComponent<any>
     | keyof JSX.IntrinsicElements;
-
-  type Merge<P1 = {}, P2 = {}> = Omit<P1, keyof P2> & P2;
-
-  type ForwardRefExoticComponent<TComponent, TOwnProps> =
-    React.ForwardRefExoticComponent<
-      Merge<
-        TComponent extends React.ElementType
-          ? React.ComponentPropsWithRef<TComponent>
-          : never,
-        TOwnProps & { as?: TComponent }
-      >
-    >;
 
   type InferProps<TComponent extends ComponentTypes> =
     TComponent extends React.ComponentClass<infer Props>
@@ -45,25 +37,39 @@ export namespace Polymorphic {
             ? React.ComponentPropsWithoutRef<TComponent>
             : never;
 
+  type AsProp<TComponent extends React.ElementType> = {
+    as?: TComponent;
+  };
+
   export type Ref<TComponent extends React.ElementType> =
     React.ComponentPropsWithRef<TComponent>["ref"];
 
   export type Props<
     TComponent extends React.ElementType,
-    TProps = {},
-  > = /* Omit< */ InferProps<TComponent> /* , keyof Props> */ &
-    AsProp<TComponent> &
-    TProps;
+    Props = Record<string, never>,
+  > = Omit<InferProps<TComponent>, keyof Props> & AsProp<TComponent> & Props;
 
   export type PropsWithRef<
     TComponent extends React.ElementType,
-    TProps = {},
+    TProps = Record<string, never>,
   > = Props<TComponent, TProps> & {
     ref?: Ref<TComponent>;
   };
 
-  export interface ComponentForwarded<TComponent, TProps = {}>
-    extends ForwardRefExoticComponent<TComponent, TProps> {
+  type ForwardRefExoticComponent<TComponent, OwnProps> =
+    React.ForwardRefExoticComponent<
+      Merge<
+        TComponent extends React.ElementType
+          ? React.ComponentPropsWithRef<TComponent>
+          : never,
+        OwnProps & { as?: TComponent }
+      >
+    >;
+
+  export type ComponentForwarded<
+    TComponent,
+    TProps = Record<string, never>,
+  > = ForwardRefExoticComponent<TComponent, TProps> & {
     <As = TComponent>(
       props: As extends ""
         ? { as: keyof JSX.IntrinsicElements }
@@ -73,5 +79,5 @@ export namespace Polymorphic {
             ? Merge<JSX.IntrinsicElements[As], TProps & { as: As }>
             : never,
     ): React.ReactElement | null;
-  }
+  };
 }
