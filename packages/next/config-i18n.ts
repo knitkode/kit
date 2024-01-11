@@ -18,7 +18,6 @@ export type Redirect = Omit<_Redirect, "locale"> & { locale?: boolean };
 
 export type Rewrite = Omit<_Rewrite, "locale"> & { locale?: boolean };
 
-// type Route = string | Record<string, string | Record<string, string | Record<string, string | Record<string, string | Record<string, string>>>>>;
 type Route =
   | string
   | {
@@ -37,6 +36,15 @@ type RoutesMapRoute = {
   pathname: string;
   wildcard?: boolean;
 };
+
+export function orderRoutes(routes: Routes, defaultLocale: Locale) {
+  const { [defaultLocale]: routesForDefaultLocale, ...restRoutes } = routes;
+
+  return {
+    [defaultLocale]: routesForDefaultLocale,
+    ...restRoutes,
+  };
+}
 
 /**,m
  * Normalise pathname
@@ -289,9 +297,10 @@ export async function getRedirects(arg: GetRedirectsOptions) {
     permanent,
     debug,
   } = arg;
+  const orderedRoutes = orderRoutes(routes, defaultLocale);
   const redirects: (Redirect | undefined)[] = [];
 
-  for (const locale in routes) {
+  for (const locale in orderedRoutes) {
     const routesByLocale = routes[locale];
     const routesMap = getRoutesMap({}, routesByLocale);
 
@@ -402,9 +411,10 @@ type GetRewritesOptions = Options;
 export async function getRewrites(arg: GetRewritesOptions) {
   const { routes, defaultLocale, hideDefaultLocaleInUrl, localeParam, debug } =
     arg;
+  const orderedRoutes = orderRoutes(routes, defaultLocale);
   const rewrites: (Rewrite | undefined)[] = [];
 
-  for (const locale in routes) {
+  for (const locale in orderedRoutes) {
     const routesByLocale = routes[locale];
     const routesMap = getRoutesMap({}, routesByLocale);
 

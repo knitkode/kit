@@ -4,5 +4,10 @@
   "dependencies": {
     "@koine/dom": "*",
     "@koine/utils": "*"
+  },
+  "peerDependenciesMeta": {
+    "date-fns-tz": {
+      "optional": true
+    }
   }
 }

@@ -4,6 +4,7 @@ import {
   getRedirects,
   getRewrites,
   normaliseUrlPathname,
+  orderRoutes,
 } from "./config-i18n";
 
 // prettier-ignore
@@ -360,6 +361,17 @@ describe("next config (set 1)", () => {
         ...addLocale(expected.redirects.en, "destination", "en"),
         ...addLocale(expected.redirects.it, "destination", "it"),
       ]);
+    });
+
+    test("order routes by default locale", async () => {
+      const unorderedRoutes = {
+        en: { a: "en" },
+        it: { a: "it" },
+      };
+      const orderedRoutes = await orderRoutes(unorderedRoutes, "it");
+
+      expect(Object.keys(unorderedRoutes)[0]).toEqual("en");
+      expect(Object.keys(orderedRoutes)[0]).toEqual("it");
     });
   });
 });

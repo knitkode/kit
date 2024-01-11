@@ -11,13 +11,6 @@ interface KoineNextConfig {
   nx?: boolean;
   /** @default true  Svg to react components */
   svg?: boolean;
-  /** @default true  Styled components enabled */
-  sc?: boolean;
-  /**
-   * When true uses `*.page.ts` or `*.page.tsx` extension for next.js config option [`pageExtensions`](https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory). When `true` it enables the same for `next-translate`
-   * @default false
-   */
-  page?: boolean;
   /**
    * A JSON file containing the routes definition mapping template folders
    * to localised slugs. It supports slugs's dynamic portions.
@@ -104,16 +97,11 @@ interface MergedConfig extends KoineNextConfig, Omit<NextConfig, "i18n"> {}
  * @param {object} options
  * @property {boolean} [options.nx=false] Nx monorepo setup
  * @property {boolean} [options.svg=false] Svg to react components
- * @property {boolean} [options.sc=false] Styled components enabled
- * @property {boolean} [options.page=false] When `true` uses `*.page.ts` or `*.page.tsx`
- *                                          extension for next.js config option [`pageExtensions`](https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory)
- *                                          and it enables the same for `next-translate`.
  */
 export function withKoine(
   {
     nx = true,
     svg = true,
-    sc = true,
     page,
     routes,
     permanent,
@@ -129,7 +117,6 @@ export function withKoine(
 ) {
   const nextConfig: NextConfig = {
     // @see https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
-    pageExtensions: page ? ["page.tsx", "page.ts"] : undefined,
     eslint: {
       ignoreDuringBuilds: true, // we have this strict check on each commit
     },
@@ -137,14 +124,15 @@ export function withKoine(
       ignoreBuildErrors: true, // we have this strict check on each commit
     },
     poweredByHeader: false,
-    swcMinify: true,
     modularizeImports: {
       "@koine/api": { transform: "@koine/api/{{member}}" },
       "@koine/browser": { transform: "@koine/browser/{{member}}" },
       "@koine/dom": { transform: "@koine/dom/{{member}}" },
+      "@koine/i18n": { transform: "@koine/i18n/{{member}}" },
       "@koine/next/?(((\\w*)?/?)*)": {
         transform: "@koine/next/{{ matches.[1] }}/{{member}}",
       },
+      "@koine/node": { transform: "@koine/node/{{member}}" },
       "@koine/react/?(((\\w*)?/?)*)": {
         transform: "@koine/react/{{ matches.[1] }}/{{member}}",
       },
@@ -157,13 +145,8 @@ export function withKoine(
       // optimizeCss: true,
       // @see https://github.com/vercel/next.js/discussions/30174#discussion-3643870
       scrollRestoration: true,
-      // concurrentFeatures: true,
-      // serverComponents: true,
-      // reactRoot: true,
       ...(custom["experimental"] || {}),
     },
-    // @see https://github.com/vercel/next.js/issues/7322#issuecomment-887330111
-    // reactStrictMode: true,
     ...custom,
   };
 
@@ -174,6 +157,9 @@ export function withKoine(
         svgr: true,
       };
     } else {
+      // if falsy just remove the key
+      delete nextConfig["nx"];
+
       nextConfig.webpack = (
         _config,
         options,
@@ -209,24 +195,17 @@ export function withKoine(
     }
   }
 
-  if (sc) {
-    nextConfig.compiler = {
-      styledComponents: true,
-    };
-  }
-
   if (custom.i18n) {
-    const { hideDefaultLocaleInUrl, localeParam, loader, ...nextI18nConfig } =
-      custom.i18n || {};
+    const { locales, defaultLocale, localeParam } = custom.i18n;
     if (localeParam) {
       // app router:
-      // after thousands attempts turns out that passing the i18n settings to
-      // the app router messes up everything, just rely on our internal i18n
+      // NOTE: after thousands attempts turns out that passing the i18n settings
+      // to the app router messes up everything, just rely on our internal i18n
       // mechanisms
       delete nextConfig.i18n;
     } else {
       // pages routes:
-      nextConfig.i18n = nextI18nConfig;
+      nextConfig.i18n = { locales, defaultLocale };
     }
   }
 
@@ -270,8 +249,8 @@ export function withKoine(
           };
         }
         return {
-          afterFiles: [],
           beforeFiles: defaults,
+          afterFiles: [],
           fallback: [],
         };
       },
