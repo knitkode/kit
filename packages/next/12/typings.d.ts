@@ -1,19 +1,31 @@
 /**
- * Next Pages router utility type
+ * [`next.js` pages router](https://nextjs.org/docs/pages) utility type
  */
-declare type PageDataStaticPaths<
-  P extends import("querystring").ParsedUrlQuery,
-> = import("next").GetStaticPaths<P | never>;
+type NextGetStaticPathsResult<Params extends { [key: string]: any }> = Omit<
+  import("next").GetStaticPathsResult,
+  "paths"
+> & {
+  paths: Array<string | { params: Params; locale?: string }>;
+};
 
 /**
- * Next Pages router utility type
+ * [`next.js` pages router](https://nextjs.org/docs/pages) utility type
+ */
+declare type PageDataStaticPaths<Params extends { [key: string]: any }> = (
+  context: import("next").GetStaticPathsContext,
+) =>
+  | Promise<NextGetStaticPathsResult<Params>>
+  | NextGetStaticPathsResult<Params>;
+
+/**
+ * [`next.js` pages router](https://nextjs.org/docs/pages) utility type
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare type PageDataStatic<P extends { [key: string]: any }> =
   import("next").GetStaticProps<P, import("querystring").ParsedUrlQuery>;
 
 /**
- * Next Pages router utility type
+ * [`next.js` pages router](https://nextjs.org/docs/pages) utility type
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare type PageDataServer<P extends { [key: string]: any }> =
@@ -30,11 +42,7 @@ declare type NextRouteProperties = Parameters<
 /**
  * Extend NodeJS `process.env` with variables used by @koine
  */
-declare namespace NodeJS {
-  interface ProcessEnv {
-    AUTH_ROUTE_LOGIN: string;
-    AUTH_ROUTE_PROFILE: string;
-    AUTH_ROUTE_REGISTER: string;
-    AUTH_ROUTES_SECURED: string;
-  }
-}
+// declare namespace NodeJS {
+//   interface ProcessEnv {
+//   }
+// }
