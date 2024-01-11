@@ -7,25 +7,16 @@
     "@koine/utils": "*"
   },
   "peerDependenciesMeta": {
-    "@hookform/resolvers": {
-      "optional": true
-    },
     "@kuus/yup": {
       "optional": true
     },
     "date-fns": {
       "optional": true
     },
-    "next-auth": {
-      "optional": true
-    },
     "next-seo": {
       "optional": true
     },
     "next-translate": {
-      "optional": true
-    },
-    "react-hook-form": {
       "optional": true
     },
     "react-swipeable": {

@@ -12,9 +12,6 @@
     "date-fns": {
       "optional": true
     },
-    "react-hook-form": {
-      "optional": true
-    },
     "react-swipeable": {
       "optional": true
     },
