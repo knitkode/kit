@@ -1,5 +1,11 @@
-import utcToZonedTime from "date-fns-tz/utcToZonedTime";
+// import utcToZonedTime from "date-fns-tz/utcToZonedTime";
 import { isBrowser } from "@koine/utils";
+
+// FIXME: https://github.com/marnusw/date-fns-tz/pull/265
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const utcToZonedTime = (date: Date, _tz: string) => {
+  return date;
+};
 
 /**
  * It returns a `Date` object from a date `string` adjusted on the user timeZone,
@@ -24,7 +30,7 @@ export function getZonedDate(dateString = "", timeZone?: string) {
     } catch (e) {
       if (process.env["NODE_ENV"] === "development") {
         console.warn(
-          "[@koine/utils:getZonedDate] failed reading timeZone, error",
+          "[@koine/browser:getZonedDate] failed reading timeZone, error",
           e,
         );
       }
