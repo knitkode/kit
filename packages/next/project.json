@@ -22,7 +22,7 @@
         "outputPath": "dist/packages/next/esm",
         "tsConfig": "packages/next/tsconfig.lib.json",
         "main": "packages/next/index.ts",
-        "assets": ["packages/next/*.md", "packages/next/*.d.ts"]
+        "assets": ["packages/next/*.md", "packages/next/**/*.d.ts"]
       }
     },
     "build-cjs": {
@@ -41,7 +41,7 @@
         "outputPath": "dist/packages/next",
         "tsConfig": "packages/next/tsconfig.lib.json",
         "main": "packages/next/index.ts",
-        "assets": ["packages/next/*.md", "packages/next/*.d.ts"]
+        "assets": ["packages/next/*.md", "packages/next/**/*.d.ts"]
       }
     },
     "lint": {
