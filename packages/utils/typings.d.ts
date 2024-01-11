@@ -4,15 +4,8 @@
  */
 
 // as in type-fest start
-type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
+declare type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 // as in type-fest end
-
-type NotNullProperties<T> = {
-  [P in keyof T]: NonNullable<T[P]>;
-};
-
-type RequiredNotNullable<T, K extends keyof T> = T &
-  Required<NotNullProperties<Pick<T, K>>>;
 
 /**
  * Tweak a model by making some properties required (not `optional` and not `nullable`)
@@ -21,11 +14,22 @@ type RequiredNotNullable<T, K extends keyof T> = T &
  */
 declare type Tweak<
   TModel extends object,
-  TRequiredKeys extends keyof TModel | false,
-  TReplacements extends Partial<Record<keyof TModel, unknown>> | false,
-> = Simplify<
-  TReplacements extends Partial<Record<keyof TModel, unknown>>
-    ? Omit<RequiredNotNullable<TModel, TRequiredKeys>, keyof TReplacements> &
+  TRequiredKeys extends keyof TModel | never,
+  TReplacements extends Partial<Record<keyof TModel, unknown>> | false = false,
+> = TReplacements extends false
+  ? Simplify<
+      Omit<TModel, TRequiredKeys> &
+        Required<{
+          [K in TRequiredKeys]: NonNullable<TModel[K]>;
+        }>
+    >
+  : Simplify<
+      Omit<
+        Omit<TModel, TRequiredKeys> &
+          Required<{
+            [K in TRequiredKeys]: NonNullable<TModel[K]>;
+          }>,
+        keyof TReplacements
+      > &
         TReplacements
-    : RequiredNotNullable<TModel, TRequiredKeys>
->;
+    >;
