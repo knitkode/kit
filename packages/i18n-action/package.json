@@ -9,8 +9,8 @@
     "_test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dummy": "echo ok",
     "build-ncc": "ncc build ./index.ts -o ../../actions/i18n --minify --no-cache --no-source-map-register --license licenses.txt",
-    "build-clean": "find ../../actions -name '*.index.js' -delete",
-    "build": "pnpm build-ncc && pnpm build-clean"
+    "_build-clean": "find ../../actions -name '*.index.js' -delete",
+    "build": "pnpm build-ncc"
   },
   "dependencies": {
     "@actions/core": "^1.10.1",
