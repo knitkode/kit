@@ -13,9 +13,14 @@ const main = async () => {
     outputTypes: core.getInput("output_types") || ".github/types.d.ts",
   });
 
+  const sourceUrl =
+    process.env["EDIT_URL"] || "https://git.org/org/repo/branch";
+
+  console.log({ sourceUrl });
+
   await i18nWriteSummary({
     cwd,
-    sourceUrl: "https://git.org/org/repo/branch",
+    sourceUrl,
     outputJson: core.getInput("output_summary_json") || ".github/summary.json",
     outputMarkdown: core.getInput("output_summary_md") || ".github/summary.md",
     defaultLocale,
