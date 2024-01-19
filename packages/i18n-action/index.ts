@@ -13,10 +13,12 @@ const main = async () => {
     outputTypes: core.getInput("output_types") || ".github/types.d.ts",
   });
 
+  const repo = process.env["GITHUB_REPOSITORY"];
+  const ref = process.env["GITHUB_REF"];
   const sourceUrl =
     process.env["EDIT_URL"] || "https://git.org/org/repo/branch";
 
-  console.log({ sourceUrl });
+  console.log({ sourceUrl, repo, ref });
 
   await i18nWriteSummary({
     cwd,
