@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import { i18nWriteSummary, i18nWriteTypes } from "@koine/i18n";
+import { writeSummary, writeTypes } from "@koine/i18n/generate";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
@@ -7,7 +7,7 @@ const cwd = process.cwd();
 const main = async () => {
   const defaultLocale = core.getInput("default_locale") || "en";
 
-  const data = await i18nWriteTypes({
+  const data = await writeTypes({
     cwd,
     defaultLocale,
     outputTypes: core.getInput("output_types") || ".github/types.d.ts",
@@ -18,7 +18,7 @@ const main = async () => {
   const branch = ref.replace("refs/heads/", "");
   const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
 
-  await i18nWriteSummary({
+  await writeSummary({
     cwd,
     sourceUrl,
     outputJson: core.getInput("output_summary_json") || ".github/summary.json",

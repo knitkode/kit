@@ -1,0 +1,1 @@
+export { fsWrite } from "./fsWrite";

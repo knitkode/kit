@@ -11,12 +11,16 @@
     // for @vercel/ncc:
     "rootDir": "../../",
     "baseUrl": "../../",
-    "declaration": false
+    "paths": {
+      "@koine/i18n": ["packages/i18n/index.ts"],
+      "@koine/i18n/generate": ["packages/i18n/generate/index.ts"],
+      "@koine/node": ["packages/node/index.ts"],
+      "@koine/node/*": ["packages/node/*"],
+      "@koine/utils": ["packages/utils/index.ts"],
+      "@koine/utils/*": ["packages/utils/*"]
+    }
   },
-  "files": [
-    // for @vercel/ncc:
-    "../i18n/typings.d.ts"
-  ],
+  "files": [],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }
