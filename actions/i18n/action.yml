@@ -62,10 +62,6 @@ runs:
       with:
         fetch-depth: 0
 
-    # - uses: pre-commit/action@v3.0.0
-    #   with:
-    #     extra_args: flake8 --all-files
-
     # see https://github.com/orgs/community/discussions/26248
     - name: Generate i18n files
       run: node ${{ github.action_path }}/index.js
@@ -73,12 +69,7 @@ runs:
 
     - uses: actionsx/prettier@v2
       with:
-        args: --write .
-
-    # - uses: pre-commit/action
-    #   id: pre-commit
-    #   # with:
-    #   #   extra_args: ${{ env.EXTRA_ARGS }}
+        args: --write . --log-level warn
 
     - uses: stefanzweifel/git-auto-commit-action@v5
       with:
