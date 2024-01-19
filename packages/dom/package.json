@@ -2,6 +2,7 @@
   "name": "@koine/dom",
   "sideEffects": false,
   "dependencies": {
-    "@koine/utils": "*"
+    "@koine/utils": "*",
+    "type-fest": "^4.9.0"
   }
 }

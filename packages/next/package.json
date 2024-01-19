@@ -4,7 +4,13 @@
   "dependencies": {
     "@koine/browser": "*",
     "@koine/react": "*",
-    "@koine/utils": "*"
+    "@koine/utils": "*",
+    "next": "^14.0.4",
+    "react": "^18.2.0",
+    "next-translate": "^2.6.2",
+    "@koine/i18n": "*",
+    "next-seo": "^6.4.0",
+    "date-fns": "^3.2.0"
   },
   "peerDependenciesMeta": {
     "@kuus/yup": {

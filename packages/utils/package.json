@@ -1,4 +1,7 @@
 {
   "name": "@koine/utils",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "type-fest": "^4.9.0"
+  }
 }

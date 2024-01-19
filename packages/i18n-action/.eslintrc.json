@@ -1,18 +1,28 @@
 {
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "rules": {}
+    }
+  ],
   "env": {
     "commonjs": true,
     "es6": true,
     "jest": true,
     "node": true
   },
-  "extends": "eslint:recommended",
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
-  },
-  "parserOptions": {
-    "ecmaVersion": 2023,
-    "sourceType": "module"
-  },
-  "rules": {}
+  }
 }
