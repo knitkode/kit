@@ -50,6 +50,8 @@ runs:
       run: |
         touch .env
         echo EDIT_URL=https://github.com/${{ github.repository }}/tree/${{ github.ref }} >> .env
+      shell: bash
+
     # see https://github.com/orgs/community/discussions/26248
     - name: Generate i18n files
       run: node ${{ github.action_path }}/index.js
