@@ -13,12 +13,10 @@ const main = async () => {
     outputTypes: core.getInput("output_types") || ".github/types.d.ts",
   });
 
-  const repo = process.env["GITHUB_REPOSITORY"];
-  const ref = process.env["GITHUB_REF"];
-  const sourceUrl =
-    process.env["EDIT_URL"] || "https://git.org/org/repo/branch";
-
-  console.log({ sourceUrl, repo, ref });
+  const repo = process.env["GITHUB_REPOSITORY"] as `${string}/${string}`;
+  const ref = process.env["GITHUB_REF"] as `refs/heads/${string}`;
+  const branch = ref.replace("refs/head/", "");
+  const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
 
   await i18nWriteSummary({
     cwd,
