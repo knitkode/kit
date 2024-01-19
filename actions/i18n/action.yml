@@ -53,9 +53,9 @@ runs:
   #     shell: bash
 
   ############################## 2)
-  # permissions:
-  #   # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
-  #   contents: write
+  permissions:
+    # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+    contents: write
   steps:
     - name: Checkout the repo
       uses: actions/checkout@v4
@@ -71,11 +71,23 @@ runs:
       with:
         args: --write . --log-level warn
 
-    - uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: 'chore(action): auto commit'
-
-    - name: Re-throw potential pre-commit failure when no changes detected for auto-commit
-      if: inputs.auto-commit == 'true' && steps.pre-commit.outcome == 'failure' && steps.auto-commit-action.outputs.changes_detected == 'false'
-      run: echo "pre-commit failed and no changes detected to auto-commit" && exit 1
+    # see https://github.com/orgs/community/discussions/26248
+    - name: Commit files
+      run: node ${{ github.action_path }}/git.js
       shell: bash
+    # - uses: pre-commit/action@646c83fcd040023954eafda54b4db0192ce70507 # v3.0.0
+    #   id: pre-commit
+    #   env:
+    #     CONTINUE_ON_ERROR: ${{ inputs.auto-commit == 'true' }}
+    #   continue-on-error: ${{ fromJSON(env.CONTINUE_ON_ERROR) }}
+    #   with:
+    #     extra_args: ${{ env.EXTRA_ARGS }}
+
+    # - uses: stefanzweifel/git-auto-commit-action@v5
+    #   with:
+    #     commit_message: 'chore(action): auto commit'
+
+    # - name: Re-throw potential pre-commit failure when no changes detected for auto-commit
+    #   if: inputs.auto-commit == 'true' && steps.pre-commit.outcome == 'failure' && steps.auto-commit-action.outputs.changes_detected == 'false'
+    #   run: echo "pre-commit failed and no changes detected to auto-commit" && exit 1
+    #   shell: bash
