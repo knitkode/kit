@@ -15,7 +15,7 @@ const main = async () => {
 
   const repo = process.env["GITHUB_REPOSITORY"] as `${string}/${string}`;
   const ref = process.env["GITHUB_REF"] as `refs/heads/${string}`;
-  const branch = ref.replace("refs/head/", "");
+  const branch = ref.replace("refs/heads/", "");
   const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
 
   await i18nWriteSummary({
