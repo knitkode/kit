@@ -1,4 +1,3 @@
-export { getSiteUrl } from "./getSiteUrl";
 export { load } from "./load";
 export { ThemeContext, type ThemeContextProps } from "./ThemeContext";
 export { ThemeProvider, type ThemeProviderProps } from "./ThemeProvider";

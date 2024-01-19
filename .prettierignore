@@ -6,6 +6,4 @@ package-lock.json
 /tmp
 vendor
 
-/packages/next/12/types-i18n.ts
-
 /.nx/cache

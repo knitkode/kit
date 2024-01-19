@@ -12,25 +12,79 @@ inputs:
     description: 'name and location for the .d.ts types generated file.'
     required: false
     default: '.github/types.d.ts'
+  output_summary_json:
+    description: 'name and location for the .json summary generated file.'
+    required: false
+    default: '.github/summary.json'
+  output_summary_md:
+    description: 'name and location for the .md summary generated file.'
+    required: false
+    default: '.github/README.md'
 # outputs:
 #   contents: # output will be available to future steps
 #     description: 'A json object containing the indexed data.'
 # runs:
 #   using: 'node20'
 #   main: './index.js'
+
+###
+# example of composite github action with auto-commit 
+# @see https://github.com/Alfresco/alfresco-build-tools/blob/master/.github/actions/pre-commit/action.yml
+###
+
 runs:
   using: 'composite'
+  ############################## 1)
+  # steps:
+  #   - name: Checkout the repo
+  #     uses: actions/checkout@v4
+  #     with:
+  #       fetch-depth: 0
+
+  #   - name: Set git config
+  #     run: |
+  #       git config --local user.email "github-actions[bot]@users.noreply.github.com"
+  #       git config --local user.name "github-actions[bot]"
+  #     shell: bash
+
+  #   # see https://github.com/orgs/community/discussions/26248
+  #   - name: Generate i18n files
+  #     run: node ${{ github.action_path }}/index.js
+  #     shell: bash
+
+  ############################## 2)
+  # permissions:
+  #   # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+  #   contents: write
   steps:
     - name: Checkout the repo
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: Set git config
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-      shell: bash
+
+    # - uses: pre-commit/action@v3.0.0
+    #   with:
+    #     extra_args: flake8 --all-files
+
     # see https://github.com/orgs/community/discussions/26248
     - name: Generate i18n files
       run: node ${{ github.action_path }}/index.js
+      shell: bash
+
+    - uses: actionsx/prettier@v2
+      with:
+        args: --fix .
+
+    - uses: pre-commit/action
+      id: pre-commit
+      # with:
+      #   extra_args: ${{ env.EXTRA_ARGS }}
+
+    - uses: stefanzweifel/git-auto-commit-action
+      with:
+        commit_message: 'chore(action): auto commit'
+
+    - name: Re-throw potential pre-commit failure when no changes detected for auto-commit
+      if: inputs.auto-commit == 'true' && steps.pre-commit.outcome == 'failure' && steps.auto-commit-action.outputs.changes_detected == 'false'
+      run: echo "pre-commit failed and no changes detected to auto-commit" && exit 1
       shell: bash

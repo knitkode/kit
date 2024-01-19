@@ -12,15 +12,6 @@ declare module "*.svg" {
 }
 
 /**
- * Extend NodeJS `process.env` with variables used by @koine
- */
-declare namespace NodeJS {
-  interface ProcessEnv {
-    NEXT_PUBLIC_APP_URL: string;
-  }
-}
-
-/**
  * Types specifically related to `@koine/next` exposed on the global unique
  * namespace `Koine`. Most of the types here should be prefixed by `Next`, e.g.
  * `NextSomeFeature` accessible anywhere from `Koine.NextSomeFeature`
@@ -30,36 +21,6 @@ declare namespace Koine {
    * Default SEO data structure expected by the `<Seo>` component's prop `seo`
    */
   type NextSeo = import("./12/types-seo").SeoData;
-
-  /**
-   * Translations dictionary extracted from JSON files.
-   * You need to augment this type with something like:
-   *
-   * ```ts
-   * declare namespace Koine {
-   *   interface Translations {
-   *     "~": typeof import("./locales/en/~.json");
-   *     "_": typeof import("./locales/en/_.json");
-   *     "$team": typeof import("./locales/en/$team.json");
-   *     "home": typeof import("./locales/en/home.json");
-   *     "Header": typeof import("./locales/en/Header.json");
-   *   }
-   * }
-   * ```
-   *
-   * Best to follow a convention to name the files which become the namespaces:
-   *
-   * - `~`: for app wide **urls** translated definitions
-   * - `_`: for app wide **common** translations
-   * - `${data}`: dollar prefix for static **data** like arrays, objects, .etc
-   * - `{route-name}`: lower cased for **route** specific data
-   * - `{ComponentName}`: pascal cased for **components** specific data
-   *
-   * This works through using [type augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
-   * and [merging interfaces](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces).
-   */
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  interface Translations {}
 }
 
 /**

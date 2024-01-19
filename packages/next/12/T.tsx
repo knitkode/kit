@@ -1,15 +1,15 @@
 "use client";
 
-import type { TransProps } from "next-translate";
-import Trans from "next-translate/Trans";
 import type {
   TranslateNamespace,
   TranslationsAllPaths,
   TranslationsPaths,
-} from "./types-i18n";
+} from "@koine/i18n";
+import type { TransProps } from "next-translate";
+import Trans from "next-translate/Trans";
 
 export type TProps<
-  TNamespace extends TranslateNamespace | undefined = undefined
+  TNamespace extends TranslateNamespace | undefined = undefined,
 > =
   | (Omit<TransProps, "i18nKey" | "ns"> & {
       i18nKey: TranslationsAllPaths;
@@ -25,9 +25,9 @@ export type TProps<
  * in your `tsconfig.json` file.
  */
 export const T = <
-  TNamespace extends TranslateNamespace | undefined = undefined
+  TNamespace extends TranslateNamespace | undefined = undefined,
 >(
-  props: TProps<TNamespace>
+  props: TProps<TNamespace>,
 ) =>
   (<Trans {...(props as TransProps)} />) as React.ReactElement<
     TProps<TNamespace>

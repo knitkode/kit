@@ -1,8 +1,8 @@
 "use client";
 
+import type { TranslateNamespace } from "@koine/i18n";
 import type { DynamicNamespacesProps as BaseDynamicNamespacesProps } from "next-translate";
 import BaseDynamicNamespaces from "next-translate/DynamicNamespaces";
-import type { TranslateNamespace } from "./types-i18n";
 
 export type DynamicNamespacesProps = Omit<
   BaseDynamicNamespacesProps,
@@ -17,7 +17,7 @@ export type DynamicNamespacesProps = Omit<
  * in your `tsconfig.json` file.
  */
 export const DynamicNamespaces = BaseDynamicNamespaces as (
-  props: DynamicNamespacesProps
+  props: DynamicNamespacesProps,
 ) => ReturnType<typeof BaseDynamicNamespaces>;
 
 export default DynamicNamespaces;

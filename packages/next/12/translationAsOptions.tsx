@@ -1,5 +1,5 @@
+import type { TranslateLoose } from "@koine/i18n";
 import type { Option } from "@koine/react/types";
-import type { TranslateLoose } from "./types-i18n";
 
 /**
  * @deprecated

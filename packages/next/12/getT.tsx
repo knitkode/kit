@@ -1,14 +1,14 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
+import type { Translate, TranslateNamespace } from "@koine/i18n";
 import getTranslation from "next-translate/getT";
-import type { Translate, TranslateNamespace } from "./types-i18n";
 
 export type GetT = <
-  TNamespace extends TranslateNamespace | undefined = undefined
+  TNamespace extends TranslateNamespace | undefined = undefined,
 >(
   locale?: string,
-  namespace?: TNamespace
+  namespace?: TNamespace,
 ) => Promise<Translate<TNamespace>>;
 
 /**

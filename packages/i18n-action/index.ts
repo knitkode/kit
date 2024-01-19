@@ -1,22 +1,43 @@
 import * as core from "@actions/core";
-import { i18nWriteTypes } from "@koine/i18n";
-import { Git } from "./git.js";
+import { i18nWriteSummary, i18nWriteTypes } from "@koine/i18n";
 
-const git = new Git(process.cwd(), async () => {
+// import { Git } from "./git.js";
+
+const cwd = process.cwd();
+
+const main = async () => {
+  const defaultLocale = core.getInput("default_locale") || "en";
+
   const data = await i18nWriteTypes({
-    cwd: process.cwd(),
-    defaultLocale: core.getInput("default_locale") || "en",
+    cwd,
+    defaultLocale,
     outputTypes: core.getInput("output_types") || ".github/types.d.ts",
+  });
+
+  await i18nWriteSummary({
+    cwd,
+    sourceUrl: "https://git.org/org/repo/branch",
+    outputJson: core.getInput("output_summary_json") || ".github/summary.json",
+    outputMarkdown: core.getInput("output_summary_md") || ".github/summary.md",
+    defaultLocale,
   });
 
   core.info(`Found locales: ${data.locales.map((l) => l.code).join(", ")}`);
   core.info(`Found ${data.files.length} JSON files per locale`);
-});
+};
 
-git
-  .run()
-  .then(() => git.success())
+// const git = new Git(cwd, main);
+
+// git
+//   .run()
+//   .then(() => git.success())
+//   .catch((e: Error) => {
+//     git.error(e);
+//     console.error(e);
+//   });
+
+main()
+  .then(() => core.info("Successed"))
   .catch((e: Error) => {
-    git.error(e);
     console.error(e);
   });

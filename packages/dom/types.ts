@@ -1,4 +1,4 @@
-import { LiteralUnion } from "type-fest";
+import type { LiteralUnion } from "type-fest";
 import type { AnythingFalsy } from "@koine/utils";
 
 export type AnyDOMEventTarget = Window | Document | HTMLElement | Element;
@@ -20,7 +20,7 @@ export type AnyDOMEvent<TType extends AnyDOMEventType> =
   TType extends StandardDOMEventTypes
     ? GlobalEventHandlersEventMap[TType]
     : TType extends "storage"
-    ? StorageEvent
-    : TType extends "popstate"
-    ? PopStateEvent
-    : Event;
+      ? StorageEvent
+      : TType extends "popstate"
+        ? PopStateEvent
+        : Event;

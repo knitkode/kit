@@ -13,7 +13,10 @@
     "baseUrl": "../../",
     "declaration": false
   },
-  "files": [],
+  "files": [
+    // for @vercel/ncc:
+    "../i18n/typings.d.ts"
+  ],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }

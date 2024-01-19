@@ -11,9 +11,9 @@
     "noEmitHelpers": true,
     "target": "es5",
     "module": "esnext",
-    "downlevelIteration": true, // to iterate over Set
-    "declaration": true, // this is important for dual packages compiled with @nx/js:tsc
-    "removeComments": true, // this would not be necessary when using @nx/js:swc rather than @nx/js:tsc
+    "downlevelIteration": true,
+    "declaration": true,
+    "removeComments": true,
     "lib": ["es2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
@@ -23,7 +23,7 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "preserveSymlinks": true, // this appears to be needed after having switched to pnpm
+    "preserveSymlinks": true,
     "baseUrl": ".",
     "paths": {
       "@koine/api": ["packages/api/index.ts"],
