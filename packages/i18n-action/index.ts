@@ -37,7 +37,7 @@ const main = async () => {
 //   });
 
 main()
-  .then(() => core.info("Successed"))
+  // .then(() => core.info("Succeded."))
   .catch((e: Error) => {
     console.error(e);
   });

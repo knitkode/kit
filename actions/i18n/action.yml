@@ -73,14 +73,14 @@ runs:
 
     - uses: actionsx/prettier@v2
       with:
-        args: --fix .
+        args: --write .
 
-    - uses: pre-commit/action
-      id: pre-commit
-      # with:
-      #   extra_args: ${{ env.EXTRA_ARGS }}
+    # - uses: pre-commit/action
+    #   id: pre-commit
+    #   # with:
+    #   #   extra_args: ${{ env.EXTRA_ARGS }}
 
-    - uses: stefanzweifel/git-auto-commit-action
+    - uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: 'chore(action): auto commit'
 
