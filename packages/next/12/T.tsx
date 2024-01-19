@@ -1,12 +1,12 @@
 "use client";
 
+import type { TransProps } from "next-translate";
+import Trans from "next-translate/Trans";
 import type {
   TranslateNamespace,
   TranslationsAllPaths,
   TranslationsPaths,
 } from "@koine/i18n";
-import type { TransProps } from "next-translate";
-import Trans from "next-translate/Trans";
 
 export type TProps<
   TNamespace extends TranslateNamespace | undefined = undefined,

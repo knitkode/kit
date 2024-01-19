@@ -9,7 +9,7 @@ import isAnyObject from "./isAnyObject";
  * @category is
  */
 export function isObjectLike<T extends PlainObject>(
-  payload: any
+  payload: any,
 ): payload is T {
   return isAnyObject(payload);
 }

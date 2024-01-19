@@ -6,7 +6,7 @@
 export function chunkByChunks<T>(
   arr: T[],
   nrOfChunks: number,
-  balanced?: boolean
+  balanced?: boolean,
 ): T[][] {
   if (nrOfChunks < 2) return [arr];
 

@@ -12,7 +12,7 @@ import normaliseUrlPathname from "./normaliseUrlPathname";
 export function changeUrlPath(
   pathname: string,
   state?: object,
-  replace?: boolean
+  replace?: boolean,
 ) {
   const path = normaliseUrlPathname(`/${pathname}/`);
 

@@ -7,7 +7,7 @@ export type GetMediaQueryWidthResolversBreakpoints = Record<string, number>;
  * @category responsive
  */
 export function getMediaQueryWidthResolvers<
-  TBreakpointsConfig extends GetMediaQueryWidthResolversBreakpoints
+  TBreakpointsConfig extends GetMediaQueryWidthResolversBreakpoints,
 >(customBreakpoints: TBreakpointsConfig) {
   type Breakpoint = Extract<keyof TBreakpointsConfig, string>;
 

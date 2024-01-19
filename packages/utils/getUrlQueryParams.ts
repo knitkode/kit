@@ -18,8 +18,8 @@ export function getUrlQueryParams<T extends NonNullable<AnyQueryParams>>(
   const search = url
     ? url.split("?")?.[1]
     : isBrowser
-    ? location.search.substring(1)
-    : "";
+      ? location.search.substring(1)
+      : "";
 
   if (!search) {
     return {} as T;

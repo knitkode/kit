@@ -11,7 +11,7 @@ import isUndefined from "./isUndefined";
  * @category is
  */
 export function isPrimitive(
-  payload: any
+  payload: any,
 ): payload is boolean | null | undefined | number | string | symbol {
   return (
     isBoolean(payload) ||

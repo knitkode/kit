@@ -13,7 +13,7 @@ import getParamAsString from "./getParamAsString";
  */
 export function getParamAmong<T extends string[]>(
   raw?: string | string[],
-  allowedValues: T = [] as unknown as T
+  allowedValues: T = [] as unknown as T,
 ) {
   const string = getParamAsString(raw);
   return allowedValues.includes(string) ? (string as T[number]) : null;

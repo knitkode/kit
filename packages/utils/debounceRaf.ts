@@ -7,7 +7,7 @@
  */
 export function debounceRaf<T extends (...args: any[]) => any>(
   this: unknown,
-  fn: T
+  fn: T,
 ) {
   let timeout: number;
 

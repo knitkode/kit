@@ -8,7 +8,7 @@
 export function setDataAttr(
   element: Element,
   attribute: string,
-  value?: string | number | null | boolean
+  value?: string | number | null | boolean,
 ) {
   if (value === null || typeof value === "undefined") {
     // delete element.dataset[attribute];

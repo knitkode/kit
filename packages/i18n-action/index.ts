@@ -1,7 +1,6 @@
 import * as core from "@actions/core";
 import { i18nWriteSummary, i18nWriteTypes } from "@koine/i18n";
-
-// import { Git } from "./git.js";
+import { Git } from "./git.js";
 
 const cwd = process.cwd();
 
@@ -26,18 +25,17 @@ const main = async () => {
   core.info(`Found ${data.files.length} JSON files per locale`);
 };
 
-// const git = new Git(cwd, main);
+const git = new Git(cwd, main);
 
-// git
-//   .run()
-//   .then(() => git.success())
-//   .catch((e: Error) => {
-//     git.error(e);
-//     console.error(e);
-//   });
-
-main()
-  // .then(() => core.info("Succeded."))
+git
+  .run()
+  .then(() => git.success())
   .catch((e: Error) => {
+    git.error(e);
     console.error(e);
   });
+
+// main()
+//   .catch((e: Error) => {
+//     console.error(e);
+//   });

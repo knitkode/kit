@@ -70,7 +70,7 @@ item:
   2 dot nested value
   2 bracket value
   2 bracket nested value
-`)
+`),
   );
 });
 

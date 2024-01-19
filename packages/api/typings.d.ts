@@ -8,12 +8,12 @@ type _Response = Response;
 type ExtractEndpointParams<T extends string> = string extends T
   ? Record<string, string>
   : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  T extends `${infer _Start}{${infer Param}}${infer Rest}`
-  ? { [k in Param | keyof ExtractEndpointParams<Rest>]: string | number }
-  : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  T extends `${infer _Start}{${infer Param}}`
-  ? { [k in Param]: string | number }
-  : never;
+    T extends `${infer _Start}{${infer Param}}${infer Rest}`
+    ? { [k in Param | keyof ExtractEndpointParams<Rest>]: string | number }
+    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      T extends `${infer _Start}{${infer Param}}`
+      ? { [k in Param]: string | number }
+      : never;
 
 namespace Koine.Api {
   // @see https://stackoverflow.com/a/60702896/1938970

@@ -10,7 +10,7 @@ import updateUrlQueryParams from "./updateUrlQueryParams";
  */
 export function updateLinkParams(
   $anchor: HTMLAnchorElement,
-  newParams: NonNullable<AnyQueryParams>
+  newParams: NonNullable<AnyQueryParams>,
 ) {
   const href = updateUrlQueryParams($anchor.href, newParams);
   $anchor.href = href;

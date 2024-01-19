@@ -7,7 +7,7 @@
 export function debounce<T extends (...args: any[]) => any>(
   fn: T,
   wait?: number,
-  immediate?: boolean
+  immediate?: boolean,
 ) {
   let timeout: null | number | NodeJS.Timeout;
 

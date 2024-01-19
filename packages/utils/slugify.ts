@@ -14,7 +14,7 @@ import { removeAccents } from "./removeAccents";
 export function slugify(text: string, separator = "-") {
   return removeAccents(
     text.toString().toLowerCase().trim(),
-    accentsSets.concat([["-", "[·/_,:;']"]])
+    accentsSets.concat([["-", "[·/_,:;']"]]),
   )
     .replace(/\s+/g, "-") // replace spaces with -
     .replace(/&/g, "-and-") // replace & with 'and'

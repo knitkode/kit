@@ -4,7 +4,7 @@
 export function injectCss(
   id: string,
   cssString = "",
-  root: Document = document
+  root: Document = document,
 ) {
   let styleblock;
   styleblock = root.getElementById(id);

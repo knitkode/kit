@@ -7,7 +7,7 @@ import isNumber from "./isNumber";
  * @category array
  */
 export function getEmptyArray /* <T extends undefined | null = undefined> */(
-  length: number | string
+  length: number | string,
 ) {
   if (!isNumber(length)) {
     length = parseInt(length, 10);

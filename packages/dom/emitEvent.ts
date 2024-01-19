@@ -8,7 +8,7 @@ export function emitEvent(type = "customEvent", detail = {}) {
     new CustomEvent(type, {
       bubbles: true,
       detail,
-    })
+    }),
   );
 }
 

@@ -54,7 +54,7 @@ async function linkGlobally(opts: Options) {
             });
             if (opts.verbose) {
               spinner.suffixText = ` ran ${chalk.italic(
-                `pnpm link --global`
+                `pnpm link --global`,
               )} from ${chalk.italic(lib.pkg.name)}`;
             }
 
@@ -77,10 +77,10 @@ async function linkGlobally(opts: Options) {
                   spinner.succeed();
                   resolve();
                 }
-              }
+              },
             );
-          })
-      )
+          }),
+      ),
   );
 }
 
@@ -97,7 +97,7 @@ function linkRecursively(opts: Options) {
         });
         if (opts.verbose) {
           spinner.suffixText = `ran ${chalk.italic(
-            `pnpm link --global ${depName}`
+            `pnpm link --global ${depName}`,
           )} from ${chalk.italic(lib.name)}`;
         }
 
@@ -120,7 +120,7 @@ function linkRecursively(opts: Options) {
               spinner.succeed();
               // resolve();
             }
-          }
+          },
         );
       }
     }

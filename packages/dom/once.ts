@@ -10,7 +10,7 @@ export function once(
   el: AnyDOMEventTargetLoose,
   type: string,
   handler: EventListener,
-  options: EventListenerOptions | boolean = false
+  options: EventListenerOptions | boolean = false,
 ) {
   const handlerWrapper = (event: Event) => {
     handler(event);

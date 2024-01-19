@@ -9,7 +9,7 @@ export function moveSortableArrayItemByKey<T, K extends keyof T>(
   items: T[],
   key: K,
   fromItem: Pick<T, K>,
-  toItem: Pick<T, K>
+  toItem: Pick<T, K>,
 ) {
   const itemsKeys = items.map((item) => item[key]);
   const idxFrom = itemsKeys.indexOf(fromItem[key]);

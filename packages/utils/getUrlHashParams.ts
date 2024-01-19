@@ -7,7 +7,7 @@ import { type AnyQueryParams } from "./location";
  * @category location
  */
 export function getUrlHashParams<T extends NonNullable<AnyQueryParams>>(
-  hash = ""
+  hash = "",
 ) {
   hash = hash || location.hash;
   const hashParts = hash.split("?");

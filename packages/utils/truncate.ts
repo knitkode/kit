@@ -5,7 +5,7 @@
  */
 export const truncate = (
   input: undefined | null | string,
-  length: number
+  length: number,
 ): string =>
   input
     ? input.length > length

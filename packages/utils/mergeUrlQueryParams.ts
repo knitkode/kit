@@ -8,7 +8,7 @@ import { type AnyQueryParams } from "./location";
  */
 export function mergeUrlQueryParams<T extends AnyQueryParams>(
   oldParams: NonNullable<AnyQueryParams> = {},
-  newParams: NonNullable<AnyQueryParams> = {}
+  newParams: NonNullable<AnyQueryParams> = {},
 ) {
   for (const key in newParams) {
     const value = newParams[key];

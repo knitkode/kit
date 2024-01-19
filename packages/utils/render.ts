@@ -145,8 +145,8 @@ export const render = (tmpl: string, def?: Definitions): RenderFunction => {
             ? "';}else if(" + unescape(code) + "){X+='"
             : "';}else{X+='"
           : code
-          ? "';if(" + unescape(code) + "){X+='"
-          : "';}X+='",
+            ? "';if(" + unescape(code) + "){X+='"
+            : "';}X+='",
       )
       .replace(iterate || skip, (_, arr, vName, iName) => {
         if (!arr) return "';} } X+='";

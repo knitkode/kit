@@ -3,14 +3,14 @@
  *
  */
 import { execSync } from "node:child_process";
+import { rm } from "node:fs/promises";
+import { join } from "node:path";
 import type { Config as _SWCConfig } from "@swc/core";
 import chalk from "chalk";
 import { Command, Option } from "commander";
 import ora from "ora";
 import { oraOpts } from "./dev.js";
 import { editJSONfile, self } from "./helpers.js";
-import { rm } from "node:fs/promises";
-import { join } from "node:path";
 
 type Options = {
   version: string;
@@ -23,24 +23,24 @@ export const publish = () =>
     .description(`Publish current builds in ${chalk.bold("dist/packages")}`)
     .option(
       `-d --dry", "Run ${chalk.bold("npm publish")} in ${chalk.italic(
-        "dry"
-      )} mode`
+        "dry",
+      )} mode`,
     )
     .option("-v --version", "version to publish", self.pkg.version)
     .addOption(
       new Option("-t --tag", "npm tag").choices(["latest", "latest"]).default(
-        "latest"
+        "latest",
         // nx suggests this instead...:
         // "next",
         // `Default ${chalk.bold("next")} so we won't publish the ${chalk.bold(
         //   "latest"
         // )} tag by accident.`
-      )
+      ),
     )
     .action(async (opts: Options) => {
       // filter out private or unnamed packages (unpublishable)
       const publishableLibs = self.libs.filter(
-        (lib) => !!lib.name && !lib.pkg.private
+        (lib) => !!lib.name && !lib.pkg.private,
       );
 
       await Promise.all(
@@ -51,14 +51,14 @@ export const publish = () =>
             text: `Remove useless build artifacts`,
             ...oraOpts,
           }).start();
-          
+
           await rm(join(lib.dist, "esm"), { recursive: true, force: true });
           await rm(join(lib.dist, ".npmignore"), { force: true });
 
           spinner.succeed();
-        })
+        }),
       );
-          
+
       await Promise.all(
         publishableLibs.map(async (lib) => {
           const suffixText = chalk.dim(`[${lib.name}]`);
@@ -88,7 +88,7 @@ export const publish = () =>
             });
           });
           spinner.succeed();
-        })
+        }),
       );
 
       await Promise.all(
@@ -121,8 +121,8 @@ export const publish = () =>
                   spinner.fail("Failed to publish");
                   reject(e);
                 }
-              })
-          )
+              }),
+          ),
       );
 
       console.log();

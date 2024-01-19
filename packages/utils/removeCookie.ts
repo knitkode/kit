@@ -6,7 +6,7 @@ import { setCookie } from "./setCookie";
  */
 export function removeCookie(
   name: string,
-  attributes: CookieAttributesClient = {}
+  attributes: CookieAttributesClient = {},
 ) {
   setCookie(name, "", {
     ...defaultAttributesClient,

@@ -13,7 +13,7 @@ export function toRgba(hex: string, alpha = 1) {
   if (r) {
     return `rgba(${parseInt(r[1], 16)},${parseInt(r[2], 16)},${parseInt(
       r[3],
-      16
+      16,
     )},${alpha})`;
   }
   return "";

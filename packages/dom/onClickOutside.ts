@@ -3,7 +3,7 @@ import { off, on } from "./index";
 export function onClickOutside(
   element: HTMLElement,
   callback: (event: Event) => any,
-  autoUnbind = false
+  autoUnbind = false,
 ) {
   const bind = (event: Event) => {
     // if (event.target.closest(element) === null) {

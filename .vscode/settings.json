@@ -1,7 +1,7 @@
 {
   "files.exclude": {
     ".nx": true,
-    "actions/**/*.{js,json,txt}": true,
+    "actions/**/*.{js,json,txt}": true
     // ".github": true,
     // ".husky": true,
     // ".swc": true,

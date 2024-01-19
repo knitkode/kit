@@ -19,7 +19,7 @@ import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
  */
 export function listen<
   TTypes extends AnyDOMEventType,
-  TTarget extends AnyDOMEventTarget = AnyDOMEventTarget
+  TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
   // | `${TTypes},${TTypes}`
@@ -27,7 +27,7 @@ export function listen<
   // | `${TTypes},${TTypes},${TTypes},${TTypes}`
   // | `${TTypes},${TTypes},${TTypes},${TTypes},${TTypes}`,
   selector: string,
-  callback: EventCallback<TTarget, TTypes>
+  callback: EventCallback<TTarget, TTypes>,
 ) {
   // Make sure there's a selector and callback
   if (!selector || !callback) return;

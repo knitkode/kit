@@ -1,7 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { basename, join } from "node:path";
 import { EOL } from "node:os";
+import { basename, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import json from "comment-json";
 import { globSync } from "glob";
@@ -31,7 +31,7 @@ const libs = (globSync(join(__dirname, "../packages/*")) || []).map((src) => {
     } = pkg;
     deps = { ...dependencies, ...devDependencies, ...peerDependencies };
     internalDeps = Object.keys(deps).filter((depName) =>
-      depName.startsWith(scope)
+      depName.startsWith(scope),
     );
   } catch (e) {}
 
@@ -50,16 +50,19 @@ export const self = {
   scope,
   pkg,
   libs,
-  libsMap: libs.reduce((map, lib) => {
-    map[lib.name] = lib;
-    return map;
-  }, {} as Record<Lib["name"], Lib>),
+  libsMap: libs.reduce(
+    (map, lib) => {
+      map[lib.name] = lib;
+      return map;
+    },
+    {} as Record<Lib["name"], Lib>,
+  ),
 };
 
 export async function editJSONfile(
   root: string | string[],
   fileName: string,
-  transformer: (data: any) => void
+  transformer: (data: any) => void,
 ) {
   const roots = Array.isArray(root) ? root : [root];
 
@@ -83,6 +86,6 @@ export async function editJSONfile(
         // throw e;
         return;
       }
-    })
+    }),
   );
 }

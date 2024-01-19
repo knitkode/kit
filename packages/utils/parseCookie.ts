@@ -20,7 +20,7 @@ function tryDecode(str: string, decode: (input: string) => string) {
  * @category cookie
  */
 export function parseCookie<
-  T extends Record<string, unknown> = Record<string, string>
+  T extends Record<string, unknown> = Record<string, string>,
 >(str: string, attributes: CookieAttributesServer = {}) {
   if (typeof str !== "string") {
     throw new TypeError("argument str must be a string");

@@ -12,7 +12,7 @@ export const tryUntil = (
   timeout: number,
   interval: number,
   resolve: () => void,
-  reject?: () => void
+  reject?: () => void,
 ) => {
   // return new Promise((resolve, reject) => {
   const timeWas = new Date();

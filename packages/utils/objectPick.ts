@@ -6,7 +6,7 @@
  */
 export function objectPick<T extends object, Keys extends (keyof T)[]>(
   object: T,
-  keys: Keys
+  keys: Keys,
 ) {
   const output = {} as Partial<T>;
   let len = keys.length;

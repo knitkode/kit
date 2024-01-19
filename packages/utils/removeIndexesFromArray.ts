@@ -3,7 +3,7 @@
  */
 export function removeIndexesFromArray<T>(
   arr: T[],
-  indexes: Record<number, true>
+  indexes: Record<number, true>,
 ) {
   const output: T[] = [];
   for (let i = 0; i < arr.length; i++) {

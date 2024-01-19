@@ -86,6 +86,7 @@ export { isNegativeNumber } from "./isNegativeNumber";
 export { isNullOrUndefined } from "./isNullOrUndefined";
 export { isNull } from "./isNull";
 export { isNumber } from "./isNumber";
+export { isNumericLiteral } from "./isNumericLiteral";
 export { isObjectLike } from "./isObjectLike";
 export { isObject } from "./isObject";
 export { isOneOf } from "./isOneOf";

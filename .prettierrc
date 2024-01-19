@@ -5,9 +5,11 @@
   "importOrder": [
     "^node:(.*)$",
     "<THIRD_PARTY_MODULES>", 
-    "^@koine/utils(.*)$",
+    "^@koine/utils(.*)$", 
+    "^@koine/node(.*)$",
     "^@koine/dom(.*)$",
     "^@koine/browser(.*)$",
+    "^@koine/i18n(.*)$",
     "^@koine/api(.*)$",
     "^@koine/react(.*)$",
     "^@koine/next(.*)$",

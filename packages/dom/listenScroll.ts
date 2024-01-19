@@ -8,7 +8,7 @@ import type { AnyDOMEventTargetLoose } from "./types";
  */
 export const listenScroll = (
   handler: () => void,
-  el?: AnyDOMEventTargetLoose
+  el?: AnyDOMEventTargetLoose,
 ) =>
   on(el || window, "scroll", handler, {
     capture: true,

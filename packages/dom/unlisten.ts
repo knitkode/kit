@@ -18,7 +18,7 @@ import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
  */
 export function unlisten<
   TTypes extends AnyDOMEventType,
-  TTarget extends AnyDOMEventTarget = AnyDOMEventTarget
+  TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
   // | `${TTypes},${TTypes}`
@@ -26,7 +26,7 @@ export function unlisten<
   // | `${TTypes},${TTypes},${TTypes},${TTypes}`
   // | `${TTypes},${TTypes},${TTypes},${TTypes},${TTypes}`,
   selector: string,
-  callback: EventCallback<TTarget, TTypes>
+  callback: EventCallback<TTarget, TTypes>,
 ) {
   // Loop through each event type
   types.split(",").forEach(function (type) {

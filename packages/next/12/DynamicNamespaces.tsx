@@ -1,8 +1,8 @@
 "use client";
 
-import type { TranslateNamespace } from "@koine/i18n";
 import type { DynamicNamespacesProps as BaseDynamicNamespacesProps } from "next-translate";
 import BaseDynamicNamespaces from "next-translate/DynamicNamespaces";
+import type { TranslateNamespace } from "@koine/i18n";
 
 export type DynamicNamespacesProps = Omit<
   BaseDynamicNamespacesProps,

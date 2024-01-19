@@ -15,7 +15,7 @@
  */
 export function quaranteneProps<
   TProps extends Record<never, never>,
-  TSupectPropsKeys extends QuaranteneProps<TProps>
+  TSupectPropsKeys extends QuaranteneProps<TProps>,
 >(props: TProps, propsKeysToQuarantene: TSupectPropsKeys) {
   // approach 1)
   const healthyProps = {

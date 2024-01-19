@@ -19,7 +19,7 @@ export type PickStartsWith<T extends object, S extends string> = {
  */
 export type KeysStartsWith<
   T extends object,
-  S extends string
+  S extends string,
 > = keyof PickStartsWith<T, S>;
 
 /**
@@ -36,5 +36,5 @@ export type PickStartsWithTails<T extends object, S extends string> = {
  */
 export type KeysTailsStartsWith<
   T extends object,
-  S extends string
+  S extends string,
 > = keyof PickStartsWithTails<T, S>;

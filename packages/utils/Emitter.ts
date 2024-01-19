@@ -13,7 +13,7 @@
  * @category impl
  */
 export function Emitter<EventMap extends { [key: string]: any }>(
-  namespace: string
+  namespace: string,
 ) {
   const all = new Map();
 
@@ -23,7 +23,7 @@ export function Emitter<EventMap extends { [key: string]: any }>(
      */
     on<EventName extends keyof EventMap>(
       name: EventName,
-      handler: (data?: EventMap[EventName]) => any
+      handler: (data?: EventMap[EventName]) => any,
     ) {
       const handlers = all.get(`${namespace}.${String(name)}`);
       const added = handlers && handlers.push(handler);
@@ -37,7 +37,7 @@ export function Emitter<EventMap extends { [key: string]: any }>(
      */
     emit<EventName extends keyof EventMap>(
       name: EventName,
-      data?: EventMap[EventName]
+      data?: EventMap[EventName],
     ) {
       (all.get(`${namespace}.${String(name)}`) || [])
         .slice()

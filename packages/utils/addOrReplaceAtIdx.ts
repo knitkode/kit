@@ -8,7 +8,7 @@
 export function addOrReplaceAtIdx<T>(
   list: T[],
   newItem: T,
-  newIdx?: number
+  newIdx?: number,
 ): T[] {
   if (list.length === 0) {
     return [newItem];

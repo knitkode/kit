@@ -15,7 +15,7 @@ export function scrollTo(
   destination: number,
   callback?: () => void,
   fallbackTimeout?: number,
-  behavior?: ScrollBehavior
+  behavior?: ScrollBehavior,
 ) {
   const fixedDestination = destination.toFixed();
   if (callback) {

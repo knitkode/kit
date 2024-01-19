@@ -8,7 +8,7 @@
 export function setVendorCSS(
   element: HTMLElement,
   prop: string,
-  value: string | number | boolean
+  value: string | number | boolean,
 ) {
   const propUpper = prop.charAt(0).toUpperCase() + prop.slice(1);
   // @ts-expect-error nevermind now...

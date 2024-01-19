@@ -12,10 +12,10 @@
 export function $<T extends Element = HTMLElement>(
   selector: string,
   parent?: HTMLElement | Document | null,
-  avoidEscape?: boolean
+  avoidEscape?: boolean,
 ) {
   return (parent ? parent : document).querySelector(
-    avoidEscape ? selector : selector.replace(/:/g, "\\:")
+    avoidEscape ? selector : selector.replace(/:/g, "\\:"),
   ) as unknown as T;
 }
 

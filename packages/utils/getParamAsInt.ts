@@ -12,7 +12,7 @@ import getParamAsString from "./getParamAsString";
  */
 export function getParamAsInt<TFallback extends number | null | undefined>(
   raw?: string | string[],
-  fallback: TFallback = null as TFallback
+  fallback: TFallback = null as TFallback,
 ) {
   const string = getParamAsString(raw);
   if (string) {

@@ -9,15 +9,18 @@
  */
 export function objectOmit<T extends object, Keys extends (keyof T)[]>(
   object: T,
-  keys: Keys
+  keys: Keys,
 ) {
-  return Object.keys(object).reduce((output, key) => {
-    if (!keys.includes(key as keyof T)) {
-      output[key as keyof Omit<T, Keys[number]>] =
-        object[key as keyof Omit<T, Keys[number]>];
-    }
-    return output;
-  }, {} as Omit<T, Keys[number]>);
+  return Object.keys(object).reduce(
+    (output, key) => {
+      if (!keys.includes(key as keyof T)) {
+        output[key as keyof Omit<T, Keys[number]>] =
+          object[key as keyof Omit<T, Keys[number]>];
+      }
+      return output;
+    },
+    {} as Omit<T, Keys[number]>,
+  );
 }
 
 export default objectOmit;

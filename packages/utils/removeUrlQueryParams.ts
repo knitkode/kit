@@ -9,7 +9,7 @@ import { type AnyQueryParams } from "./location";
  */
 export function removeUrlQueryParams(
   url: string,
-  paramsToRemove: string[] = []
+  paramsToRemove: string[] = [],
 ) {
   const parts = url.split("?");
   const allParams = getUrlQueryParams(url);

@@ -5,7 +5,7 @@
  * @category array
  */
 export function removeDuplicatesByKey<
-  T extends Record<string | number | symbol, any>
+  T extends Record<string | number | symbol, any>,
 >(array: T[] = [] as T[], key: keyof T) {
   const keysMap = {} as Record<T[keyof T], boolean>;
   const output: T[] = [];

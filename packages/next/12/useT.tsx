@@ -1,6 +1,8 @@
 "use client";
 
 // import useTranslation from "next-translate/useTranslation";
+import I18nContext from "next-translate/context";
+import { useContext, useMemo } from "react";
 import type {
   TranslateDefault,
   TranslateNamespace,
@@ -11,8 +13,6 @@ import type {
   TranslationsDictionary,
   TranslationsPaths,
 } from "@koine/i18n";
-import I18nContext from "next-translate/context";
-import { useContext, useMemo } from "react";
 
 /**
  * Wrap `next-translate` useTranslations for type safety and adds TranslationShortcut

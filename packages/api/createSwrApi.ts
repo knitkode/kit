@@ -15,10 +15,6 @@ import createApi from "./createApi";
 
 /// <reference types="./typings.d.ts" />
 
-/// <reference types="./typings.d.ts" />
-
-/// <reference types="./typings.d.ts" />
-
 type SWRConfigurationExtended<
   Data = any,
   Error = any,

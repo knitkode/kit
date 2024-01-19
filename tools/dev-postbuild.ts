@@ -188,7 +188,7 @@ async function writeLibExports(
     return;
   }
 
-const paths = await glob(lib.dist + "/**/*.{js,scss}", {
+  const paths = await glob(lib.dist + "/**/*.{js,scss}", {
     ignore: [
       // ignore build artifacts
       lib.dist + "/cjs/**/*",

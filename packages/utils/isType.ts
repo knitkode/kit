@@ -10,7 +10,7 @@ import getType, { type AnyClass, type AnyFunction } from "./getType";
  */
 export function isType<T extends AnyFunction | AnyClass>(
   payload: any,
-  type: T
+  type: T,
 ): payload is T {
   if (!(type instanceof Function)) {
     throw new TypeError("Type must be a function");

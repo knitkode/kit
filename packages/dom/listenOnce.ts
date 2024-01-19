@@ -14,7 +14,7 @@ import { unlisten } from "./unlisten";
 export function listenOnce(
   types: string,
   selector: string,
-  callback: EventCallback
+  callback: EventCallback,
 ) {
   listen(types, selector, function temp(event) {
     const target = getRunTarget(event.target as Element, selector);

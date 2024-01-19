@@ -26,10 +26,10 @@ export const createPalette = <
   TName extends string,
   TShades extends PaletteShades,
   TColor = TShades[number][1],
-  TMap = PaletteMap<TShades>
+  TMap = PaletteMap<TShades>,
 >(
   name: TName,
-  shades: TShades
+  shades: TShades,
 ) => {
   const map = shades.reduce((map, def) => {
     map[def[0]] = def[1] as any;
@@ -41,10 +41,13 @@ export const createPalette = <
   //   return map;
   // }, {} as { [s: string]: TColor });
 
-  const tailwindPalette = shades.reduce((map, def) => {
-    map[`${name}-${def[0]}`] = def[1];
-    return map;
-  }, {} as Record<`${TName}-${TShades[number][0]}`, string>);
+  const tailwindPalette = shades.reduce(
+    (map, def) => {
+      map[`${name}-${def[0]}`] = def[1];
+      return map;
+    },
+    {} as Record<`${TName}-${TShades[number][0]}`, string>,
+  );
 
   return [map as TMap, tailwindPalette, Object.values<TColor>(map)] as const;
 };

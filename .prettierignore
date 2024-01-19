@@ -3,7 +3,7 @@ pnpm-lock.yaml
 pnpm-workspaces.yaml
 package-lock.json
 /dist
+/actions/**/*.js
 /tmp
 vendor
-
 /.nx/cache

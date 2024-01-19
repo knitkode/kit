@@ -6,7 +6,7 @@
  */
 export function forin<T>(
   object: T,
-  cb: <K extends keyof T>(key: K, value: T[K]) => void
+  cb: <K extends keyof T>(key: K, value: T[K]) => void,
 ) {
   for (const key in object) {
     cb(key, object[key]);

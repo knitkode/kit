@@ -23,7 +23,7 @@ program
   .addOption(
     new Option("-p, --pkgm <name>", "package manager")
       .choices(["pnpm", "npm"])
-      .default("pnpm")
+      .default("pnpm"),
   )
   .option("-v --verbose")
   .addCommand(libs())

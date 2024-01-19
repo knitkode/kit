@@ -10,7 +10,7 @@ import mergeUrlQueryParams from "./mergeUrlQueryParams";
  */
 export function updateUrlQueryParams(
   url: string,
-  newParams: NonNullable<AnyQueryParams> = {}
+  newParams: NonNullable<AnyQueryParams> = {},
 ) {
   const parts = url.split("?");
   const allParams = parts[1]

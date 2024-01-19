@@ -11,7 +11,7 @@ export function navigateToHash(hash = "") {
 
   navigateToUrl(
     pathname + (search ? "?" + search : "") + (hash ? "#" + hash : ""),
-    true
+    true,
   );
 }
 

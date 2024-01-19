@@ -7,7 +7,7 @@
 export function throttle<TFn extends Function, TContext>(
   fn: TFn,
   limit: number,
-  context?: TContext
+  context?: TContext,
 ) {
   let wait: boolean | undefined;
   return function (this: TContext, ...args: any[]) {

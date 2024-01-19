@@ -12,7 +12,7 @@ export function getDocumentHeight() {
     body.offsetHeight,
     documentElement.offsetHeight,
     body.clientHeight,
-    documentElement.clientHeight
+    documentElement.clientHeight,
   );
 }
 
