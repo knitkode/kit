@@ -1,8 +1,8 @@
 "use client";
 
-// import useTranslation from "next-translate/useTranslation";
-import I18nContext from "next-translate/context";
-import { useContext, useMemo } from "react";
+import useTranslation from "next-translate/useTranslation";
+// import I18nContext from "next-translate/context";
+import { useMemo } from "react";
 import type {
   TranslateDefault,
   TranslateNamespace,
@@ -34,8 +34,8 @@ export function useT<TNamespace extends TranslateNamespace>(
 export function useT<TNamespace extends TranslateNamespace>(
   namespace?: TNamespace,
 ) {
-  const { t } = useContext(I18nContext);
-  // const t = useTranslation().t;
+  // const { t } = useContext(I18nContext);
+  const t = useTranslation().t;
   const tMemoized = useMemo(
     () =>
       function <
