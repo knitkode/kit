@@ -11,6 +11,7 @@
     // for @vercel/ncc:
     "rootDir": "../../",
     "baseUrl": "../../",
+    "declaration": false,
     "paths": {
       "@koine/i18n": ["packages/i18n/index.ts"],
       "@koine/i18n/generate": ["packages/i18n/generate/index.ts"],

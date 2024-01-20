@@ -28,7 +28,7 @@ import type {
  */
 export const createUseT =
   (useNextTranslateTranslation: () => { t: Translate }) =>
-  <TNamespace extends TranslateNamespace>(namespace?: TNamespace) => {
+  <TNamespace extends TranslateNamespace>(namespace: TNamespace) => {
     const t = useNextTranslateTranslation().t;
     const tMemoized = useMemo(
       () =>
