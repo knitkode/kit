@@ -1,5 +1,7 @@
 export { AnalyticsGoogle, type AnalyticsGoogleProps } from "./AnalyticsGoogle";
 export { DisableErrorOverlay } from "./DisableErrorOverlay";
+export { createUseLocale } from "./createUseLocale";
+export { createUseTo } from "./createUseTo";
 // export {
 //   DynamicNamespaces,
 //   type DynamicNamespacesProps,
