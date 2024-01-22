@@ -1,10 +1,15 @@
 import * as core from "@actions/core";
-import { writeSummary, writeTypes } from "@koine/i18n/generate";
+import { writeRoutes, writeSummary, writeTypes } from "@koine/i18n/generate";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
 
 const main = async () => {
+  const repo = process.env["GITHUB_REPOSITORY"] as `${string}/${string}`;
+  const ref = process.env["GITHUB_REF"] as `refs/heads/${string}`;
+  const branch = ref.replace("refs/heads/", "");
+  const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
+
   const defaultLocale = core.getInput("default_locale") || "en";
 
   const data = await writeTypes({
@@ -13,10 +18,11 @@ const main = async () => {
     outputTypes: core.getInput("output_types") || ".github/types.d.ts",
   });
 
-  const repo = process.env["GITHUB_REPOSITORY"] as `${string}/${string}`;
-  const ref = process.env["GITHUB_REF"] as `refs/heads/${string}`;
-  const branch = ref.replace("refs/heads/", "");
-  const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
+  await writeRoutes({
+    cwd,
+    defaultLocale,
+    outputJson: core.getInput("output_routes_json") || ".github/routes.json",
+  });
 
   await writeSummary({
     cwd,

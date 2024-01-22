@@ -12,6 +12,10 @@ inputs:
     description: "name and location for the .d.ts types generated file."
     required: false
     default: ".github/types.d.ts"
+  output_routes_json:
+    description: "name and location for the .json routes generated file."
+    required: false
+    default: ".github/routes.json"
   output_summary_json:
     description: "name and location for the .json summary generated file."
     required: false
