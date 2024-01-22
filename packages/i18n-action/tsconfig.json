@@ -21,7 +21,7 @@
       "@koine/utils/*": ["packages/utils/*"]
     }
   },
-  "files": [],
+  "files": ["../i18n/typings.d.ts"],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }
