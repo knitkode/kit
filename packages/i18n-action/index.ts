@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import { writeRoutes, writeSummary, writeTypes } from "@koine/i18n/generate";
+import { write } from "@koine/i18n/generate";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
@@ -11,28 +11,29 @@ const main = async () => {
   const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
 
   const defaultLocale = core.getInput("default_locale") || "en";
+  const hideDefaultLocaleInUrl =
+    core.getInput("hide_default_locale_in_url") === "false" || true;
+  const i18nConfig = { defaultLocale, hideDefaultLocaleInUrl };
 
-  const data = await writeTypes({
+  const data = await write({
     cwd,
-    defaultLocale,
-    outputTypes: core.getInput("output_types") || ".github/types.d.ts",
+    ...i18nConfig,
+    source: {
+      output: core.getInput("output_source") || ".github/.source",
+    },
+    summary: {
+      sourceUrl,
+      outputJson:
+        core.getInput("output_summary_json") || ".github/summary.json",
+      outputMarkdown:
+        core.getInput("output_summary_md") || ".github/summary.md",
+    },
+    types: {
+      outputTypes: core.getInput("output_types") || ".github/types.d.ts",
+    },
   });
 
-  await writeRoutes({
-    cwd,
-    defaultLocale,
-    outputJson: core.getInput("output_routes_json") || ".github/routes.json",
-  });
-
-  await writeSummary({
-    cwd,
-    sourceUrl,
-    outputJson: core.getInput("output_summary_json") || ".github/summary.json",
-    outputMarkdown: core.getInput("output_summary_md") || ".github/summary.md",
-    defaultLocale,
-  });
-
-  core.info(`Found locales: ${data.locales.map((l) => l.code).join(", ")}`);
+  core.info(`Found locales: ${data.locales.join(", ")}`);
   core.info(`Found ${data.files.length} JSON files per locale`);
 };
 

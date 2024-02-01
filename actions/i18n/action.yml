@@ -8,14 +8,18 @@ inputs:
     description: "default locale"
     required: false
     default: "en"
+  hide_default_locale_in_url:
+    description: "hide default locale in url"
+    required: false
+    default: true
   output_types:
     description: "name and location for the .d.ts types generated file."
     required: false
     default: ".github/types.d.ts"
-  output_routes_json:
-    description: "name and location for the .json routes generated file."
+  output_source:
+    description: "name and location for the folder containing source generated file."
     required: false
-    default: ".github/routes.json"
+    default: ".github/.source"
   output_summary_json:
     description: "name and location for the .json summary generated file."
     required: false

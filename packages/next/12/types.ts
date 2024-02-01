@@ -3,5 +3,8 @@
  */
 export type { TProps } from "./T";
 export type { GetT } from "./getT";
-export type { DynamicNamespacesProps } from "./DynamicNamespaces";
+export type {
+  DynamicNamespacesType,
+  DynamicNamespacesProps,
+} from "./DynamicNamespaces";
 export type { SeoDefaultsProps } from "./SeoDefaults";

@@ -46,7 +46,7 @@ export function orderRoutes(routes: Routes, defaultLocale: Locale) {
   };
 }
 
-/**,m
+/**
  * Normalise pathname
  *
  * From a path like `/some//malformed/path///` it returns `some/malformed/path`
@@ -435,7 +435,7 @@ export async function getRewrites(arg: GetRewritesOptions) {
       } else {
         // pages router:
         // this condition only applies to the pages router as with the app one
-        // even if the template matches the pathname we alsways need to rewrite
+        // even if the template matches the pathname we always need to rewrite
         // as the localeParam is always needed in the rewrite destination
         if (route.pathname !== getWithoutIndex(template)) {
           if (locale !== defaultLocale || isVisibleDefaultLocale) {

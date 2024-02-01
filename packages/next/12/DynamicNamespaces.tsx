@@ -1,8 +1,16 @@
 "use client";
 
 import type { DynamicNamespacesProps as BaseDynamicNamespacesProps } from "next-translate";
-import BaseDynamicNamespaces from "next-translate/DynamicNamespaces";
+// import BaseDynamicNamespaces from "next-translate/DynamicNamespaces";
 import type { TranslateNamespace } from "@koine/i18n";
+
+// export type DynamicNamespacesType = (
+//   props: DynamicNamespacesProps,
+// ) => ReturnType<typeof BaseDynamicNamespaces>;
+
+export type DynamicNamespacesType = (
+  props: DynamicNamespacesProps,
+) => React.FunctionComponent<DynamicNamespacesProps>;
 
 export type DynamicNamespacesProps = Omit<
   BaseDynamicNamespacesProps,
@@ -11,13 +19,13 @@ export type DynamicNamespacesProps = Omit<
   namespaces: TranslateNamespace[];
 };
 
-/**
- * **NOTE**: To make typescript work nicely here make sure to enable
- * [`resolveJsonModule`](https://www.typescriptlang.org/tsconfig#resolveJsonModule)
- * in your `tsconfig.json` file.
- */
-export const DynamicNamespaces = BaseDynamicNamespaces as (
-  props: DynamicNamespacesProps,
-) => ReturnType<typeof BaseDynamicNamespaces>;
+// /**
+//  * **NOTE**: To make typescript work nicely here make sure to enable
+//  * [`resolveJsonModule`](https://www.typescriptlang.org/tsconfig#resolveJsonModule)
+//  * in your `tsconfig.json` file.
+//  */
+// export const DynamicNamespaces = BaseDynamicNamespaces as (
+//   props: DynamicNamespacesProps,
+// ) => ReturnType<typeof BaseDynamicNamespaces>;
 
-export default DynamicNamespaces;
+// export default DynamicNamespaces;
