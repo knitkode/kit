@@ -11,6 +11,10 @@ import { dirname } from "node:path";
  */
 export async function fsWrite(filepath: string, content: string, eol = true) {
   await mkdir(dirname(filepath), { recursive: true });
+
+  // remove empty first line
+  content = content.replace(/^\s*/m, "");
+
   await writeFile(filepath, content);
 
   if (eol) {
