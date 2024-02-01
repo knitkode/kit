@@ -2,9 +2,11 @@
   "name": "@koine/api",
   "sideEffects": false,
   "dependencies": {
-    "@koine/utils": "*",
-    "swr": "^2.2.4",
-    "next": "^14.0.4"
+    "@koine/utils": "*"
+  },
+  "peerDependencies": {
+    "next": "^14.0.4",
+    "swr": "^2.2.4"
   },
   "peerDependenciesMeta": {
     "next": {

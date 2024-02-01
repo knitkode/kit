@@ -12,10 +12,10 @@ inputs:
     description: "hide default locale in url"
     required: false
     default: true
-  output_types:
-    description: "name and location for the .d.ts types generated file."
+  adapter:
+    description: "the i18n generate compiler adapter"
     required: false
-    default: ".github/types.d.ts"
+    default: "next-translate"
   output_source:
     description: "name and location for the folder containing source generated file."
     required: false
