@@ -6,7 +6,7 @@
  * @param elem The HTML node element
  * @return Distance from the top in pixels
  */
-export function getOffsetTop(elem: HTMLElement) {
+export let getOffsetTop = <T extends HTMLElement>(elem: T) => {
   let location = 0;
   if (elem.offsetParent) {
     while (elem) {
@@ -16,6 +16,4 @@ export function getOffsetTop(elem: HTMLElement) {
     }
   }
   return location >= 0 ? location : 0;
-}
-
-export default getOffsetTop;
+};

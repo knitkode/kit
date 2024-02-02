@@ -13,7 +13,7 @@ import {
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export const changeCaseCapital = (input: string, options?: Options) => {
+export let changeCaseCapital = (input: string, options?: Options) => {
   const [prefix, words, suffix] = splitPrefixSuffix(input, options);
   const lower = lowerFactory(options?.locale);
   const upper = upperFactory(options?.locale);
@@ -25,5 +25,3 @@ export const changeCaseCapital = (input: string, options?: Options) => {
     suffix
   );
 };
-
-export default changeCaseCapital;

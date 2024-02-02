@@ -12,24 +12,6 @@
       },
       "outputs": ["{workspaceRoot}/actions/i18n"]
     },
-    "build-esm": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "dummy"
-      }
-    },
-    "build-cjs": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "dummy"
-      }
-    },
-    "build-swc": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "dummy"
-      }
-    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

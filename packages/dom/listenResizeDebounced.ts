@@ -1,21 +1,19 @@
 import { debounce } from "@koine/utils";
-import listenResize from "./listenResize";
+import { listenResize } from "./listenResize";
 
 /**
  * Listen element's (`window` by default) _resize_ event debouncing the callback
  *
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */
-export const listenResizeDebounced = (
+export let listenResizeDebounced = (
   el?: Parameters<typeof listenResize>[1],
   ...args: Parameters<typeof debounce>
 ) => listenResize(debounce(...args), el);
 
-export default listenResizeDebounced;
-
 // EXP: with too complex overload signature...
 // import { debounce, isUndefined } from "@koine/utils";
-// import listenResize from "./listenResize";
+// import { listenResize } from "./listenResize";
 
 // /**
 //  * Listen element's (`window` by default) _resize_ event debouncing the callback

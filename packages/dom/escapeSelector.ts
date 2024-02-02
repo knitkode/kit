@@ -4,8 +4,4 @@
  *
  * @param selector
  */
-export function escapeSelector(selector: string) {
-  return selector.replace(/:/g, "\\:");
-}
-
-export default escapeSelector;
+export let escapeSelector = (selector: string) => selector.replace(/:/g, "\\:");

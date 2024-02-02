@@ -1,4 +1,4 @@
-import isBrowser from "./isBrowser";
+import { isBrowser } from "./isBrowser";
 
 /**
  * Is external url compared to the given current URL (if not provided it falls
@@ -7,7 +7,7 @@ import isBrowser from "./isBrowser";
  * @category location
  *
  */
-export function isExternalUrl(url: string, currentUrl?: string) {
+export let isExternalUrl = (url: string, currentUrl?: string) => {
   const reg = /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i;
   const urlMatches = reg.exec(url);
 
@@ -20,6 +20,4 @@ export function isExternalUrl(url: string, currentUrl?: string) {
   currentUrl = currentUrl || isBrowser ? location.href : "";
 
   return currentUrl ? reg.exec(currentUrl)?.[1] !== urlMatches[1] : true;
-}
-
-export default isExternalUrl;
+};

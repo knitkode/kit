@@ -1,7 +1,7 @@
 /**
  * Emit event (use only if the targeted browser supports `CustomEvent`s)
  */
-export function emitEvent(type = "customEvent", detail = {}) {
+export let emitEvent = (type = "customEvent", detail = {}) => {
   if (typeof window.CustomEvent !== "function") return;
 
   document.dispatchEvent(
@@ -10,6 +10,4 @@ export function emitEvent(type = "customEvent", detail = {}) {
       detail,
     }),
   );
-}
-
-export default emitEvent;
+};

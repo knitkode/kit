@@ -1,4 +1,4 @@
-import isNumber from "./isNumber";
+import { isNumber } from "./isNumber";
 
 /**
  * Returns an array of undefined values of the desired length, useful to build
@@ -6,13 +6,9 @@ import isNumber from "./isNumber";
  *
  * @category array
  */
-export function getEmptyArray /* <T extends undefined | null = undefined> */(
+export let getEmptyArray = /* <T extends undefined | null = undefined> */ (
   length: number | string,
-) {
-  if (!isNumber(length)) {
-    length = parseInt(length, 10);
-  }
-  return Array.from<undefined>({ length });
-}
-
-export default getEmptyArray;
+) =>
+  Array.from<undefined>({
+    length: !isNumber(length) ? parseInt(length, 10) : length,
+  });

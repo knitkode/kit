@@ -11,7 +11,7 @@ import {
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export const changeCaseNone = (input: string, options?: Options) => {
+export let changeCaseNone = (input: string, options?: Options) => {
   const [prefix, words, suffix] = splitPrefixSuffix(input, options);
   return (
     prefix +
@@ -19,5 +19,3 @@ export const changeCaseNone = (input: string, options?: Options) => {
     suffix
   );
 };
-
-export default changeCaseNone;

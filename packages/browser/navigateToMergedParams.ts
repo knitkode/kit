@@ -11,14 +11,8 @@ import { navigateToParams } from "./navigateToParams";
  * @category location
  * @param replace Replace URL instead of pushing it in the history stack. By default it pushes it.
  */
-export function navigateToMergedParams(
+export let navigateToMergedParams = (
   params: NonNullable<AnyQueryParams> = {},
   replace?: boolean,
-) {
-  return navigateToParams(
-    mergeUrlQueryParams(getUrlQueryParams(), params),
-    replace,
-  );
-}
-
-export default navigateToMergedParams;
+) =>
+  navigateToParams(mergeUrlQueryParams(getUrlQueryParams(), params), replace);

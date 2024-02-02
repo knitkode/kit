@@ -8,7 +8,7 @@
  * @fileoverview
  */
 import { isString } from "@koine/utils";
-import escapeSelector from "./escapeSelector";
+import { escapeSelector } from "./escapeSelector";
 import type { AnyDOMEvent, AnyDOMEventTarget, AnyDOMEventType } from "./types";
 
 /**
@@ -32,18 +32,18 @@ export type ListenEvent = {
  *
  * @internal
  */
-export const activeEvents: Partial<Record<AnyDOMEventType, ListenEvent[]>> = {};
+export let activeEvents: Partial<Record<AnyDOMEventType, ListenEvent[]>> = {};
 
 /**
  * Get the index for the listener
  *
  * @internal
  */
-export function getIndex(
+export let getIndex = (
   arr: ListenEvent[],
   selector: string,
   callback: EventCallback,
-) {
+) => {
   for (let i = 0; i < arr.length; i++) {
     if (
       arr[i].selector === selector &&
@@ -52,7 +52,7 @@ export function getIndex(
       return i;
   }
   return -1;
-}
+};
 
 /**
  * Check if the listener callback should run or not
@@ -62,10 +62,10 @@ export function getIndex(
  * @param selector The selector/element to check the target against
  * @return If not false, run listener and pass the targeted element to use in the callback
  */
-export function getRunTarget(
+export let getRunTarget = (
   target: Element,
   selector: string | Window | Document | Element,
-) {
+) => {
   // @ts-expect-error FIXME: type
   if (["*", "window", window].includes(selector)) {
     return window;
@@ -98,14 +98,14 @@ export function getRunTarget(
   }
 
   return false;
-}
+};
 
 /**
  * Handle listeners after event fires
  *
  * @internal
  */
-export function eventHandler(event: Event) {
+export let eventHandler = (event: Event) => {
   // if (!activeEvents[event.type]) return;
   activeEvents[event.type]?.forEach(function (listener) {
     const target = getRunTarget(event.target as Element, listener.selector);
@@ -114,4 +114,4 @@ export function eventHandler(event: Event) {
     }
     listener.callback(event, target);
   });
-}
+};

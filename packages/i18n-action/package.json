@@ -13,8 +13,11 @@
     "build": "pnpm build-ncc"
   },
   "dependencies": {
-    "@koine/i18n": "*",
     "@actions/core": "^1.10.1",
+    "@koine/i18n": "*",
     "simple-git": "^3.22.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.1"
   }
 }

@@ -6,42 +6,27 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run react:build-esm",
-          "pnpm dev postbuild react --ext --esm"
-        ],
-        "parallel": false
-      }
-    },
-    "build-esm": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/react/esm",
-        "tsConfig": "packages/react/tsconfig.lib.json",
-        "main": "packages/react/index.ts",
-        "assets": ["packages/react/*.md", "packages/react/*.d.ts"]
-      }
-    },
-    "build-cjs": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/react/cjs",
-        "tsConfig": "packages/react/tsconfig.lib-cjs.json",
-        "main": "packages/react/index.ts"
-      }
-    },
-    "build-swc": {
-      "executor": "@nx/js:swc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/react",
         "tsConfig": "packages/react/tsconfig.lib.json",
+        "project": "packages/react/package.json",
         "main": "packages/react/index.ts",
-        "assets": ["packages/react/*.md", "packages/react/*.d.ts"]
+        "assets": [
+          {
+            "input": "packages/react",
+            "glob": "/*.{md,.d.ts}",
+            "output": "./"
+          }
+        ],
+        "generateExportsField": true,
+        "skipTypeCheck": false,
+        "external": "all",
+        "format": ["cjs", "esm"],
+        "compiler": "swc",
+        "deleteOutputPath": true,
+        "additionalEntryPoints": ["packages/react/{forms,calendar}.ts"]
       }
     },
     "lint": {

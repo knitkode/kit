@@ -1,8 +1,5 @@
 /**
  * Is element hidden?
  */
-export function isHidden(el?: HTMLElement) {
-  return !el || el.offsetParent === null;
-}
-
-export default isHidden;
+export let isHidden = <T extends HTMLElement>(el?: T) =>
+  !el || el.offsetParent === null;

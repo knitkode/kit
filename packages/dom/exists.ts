@@ -3,12 +3,5 @@
  *
  * @borrows @glidejs/glide/src/utils/dom (source)
  */
-export function exists(node?: Element) {
-  if (node && node instanceof window.HTMLElement) {
-    return true;
-  }
-
-  return false;
-}
-
-export default exists;
+export let exists = (node?: Element) =>
+  node && node instanceof window.HTMLElement;

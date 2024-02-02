@@ -5,9 +5,7 @@ let lastId = 0;
  *
  * @category uid
  */
-export const uid = (prefix = "id") => {
+export let uid = (prefix = "id") => {
   lastId++;
   return `${prefix}-${lastId}`;
 };
-
-export default uid;

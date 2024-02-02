@@ -8,7 +8,5 @@ import { changeCaseNone } from "./changeCaseNone";
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export const changeCaseSnake = (input: string, options?: Options) =>
+export let changeCaseSnake = (input: string, options?: Options) =>
   changeCaseNone(input, { delimiter: "_", ...options });
-
-export default changeCaseSnake;

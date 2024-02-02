@@ -11,10 +11,10 @@ type Comparable =
 
 /**
  */
-function areEqualArrays(
+let areEqualArrays = (
   a: Array<ComparablePrimitive>,
   b?: Array<ComparablePrimitive>,
-) {
+) => {
   if (!b) return false;
   if (a.length !== b.length) return false;
 
@@ -22,16 +22,16 @@ function areEqualArrays(
     if (!areEqual(a[i], b[i])) return false;
   }
   return true;
-}
+};
 
 /**
  * NOTE: Since we do not care about `undefined` values we do not check for equal
  * `Object.keys().length` equality
  */
-function areEqualObjects(
+let areEqualObjects = (
   a: object | Record<string, unknown>,
   b?: object | Record<string, unknown>,
-) {
+) => {
   if (!b) return false;
 
   const aKeys = Object.keys(a);
@@ -49,7 +49,7 @@ function areEqualObjects(
   }
 
   return true;
-}
+};
 
 /**
  * A simple and quick deep equal objects utility. This is meant to be used
@@ -66,7 +66,7 @@ function areEqualObjects(
  *
  * @category object
  */
-export function areEqual(a: Comparable, b?: Comparable) {
+export let areEqual = (a: Comparable, b?: Comparable) => {
   if (!a && !b) {
     // console.log(`areEqual took ${performance.now() - t0} ms`);
     return true;
@@ -96,6 +96,4 @@ export function areEqual(a: Comparable, b?: Comparable) {
 
   // console.log(`areEqual took ${performance.now() - t0} ms`);
   return true;
-}
-
-export default areEqual;
+};

@@ -10,14 +10,11 @@ import { navigateToHashParams } from "./navigateToHashParams";
  *
  * @category location
  */
-export function navigateToMergedHashParams(
+export let navigateToMergedHashParams = (
   params: NonNullable<AnyQueryParams> = {},
   hash = "",
-) {
-  return navigateToHashParams(
+) =>
+  navigateToHashParams(
     mergeUrlQueryParams(getUrlHashParams(hash), params),
     hash,
   );
-}
-
-export default navigateToMergedHashParams;

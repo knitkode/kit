@@ -7,7 +7,7 @@
  * - [js-cookie](https://github.com/js-cookie/js-cookie)
  * - [cookie](https://github.com/jshttp/cookie)
  */
-import { type CookieAttributesServer } from "./cookie";
+import type { CookieAttributesServer } from "./cookie";
 import { isNumber } from "./isNumber";
 
 /**
@@ -31,11 +31,11 @@ const fieldContentRegExp = /^[\u0009\u0020-\u007e\u0080-\u00ff]+$/;
  *
  * @category cookie
  */
-export function serializeCookie(
+export let serializeCookie = (
   name: string,
   val: string,
   attributes: CookieAttributesServer = {},
-) {
+) => {
   const {
     encode = encodeURIComponent,
     domain,
@@ -125,6 +125,4 @@ export function serializeCookie(
   }
 
   return str;
-}
-
-export default serializeCookie;
+};

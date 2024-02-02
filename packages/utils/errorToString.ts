@@ -1,4 +1,4 @@
-import isString from "./isString";
+import { isString } from "./isString";
 
 /**
  * Ensure to transform a JavaScript `Error` into a string (uses its `message`)
@@ -6,7 +6,5 @@ import isString from "./isString";
  * @category error
  * @category cast
  */
-export const errorToString = (e: unknown) =>
+export let errorToString = (e: unknown) =>
   e instanceof Error ? e.message : isString(e) ? e : "";
-
-export default errorToString;

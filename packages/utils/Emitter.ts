@@ -12,9 +12,9 @@
  *
  * @category impl
  */
-export function Emitter<EventMap extends { [key: string]: any }>(
+export let Emitter = <EventMap extends { [key: string]: any }>(
   namespace: string,
-) {
+) => {
   const all = new Map();
 
   return {
@@ -46,6 +46,4 @@ export function Emitter<EventMap extends { [key: string]: any }>(
         });
     },
   };
-}
-
-export default Emitter;
+};

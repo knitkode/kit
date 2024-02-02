@@ -6,7 +6,7 @@ import {
   noop,
 } from "@koine/utils";
 import { on } from "@koine/dom";
-import storage from "./storage";
+import { storage } from "./storage";
 
 /**
  * @category storage
@@ -19,7 +19,7 @@ export type CreateStorageConfig = Record<string, any>;
  *
  * @category storage
  */
-export const createStorage = <T extends CreateStorageConfig>(
+export let createStorage = <T extends CreateStorageConfig>(
   config: Partial<T>,
   useSessionStorage?: boolean,
 ) => {
@@ -171,5 +171,3 @@ export const createStorage = <T extends CreateStorageConfig>(
     },
   };
 };
-
-export default createStorage;

@@ -1,10 +1,10 @@
 /**
  * @category array
  */
-export function removeIndexesFromArray<T>(
+export let removeIndexesFromArray = <T>(
   arr: T[],
   indexes: Record<number, true>,
-) {
+) => {
   const output: T[] = [];
   for (let i = 0; i < arr.length; i++) {
     // eslint-disable-next-line no-prototype-builtins
@@ -13,6 +13,4 @@ export function removeIndexesFromArray<T>(
     }
   }
   return output;
-}
-
-export default removeIndexesFromArray;
+};

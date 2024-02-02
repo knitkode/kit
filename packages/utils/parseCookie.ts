@@ -1,15 +1,15 @@
-import { type CookieAttributesServer } from "./cookie";
+import type { CookieAttributesServer } from "./cookie";
 
 /**
  * Try decoding a string using a decoding function.
  */
-function tryDecode(str: string, decode: (input: string) => string) {
+let tryDecode = (str: string, decode: (input: string) => string) => {
   try {
     return decode(str);
   } catch (e) {
     return str;
   }
-}
+};
 
 /**
  * Parse a cookie header.
@@ -19,9 +19,12 @@ function tryDecode(str: string, decode: (input: string) => string) {
  *
  * @category cookie
  */
-export function parseCookie<
+export let parseCookie = <
   T extends Record<string, unknown> = Record<string, string>,
->(str: string, attributes: CookieAttributesServer = {}) {
+>(
+  str: string,
+  attributes: CookieAttributesServer = {},
+) => {
   if (typeof str !== "string") {
     throw new TypeError("argument str must be a string");
   }
@@ -55,6 +58,4 @@ export function parseCookie<
   }
 
   return obj;
-}
-
-export default parseCookie;
+};

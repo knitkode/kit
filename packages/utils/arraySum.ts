@@ -4,7 +4,5 @@
  * @category array
  * @category math
  */
-export const arraySum = (numbers: number[]) =>
+export let arraySum = (numbers: number[]) =>
   numbers.reduce((sum, current) => sum + current, 0);
-
-export default arraySum;

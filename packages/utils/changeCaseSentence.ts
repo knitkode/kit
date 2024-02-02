@@ -13,7 +13,7 @@ import {
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export function changeCaseSentence(input: string, options?: Options) {
+export let changeCaseSentence = (input: string, options?: Options) => {
   const [prefix, words, suffix] = splitPrefixSuffix(input, options);
   const lower = lowerFactory(options?.locale);
   const upper = upperFactory(options?.locale);
@@ -28,6 +28,4 @@ export function changeCaseSentence(input: string, options?: Options) {
       .join(options?.delimiter ?? " ") +
     suffix
   );
-}
-
-export default changeCaseSentence;
+};

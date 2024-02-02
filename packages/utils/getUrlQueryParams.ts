@@ -1,5 +1,5 @@
-import isBrowser from "./isBrowser";
-import { type AnyQueryParams } from "./location";
+import { isBrowser } from "./isBrowser";
+import type { AnyQueryParams } from "./location";
 
 /**
  * Get parsed query parameters as object dictionary (from URL or given query string)
@@ -11,9 +11,9 @@ import { type AnyQueryParams } from "./location";
  * parse, for instance, the query params of the `href` of a `<a href="...">` HTML tag.
  *
  */
-export function getUrlQueryParams<T extends NonNullable<AnyQueryParams>>(
+export let getUrlQueryParams = <T extends NonNullable<AnyQueryParams>>(
   url?: string,
-) {
+) => {
   let params = {};
   const search = url
     ? url.split("?")?.[1]
@@ -38,6 +38,4 @@ export function getUrlQueryParams<T extends NonNullable<AnyQueryParams>>(
   }
 
   return params as T;
-}
-
-export default getUrlQueryParams;
+};

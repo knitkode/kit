@@ -15,7 +15,7 @@ export type ClsxClassValue = ClassValue;
 // import _clsx from "clsx";
 
 // export const clsx = _clsx;
-function toVal(mix: any) {
+let toVal = (mix: any) => {
   let k,
     y,
     str = "";
@@ -43,7 +43,7 @@ function toVal(mix: any) {
   }
 
   return str;
-}
+};
 
 /**
  * Class names utility
@@ -52,7 +52,7 @@ function toVal(mix: any) {
  * @borrows [lukeed/clsx](https://github.com/lukeed/clsx)
  * @license MIT Luke Edwards https://github.com/lukeed/clsx/blob/master/license
  */
-export const clsx: (...args: ClassValue[]) => string = function () {
+export let clsx: (...args: ClassValue[]) => string = function () {
   let i = 0,
     tmp,
     x,
@@ -68,5 +68,3 @@ export const clsx: (...args: ClassValue[]) => string = function () {
   }
   return str;
 };
-
-export default clsx;

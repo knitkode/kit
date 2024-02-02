@@ -3,17 +3,17 @@
  *
  * @category object
  */
-export function swapMap<
+export let swapMap = <
   T extends Record<string, string | number | symbol> = Record<
     string,
     string | number | symbol
   >,
->(map = {} as T) {
+>(
+  map = {} as T,
+) => {
   const output = {} as Record<T[keyof T], keyof T>;
   for (const key in map) {
     output[map[key]] = key;
   }
   return output;
-}
-
-export default swapMap;
+};

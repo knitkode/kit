@@ -13,7 +13,7 @@
  * @param array The array to shuffle.
  * @returns The new shuffled array.
  */
-export function shuffle<T>(array: T[]) {
+export let shuffle = <T>(array: T[]) => {
   const length = array == null ? 0 : array.length;
   if (!length) {
     return [];
@@ -28,6 +28,4 @@ export function shuffle<T>(array: T[]) {
     result[index] = value;
   }
   return result;
-}
-
-export default shuffle;
+};

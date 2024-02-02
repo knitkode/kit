@@ -12,7 +12,7 @@ import { decode, encode, isUndefined } from "@koine/utils";
  *
  * FIXME: types https://github.com/jquense/yup/issues/1700
  */
-export function encodeForm<T extends ObjectShape = {}>(validationRules: T) {
+export let encodeForm = <T extends ObjectShape = {}>(validationRules: T) => {
   const encoded = {} as Record<string, T[keyof T]>;
   const encodedNames = {} as Record<keyof T, string>;
 
@@ -29,7 +29,7 @@ export function encodeForm<T extends ObjectShape = {}>(validationRules: T) {
   const encodedSchema = object(encoded).required();
 
   return { encodedSchema, encodedNames };
-}
+};
 
 /**
  * Decode form data
@@ -40,10 +40,12 @@ export function encodeForm<T extends ObjectShape = {}>(validationRules: T) {
  * Here too we skip encoding/decoding process for names prefixed wth an underscore
  * which are considered programmatic form data not created by user input.
  */
-export function decodeForm<
+export let decodeForm = <
   ReturnAs extends Record<string, unknown> = {},
   FormData extends Record<string, unknown> = {},
->(formData: FormData) {
+>(
+  formData: FormData,
+) => {
   const json = {};
 
   for (const encodedName in formData) {
@@ -66,4 +68,4 @@ export function decodeForm<
   }
   // console.log(formData, decoded, json);
   return json as ReturnAs;
-}
+};

@@ -3,7 +3,7 @@
  *
  * @see https://github.com/cferdinandi/smooth-scroll (credits)
  */
-export function getDocumentHeight() {
+export let getDocumentHeight = () => {
   const { body, documentElement } = document;
 
   return Math.max(
@@ -14,6 +14,4 @@ export function getDocumentHeight() {
     body.clientHeight,
     documentElement.clientHeight,
   );
-}
-
-export default getDocumentHeight;
+};

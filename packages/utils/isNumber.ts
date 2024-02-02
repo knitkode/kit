@@ -1,4 +1,4 @@
-import getType from "./getType";
+import { getType } from "./getType";
 
 /**
  * Returns whether the payload is a number (but not NaN)
@@ -7,8 +7,5 @@ import getType from "./getType";
  *
  * @category is
  */
-export function isNumber(payload: any): payload is number {
-  return getType(payload) === "Number" && !isNaN(payload);
-}
-
-export default isNumber;
+export let isNumber = (payload: any): payload is number =>
+  getType(payload) === "Number" && !isNaN(payload);

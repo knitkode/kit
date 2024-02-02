@@ -3,7 +3,7 @@
  *
  * @borrows @glidejs/glide/src/utils/dom (source)
  */
-export function siblings(node: Element) {
+export let siblings = <T extends Element>(node: T) => {
   if (node && node.parentNode) {
     let n = node.parentNode.firstChild;
     const matched = [] as Element[];
@@ -18,6 +18,4 @@ export function siblings(node: Element) {
   }
 
   return [];
-}
-
-export default siblings;
+};

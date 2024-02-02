@@ -12,7 +12,7 @@ const methodsMap = { g: "getItem", s: "setItem", r: "removeItem" };
  *
  * @category storage
  */
-export const storageClient = <
+export let storageClient = <
   TConfig extends StorageClientConfig = StorageClientConfig,
 >(
   useSessionStorage?: boolean,
@@ -163,5 +163,3 @@ export const storageClient = <
     has,
   };
 };
-
-export default storageClient;

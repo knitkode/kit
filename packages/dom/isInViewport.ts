@@ -6,7 +6,7 @@
  * @param elem The element
  * @return Returns true if element is in the viewport
  */
-export function isInViewport(elem: Element) {
+export let isInViewport = <T extends Element>(elem: T) => {
   const distance = elem.getBoundingClientRect();
   return (
     distance.top >= 0 &&
@@ -16,6 +16,4 @@ export function isInViewport(elem: Element) {
     distance.right <=
       (window.innerWidth || document.documentElement.clientWidth)
   );
-}
-
-export default isInViewport;
+};

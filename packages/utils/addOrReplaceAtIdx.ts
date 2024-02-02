@@ -5,11 +5,11 @@
  *
  * @category array
  */
-export function addOrReplaceAtIdx<T>(
+export let addOrReplaceAtIdx = <T>(
   list: T[],
   newItem: T,
   newIdx?: number,
-): T[] {
+): T[] => {
   if (list.length === 0) {
     return [newItem];
   }
@@ -24,6 +24,4 @@ export function addOrReplaceAtIdx<T>(
     }
     return item;
   });
-}
-
-export default addOrReplaceAtIdx;
+};

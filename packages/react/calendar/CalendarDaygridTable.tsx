@@ -2,7 +2,6 @@ import { eachWeekOfInterval } from "date-fns/eachWeekOfInterval";
 import { useEffect, useMemo, useState } from "react";
 import { useSwipeable } from "react-swipeable";
 import type { KoineComponent, KoineComponentProps } from "../types";
-import { useDateLocale } from "../useDateLocale";
 import {
   CalendarDaygridCell,
   CalendarDaygridCellComponents,
@@ -15,6 +14,7 @@ import type {
   CalendarViewDayProps,
   CalendarViewWeeks,
 } from "./types";
+import { useDateLocale } from "./useDateLocale";
 import { processEventsInView } from "./utils";
 
 export type CalendarDaygridTableBodyCellProps = CalendarViewDayProps;
@@ -62,7 +62,7 @@ export type CalendarDaygridTableProps = KoineComponentProps<
   } & CalendarDaygridCellComponents
 >;
 
-export const KoineCalendarDaygridTable = ({
+export let KoineCalendarDaygridTable = ({
   locale: localeCode,
   handlePrev,
   handleNext,

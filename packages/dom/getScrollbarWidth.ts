@@ -1,8 +1,5 @@
 /**
  * Get scrollbar's current width
  */
-export function getScrollbarWidth(element?: HTMLElement) {
-  return window.innerWidth - (element || document.documentElement).clientWidth;
-}
-
-export default getScrollbarWidth;
+export let getScrollbarWidth = <T extends HTMLElement>(element?: T) =>
+  window.innerWidth - (element || document.documentElement).clientWidth;

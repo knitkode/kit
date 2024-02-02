@@ -6,9 +6,11 @@ export type GetMediaQueryWidthResolversBreakpoints = Record<string, number>;
 /**
  * @category responsive
  */
-export function getMediaQueryWidthResolvers<
+export let getMediaQueryWidthResolvers = <
   TBreakpointsConfig extends GetMediaQueryWidthResolversBreakpoints,
->(customBreakpoints: TBreakpointsConfig) {
+>(
+  customBreakpoints: TBreakpointsConfig,
+) => {
   type Breakpoint = Extract<keyof TBreakpointsConfig, string>;
 
   const breakpoints = {
@@ -92,6 +94,4 @@ export function getMediaQueryWidthResolvers<
     between,
     only,
   };
-}
-
-export default getMediaQueryWidthResolvers;
+};

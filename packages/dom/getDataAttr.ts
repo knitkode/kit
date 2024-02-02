@@ -7,9 +7,6 @@
  * @param element
  * @param attribute The name of the `data-{attr}`
  */
-export function getDataAttr(element: HTMLElement, attribute: string) {
-  // return element.dataset[attribute];
-  return element.getAttribute("data-" + attribute);
-}
-
-export default getDataAttr;
+export let getDataAttr = (element: HTMLElement, attribute: string) =>
+  // element.dataset[attribute];
+  element.getAttribute("data-" + attribute);

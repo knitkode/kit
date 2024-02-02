@@ -21,7 +21,7 @@ const utcToZonedTime = (date: Date, _tz: string) => {
  * @param dateString A parseable date as string, `Z` is automatically suffixed if not present to correctly get time zone based time from a UTC date.
  * @param timeZone Optionally pass a timeZone (e.g. from user preference or from the server), it falls back trying to read it from the `Intl` browwser native API.
  */
-export function getZonedDate(dateString = "", timeZone?: string) {
+export let getZonedDate = (dateString = "", timeZone?: string) => {
   if (!dateString.endsWith("Z")) dateString += "Z";
 
   if (!timeZone && isBrowser) {
@@ -42,6 +42,4 @@ export function getZonedDate(dateString = "", timeZone?: string) {
   return timeZone
     ? utcToZonedTime(new Date(dateString), timeZone)
     : new Date(dateString);
-}
-
-export default getZonedDate;
+};

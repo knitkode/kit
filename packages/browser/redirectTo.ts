@@ -10,11 +10,9 @@ import {
  *
  * @category location
  */
-export function redirectTo(url: string, params?: AnyQueryParams) {
+export let redirectTo = (url: string, params?: AnyQueryParams) => {
   if (isBrowser) {
     const queryString = buildUrlQueryString(params);
     location.href = url.replace(/\?+$/g, "") + queryString;
   }
-}
-
-export default redirectTo;
+};

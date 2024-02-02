@@ -9,14 +9,11 @@
  * const $container = $(".my-section:");
  * const $el = $("[data-some-attr]", $container);
  */
-export function $<T extends Element = HTMLElement>(
+export let $ = <T extends Element = HTMLElement>(
   selector: string,
   parent?: HTMLElement | Document | null,
   avoidEscape?: boolean,
-) {
-  return (parent ? parent : document).querySelector(
+) =>
+  (parent ? parent : document).querySelector(
     avoidEscape ? selector : selector.replace(/:/g, "\\:"),
   ) as unknown as T;
-}
-
-export default $;

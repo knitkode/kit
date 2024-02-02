@@ -18,8 +18,5 @@ export type TypeGuard<A, B extends A> = (payload: A) => payload is B;
 /**
  * Returns the object type of the given payload
  */
-export function getType(payload: any): string {
-  return Object.prototype.toString.call(payload).slice(8, -1);
-}
-
-export default getType;
+export let getType = (payload: any): string =>
+  Object.prototype.toString.call(payload).slice(8, -1);

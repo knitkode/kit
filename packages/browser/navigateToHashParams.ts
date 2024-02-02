@@ -10,10 +10,10 @@ import {
  *
  * @category location
  */
-export function navigateToHashParams(
+export let navigateToHashParams = (
   params: string | AnyQueryParams = {},
   hash = "",
-) {
+) => {
   const useLocation = !hash;
   hash = hash || location.hash;
   const hashQueryLess = getUrlHashPathname(hash);
@@ -25,6 +25,4 @@ export function navigateToHashParams(
   }
 
   return newHash;
-}
-
-export default navigateToHashParams;
+};

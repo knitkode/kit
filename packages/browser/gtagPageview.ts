@@ -10,7 +10,7 @@ export type GtmPageviewArgs = [
 /**
  * @category analytics-google
  */
-export const gtagPageview = (...args: GtmPageviewArgs) => {
+export let gtagPageview = (...args: GtmPageviewArgs) => {
   if (!isUndefined(window) && !isUndefined(window.gtag)) {
     window.gtag("event", "page_view", {
       page_path: args[0] || location.pathname,
@@ -20,8 +20,6 @@ export const gtagPageview = (...args: GtmPageviewArgs) => {
     });
   }
 };
-
-export default gtagPageview;
 
 // export type GtmEventArgs = [
 //   eventCategory?: string,

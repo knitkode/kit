@@ -22,7 +22,7 @@ type PaletteMap<T extends PaletteShades> = {
  * object 3) A flat array of colors (no special sorting, same order as the `shades`
  * given as argument)
  */
-export const createPalette = <
+export let createPalette = <
   TName extends string,
   TShades extends PaletteShades,
   TColor = TShades[number][1],
@@ -51,5 +51,3 @@ export const createPalette = <
 
   return [map as TMap, tailwindPalette, Object.values<TColor>(map)] as const;
 };
-
-export default createPalette;

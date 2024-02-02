@@ -7,7 +7,7 @@ import { isUndefined } from "./isUndefined";
  * @category object
  * @see https://stackoverflow.com/a/46973278/1938970
  */
-export const mergeObjects = <T extends object = object>(
+export let mergeObjects = <T extends object = object>(
   target: T,
   ...sources: Partial<T>[]
 ): T => {

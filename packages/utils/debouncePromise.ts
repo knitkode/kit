@@ -54,14 +54,14 @@ interface DebouncedPromise<FunctionReturn> {
  * @borrows [chodorowicz/ts-debounce](https://github.com/chodorowicz/ts-debounce)
  * @license MIT: Jakub Chodorowicz
  */
-export function debouncePromise<
+export let debouncePromise = <
   Args extends any[],
   F extends (...args: Args) => any,
 >(
   func: F,
   waitMilliseconds = 50,
   options: DebounceOptions<ReturnType<F>> = {},
-): DebouncedFunction<Args, F> {
+): DebouncedFunction<Args, F> => {
   let timeoutId: ReturnType<typeof setTimeout> | undefined;
   const isImmediate = options.isImmediate ?? false;
   const callback = options.callback ?? false;
@@ -126,6 +126,4 @@ export function debouncePromise<
   };
 
   return debouncedFunction;
-}
-
-export default debouncePromise;
+};

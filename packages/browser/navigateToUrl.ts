@@ -3,10 +3,8 @@
  *
  * @category location
  */
-export function navigateToUrl(url = "", replace?: boolean) {
+export let navigateToUrl = (url = "", replace?: boolean) => {
   if (url) {
     history[replace ? "replaceState" : "pushState"](history.state, "", url);
   }
-}
-
-export default navigateToUrl;
+};

@@ -11,7 +11,7 @@ import type { AnythingFalsy } from "./types";
  * @param decimals default `undefined`
  * @param trailingZeroes default `undefined` Whether to keep trailing zeroes
  */
-export const round = (
+export let round = (
   number: number,
   decimals?: AnythingFalsy | number,
   trailingZeroes?: 1 | boolean | AnythingFalsy,
@@ -21,5 +21,3 @@ export const round = (
         number.toFixed(decimals).replace(trailingZeroes ? "" : /\.+0*$/, ""),
       )
     : parseInt(number + "", 10);
-
-export default round;

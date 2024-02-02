@@ -1,4 +1,4 @@
-import getParamAsString from "./getParamAsString";
+import { getParamAsString } from "./getParamAsString";
 
 /**
  * Get query parameter as `string` treating the `ParsedUrlQuery` result of
@@ -11,12 +11,10 @@ import getParamAsString from "./getParamAsString";
  * @param allowedValues The list of values (as strings) that the parameter can
  * have, if not one of them `null` is returned
  */
-export function getParamAmong<T extends string[]>(
+export let getParamAmong = <T extends string[]>(
   raw?: string | string[],
   allowedValues: T = [] as unknown as T,
-) {
+) => {
   const string = getParamAsString(raw);
   return allowedValues.includes(string) ? (string as T[number]) : null;
-}
-
-export default getParamAmong;
+};

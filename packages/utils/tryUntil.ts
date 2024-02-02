@@ -7,7 +7,7 @@
  * @param timeout in `ms`
  * @param interval in `ms`
  */
-export const tryUntil = (
+export let tryUntil = (
   test: () => boolean,
   timeout: number,
   interval: number,
@@ -31,5 +31,3 @@ export const tryUntil = (
   }, interval);
   // });
 };
-
-export default tryUntil;

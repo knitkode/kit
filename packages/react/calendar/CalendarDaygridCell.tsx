@@ -6,7 +6,7 @@ import type {
   CalendarViewEvent,
   CalendarsMap,
 } from "./types";
-import { UseCalendarReturn } from "./useCalendar";
+import type { UseCalendarReturn } from "./useCalendar";
 import { getDisplayTime } from "./utils";
 
 /**
@@ -82,7 +82,7 @@ const styleBtn = {
   textOverflow: "ellipsis",
 } as const;
 
-export const CalendarDaygridCell = ({
+export let CalendarDaygridCell = ({
   eventClicked,
   setEventClicked,
   // eventHovered,

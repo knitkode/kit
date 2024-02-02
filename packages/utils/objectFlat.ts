@@ -6,7 +6,7 @@
  * @param obj Input object
  * @param delimiter `.` dot by default
  */
-export const objectFlat = <
+export let objectFlat = <
   TReturn extends { [key: string]: unknown },
   TInput extends object = object,
 >(
@@ -31,5 +31,3 @@ export const objectFlat = <
     return acc;
   }, {} as TReturn);
 };
-
-export default objectFlat;

@@ -1,9 +1,9 @@
-function converterRead(value: string) {
+let converterRead = (value: string) => {
   if (value[0] === '"') {
     value = value.slice(1, -1);
   }
   return value.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
-}
+};
 
 /**
  * Read cookie
@@ -51,5 +51,3 @@ export function readCookie<
 
   return name ? all[name] : all;
 }
-
-export default readCookie;

@@ -7,9 +7,9 @@ import {
  * @category responsive
  * @category tailwind
  */
-export function getMediaQueryWidthTailwindScreens(
+export let getMediaQueryWidthTailwindScreens = (
   breakpoints: GetMediaQueryWidthResolversBreakpoints,
-) {
+) => {
   const mqWidthResolvers = getMediaQueryWidthResolvers(breakpoints);
   // Object.keys(breakpoints).reduce((screens, br) => {
 
@@ -39,6 +39,4 @@ export function getMediaQueryWidthTailwindScreens(
   );
 
   return screens;
-}
-
-export default getMediaQueryWidthTailwindScreens;
+};

@@ -8,7 +8,5 @@ import type { Options } from "./changeCaseHelpers";
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export const changeCasePascalSnake = (input: string, options?: Options) =>
+export let changeCasePascalSnake = (input: string, options?: Options) =>
   changeCaseCapital(input, { delimiter: "_", ...options });
-
-export default changeCasePascalSnake;

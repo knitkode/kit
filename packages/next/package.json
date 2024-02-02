@@ -3,21 +3,16 @@
   "sideEffects": false,
   "dependencies": {
     "@koine/browser": "*",
-    "@koine/i18n": "*",
     "@koine/react": "*",
     "@koine/utils": "*"
   },
   "peerDependencies": {
-    "date-fns": "^3.2.0",
     "next": "^14.0.4",
     "next-seo": "^6.4.0",
     "react": "^18.2.0"
   },
   "peerDependenciesMeta": {
     "@kuus/yup": {
-      "optional": true
-    },
-    "date-fns": {
       "optional": true
     },
     "next-seo": {

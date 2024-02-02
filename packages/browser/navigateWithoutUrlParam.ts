@@ -1,5 +1,5 @@
 import { type AnyQueryParams, getUrlQueryParams } from "@koine/utils";
-import navigateToParams from "./navigateToParams";
+import { navigateToParams } from "./navigateToParams";
 
 /**
  * Remove URL query parameter, it uses `history`
@@ -7,7 +7,10 @@ import navigateToParams from "./navigateToParams";
  * @category location
  * @param replace Replace URL instead of pushing it in the history stack. By default it pushes it.
  */
-export function navigateWithoutUrlParam(paramName?: string, replace?: boolean) {
+export let navigateWithoutUrlParam = (
+  paramName?: string,
+  replace?: boolean,
+) => {
   const params: NonNullable<AnyQueryParams> = {};
   const currentParams = getUrlQueryParams();
   for (const key in currentParams) {
@@ -17,6 +20,4 @@ export function navigateWithoutUrlParam(paramName?: string, replace?: boolean) {
   }
 
   return navigateToParams(params, replace);
-}
-
-export default navigateWithoutUrlParam;
+};

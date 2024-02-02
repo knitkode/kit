@@ -1,7 +1,7 @@
-import isArray from "./isArray";
-import isNull from "./isNull";
-import isUndefined from "./isUndefined";
-import { type AnyQueryParams } from "./location";
+import { isArray } from "./isArray";
+import { isNull } from "./isNull";
+import { isUndefined } from "./isUndefined";
+import type { AnyQueryParams } from "./location";
 
 /**
  * Get clean query string for URL
@@ -12,7 +12,7 @@ import { type AnyQueryParams } from "./location";
  *
  * @category location
  */
-export function buildUrlQueryString<T extends AnyQueryParams>(params: T) {
+export let buildUrlQueryString = <T extends AnyQueryParams>(params: T) => {
   let output = "";
 
   if (!params) return output;
@@ -30,6 +30,4 @@ export function buildUrlQueryString<T extends AnyQueryParams>(params: T) {
 
   // removes the last &
   return output ? `?${output.replace(/&+$/, "")}` : "";
-}
-
-export default buildUrlQueryString;
+};

@@ -37,7 +37,7 @@ type RoutesMapRoute = {
   wildcard?: boolean;
 };
 
-export function orderRoutes(routes: Routes, defaultLocale: Locale) {
+function orderRoutes(routes: Routes, defaultLocale: Locale) {
   const { [defaultLocale]: routesForDefaultLocale, ...restRoutes } = routes;
 
   return {
@@ -55,7 +55,7 @@ export function orderRoutes(routes: Routes, defaultLocale: Locale) {
  * - Removing initial and ending slashes
  * - Returns an empty string `"""` if only slashes are given
  */
-export function normaliseUrlPathname(pathname = "") {
+function normaliseUrlPathname(pathname = "") {
   // with return pathname.replace(/\/+\//g, "/").replace(/^\/+(.*?)\/+$/, "$1");
   // we would instead return a single slash if only slashes are given
   return pathname.replace(/\/+\//g, "/").replace(/^\/*(.*?)\/*$/, "$1");
@@ -71,7 +71,7 @@ export function normaliseUrlPathname(pathname = "") {
  *
  * @see {@link normaliseUrlPathname}
  */
-export function toPath(urlOrPathname = "") {
+function toPath(urlOrPathname = "") {
   let pathname = "";
   try {
     const parsed = new URL(urlOrPathname);
@@ -89,7 +89,7 @@ export function toPath(urlOrPathname = "") {
  *
  * @see {@link normaliseUrlPathname}
  */
-export function encodePathname(pathname = "") {
+function encodePathname(pathname = "") {
   const parts = normaliseUrlPathname(pathname).split("/");
 
   return parts
@@ -195,31 +195,6 @@ function getWithoutIndex(template: string) {
   return template.replace(/\/index$/, "");
 }
 
-export function getRoutesOfDefaultLocale(
-  routes: Routes | RoutesByLocale,
-  defaultLocale?: Locale,
-) {
-  const routesByLocale = routes as RoutesByLocale;
-  if (
-    defaultLocale &&
-    routesByLocale[defaultLocale as keyof typeof routesByLocale]
-  ) {
-    return routesByLocale[defaultLocale] as Routes;
-  }
-
-  if (Object.keys(routes).length === 1) {
-    const routesWithOneLocale = routes as Routes;
-    let output: RoutesByLocale = {};
-    for (const onlyLocale in routesWithOneLocale) {
-      output =
-        routesWithOneLocale[onlyLocale as keyof typeof routesWithOneLocale];
-    }
-    return output;
-  }
-
-  return routes as Routes;
-}
-
 export type ConfigI18nOptions = {
   locales: Locale[];
   defaultLocale: Locale;
@@ -246,7 +221,7 @@ type Options = ConfigI18nOptions & {
 /**
  * Get path redirect
  */
-export function getPathRedirect(
+function getPathRedirect(
   arg: Pick<GetRedirectsOptions, "localeParam" | "permanent"> & {
     localeSource?: Locale;
     localeDestination?: Locale;
@@ -288,7 +263,7 @@ type GetRedirectsOptions = Options;
 
 /**
  */
-export async function getRedirects(arg: GetRedirectsOptions) {
+export function getRedirects(arg: GetRedirectsOptions) {
   const {
     routes,
     defaultLocale,
@@ -371,7 +346,7 @@ export async function getRedirects(arg: GetRedirectsOptions) {
 /**
  * Get path rewrite
  */
-export function getPathRewrite(
+function getPathRewrite(
   arg: Pick<GetRewritesOptions, "localeParam"> & {
     localeSource?: Locale;
     localeDestination?: Locale;
@@ -408,7 +383,7 @@ type GetRewritesOptions = Options;
 
 /**
  */
-export async function getRewrites(arg: GetRewritesOptions) {
+export function getRewrites(arg: GetRewritesOptions) {
   const { routes, defaultLocale, hideDefaultLocaleInUrl, localeParam, debug } =
     arg;
   const orderedRoutes = orderRoutes(routes, defaultLocale);
@@ -457,3 +432,28 @@ export async function getRewrites(arg: GetRewritesOptions) {
 
   return cleaned;
 }
+
+// function getRoutesOfDefaultLocale(
+//   routes: Routes | RoutesByLocale,
+//   defaultLocale?: Locale,
+// ) {
+//   const routesByLocale = routes as RoutesByLocale;
+//   if (
+//     defaultLocale &&
+//     routesByLocale[defaultLocale as keyof typeof routesByLocale]
+//   ) {
+//     return routesByLocale[defaultLocale] as Routes;
+//   }
+
+//   if (Object.keys(routes).length === 1) {
+//     const routesWithOneLocale = routes as Routes;
+//     let output: RoutesByLocale = {};
+//     for (const onlyLocale in routesWithOneLocale) {
+//       output =
+//         routesWithOneLocale[onlyLocale as keyof typeof routesWithOneLocale];
+//     }
+//     return output;
+//   }
+
+//   return routes as Routes;
+// }

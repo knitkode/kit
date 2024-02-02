@@ -17,7 +17,7 @@ import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
  * @param selector The selector to run the event on
  * @param callback The function to run when the event fires
  */
-export function listen<
+export let listen = <
   TTypes extends AnyDOMEventType,
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
@@ -28,7 +28,7 @@ export function listen<
   // | `${TTypes},${TTypes},${TTypes},${TTypes},${TTypes}`,
   selector: string,
   callback: EventCallback<TTarget, TTypes>,
-) {
+) => {
   // Make sure there's a selector and callback
   if (!selector || !callback) return;
 
@@ -50,6 +50,4 @@ export function listen<
       callback: callback,
     });
   });
-}
-
-export default listen;
+};

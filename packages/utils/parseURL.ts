@@ -4,7 +4,7 @@
  * @category location
  * @see https://stackoverflow.com/a/21553982/1938970
  */
-export function parseURL(url: string) {
+export let parseURL = (url: string) => {
   const match = url.match(
     /^(https?:)\/\/(([^:/?#]*)(?::([0-9]+))?)([/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/,
   );
@@ -20,6 +20,4 @@ export function parseURL(url: string) {
       hash: match[7],
     }
   );
-}
-
-export default parseURL;
+};

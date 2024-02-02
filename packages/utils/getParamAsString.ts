@@ -1,4 +1,4 @@
-import isArray from "./isArray";
+import { isArray } from "./isArray";
 
 /**
  * Get query parameter as `string` treating the `ParsedUrlQuery` result of
@@ -9,8 +9,5 @@ import isArray from "./isArray";
  *
  * @param raw The _raw_ query parameter
  */
-export function getParamAsString(raw?: string | string[]) {
-  return (isArray(raw) ? raw[0] : raw) || "";
-}
-
-export default getParamAsString;
+export let getParamAsString = (raw?: string | string[]) =>
+  (isArray(raw) ? raw[0] : raw) || "";

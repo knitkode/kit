@@ -4,7 +4,7 @@
  * @category math
  * @see https://stackoverflow.com/a/15762794/1938970
  */
-export function roundTo(num: number, decimals = 2): string {
+export let roundTo = (num: number, decimals = 2): string => {
   if (isFinite(num) && !isNaN(num)) {
     // method 1
     // return Number(num).toFixed(decimals);
@@ -34,6 +34,4 @@ export function roundTo(num: number, decimals = 2): string {
     );
   }
   return "";
-}
-
-export default roundTo;
+};

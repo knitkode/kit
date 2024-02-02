@@ -1,22 +1,22 @@
 import { type CookieAttributesClient, defaultAttributesClient } from "./cookie";
-import isNumber from "./isNumber";
-import isUndefined from "./isUndefined";
+import { isNumber } from "./isNumber";
+import { isUndefined } from "./isUndefined";
 
-function converterWrite(value: string) {
+let converterWrite = (value: string) => {
   return encodeURIComponent(value).replace(
     /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
     decodeURIComponent,
   );
-}
+};
 
 /**
  * @category cookie
  */
-export function setCookie<T extends string = string>(
+export let setCookie = <T extends string = string>(
   name: string,
   value: string | T,
   attributes: CookieAttributesClient = {},
-): string | undefined {
+): string | undefined => {
   // eslint-disable-next-line prefer-const
   let { expires, ...restAttrs } = attributes;
   const cleanedAttrs = {
@@ -69,6 +69,4 @@ export function setCookie<T extends string = string>(
 
   return (document.cookie =
     name + "=" + converterWrite(value) + stringifiedAttributes);
-}
-
-export default setCookie;
+};

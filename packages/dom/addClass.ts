@@ -1,10 +1,10 @@
 /**
  * Add class shortcut
  */
-export function addClass<T extends Element = HTMLElement>(
+export let addClass = <T extends Element = HTMLElement>(
   el?: T,
   className = "",
-) {
+) => {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
       console.warn("[@koine/dom:addClass] unexisting DOM element");
@@ -12,6 +12,4 @@ export function addClass<T extends Element = HTMLElement>(
     }
   }
   if (el) el.classList.add(className);
-}
-
-export default addClass;
+};

@@ -3,7 +3,7 @@
  *
  * @category text
  */
-export const truncate = (
+export let truncate = (
   input: undefined | null | string,
   length: number,
 ): string =>
@@ -12,5 +12,3 @@ export const truncate = (
       ? input.substring(0, length) + "..."
       : input
     : "";
-
-export default truncate;

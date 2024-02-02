@@ -1,12 +1,9 @@
-import getType from "./getType";
+import { getType } from "./getType";
 
 /**
  * Returns whether the payload is a boolean
  *
  * @category is
  */
-export function isBoolean(payload: any): payload is boolean {
-  return getType(payload) === "Boolean";
-}
-
-export default isBoolean;
+export let isBoolean = (payload: any): payload is boolean =>
+  getType(payload) === "Boolean";

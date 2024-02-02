@@ -6,42 +6,26 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run dom:build-esm",
-          "pnpm dev postbuild dom --ext --esm"
-        ],
-        "parallel": false
-      }
-    },
-    "build-esm": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/dom/esm",
-        "tsConfig": "packages/dom/tsconfig.lib.json",
-        "main": "packages/dom/index.ts",
-        "assets": ["packages/dom/*.md", "packages/dom/*.d.ts"]
-      }
-    },
-    "build-cjs": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/dom/cjs",
-        "tsConfig": "packages/dom/tsconfig.lib-cjs.json",
-        "main": "packages/dom/index.ts"
-      }
-    },
-    "build-swc": {
-      "executor": "@nx/js:swc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/dom",
         "tsConfig": "packages/dom/tsconfig.lib.json",
+        "project": "packages/dom/package.json",
         "main": "packages/dom/index.ts",
-        "assets": ["packages/dom/*.md", "packages/dom/*.d.ts"]
+        "assets": [
+          {
+            "input": "packages/dom",
+            "glob": "/*.{md,.d.ts}",
+            "output": "./"
+          }
+        ],
+        "generateExportsField": true,
+        "skipTypeCheck": false,
+        "external": "all",
+        "format": ["cjs", "esm"],
+        "compiler": "swc",
+        "deleteOutputPath": true
       }
     },
     "lint": {

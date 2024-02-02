@@ -5,9 +5,5 @@
  *
  * @category location
  */
-export function getUrlHashPathname(hash = "") {
-  hash = hash || location.hash;
-  return hash.split("?")[0].replace(/^#\//, "");
-}
-
-export default getUrlHashPathname;
+export let getUrlHashPathname = (hash = "") =>
+  (hash || location.hash).split("?")[0].replace(/^#\//, "");

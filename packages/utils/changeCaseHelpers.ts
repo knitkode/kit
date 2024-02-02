@@ -5,20 +5,20 @@
  */
 
 // Regexps involved with splitting words in various case formats.
-const SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;
-const SPLIT_UPPER_UPPER_RE = /(\p{Lu})([\p{Lu}][\p{Ll}])/gu;
+let SPLIT_LOWER_UPPER_RE = /([\p{Ll}\d])(\p{Lu})/gu;
+let SPLIT_UPPER_UPPER_RE = /(\p{Lu})([\p{Lu}][\p{Ll}])/gu;
 
 // Used to iterate over the initial split result and separate numbers.
-const SPLIT_SEPARATE_NUMBER_RE = /(\d)\p{Ll}|(\p{L})\d/u;
+let SPLIT_SEPARATE_NUMBER_RE = /(\d)\p{Ll}|(\p{L})\d/u;
 
 // Regexp involved with stripping non-word characters from the result.
-const DEFAULT_STRIP_REGEXP = /[^\p{L}\d]+/giu;
+let DEFAULT_STRIP_REGEXP = /[^\p{L}\d]+/giu;
 
 // The replacement value for splits.
-const SPLIT_REPLACE_VALUE = "$1\0$2";
+let SPLIT_REPLACE_VALUE = "$1\0$2";
 
 // The default characters to keep after transforming case.
-const DEFAULT_PREFIX_SUFFIX_CHARACTERS = "";
+let DEFAULT_PREFIX_SUFFIX_CHARACTERS = "";
 
 /**
  * Supported locale values. Use `false` to ignore locale.
@@ -49,7 +49,7 @@ export interface Options {
 /**
  * Split any cased input strings into an array of words.
  */
-export function split(value: string) {
+export let split = (value: string) => {
   let result = value.trim();
 
   result = result
@@ -67,12 +67,12 @@ export function split(value: string) {
   while (result.charAt(end - 1) === "\0") end--;
 
   return result.slice(start, end).split(/\0/g);
-}
+};
 
 /**
  * Split the input string into an array of words, separating numbers.
  */
-export function splitSeparateNumbers(value: string) {
+export let splitSeparateNumbers = (value: string) => {
   const words = split(value);
   for (let i = 0; i < words.length; i++) {
     const word = words[i];
@@ -83,58 +83,51 @@ export function splitSeparateNumbers(value: string) {
     }
   }
   return words;
-}
+};
 
 /**
  * @internal
  */
-export function lowerFactory(locale: Locale): (input: string) => string {
-  return locale === false
+export let lowerFactory = (locale: Locale): ((input: string) => string) =>
+  locale === false
     ? (input: string) => input.toLowerCase()
     : (input: string) => input.toLocaleLowerCase(locale);
-}
 
 /**
  * @internal
  */
-export function upperFactory(locale: Locale): (input: string) => string {
-  return locale === false
+export let upperFactory = (locale: Locale): ((input: string) => string) =>
+  locale === false
     ? (input: string) => input.toUpperCase()
     : (input: string) => input.toLocaleUpperCase(locale);
-}
 
 /**
  * @internal
  */
-export function capitalCaseTransformFactory(
-  lower: (input: string) => string,
-  upper: (input: string) => string,
-) {
-  return (word: string) => `${upper(word[0])}${lower(word.slice(1))}`;
-}
+export let capitalCaseTransformFactory =
+  (lower: (input: string) => string, upper: (input: string) => string) =>
+  (word: string) =>
+    `${upper(word[0])}${lower(word.slice(1))}`;
 
 /**
  * @internal
  */
-export function pascalCaseTransformFactory(
-  lower: (input: string) => string,
-  upper: (input: string) => string,
-) {
-  return (word: string, index: number) => {
+export let pascalCaseTransformFactory =
+  (lower: (input: string) => string, upper: (input: string) => string) =>
+  (word: string, index: number) => {
     const char0 = word[0];
     const initial =
       index > 0 && char0 >= "0" && char0 <= "9" ? "_" + char0 : upper(char0);
     return initial + lower(word.slice(1));
   };
-}
 
 /**
  * @internal
  */
-export function splitPrefixSuffix(
+export let splitPrefixSuffix = (
   input: string,
   options: Options = {},
-): [string, string[], string] {
+): [string, string[], string] => {
   const splitFn =
     options.split ?? (options.separateNumbers ? splitSeparateNumbers : split);
   const prefixCharacters =
@@ -162,4 +155,4 @@ export function splitPrefixSuffix(
     splitFn(input.slice(prefixIndex, suffixIndex)),
     input.slice(suffixIndex),
   ];
-}
+};

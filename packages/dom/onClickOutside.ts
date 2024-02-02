@@ -1,10 +1,11 @@
-import { off, on } from "./index";
+import { off } from "./off";
+import { on } from "./on";
 
-export function onClickOutside(
-  element: HTMLElement,
+export let onClickOutside = <T extends HTMLElement>(
+  element: T,
   callback: (event: Event) => any,
   autoUnbind = false,
-) {
+) => {
   const bind = (event: Event) => {
     // if (event.target.closest(element) === null) {
     if (!element.contains(event.target as Element)) {
@@ -20,4 +21,4 @@ export function onClickOutside(
   on(document, "click", bind);
 
   return unbind;
-}
+};

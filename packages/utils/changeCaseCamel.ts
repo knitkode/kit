@@ -14,7 +14,7 @@ import {
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export const changeCaseCamel = (input: string, options?: PascalCaseOptions) => {
+export let changeCaseCamel = (input: string, options?: PascalCaseOptions) => {
   const [prefix, words, suffix] = splitPrefixSuffix(input, options);
   const lower = lowerFactory(options?.locale);
   const upper = upperFactory(options?.locale);
@@ -32,5 +32,3 @@ export const changeCaseCamel = (input: string, options?: PascalCaseOptions) => {
     suffix
   );
 };
-
-export default changeCaseCamel;

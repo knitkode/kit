@@ -2,7 +2,7 @@
  * Get the background color of an element eventually looking recursively into
  * its parents, if nothing is found it returns a `#fff` background
  */
-export function getVisualBackgroundColor(elem?: null | HTMLElement): string {
+export let getVisualBackgroundColor = (elem?: null | HTMLElement): string => {
   if (!elem) return "#fff";
 
   const transparent = "rgba(0, 0, 0, 0)";
@@ -20,6 +20,4 @@ export function getVisualBackgroundColor(elem?: null | HTMLElement): string {
   }
 
   return bg;
-}
-
-export default getVisualBackgroundColor;
+};

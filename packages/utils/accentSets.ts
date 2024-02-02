@@ -14,7 +14,7 @@ export type AccentsSet = [string, string];
  * - https://gist.github.com/eek/9c4887e80b3ede05c0e39fee4dce3747 for usage
  * of [normalize](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/normalize)
  */
-export const accentsSets: AccentsSet[] = [
+export let accentsSets: AccentsSet[] = [
   ["a", "ÀÁÂÃÅÆĀĂĄẠẢẤẦẨẪẬẮẰẲẴẶ"],
   ["ae", "Ä"],
   ["c", "ÇĆĈČ"],
@@ -43,5 +43,3 @@ export const accentsSets: AccentsSet[] = [
   ["y", "ÝŶŸỲỴỶỸ"],
   ["z", "ŹŻŽ"],
 ];
-
-export default accentsSets;

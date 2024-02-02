@@ -69,10 +69,10 @@ type GetCalendarsEventsFromGoogleOptions = {
   calendars: Calendars;
 };
 
-export async function getCalendarsEventsFromGoogle({
+export let getCalendarsEventsFromGoogle = async ({
   calendars,
   ...options
-}: GetCalendarsEventsFromGoogleOptions) {
+}: GetCalendarsEventsFromGoogleOptions) => {
   const allEvents: CalendarEventsMap = {};
 
   await Promise.all(
@@ -87,7 +87,7 @@ export async function getCalendarsEventsFromGoogle({
   );
 
   return allEvents;
-}
+};
 
 type GetCalendarEventsFromGoogleOptions = Omit<
   GetCalendarsEventsFromGoogleOptions,

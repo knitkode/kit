@@ -3,6 +3,4 @@
  *
  * @category format
  */
-export const kbToBytes = (bytes: number) => bytes * 1000;
-
-export default kbToBytes;
+export let kbToBytes = (bytes: number) => bytes * 1000;

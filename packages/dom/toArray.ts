@@ -3,10 +3,6 @@
  *
  * @param nodeList
  */
-export function toArray<T extends Element = HTMLElement>(
+export let toArray = <T extends Element>(
   nodeList: NodeListOf<T> | HTMLFormControlsCollection,
-) {
-  return Array.prototype.slice.call(nodeList) as T[] | HTMLFormElement[];
-}
-
-export default toArray;
+) => Array.prototype.slice.call(nodeList) as T[] | HTMLFormElement[];

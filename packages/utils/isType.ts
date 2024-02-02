@@ -1,4 +1,5 @@
-import getType, { type AnyClass, type AnyFunction } from "./getType";
+import type { AnyClass, AnyFunction } from "./getType";
+import { getType } from "./getType";
 
 /**
  * Does a generic check to check that the given payload is of a given type.
@@ -8,10 +9,10 @@ import getType, { type AnyClass, type AnyFunction } from "./getType";
  * @category is
  * @throws {TypeError} Will throw type error if type is an invalid type
  */
-export function isType<T extends AnyFunction | AnyClass>(
+export let isType = <T extends AnyFunction | AnyClass>(
   payload: any,
   type: T,
-): payload is T {
+): payload is T => {
   if (!(type instanceof Function)) {
     throw new TypeError("Type must be a function");
   }
@@ -24,6 +25,4 @@ export function isType<T extends AnyFunction | AnyClass>(
     getType(payload) === name ||
     Boolean(payload && payload.constructor === type)
   );
-}
-
-export default isType;
+};

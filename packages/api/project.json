@@ -6,43 +6,27 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run api:build-esm",
-          "nx run api:build-cjs",
-          "pnpm dev postbuild api --ext --esm --cjs"
-        ],
-        "parallel": false
-      }
-    },
-    "build-esm": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/api/esm",
-        "tsConfig": "packages/api/tsconfig.lib.json",
-        "main": "packages/api/index.ts",
-        "assets": ["packages/api/*.md", "packages/api/*.d.ts"]
-      }
-    },
-    "build-cjs": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/api/cjs",
-        "tsConfig": "packages/api/tsconfig.lib-cjs.json",
-        "main": "packages/api/index.ts"
-      }
-    },
-    "build-swc": {
-      "executor": "@nx/js:swc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/api",
         "tsConfig": "packages/api/tsconfig.lib.json",
+        "project": "packages/api/package.json",
         "main": "packages/api/index.ts",
-        "assets": ["packages/api/*.md", "packages/api/*.d.ts"]
+        "assets": [
+          {
+            "input": "packages/api",
+            "glob": "/*.{md,.d.ts}",
+            "output": "./"
+          }
+        ],
+        "generateExportsField": true,
+        "skipTypeCheck": false,
+        "external": "all",
+        "format": ["cjs", "esm"],
+        "compiler": "swc",
+        "deleteOutputPath": true,
+        "additionalEntryPoints": ["packages/api/{next,swr}.ts"]
       }
     },
     "lint": {

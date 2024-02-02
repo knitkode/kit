@@ -20,11 +20,11 @@ type HistoryPushState = (typeof window)["history"]["pushState"];
 type HistoryReplaceState = (typeof window)["history"]["replaceState"];
 type HistoryMethod = HistoryPushState | HistoryReplaceState;
 
-function extendHistoryMethod(
+let extendHistoryMethod = (
   fn: HistoryMethod,
   runHandlers: () => void,
   before?: boolean,
-) {
+) => {
   return function interceptor(this: void, ...args: Parameters<HistoryMethod>) {
     if (before) {
       runHandlers();
@@ -35,11 +35,11 @@ function extendHistoryMethod(
     runHandlers();
     return result;
   };
-}
+};
 
 let prevSearch = isBrowser ? location.search : "";
 
-function runHandlers() {
+let runHandlers = () => {
   const newSearch = location.search;
   // console.log(`listenUrlSearch: "${prevSearch}" vs "${newSearch}`);
 
@@ -50,7 +50,7 @@ function runHandlers() {
     }
   }
   prevSearch = newSearch;
-}
+};
 
 /**
  * Here we extend and mutate the native `window.history` object so that multiple
@@ -65,7 +65,7 @@ function runHandlers() {
  *
  * @returns A de-register function to remove the handler
  */
-export function listenUrlSearch(handler: Handler) {
+export let listenUrlSearch = (handler: Handler) => {
   if (!(history as HistoryExtended).__) {
     // replace browser's history global methods
     history.pushState = extendHistoryMethod(history.pushState, runHandlers);
@@ -88,6 +88,4 @@ export function listenUrlSearch(handler: Handler) {
   return () => {
     (history as HistoryExtended).__.h.delete(handler);
   };
-}
-
-export default listenUrlSearch;
+};

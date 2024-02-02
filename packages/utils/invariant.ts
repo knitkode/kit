@@ -15,12 +15,12 @@
  * @param lib The library name to show in the error message prefix. When `lib` is also specified it outputs `[lib:prefix]: the message`, otherwise just `[lib|prefix]: the message`)
  * @param prefix The library name to show in the error message prefix. When `lib` is also specified it outputs `[lib:prefix]: the message`, otherwise just `[lib|prefix]: the message`)
  */
-export function invariant(
+export let invariant = (
   condition: any,
   message?: string | (() => string),
   lib?: string,
   prefix?: string,
-): asserts condition {
+): asserts condition => {
   if (process.env["NODE_ENV"] === "development") {
     if (condition) {
       return;
@@ -38,6 +38,4 @@ export function invariant(
 
     throw new Error(msgPrefix + msgProvided);
   }
-}
-
-export default invariant;
+};

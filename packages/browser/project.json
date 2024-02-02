@@ -6,42 +6,26 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run browser:build-esm",
-          "pnpm dev postbuild browser --ext --esm"
-        ],
-        "parallel": false
-      }
-    },
-    "build-esm": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/browser/esm",
-        "tsConfig": "packages/browser/tsconfig.lib.json",
-        "main": "packages/browser/index.ts",
-        "assets": ["packages/browser/*.md", "packages/browser/*.d.ts"]
-      }
-    },
-    "build-cjs": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/browser/cjs",
-        "tsConfig": "packages/browser/tsconfig.lib-cjs.json",
-        "main": "packages/browser/index.ts"
-      }
-    },
-    "build-swc": {
-      "executor": "@nx/js:swc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/browser",
         "tsConfig": "packages/browser/tsconfig.lib.json",
+        "project": "packages/browser/package.json",
         "main": "packages/browser/index.ts",
-        "assets": ["packages/browser/*.md", "packages/browser/*.d.ts"]
+        "assets": [
+          {
+            "input": "packages/browser",
+            "glob": "/*.{md,.d.ts}",
+            "output": "./"
+          }
+        ],
+        "generateExportsField": true,
+        "skipTypeCheck": false,
+        "external": "all",
+        "format": ["cjs", "esm"],
+        "compiler": "swc",
+        "deleteOutputPath": true
       }
     },
     "lint": {

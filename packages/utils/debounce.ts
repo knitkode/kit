@@ -4,11 +4,11 @@
  * @category function
  * @borrows [davidwalsh/debounce](https://davidwalsh.name/javascript-debounce-function)
  */
-export function debounce<T extends (...args: any[]) => any>(
+export let debounce = <T extends (...args: any[]) => any>(
   fn: T,
   wait?: number,
   immediate?: boolean,
-) {
+) => {
   let timeout: null | number | NodeJS.Timeout;
 
   return function (this: unknown, ...args: Parameters<T>) {
@@ -27,6 +27,4 @@ export function debounce<T extends (...args: any[]) => any>(
 
     if (callNow) fn.apply(context, args);
   };
-}
-
-export default debounce;
+};

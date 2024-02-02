@@ -4,11 +4,8 @@
  *
  * @category array
  */
-export function arrayFilterFalsy<T extends unknown[]>(list?: null | T) {
-  return (list ? list.filter((r) => !!r) : []) as Exclude<
+export let arrayFilterFalsy = <T extends unknown[]>(list?: null | T) =>
+  (list ? list.filter((r) => !!r) : []) as Exclude<
     NonNullable<T>[number],
     undefined | false | 0 | ""
   >[];
-}
-
-export default arrayFilterFalsy;

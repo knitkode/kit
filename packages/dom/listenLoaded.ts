@@ -5,9 +5,6 @@ import { on } from "./on";
  *
  * @see https://mathiasbynens.be/notes/settimeout-onload
  */
-export function listenLoaded(handler: (event: Event) => any) {
-  on(document, "DOMContentLoaded", handler);
+export let listenLoaded = (handler: (event: Event) => any) =>
   // document.addEventListener("DOMContentLoaded", setTimeout(handler, 4));
-}
-
-export default listenLoaded;
+  on(document, "DOMContentLoaded", handler);

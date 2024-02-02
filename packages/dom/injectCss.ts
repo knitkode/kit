@@ -1,19 +1,20 @@
+import { $ } from "./$";
+
 /**
  * Inject css
+ *
+ * @param id The `<style>` HTMLElement's `id`
  */
-export function injectCss(
+export let injectCss = (
   id: string,
   cssString = "",
   root: Document = document,
-) {
-  let styleblock;
-  styleblock = root.getElementById(id);
+) => {
+  let styleblock = $<HTMLStyleElement>("#" + id);
   if (!styleblock) {
     styleblock = root.createElement("style");
     styleblock.id = id;
     root.body.appendChild(styleblock);
   }
   styleblock.innerHTML = cssString;
-}
-
-export default injectCss;
+};

@@ -48,30 +48,14 @@ export const publish = () =>
           const suffixText = chalk.dim(`[${lib.name}]`);
           const spinner = ora({
             suffixText,
-            text: `Remove useless build artifacts`,
-            ...oraOpts,
-          }).start();
-
-          await rm(join(lib.dist, "esm"), { recursive: true, force: true });
-          await rm(join(lib.dist, ".npmignore"), { force: true });
-
-          spinner.succeed();
-        }),
-      );
-
-      await Promise.all(
-        publishableLibs.map(async (lib) => {
-          const suffixText = chalk.dim(`[${lib.name}]`);
-          const spinner = ora({
-            suffixText,
             text: `Update versions in package.json`,
             ...oraOpts,
           }).start();
 
           await editJSONfile(lib.dist, "package.json", (data) => {
-            // FIXME: bug in nx, https://github.com/nrwl/nx/issues/14735, buildableProjectDepsInPackageJsonType is not respected
-            data.peerDependencies = data.dependencies;
-            data.dependencies = {};
+            // // FIXME: bug in nx, https://github.com/nrwl/nx/issues/14735, buildableProjectDepsInPackageJsonType is not respected
+            // data.peerDependencies = data.dependencies;
+            // data.dependencies = {};
 
             // bump version
             data.version = opts.version;
@@ -81,8 +65,8 @@ export const publish = () =>
             data.dependencies = data.dependencies || {};
 
             lib.internalDeps.forEach((depName) => {
-              // FIXME: this is related to the hack we need to do just above https://github.com/nrwl/nx/issues/14735
-              delete data.peerDependencies[depName];
+              // // FIXME: this is related to the hack we need to do just above https://github.com/nrwl/nx/issues/14735
+              // delete data.peerDependencies[depName];
 
               data.dependencies[depName] = opts.version;
             });

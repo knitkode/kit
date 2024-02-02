@@ -1,4 +1,4 @@
-import isString from "./isString";
+import { isString } from "./isString";
 
 /**
  * Transform string in a URL pathname (relative URL)
@@ -9,10 +9,7 @@ import isString from "./isString";
  *
  * @category location
  */
-export function transformToUrlPathname(toPathname?: string) {
-  return isString(toPathname)
+export let transformToUrlPathname = (toPathname?: string) =>
+  isString(toPathname)
     ? `/${encodeURIComponent(toPathname.replace(/\s/g, "-").toLowerCase())}`
     : "";
-}
-
-export default transformToUrlPathname;

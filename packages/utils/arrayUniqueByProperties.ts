@@ -6,7 +6,7 @@
  * @param keys The keys to compare in each array item
  * @returns The filtered array
  */
-export const arrayUniqueByProperties = <T extends any[]>(
+export let arrayUniqueByProperties = <T extends any[]>(
   array: T,
   keys: (keyof T[number])[],
 ) =>
@@ -16,5 +16,3 @@ export const arrayUniqueByProperties = <T extends any[]>(
         keys.every((k) => itemWith[k] === item[k]),
       ) === idx,
   ) as T;
-
-export default arrayUniqueByProperties;

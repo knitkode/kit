@@ -5,12 +5,12 @@
  *
  * @category array
  */
-export function moveSortableArrayItemByKey<T, K extends keyof T>(
+export let moveSortableArrayItemByKey = <T, K extends keyof T>(
   items: T[],
   key: K,
   fromItem: Pick<T, K>,
   toItem: Pick<T, K>,
-) {
+) => {
   const itemsKeys = items.map((item) => item[key]);
   const idxFrom = itemsKeys.indexOf(fromItem[key]);
   const idxTo = itemsKeys.indexOf(toItem[key]);
@@ -18,6 +18,4 @@ export function moveSortableArrayItemByKey<T, K extends keyof T>(
   const [item] = items.splice(idxFrom, 1);
   items.splice(idxTo, 0, item);
   return [...items];
-}
-
-export default moveSortableArrayItemByKey;
+};

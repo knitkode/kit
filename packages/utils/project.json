@@ -6,44 +6,26 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run utils:build-esm",
-          "nx run utils:build-cjs",
-          "pnpm dev postbuild utils --ext --esm --cjs"
-        ],
-        "parallel": false
-      }
-    },
-    "build-esm": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/utils/esm",
-        "tsConfig": "packages/utils/tsconfig.lib.json",
-        "main": "packages/utils/index.ts",
-        "assets": ["packages/utils/*.md", "packages/utils/*.d.ts"]
-      }
-    },
-    "build-cjs": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/utils/cjs",
-        "tsConfig": "packages/utils/tsconfig.lib-cjs.json",
-        "main": "packages/utils/index.ts"
-      }
-    },
-    "build-swc": {
-      "executor": "@nx/js:swc",
+      "executor": "@nx/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/utils",
         "tsConfig": "packages/utils/tsconfig.lib.json",
-        "swcrc": "packages/utils/.swcrc",
+        "project": "packages/utils/package.json",
         "main": "packages/utils/index.ts",
-        "assets": ["packages/utils/*.md", "packages/utils/*.d.ts"]
+        "assets": [
+          {
+            "input": "packages/utils",
+            "glob": "/*.{md,.d.ts}",
+            "output": "./"
+          }
+        ],
+        "generateExportsField": true,
+        "skipTypeCheck": false,
+        "external": "all",
+        "format": ["cjs", "esm"],
+        "compiler": "swc",
+        "deleteOutputPath": true
       }
     },
     "lint": {

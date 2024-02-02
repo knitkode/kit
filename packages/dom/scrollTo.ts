@@ -11,12 +11,12 @@ import { on } from "./on";
  * @param [fallbackTimeout] - this appears to be needed in some hard to reproduce scenario on safari, where the callback seem to be never called
  * @param [behavior="smooth"]
  */
-export function scrollTo(
+export let scrollTo = (
   destination: number,
   callback?: () => void,
   fallbackTimeout?: number,
   behavior?: ScrollBehavior,
-) {
+) => {
   const fixedDestination = destination.toFixed();
   if (callback) {
     let callbackFired = false;
@@ -46,5 +46,4 @@ export function scrollTo(
     top: destination,
     behavior: behavior || "smooth",
   });
-}
-export default scrollTo;
+};

@@ -17,26 +17,26 @@ type RenderFunction = (data: object) => string;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type RenderTemplate = (template: string) => RenderFunction;
 
-const varname = "data";
-const evaluate = /<%([\s\S]+?(\}?)+)%>/g;
-const interpolate = /<%=([\s\S]+?)%>/g;
-const conditional = /<%\?(\?)?\s*([\s\S]*?)\s*%>/g;
-const iterate =
+let varname = "data";
+let evaluate = /<%([\s\S]+?(\}?)+)%>/g;
+let interpolate = /<%=([\s\S]+?)%>/g;
+let conditional = /<%\?(\?)?\s*([\s\S]*?)\s*%>/g;
+let iterate =
   /<%~\s*(?:%>|([\s\S]+?)\s*:\s*([\w$]+)\s*(?::\s*([\w$]+))?\s*%>)/g;
-// const encode = /<%!([\s\S]+?)%>/g;
-const use = /<%#([\s\S]+?)%>/g;
-const useParams =
+// let encode = /<%!([\s\S]+?)%>/g;
+let use = /<%#([\s\S]+?)%>/g;
+let useParams =
   /(^|[^\w$])def(?:\.|\[['"])([\w$.]+)(?:['"]\])?\s*:\s*([\w$.]+|"[^"]+"|'[^']+'|\{[^}]+\})/g;
-const define = /<%##\s*([\w.$]+)\s*(:|=)([\s\S]+?)#%>/g;
-const defineParams = /^\s*([\w$]+):([\s\S]+)/;
+let define = /<%##\s*([\w.$]+)\s*(:|=)([\s\S]+?)#%>/g;
+let defineParams = /^\s*([\w$]+):([\s\S]+)/;
 
-const start = "'+(";
-const end = ")+'";
-// const startencode = "'+encodeHTML(";
+let start = "'+(";
+let end = ")+'";
+// let startencode = "'+encodeHTML(";
 
-const skip = /$^/;
+let skip = /$^/;
 
-const resolveDefs = (block: string | object, def: Definitions): string =>
+let resolveDefs = (block: string | object, def: Definitions): string =>
   (typeof block === "string" ? block : block.toString())
     .replace(
       define || skip,
@@ -67,7 +67,7 @@ const resolveDefs = (block: string | object, def: Definitions): string =>
         useParams,
         (_, s: string, d: string, param: string) => {
           if (def[d] && def[d].arg && param) {
-            const rw = (d + ":" + param).replace(/'|\\/g, "_");
+            let rw = (d + ":" + param).replace(/'|\\/g, "_");
             def.__exp = def.__exp || {};
             def.__exp[rw] = def[d].text.replace(
               new RegExp("(^|[^\\w$])" + def[d].arg + "([^\\w$])", "g"),
@@ -78,11 +78,11 @@ const resolveDefs = (block: string | object, def: Definitions): string =>
           return s;
         },
       );
-      const v = new Function("def", "return " + code)(def) as string;
+      let v = new Function("def", "return " + code)(def) as string;
       return v ? resolveDefs(v, def) : v;
     });
 
-const unescape = (code: string) =>
+let unescape = (code: string) =>
   code.replace(/\\('|\\)/g, "$1").replace(/[\r\t\n]/g, " ");
 
 /**
@@ -122,7 +122,7 @@ const unescape = (code: string) =>
  * @borrows [olado/doT by Laura Doktorova](https://github.com/olado/doT)
  * @see https://olado.github.io/doT/index.html
  */
-export const render = (tmpl: string, def?: Definitions): RenderFunction => {
+export let render = (tmpl: string, def?: Definitions): RenderFunction => {
   let sid = 0;
   let indv;
   let str =
@@ -201,5 +201,3 @@ export const render = (tmpl: string, def?: Definitions): RenderFunction => {
   }
   return () => "";
 };
-
-export default render;

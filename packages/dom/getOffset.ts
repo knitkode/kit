@@ -4,7 +4,7 @@
  * @param elem The HTML node element
  * @return Distance from the top and left in pixels
  */
-export function getOffset(elem: HTMLElement) {
+export let getOffset = <T extends HTMLElement>(elem: T) => {
   let left = 0;
   let top = 0;
 
@@ -15,6 +15,4 @@ export function getOffset(elem: HTMLElement) {
     elem = elem.offsetParent;
   }
   return { top, left };
-}
-
-export default getOffset;
+};

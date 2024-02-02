@@ -1,4 +1,4 @@
-import isBrowser from "./isBrowser";
+import { isBrowser } from "./isBrowser";
 
 /**
  * Get pathname parts
@@ -10,13 +10,8 @@ import isBrowser from "./isBrowser";
  *
  * @category location
  */
-export function getUrlPathnameParts(pathname = "") {
-  pathname = pathname || isBrowser ? location.pathname : "";
-
-  return pathname
+export let getUrlPathnameParts = (pathname = "") =>
+  (pathname || (isBrowser ? location.pathname : ""))
     .replace(/^\//, "")
     .split("/")
-    .filter((part) => part);
-}
-
-export default getUrlPathnameParts;
+    .filter(Boolean);

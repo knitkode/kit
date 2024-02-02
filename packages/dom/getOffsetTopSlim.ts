@@ -7,8 +7,5 @@
  * @param elem The HTML node element
  * @return Distance from the top in pixels
  */
-export function getOffsetTopSlim(elem: HTMLElement) {
-  return elem.getBoundingClientRect().top + window.scrollY;
-}
-
-export default getOffsetTopSlim;
+export let getOffsetTopSlim = <T extends HTMLElement>(elem: T) =>
+  elem.getBoundingClientRect().top + window.scrollY;

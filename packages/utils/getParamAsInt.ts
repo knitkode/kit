@@ -1,4 +1,4 @@
-import getParamAsString from "./getParamAsString";
+import { getParamAsString } from "./getParamAsString";
 
 /**
  * Get query parameter as `int`eger treating the `ParsedUrlQuery` result of
@@ -10,15 +10,13 @@ import getParamAsString from "./getParamAsString";
  * @param raw The _raw_ query parameter
  * @param fallback Fallback number, we return `null` if not provided
  */
-export function getParamAsInt<TFallback extends number | null | undefined>(
+export let getParamAsInt = <TFallback extends number | null | undefined>(
   raw?: string | string[],
   fallback: TFallback = null as TFallback,
-) {
+) => {
   const string = getParamAsString(raw);
   if (string) {
     return parseInt(string, 10);
   }
   return fallback;
-}
-
-export default getParamAsInt;
+};

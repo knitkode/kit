@@ -1,4 +1,3 @@
-// import type { Replace } from "@koine/utils";
 import type { Replace } from "type-fest";
 
 /**

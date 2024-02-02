@@ -1,5 +1,5 @@
-import changeCaseCapital from "./changeCaseCapital";
-import { type Options } from "./changeCaseHelpers";
+import { changeCaseCapital } from "./changeCaseCapital";
+import type { Options } from "./changeCaseHelpers";
 
 /**
  * Convert a string to train case (`Foo-Bar`).
@@ -8,7 +8,5 @@ import { type Options } from "./changeCaseHelpers";
  * @category case
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */
-export const changeCaseTrain = (input: string, options?: Options) =>
+export let changeCaseTrain = (input: string, options?: Options) =>
   changeCaseCapital(input, { delimiter: "-", ...options });
-
-export default changeCaseTrain;

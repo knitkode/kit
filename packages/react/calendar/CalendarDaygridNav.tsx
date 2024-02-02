@@ -1,7 +1,7 @@
 import { format } from "date-fns/format";
 import type { KoineComponent, KoineComponentProps } from "../types";
-import { useDateLocale } from "../useDateLocale";
 import type { CalendarRange, CalendarView } from "./types";
+import { useDateLocale } from "./useDateLocale";
 
 export type KoineCalendarDaygridNavProps = {
   locale: string;
@@ -33,7 +33,7 @@ export type CalendarDaygridNavProps = KoineComponentProps<
   }
 >;
 
-export const KoineCalendarDaygridNav = ({
+export let KoineCalendarDaygridNav = ({
   range,
   view,
   todayInView,

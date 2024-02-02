@@ -5,8 +5,6 @@
  * @resources
  * - https://stackoverflow.com/a/11409944/1938970
  */
-export const capitalize = <T extends string>(string?: null | T) =>
+export let capitalize = <T extends string>(string?: null | T) =>
   ((string || "").charAt(0).toUpperCase() +
     (string || "").slice(1)) as Capitalize<T>;
-
-export default capitalize;

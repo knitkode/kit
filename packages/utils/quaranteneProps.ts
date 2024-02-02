@@ -13,10 +13,13 @@
  * ]);
  * ```
  */
-export function quaranteneProps<
+export let quaranteneProps = <
   TProps extends Record<never, never>,
   TSupectPropsKeys extends QuaranteneProps<TProps>,
->(props: TProps, propsKeysToQuarantene: TSupectPropsKeys) {
+>(
+  props: TProps,
+  propsKeysToQuarantene: TSupectPropsKeys,
+) => {
   // approach 1)
   const healthyProps = {
     _: {},
@@ -35,9 +38,7 @@ export function quaranteneProps<
   }
 
   return healthyProps;
-}
-
-export default quaranteneProps;
+};
 
 // for these types see https://stackoverflow.com/a/65673414/1938970
 // type HomomorphicProps<TProps extends Record<never, never>> = {

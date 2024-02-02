@@ -7,7 +7,7 @@ import { activeEvents } from "./_listen-delegation";
  *
  * @return Active event listeners
  */
-export function getListeners() {
+export let getListeners = () => {
   const obj: typeof activeEvents = {};
   for (const type in activeEvents) {
     // if (activeEvents.hasOwnProperty(type)) {
@@ -15,6 +15,4 @@ export function getListeners() {
     // }
   }
   return obj;
-}
-
-export default getListeners;
+};

@@ -3,8 +3,4 @@
  *
  * @category is
  */
-export function isEmptyString(payload: any): payload is string {
-  return payload === "";
-}
-
-export default isEmptyString;
+export let isEmptyString = (payload: any): payload is string => payload === "";

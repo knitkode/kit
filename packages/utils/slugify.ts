@@ -11,8 +11,8 @@ import { removeAccents } from "./removeAccents";
  *
  * @borrows [mathewbyrne's gist](https://gist.github.com/mathewbyrne/1280286#gistcomment-3498021)
  */
-export function slugify(text: string, separator = "-") {
-  return removeAccents(
+export let slugify = (text: string, separator = "-") =>
+  removeAccents(
     text.toString().toLowerCase().trim(),
     accentsSets.concat([["-", "[·/_,:;']"]]),
   )
@@ -23,6 +23,3 @@ export function slugify(text: string, separator = "-") {
     .replace(/^-+/, "") // trim - from start of text
     .replace(/-+$/, "") // trim - from end of text
     .replace(/-/g, separator);
-}
-
-export default slugify;

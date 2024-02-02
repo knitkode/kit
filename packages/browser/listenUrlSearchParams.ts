@@ -1,11 +1,11 @@
-import listenUrlSearch from "./listenUrlSearch";
+import { listenUrlSearch } from "./listenUrlSearch";
 
 /**
  * @category events
  * @category navigation
  * @category events
  */
-export const listenUrlSearchParams = (
+export let listenUrlSearchParams = (
   paramName: string,
   handler: (paramNewValue: string | null) => void,
 ) =>
@@ -18,5 +18,3 @@ export const listenUrlSearchParams = (
       handler(newValue);
     }
   });
-
-export default listenUrlSearchParams;

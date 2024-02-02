@@ -22,7 +22,7 @@ export type CalendarLegendProps = KoineComponentProps<
   }
 >;
 
-export const KoineCalendarLegend = ({
+export let KoineCalendarLegend = ({
   calendarsMap = {},
   toggleCalendarVisibility,
   LegendItem = "div",

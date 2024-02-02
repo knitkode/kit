@@ -1,5 +1,5 @@
-import { type AnyQueryParams } from "./location";
-import updateUrlQueryParams from "./updateUrlQueryParams";
+import type { AnyQueryParams } from "./location";
+import { updateUrlQueryParams } from "./updateUrlQueryParams";
 
 /**
  * Update link `<a href="">` merging the given new query parameters.
@@ -8,13 +8,11 @@ import updateUrlQueryParams from "./updateUrlQueryParams";
  * @category location
  * @pure
  */
-export function updateLinkParams(
+export let updateLinkParams = (
   $anchor: HTMLAnchorElement,
   newParams: NonNullable<AnyQueryParams>,
-) {
+) => {
   const href = updateUrlQueryParams($anchor.href, newParams);
   $anchor.href = href;
   return href;
-}
-
-export default updateLinkParams;
+};

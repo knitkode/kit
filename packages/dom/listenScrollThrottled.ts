@@ -6,9 +6,7 @@ import { listenScroll } from "./listenScroll";
  *
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */
-export const listenScrollThrottled = (
+export let listenScrollThrottled = (
   el?: Parameters<typeof listenScroll>[1],
   ...args: Parameters<typeof throttle>
 ) => listenScroll(throttle(...args), el);
-
-export default listenScrollThrottled;

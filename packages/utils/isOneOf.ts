@@ -1,4 +1,4 @@
-import { type AnyFunction, type TypeGuard } from "./getType";
+import type { AnyFunction, TypeGuard } from "./getType";
 
 /**
  * @category is
@@ -46,5 +46,3 @@ export function isOneOf(
     (!!d && d(value)) ||
     (!!e && e(value));
 }
-
-export default isOneOf;

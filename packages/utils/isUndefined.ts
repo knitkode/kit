@@ -1,12 +1,9 @@
-import getType from "./getType";
+import { getType } from "./getType";
 
 /**
  * Returns whether the payload is undefined
  *
  * @category is
  */
-export function isUndefined(payload: any): payload is undefined {
-  return getType(payload) === "Undefined";
-}
-
-export default isUndefined;
+export let isUndefined = (payload: any): payload is undefined =>
+  getType(payload) === "Undefined";

@@ -1,4 +1,4 @@
-export { load } from "./load";
-export { ThemeContext, type ThemeContextProps } from "./ThemeContext";
-export { ThemeProvider, type ThemeProviderProps } from "./ThemeProvider";
-export { useTheme, type UseThemeProps } from "./useTheme";
+export { load } from "./utils/load";
+export { ThemeContext, type ThemeContextProps } from "./theme/ThemeContext";
+export { ThemeProvider, type ThemeProviderProps } from "./theme/ThemeProvider";
+export { useTheme, type UseThemeProps } from "./theme/useTheme";

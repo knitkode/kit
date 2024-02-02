@@ -6,9 +6,7 @@ import { listenScroll } from "./listenScroll";
  *
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */
-export const listenScrollDebounced = (
+export let listenScrollDebounced = (
   el?: Parameters<typeof listenScroll>[1],
   ...args: Parameters<typeof debounce>
 ) => listenScroll(debounce(...args), el);
-
-export default listenScrollDebounced;

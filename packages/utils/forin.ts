@@ -4,13 +4,11 @@
  * @category native
  * @category object
  */
-export function forin<T>(
+export let forin = <T>(
   object: T,
   cb: <K extends keyof T>(key: K, value: T[K]) => void,
-) {
+) => {
   for (const key in object) {
     cb(key, object[key]);
   }
-}
-
-export default forin;
+};

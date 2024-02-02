@@ -6,8 +6,6 @@
  * @category object
  * @see https://stackoverflow.com/a/59459000/1938970
  */
-export const getKeys = Object.keys as <T extends object>(
+export let getKeys = Object.keys as <T extends object>(
   obj: T,
 ) => Array<keyof T>;
-
-export default getKeys;

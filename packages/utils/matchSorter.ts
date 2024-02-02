@@ -14,7 +14,8 @@
  * @copyright (c) 2020 Kent C. Dodds
  * @author Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com)
  */
-import removeAccents from "./removeAccents";
+import { isString } from "./isString";
+import { removeAccents } from "./removeAccents";
 
 type KeyAttributes = {
   threshold?: Ranking;
@@ -88,7 +89,7 @@ type Ranking =
   | typeof RANKING_MATCHES
   | typeof RANKING_NO_MATCH;
 
-const defaultBaseSortFn: BaseSorter<unknown> = (a, b) =>
+let defaultBaseSortFn: BaseSorter<unknown> = (a, b) =>
   String(a.rankedValue).localeCompare(String(b.rankedValue));
 
 /**
@@ -98,11 +99,11 @@ const defaultBaseSortFn: BaseSorter<unknown> = (a, b) =>
  * @param {Object} options - Some options to configure the sorter
  * @return {Array} - the new sorted array
  */
-function matchSorter<ItemType = string>(
+let matchSorter = <ItemType = string>(
   items: ReadonlyArray<ItemType>,
   value: string,
   options: MatchSorterOptions<ItemType> = {},
-): Array<ItemType> {
+): Array<ItemType> => {
   const {
     keys,
     threshold = RANKING_MATCHES,
@@ -125,7 +126,7 @@ function matchSorter<ItemType = string>(
     }
     return matches;
   }
-}
+};
 
 /**
  * Gets the highest ranking for value for the given item based on its values for the given keys
@@ -135,12 +136,12 @@ function matchSorter<ItemType = string>(
  * @param {Object} options - options to control the ranking
  * @return {{rank: Number, keyIndex: Number, keyThreshold: Number}} - the highest ranking
  */
-function getHighestRanking<ItemType>(
+let getHighestRanking = <ItemType>(
   item: ItemType,
   keys: ReadonlyArray<KeyOption<ItemType>> | undefined,
   value: string,
   options: MatchSorterOptions<ItemType>,
-): RankingInfo {
+): RankingInfo => {
   if (!keys) {
     // if keys is not specified, then we assume the item given is ready to be matched
     const stringItem = item as unknown as string;
@@ -182,7 +183,7 @@ function getHighestRanking<ItemType>(
       keyThreshold: options.threshold,
     },
   );
-}
+};
 
 /**
  * Gives a rankings score based on how well the two strings match.
@@ -191,11 +192,11 @@ function getHighestRanking<ItemType>(
  * @param {Object} options - options for the match (like keepDiacritics for comparison)
  * @returns {Number} the ranking for how well stringToRank matches testString
  */
-function getMatchRanking<ItemType>(
+let getMatchRanking = <ItemType>(
   testString: string,
   stringToRank: string,
   options: MatchSorterOptions<ItemType>,
-): Ranking {
+): Ranking => {
   testString = prepareValueForComparison(testString, options);
   stringToRank = prepareValueForComparison(stringToRank, options);
 
@@ -246,7 +247,7 @@ function getMatchRanking<ItemType>(
   // will return a number between RANKING_MATCHES and
   // RANKING_MATCHES + 1 depending  on how close of a match it is.
   return getClosenessRanking(testString, stringToRank);
-}
+};
 
 /**
  * Generates an acronym for a string.
@@ -254,7 +255,7 @@ function getMatchRanking<ItemType>(
  * @param {String} string the string for which to produce the acronym
  * @returns {String} the acronym
  */
-function getAcronym(string: string): string {
+let getAcronym = (string: string): string => {
   let acronym = "";
   const wordsInString = string.split(" ");
   wordsInString.forEach((wordInString) => {
@@ -264,7 +265,7 @@ function getAcronym(string: string): string {
     });
   });
   return acronym;
-}
+};
 
 /**
  * Returns a score based on how spread apart the
@@ -276,10 +277,10 @@ function getAcronym(string: string): string {
  * @returns {Number} the number between RANKING_MATCHES and
  * RANKING_MATCHES + 1 for how well stringToRank matches testString
  */
-function getClosenessRanking(
+let getClosenessRanking = (
   testString: string,
   stringToRank: string,
-): Ranking {
+): Ranking => {
   let matchingInOrderCharCount = 0;
   let charNumber = 0;
   function findMatchingCharacter(
@@ -318,7 +319,7 @@ function getClosenessRanking(
 
   const spread = charNumber - firstIndex;
   return getRanking(spread);
-}
+};
 
 /**
  * Sorts items that have a rank, index, and keyIndex
@@ -326,11 +327,11 @@ function getClosenessRanking(
  * @param {Object} b - the second item to sort
  * @return {Number} -1 if a should come first, 1 if b should come first, 0 if equal
  */
-function sortRankedValues<ItemType>(
+let sortRankedValues = <ItemType>(
   a: RankedItem<ItemType>,
   b: RankedItem<ItemType>,
   baseSort: BaseSorter<ItemType>,
-): number {
+): number => {
   const aFirst = -1;
   const bFirst = 1;
   const { rank: aRank, keyIndex: aKeyIndex } = a;
@@ -346,7 +347,7 @@ function sortRankedValues<ItemType>(
   } else {
     return aRank > bRank ? aFirst : bFirst;
   }
-}
+};
 
 /**
  * Prepares value for comparison by stringifying it, removing diacritics (if specified)
@@ -354,10 +355,10 @@ function sortRankedValues<ItemType>(
  * @param {Object} options - {keepDiacritics: whether to remove diacritics}
  * @return {String} the prepared value
  */
-function prepareValueForComparison<ItemType>(
+let prepareValueForComparison = <ItemType>(
   value: string,
   { keepDiacritics }: MatchSorterOptions<ItemType>,
-): string {
+): string => {
   // value might not actually be a string at this point (we don't get to choose)
   // so part of preparing the value for comparison is ensure that it is a string
   value = `${value}`; // toString
@@ -365,7 +366,7 @@ function prepareValueForComparison<ItemType>(
     value = removeAccents(value);
   }
   return value;
-}
+};
 
 /**
  * Gets value for key in item at arbitrarily nested keypath
@@ -373,10 +374,10 @@ function prepareValueForComparison<ItemType>(
  * @param {Object|Function} key - the potentially nested keypath or property callback
  * @return {Array} - an array containing the value(s) at the nested keypath
  */
-function getItemValues<ItemType>(
+let getItemValues = <ItemType>(
   item: ItemType,
   key: KeyOption<ItemType>,
-): Array<string> {
+): Array<string> => {
   if (typeof key === "object") {
     key = key.key as string;
   }
@@ -402,7 +403,7 @@ function getItemValues<ItemType>(
     return value;
   }
   return [String(value)];
-}
+};
 
 /**
  * Given path: "foo.bar.baz"
@@ -411,10 +412,10 @@ function getItemValues<ItemType>(
  * @param path a dot-separated set of keys
  * @param item the item to get the value from
  */
-function getNestedValues<ItemType>(
+let getNestedValues = <ItemType>(
   path: string,
   item: ItemType,
-): Array<string> {
+): Array<string> => {
   const keys = path.split(".");
 
   type ValueA = Array<ItemType | IndexableByString | string>;
@@ -452,7 +453,7 @@ function getNestedValues<ItemType>(
   // Based on our logic it should be an array of strings by now...
   // assuming the user's path terminated in strings
   return values as Array<string>;
-}
+};
 
 /**
  * Gets all the values for the given keys in the given item and returns an array of those values
@@ -460,10 +461,10 @@ function getNestedValues<ItemType>(
  * @param keys - the keys to use to retrieve the values
  * @return objects with {itemValue, attributes}
  */
-function getAllValuesToRank<ItemType>(
+let getAllValuesToRank = <ItemType>(
   item: ItemType,
   keys: ReadonlyArray<KeyOption<ItemType>>,
-) {
+) => {
   const allValues: Array<{ itemValue: string; attributes: KeyAttributes }> = [];
   for (let j = 0, J = keys.length; j < J; j++) {
     const key = keys[j];
@@ -477,7 +478,7 @@ function getAllValuesToRank<ItemType>(
     }
   }
   return allValues;
-}
+};
 
 const defaultKeyAttributes = {
   maxRanking: Infinity as Ranking,
@@ -488,12 +489,8 @@ const defaultKeyAttributes = {
  * @param key - the key from which the attributes will be retrieved
  * @return object containing the key's attributes
  */
-function getKeyAttributes<ItemType>(key: KeyOption<ItemType>): KeyAttributes {
-  if (typeof key === "string") {
-    return defaultKeyAttributes;
-  }
-  return { ...defaultKeyAttributes, ...key };
-}
+let getKeyAttributes = <ItemType>(key: KeyOption<ItemType>): KeyAttributes =>
+  isString(key) ? defaultKeyAttributes : { ...defaultKeyAttributes, ...key };
 
 export { matchSorter, defaultBaseSortFn };
 
@@ -505,5 +502,3 @@ export type {
   RankingInfo,
   ValueGetterKey,
 };
-
-export default matchSorter;

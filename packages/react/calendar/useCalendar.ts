@@ -61,7 +61,7 @@ export type CalendarsUpdateAction =
   | CalendarsUpdateActionEvents
   | CalendarsUpdateActionVisibility;
 
-export function useCalendar({
+export let useCalendar = ({
   locale,
   apiKey,
   calendars,
@@ -71,7 +71,7 @@ export function useCalendar({
   view: initialView = "month",
   timeZone = "",
   onError,
-}: UseCalendarProps) {
+}: UseCalendarProps) => {
   const [view, setView] = useState(initialView);
   const start = initialStart || getStartDate(new Date(), view);
   const end = initialEnd || getEndDate(start, view);
@@ -285,4 +285,4 @@ export function useCalendar({
       toggleCalendarVisibility,
     }),
   };
-}
+};

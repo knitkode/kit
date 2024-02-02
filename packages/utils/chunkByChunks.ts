@@ -3,11 +3,11 @@
  * @see https://stackoverflow.com/a/8189268/1938970
  * @experimental TODO: untested
  */
-export function chunkByChunks<T>(
+export let chunkByChunks = <T>(
   arr: T[],
   nrOfChunks: number,
   balanced?: boolean,
-): T[][] {
+): T[][] => {
   if (nrOfChunks < 2) return [arr];
 
   const len = arr.length;
@@ -36,6 +36,4 @@ export function chunkByChunks<T>(
   }
 
   return output;
-}
-
-export default chunkByChunks;
+};

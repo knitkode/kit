@@ -2,11 +2,11 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
+    "declaration": true,
     "types": ["node"]
   },
   "files": [
     "../browser/typings.d.ts",
-    "../react/typings.d.ts",
     "../i18n/typings.d.ts",
     "typings.d.ts",
     "./12/typings.d.ts"

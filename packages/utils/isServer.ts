@@ -1,10 +1,8 @@
-import isBrowser from "./isBrowser";
+import { isBrowser } from "./isBrowser";
 
 /**
  * @category ssr
  * @category is
  */
-export const isServer = !isBrowser;
-// export const isServer = typeof window === "undefined";
-
-export default isServer;
+export let isServer = !isBrowser;
+// export let isServer = typeof window === "undefined";

@@ -9,30 +9,27 @@ import { subMonths } from "date-fns/subMonths";
 import { subWeeks } from "date-fns/subWeeks";
 import type {
   CalendarEvent,
+  CalendarEventsByTimestamp,
   CalendarEventsMap,
   CalendarView,
   CalendarViewDay,
   CalendarViewWeek,
   CalendarViewWeeks,
 } from "./types";
-import { CalendarEventsByTimestamp } from ".";
 
-export function getEventTimestamp(dateLike: number | Date | string): number {
+export let getEventTimestamp = (dateLike: number | Date | string): number => {
   const date = new Date(dateLike);
   date.setHours(0, 0, 0, 0);
   return date.valueOf() / 1000;
-}
+};
 
-export function getDisplayTime(date: Date): string {
-  return (
-    date.getHours() +
-    ":" +
-    "0".repeat(2 - date.getMinutes().toString().length) +
-    date.getMinutes()
-  );
-}
+export let getDisplayTime = (date: Date): string =>
+  date.getHours() +
+  ":" +
+  "0".repeat(2 - date.getMinutes().toString().length) +
+  date.getMinutes();
 
-export function getStartDate(date: Date, view: CalendarView) {
+export let getStartDate = (date: Date, view: CalendarView) => {
   date.setHours(0, 0, 0);
 
   if (view === "month") {
@@ -41,9 +38,9 @@ export function getStartDate(date: Date, view: CalendarView) {
     date = startOfWeek(date, { weekStartsOn: 1 });
   }
   return date;
-}
+};
 
-export function getEndDate(start: Date, view: CalendarView) {
+export let getEndDate = (start: Date, view: CalendarView) => {
   let end = start;
   if (view === "month") {
     end = endOfMonth(start);
@@ -52,48 +49,39 @@ export function getEndDate(start: Date, view: CalendarView) {
   }
   end.setHours(23, 59, 59);
   return end;
-}
+};
 
-export function getPrevDate(date: Date, view: CalendarView) {
-  if (view === "month") {
-    return subMonths(date, 1);
-  }
-  return subWeeks(date, 1);
-}
+export let getPrevDate = (date: Date, view: CalendarView) =>
+  view === "month" ? subMonths(date, 1) : subWeeks(date, 1);
 
-export function getNextDate(date: Date, view: CalendarView) {
-  if (view === "month") {
-    return addMonths(date, 1);
-  }
-  return addWeeks(date, 1);
-}
+export let getNextDate = (date: Date, view: CalendarView) =>
+  view === "month" ? addMonths(date, 1) : addWeeks(date, 1);
 
-export function isTodayInView(start: Date, end: Date) {
-  return isWithinInterval(new Date(), { start, end });
-}
+export let isTodayInView = (start: Date, end: Date) =>
+  isWithinInterval(new Date(), { start, end });
 
-export function mergeCalendarEvents(
+export let mergeCalendarEvents = (
   first: CalendarEventsMap,
   second: CalendarEventsMap,
-) {
+) => {
   const all: CalendarEventsMap = {};
   addCalendarEvents(first, all);
   addCalendarEvents(second, all);
   return all;
-}
+};
 
-export function addCalendarEvents(
+export let addCalendarEvents = (
   toAdd: CalendarEventsMap,
   toExtend: CalendarEventsMap,
-) {
+) => {
   for (const id in toAdd) {
     const event = toAdd[id];
     toExtend[id] = event;
   }
   return toExtend;
-}
+};
 
-function getEventsByTimestamp(events: CalendarEventsMap) {
+let getEventsByTimestamp = (events: CalendarEventsMap) => {
   const output: CalendarEventsByTimestamp = {};
 
   for (const uid in events) {
@@ -105,9 +93,9 @@ function getEventsByTimestamp(events: CalendarEventsMap) {
   }
 
   return output;
-}
+};
 
-function getSortedEvents(events: CalendarEventsMap) {
+let getSortedEvents = (events: CalendarEventsMap) => {
   const output = [];
 
   for (const uid in events) {
@@ -125,17 +113,17 @@ function getSortedEvents(events: CalendarEventsMap) {
   });
 
   return output;
-}
+};
 
 const FREE_SLOT = 0;
 const BUSY_SLOT = 1;
 
-export function processEventsInView(
+export let processEventsInView = (
   eventsMap: CalendarEventsMap,
   calendarView: CalendarView,
   month: number,
   weeks: Date[],
-) {
+) => {
   const eventsByTimestamp = getEventsByTimestamp(eventsMap);
   const eventsList = getSortedEvents(eventsMap);
   const todayDate = new Date();
@@ -268,4 +256,4 @@ export function processEventsInView(
   }
 
   return viewWeeks;
-}
+};

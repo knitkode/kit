@@ -3,6 +3,4 @@
  *
  * @category native
  */
-export const noop = (): void | undefined => void 0;
-
-export default noop;
+export let noop = (): void | undefined => void 0;

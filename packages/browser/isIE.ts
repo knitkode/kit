@@ -5,7 +5,7 @@ import { isServer } from "@koine/utils";
  * @category is
  * @see https://stackoverflow.com/a/21712356/12285349
  */
-export function isIE(ssrValue = true) {
+export let isIE = (ssrValue = true) => {
   if (isServer) {
     return ssrValue;
   }
@@ -15,6 +15,4 @@ export function isIE(ssrValue = true) {
     return true;
   }
   return false;
-}
-
-export default isIE;
+};

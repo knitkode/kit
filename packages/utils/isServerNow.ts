@@ -1,9 +1,7 @@
-import isUndefined from "./isUndefined";
+import { isUndefined } from "./isUndefined";
 
 /**
  * @category ssr
  * @category is
  */
-export const isServerNow = () => isUndefined(window);
-
-export default isServerNow;
+export let isServerNow = () => isUndefined(window);

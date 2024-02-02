@@ -1,7 +1,7 @@
 /**
  * @category array
  */
-export function findDuplicatedIndexes(arr: any[]) {
+export let findDuplicatedIndexes = (arr: any[]) => {
   const indexes: Record<number, true> = {};
   for (let i = 0; i < arr.length; i++) {
     const idxInArray = arr.indexOf(arr[i]);
@@ -11,6 +11,4 @@ export function findDuplicatedIndexes(arr: any[]) {
   }
 
   return indexes;
-}
-
-export default findDuplicatedIndexes;
+};

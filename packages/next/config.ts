@@ -98,7 +98,7 @@ interface MergedConfig extends KoineNextConfig, Omit<NextConfig, "i18n"> {}
  * @property {boolean} [options.nx=false] Nx monorepo setup
  * @property {boolean} [options.svg=false] Svg to react components
  */
-export function withKoine(
+export let withKoine = (
   {
     nx = true,
     svg = true,
@@ -114,7 +114,7 @@ export function withKoine(
       hideDefaultLocaleInUrl: false,
     },
   },
-) {
+) => {
   const nextConfig: NextConfig = {
     // @see https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
     eslint: {
@@ -125,18 +125,10 @@ export function withKoine(
     },
     poweredByHeader: false,
     modularizeImports: {
-      "@koine/api": { transform: "@koine/api/{{member}}" },
-      "@koine/browser": { transform: "@koine/browser/{{member}}" },
-      "@koine/dom": { transform: "@koine/dom/{{member}}" },
       "@koine/i18n": { transform: "@koine/i18n/{{member}}" },
       "@koine/next/?(((\\w*)?/?)*)": {
         transform: "@koine/next/{{ matches.[1] }}/{{member}}",
       },
-      "@koine/node": { transform: "@koine/node/{{member}}" },
-      "@koine/react/?(((\\w*)?/?)*)": {
-        transform: "@koine/react/{{ matches.[1] }}/{{member}}",
-      },
-      "@koine/utils": { transform: "@koine/utils/{{member}}" },
       ...(custom["modularizeImports"] || {}),
     },
     experimental: {
@@ -213,7 +205,7 @@ export function withKoine(
     return {
       ...nextConfig,
       async redirects() {
-        const defaults = await getRedirects({
+        const defaults = getRedirects({
           routes,
           permanent,
           debug,
@@ -226,7 +218,7 @@ export function withKoine(
         return defaults;
       },
       async rewrites() {
-        const defaults = await getRewrites({
+        const defaults = getRewrites({
           routes,
           debug,
           ...custom.i18n,
@@ -258,6 +250,4 @@ export function withKoine(
   }
 
   return nextConfig;
-}
-
-export default withKoine;
+};

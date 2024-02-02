@@ -7,11 +7,11 @@
  *
  * @category object
  */
-export function objectOmit<T extends object, Keys extends (keyof T)[]>(
+export let objectOmit = <T extends object, Keys extends (keyof T)[]>(
   object: T,
   keys: Keys,
-) {
-  return Object.keys(object).reduce(
+) =>
+  Object.keys(object).reduce(
     (output, key) => {
       if (!keys.includes(key as keyof T)) {
         output[key as keyof Omit<T, Keys[number]>] =
@@ -21,6 +21,3 @@ export function objectOmit<T extends object, Keys extends (keyof T)[]>(
     },
     {} as Omit<T, Keys[number]>,
   );
-}
-
-export default objectOmit;

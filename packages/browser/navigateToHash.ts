@@ -1,4 +1,4 @@
-import navigateToUrl from "./navigateToUrl";
+import { navigateToUrl } from "./navigateToUrl";
 
 /**
  * It updates the browser's location hash by replacing the history state.
@@ -6,13 +6,11 @@ import navigateToUrl from "./navigateToUrl";
  *
  * @category location
  */
-export function navigateToHash(hash = "") {
+export let navigateToHash = (hash = "") => {
   const { pathname, search } = location;
 
   navigateToUrl(
     pathname + (search ? "?" + search : "") + (hash ? "#" + hash : ""),
     true,
   );
-}
-
-export default navigateToHash;
+};

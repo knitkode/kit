@@ -3,7 +3,7 @@
  *
  * @param nodes The object to check
  */
-export function isNodeList(nodes: any): nodes is NodeList {
+export let isNodeList = (nodes: any): nodes is NodeList => {
   const stringRepr = Object.prototype.toString.call(nodes);
 
   return (
@@ -13,6 +13,4 @@ export function isNodeList(nodes: any): nodes is NodeList {
     (nodes.length === 0 ||
       (typeof nodes[0] === "object" && nodes[0].nodeType > 0))
   );
-}
-
-export default isNodeList;
+};

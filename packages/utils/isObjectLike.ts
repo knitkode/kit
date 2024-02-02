@@ -1,5 +1,5 @@
-import { type PlainObject } from "./getType";
-import isAnyObject from "./isAnyObject";
+import type { PlainObject } from "./getType";
+import { isAnyObject } from "./isAnyObject";
 
 /**
  * Returns whether the payload is an object like a type passed in < >
@@ -8,10 +8,5 @@ import isAnyObject from "./isAnyObject";
  *
  * @category is
  */
-export function isObjectLike<T extends PlainObject>(
-  payload: any,
-): payload is T {
-  return isAnyObject(payload);
-}
-
-export default isObjectLike;
+export let isObjectLike = <T extends PlainObject>(payload: any): payload is T =>
+  isAnyObject(payload);
