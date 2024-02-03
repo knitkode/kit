@@ -16,7 +16,7 @@
         "assets": [
           {
             "input": "packages/dom",
-            "glob": "/*.{md,.d.ts}",
+            "glob": "/*.{md,d.ts}",
             "output": "./"
           }
         ],

@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    // nx:
     "rootDir": ".",
     "sourceMap": false,
     "declaration": false,
@@ -14,7 +13,6 @@
     "lib": ["es2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    // custom:
     "allowJs": false,
     "downlevelIteration": true,
     "removeComments": true,
