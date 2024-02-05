@@ -393,7 +393,7 @@ namespace Koine.Api {
    * standalone hooks, see SWR ones to start with.
    */
   type HooksMaps = {
-    [TMethod in RequestMethod]: `use${Capitalize<TMethod>}`;
+    [TMethod in RequestMethod]: `use${TMethod extends "get" ? "" : Capitalize<TMethod>}`;
   };
 
   type HooksMapsByName = { [K in keyof HooksMaps as HooksMaps[K]]: K };

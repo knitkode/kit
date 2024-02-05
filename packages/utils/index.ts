@@ -128,6 +128,7 @@ export { objectFlat } from "./objectFlat";
 export { objectFlip } from "./objectFlip";
 export { objectPick } from "./objectPick";
 export { objectOmit } from "./objectOmit";
+export { objectSortByKeysMatching } from "./objectSortByKeysMatching";
 export { objectToArray } from "./objectToArray";
 export { parseCookie } from "./parseCookie";
 export { parseURL } from "./parseURL";

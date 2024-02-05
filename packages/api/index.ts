@@ -44,7 +44,7 @@ export let createApiResultFail = <T>(
   status: status || 404,
 });
 
-export let apiMethods = [
+let apiMethods = [
   "get",
   "post",
   "put",
