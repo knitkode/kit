@@ -16,6 +16,8 @@ npm i @koine/api
 npm i @koine/browser
 # or
 npm i @koine/dom
+# or
+npm i @koine/i18n
 ```
 
 ## Dev notes
