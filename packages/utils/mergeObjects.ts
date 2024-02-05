@@ -30,7 +30,7 @@ export let mergeObjects = <T extends object = object>(
       } else {
         if (!isUndefined(source[key])) {
           // FIXME: assertion here should not be needed but isUndefined does not
-          // seem to narrow the type correctly for some reason
+          // narrow the type here
           target[key] = source[key] as T[keyof T];
         }
       }

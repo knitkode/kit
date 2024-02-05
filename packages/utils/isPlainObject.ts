@@ -6,7 +6,9 @@ import { getType } from "./getType";
  *
  * @category is
  */
-export let isPlainObject = (payload: any): payload is PlainObject =>
+export let isPlainObject = <TReturn = PlainObject>(
+  payload: any,
+): payload is TReturn =>
   getType(payload) !== "Object"
     ? false
     : payload.constructor === Object &&

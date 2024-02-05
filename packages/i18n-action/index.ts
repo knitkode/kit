@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import { writeSummary } from "@koine/i18n/generate/writeSummary";
+import { writeSummary } from "@koine/i18n/codegen/writeSummary";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
@@ -20,7 +20,7 @@ const main = async () => {
   //   ...i18nConfig,
   //   source: {
   //     output: core.getInput("output_source") || ".github/.source",
-  //     adapter: (core.getInput("adapater") || "next-translate") as I18nGenerate.BuiltinAdapters,
+  //     adapter: (core.getInput("adapater") || "next-translate") as I18nCodegen.BuiltinAdapters,
   //   },
   //   summary: {
   //     sourceUrl,

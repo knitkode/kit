@@ -12,6 +12,10 @@ export type AnyFunction = (...args: any[]) => any;
 export type AnyAsyncFunction = (...args: any[]) => Promise<any>;
 export type AnyClass = new (...args: any[]) => any;
 export type PlainObject = Record<string | number | symbol, any>;
+/**
+ * @deprecated Probably useless type
+ */
+export type PlainObjectStringKeyed = { [key: string]: any };
 
 export type TypeGuard<A, B extends A> = (payload: A) => payload is B;
 
