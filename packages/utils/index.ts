@@ -152,6 +152,7 @@ export { setCookie } from "./setCookie";
 export { shuffle } from "./shuffle";
 export { slugify } from "./slugify";
 export { split } from "./split";
+export { splitReverse } from "./splitReverse";
 export { swapMap } from "./swapMap";
 export { throttle } from "./throttle";
 export { titleCase } from "./titleCase";

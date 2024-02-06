@@ -37,3 +37,10 @@ export type KeysTailsStartsWith<
   T extends object,
   S extends string,
 > = keyof PickStartsWithTails<T, S>;
+
+/**
+ * @borrows [SO's answer by 钵钵鸡实力代购](https://stackoverflow.com/a/64994122/1938970)
+ */
+export type Reverse<Tuple> = Tuple extends [infer Head, ...infer Rest]
+  ? [...Reverse<Rest>, Head]
+  : [];

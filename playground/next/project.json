@@ -1,0 +1,50 @@
+{
+  "name": "playground-next",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "playground/next",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/playground/next"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "playground/next"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "playground-next:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "playground-next:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "playground-next:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "playground-next:build:production"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    }
+  },
+  "tags": []
+}

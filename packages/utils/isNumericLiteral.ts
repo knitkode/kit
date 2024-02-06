@@ -4,6 +4,7 @@
  * This will return `false` for `NaN`!!
  *
  * @category is
+ * @borrows [SO's answer by Paul](https://stackoverflow.com/a/10256077/1938970)
  */
 export let isNumericLiteral = (payload: string): payload is `${number}` =>
-  /^[0-9]+.{0,1}[0-9]+|[0-9]$/.test(payload);
+  /^[+-]?\d+(\.\d+)?$/.test(payload);

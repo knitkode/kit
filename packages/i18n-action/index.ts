@@ -1,5 +1,5 @@
 import * as core from "@actions/core";
-import { writeSummary } from "@koine/i18n/codegen/writeSummary";
+import { getData, writeSummary } from "@koine/i18n/codegen";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
@@ -15,24 +15,11 @@ const main = async () => {
     core.getInput("hide_default_locale_in_url") === "false" || true;
   const i18nConfig = { defaultLocale, hideDefaultLocaleInUrl };
 
-  // const data = await write({
-  //   cwd,
-  //   ...i18nConfig,
-  //   source: {
-  //     output: core.getInput("output_source") || ".github/.source",
-  //     adapter: (core.getInput("adapater") || "next-translate") as I18nCodegen.BuiltinAdapters,
-  //   },
-  //   summary: {
-  //     sourceUrl,
-  //     outputJson:
-  //       core.getInput("output_summary_json") || ".github/summary.json",
-  //     outputMarkdown:
-  //       core.getInput("output_summary_md") || ".github/summary.md",
-  //   }
-  // });
-  const data = await writeSummary({
+  const data = await getData({ cwd, ...i18nConfig });
+
+  await writeSummary({
     cwd,
-    ...i18nConfig,
+    data,
     sourceUrl,
     outputJson: core.getInput("output_summary_json") || ".github/summary.json",
     outputMarkdown: core.getInput("output_summary_md") || ".github/summary.md",
