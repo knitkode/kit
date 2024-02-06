@@ -4,28 +4,24 @@ branding:
   icon: align-justify
   color: black
 inputs:
-  default_locale:
+  defaultLocale:
     description: "default locale"
     required: false
     default: "en"
-  hide_default_locale_in_url:
+  hideDefaultLocaleInUrl:
     description: "hide default locale in url"
     required: false
     default: true
-  adapter:
-    description: "the i18n generate compiler adapter"
+  output_fs:
+    description: "relative path for the .json filesystem extracted data generated file."
     required: false
-    default: "next-translate"
-  output_source:
-    description: "name and location for the folder containing source generated file."
-    required: false
-    default: ".github/.source"
+    default: ".github/fs.json"
   output_summary_json:
-    description: "name and location for the .json summary generated file."
+    description: "relative path for the .json summary generated file."
     required: false
     default: ".github/summary.json"
   output_summary_md:
-    description: "name and location for the .md summary generated file."
+    description: "relative path for the .md summary generated file."
     required: false
     default: ".github/README.md"
 # outputs:

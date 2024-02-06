@@ -7,8 +7,8 @@ export default async function Index() {
   return (
     <div>
       <h1>Playground next</h1>
-      <p>testVar: {testVar}</p>
-      <p>testFn: {testFn("mate")}</p>
+      {/* <p>testVar: {testVar}</p> */}
+      {/* <p>testFn: {testFn("mate")}</p> */}
     </div>
   );
 }
