@@ -1,0 +1,43 @@
+{
+  "home": "/",
+  "about": "/about",
+  "account": {
+    "user": {
+      "profile": "/account/user",
+      "[id]": "/account/user/{{ id }}",
+      "settings": {
+        "index": "/account/user/settings",
+        "personal": "/account/user/settings/personal"
+      }
+    }
+  },
+  "products": {
+    "index": "/products",
+    "[id]": {
+      "index": "^/{{ id }}",
+      "edit": {
+        "index": "^/edit",
+        "details": "^/details"
+      }
+    }
+  },
+  "apps": {
+    "tool": {
+      "index": "/apps/tool/*",
+      "things": {
+        "index": "/things",
+        "[id]": {
+          "index": "/things/{{ id }}",
+          "detail": {
+            "index": "/things/{{ id }}/detail",
+            "new": "/things/{{ id }}/detail/new",
+            "[detailId]": {
+              "index": "/things/{{ id }}/detail/{{ detailId }}",
+              "edit": "/things/{{ id }}/detail/{{ detailId }}/edit"
+            }
+          }
+        }
+      }
+    }
+  }
+}

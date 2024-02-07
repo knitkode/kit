@@ -8,6 +8,8 @@
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     // for @vercel/ncc:
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": false,
     "rootDir": "../../",
     "baseUrl": "../../",
   },

@@ -1,12 +1,12 @@
 import type { NextConfig } from "next";
-import { type WithI18nNextConfig, withI18nNext } from "@koine/i18n/next-config";
+import { type WithI18nLegacy, withI18nLegacy } from "@koine/i18n/next";
 
 type WithKoineConfig = {
   /** @default true Nx monorepo setup */
   nx?: boolean;
   /** @default true  Svg to react components */
   svg?: boolean;
-} & Partial<WithI18nNextConfig>;
+} & Partial<WithI18nLegacy>;
 
 /**
  * Get Next.js config with some basic opinionated defaults
@@ -83,7 +83,7 @@ export let withKoine =
     }
 
     if (i18n) {
-      return withI18nNext({ ...config, i18n })(nextConfig);
+      return withI18nLegacy({ ...config, i18n })(nextConfig);
     }
 
     return nextConfig;

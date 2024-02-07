@@ -1,5 +1,5 @@
 import {
-  PascalCaseOptions,
+  type PascalCaseOptions,
   capitalCaseTransformFactory,
   lowerFactory,
   pascalCaseTransformFactory,

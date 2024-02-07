@@ -3,13 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "_lint": "eslint .",
-    "_format": "prettier src/**/*.ts --write",
-    "_build": "ncc build src/index.ts -o dist --license licenses.txt --minify",
-    "_test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "dummy": "echo ok",
     "build-ncc": "ncc build ./index.ts -o ../../actions/i18n --minify --no-cache --no-source-map-register --license licenses.txt",
-    "_build-clean": "find ../../actions/i18n -name '*.index.js' -delete",
     "build": "pnpm build-ncc"
   },
   "dependencies": {

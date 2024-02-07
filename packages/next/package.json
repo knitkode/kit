@@ -4,7 +4,8 @@
   "dependencies": {
     "@koine/browser": "*",
     "@koine/react": "*",
-    "@koine/utils": "*"
+    "@koine/utils": "*",
+    "@koine/i18n": "*"
   },
   "peerDependencies": {
     "next": "^14.0.4",

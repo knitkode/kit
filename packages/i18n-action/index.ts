@@ -1,4 +1,4 @@
-import * as core from "@actions/core";
+import { getInput, info } from "@actions/core";
 import { getData, writeFs, writeSummary } from "@koine/i18n/codegen";
 import { Git } from "./git.js";
 
@@ -10,28 +10,30 @@ const main = async () => {
   const branch = ref.replace("refs/heads/", "");
   const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
 
-  const defaultLocale = core.getInput("defaultLocale");
+  const defaultLocale = getInput("defaultLocale");
   const hideDefaultLocaleInUrl =
-    core.getInput("hideDefaultLocaleInUrl") === "false" || true;
+    getInput("hideDefaultLocaleInUrl") === "false" || true;
   const config = { defaultLocale, hideDefaultLocaleInUrl };
 
   const data = await getData({ fs: { cwd }, ...config });
 
   await Promise.all([
-    writeFs(data, {
-      output: core.getInput("output_fs") || ".github/fs.json",
+    writeFs({
+      cwd,
+      output: getInput("output_fs") || ".github/fs.json",
+      data: data.fs,
     }),
-    writeSummary(data, {
-      outputJson:
-        core.getInput("output_summary_json") || ".github/summary.json",
-      outputMarkdown:
-        core.getInput("output_summary_md") || ".github/summary.md",
+    writeSummary({
+      cwd,
+      outputJson: getInput("output_summary_json") || ".github/summary.json",
+      outputMarkdown: getInput("output_summary_md") || ".github/summary.md",
       sourceUrl,
+      data: data.summary,
     }),
   ]);
 
-  core.info(`Found locales: ${data.config.locales.join(", ")}`);
-  core.info(`Found ${data.fs.translationFiles.length} JSON files`);
+  info(`Found locales: ${data.config.locales.join(", ")}`);
+  info(`Found ${data.fs.translationFiles.length} JSON files`);
 };
 
 const git = new Git(cwd, main);

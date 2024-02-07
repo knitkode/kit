@@ -4,8 +4,8 @@ import { useSwipeable } from "react-swipeable";
 import type { KoineComponent, KoineComponentProps } from "../types";
 import {
   CalendarDaygridCell,
-  CalendarDaygridCellComponents,
-  CalendarDaygridCellProps,
+  type CalendarDaygridCellComponents,
+  type CalendarDaygridCellProps,
 } from "./CalendarDaygridCell";
 import type {
   CalendarEventsMap,

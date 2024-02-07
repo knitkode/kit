@@ -4,7 +4,7 @@
   "sourceRoot": "playground/next",
   "projectType": "application",
   "targets": {
-    "build": {
+    "build-app": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
@@ -22,16 +22,16 @@
       "executor": "@nx/next:server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "playground-next:build",
+        "buildTarget": "playground-next:build-app",
         "dev": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "playground-next:build:development",
+          "buildTarget": "playground-next:build-app:development",
           "dev": true
         },
         "production": {
-          "buildTarget": "playground-next:build:production",
+          "buildTarget": "playground-next:build-app:production",
           "dev": false
         }
       }
@@ -39,7 +39,7 @@
     "export": {
       "executor": "@nx/next:export",
       "options": {
-        "buildTarget": "playground-next:build:production"
+        "buildTarget": "playground-next:build-app:production"
       }
     },
     "lint": {

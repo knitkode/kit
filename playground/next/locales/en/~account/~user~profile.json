@@ -1,0 +1,51 @@
+{
+  "boolShouldntBeHereBut": true,
+  "title": "Title {{ varName }}",
+  "plural": "Plural",
+  "plural_one": "One",
+  "plural_other": "Some",
+  "plural_zero": "Zero",
+  "pluralNoDefault_one": "One",
+  "pluralNoDefault_other": "Some",
+  "pluralAsObject": {
+    "one": "One",
+    "other": "Others"
+  },
+  "pluralAsObjectWithExtraKeys": {
+    "one": "One",
+    "other": "Others",
+    "noPluralRelated": "Yes"
+  },
+  "listFlat": ["v1", "v2"],
+  "listComplex": [
+    {
+      "k1": "v1",
+      "k2": "v2"
+    }
+  ],
+  "obj": {
+    "objNested": {
+      "str": "v",
+      "listFlatNested": ["v1", "v2"],
+      "listComplexNested": [
+        {
+          "k1": "v1 {{ nestedVarName1 }}",
+          "k2": "v2 {{ nestedVarName2 }}"
+        }
+      ],
+      "objNested2": {
+        "objNested21": {
+          "k": "v"
+        },
+        "listFlatNested22": ["v1", "v2"],
+        "str3": "v"
+      },
+      "objNested2b": {
+        "str2b1": "v",
+        "str2b2": "v",
+        "listFlatNested2b3": ["v1", "v2"],
+        "str2b4": "v"
+      }
+    }
+  }
+}

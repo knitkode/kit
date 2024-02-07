@@ -24,6 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "noEmitHelpers": true,
     "preserveSymlinks": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
     "baseUrl": ".",
     "paths": {
       "@koine/api": ["packages/api/src/index.ts"],
@@ -33,8 +35,8 @@
       "@koine/browser": ["packages/browser/index.ts"],
       "@koine/dom": ["packages/dom/index.ts"],
       "@koine/i18n": ["packages/i18n/index.ts"],
-      "@koine/i18n/*": ["packages/i18n/*"],
       "@koine/i18n/codegen": ["packages/i18n/codegen.ts"],
+      "@koine/i18n/next": ["packages/i18n/next.ts"],
       "@koine/next": ["packages/next/index.ts"],
       "@koine/next/12": ["packages/next/12.ts"],
       "@koine/next/config": ["packages/next/config.ts"],
