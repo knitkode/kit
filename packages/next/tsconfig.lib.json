@@ -4,12 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "types": ["node"]
   },
-  "files": [
-    "../browser/typings.d.ts",
-    "../i18n/typings.d.ts",
-    "typings.d.ts",
-    "./12/typings.d.ts"
-  ],
+  "files": ["../browser/typings.d.ts", "typings.d.ts", "./12/typings.d.ts"],
   "exclude": ["**/*.spec.ts", "**/*.spec.tsx"],
   "include": ["**/*.ts", "**/*.tsx"]
 }

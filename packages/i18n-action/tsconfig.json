@@ -13,7 +13,7 @@
     "rootDir": "../../",
     "baseUrl": "../../",
   },
-  "files": ["../i18n/typings.d.ts"],
+  "files": [],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"],
 }
