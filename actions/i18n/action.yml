@@ -1,5 +1,5 @@
 name: "Koine i18n"
-description: "Create i18n metadata and types"
+description: "Create i18n metadata"
 branding:
   icon: align-justify
   color: black
@@ -12,10 +12,10 @@ inputs:
     description: "hide default locale in url"
     required: false
     default: true
-  output_fs:
+  output_input:
     description: "relative path for the .json filesystem extracted data generated file."
     required: false
-    default: ".github/fs.json"
+    default: ".github/input.json"
   output_summary_json:
     description: "relative path for the .json summary generated file."
     required: false
