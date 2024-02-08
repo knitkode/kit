@@ -128,6 +128,7 @@ export { normaliseUrl } from "./normaliseUrl";
 export { objectFlat } from "./objectFlat";
 export { objectFlip } from "./objectFlip";
 export { objectPick } from "./objectPick";
+export { objectMergeWithDefaults } from "./objectMergeWithDefaults";
 export { objectOmit } from "./objectOmit";
 export { objectSortByKeysMatching } from "./objectSortByKeysMatching";
 export { objectToArray } from "./objectToArray";
@@ -241,6 +242,7 @@ export type {
   Simplify,
   Jsonify,
   Jsonifiable,
+  JsonObject,
   Schema,
   LiteralToPrimitive,
   LiteralToPrimitiveDeep,
