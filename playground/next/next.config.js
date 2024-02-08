@@ -37,16 +37,16 @@ const nextConfig = {
   },
 };
 
-const { i18nCodegen } = require("../../dist/packages/i18n/codegen.cjs");
+const { i18nCompiler } = require("../../dist/packages/i18n/compiler.cjs");
 
-const codegen = i18nCodegen({
+const compiler = i18nCompiler({
   defaultLocale: "en",
   fs: {
     cwd: join(__dirname, "locales"),
   },
 });
 
-codegen.write.source({
+compiler.write.code({
   adapter: "next",
   output: "i18n",
   skipTsCompile: true,
