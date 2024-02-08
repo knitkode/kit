@@ -35,6 +35,7 @@
       "@koine/browser": ["packages/browser/index.ts"],
       "@koine/dom": ["packages/dom/index.ts"],
       "@koine/i18n": ["packages/i18n/index.ts"],
+      "@koine/i18n/action": ["packages/i18n/action.ts"],
       "@koine/i18n/compiler": ["packages/i18n/compiler.ts"],
       "@koine/i18n/next": ["packages/i18n/next.ts"],
       "@koine/next": ["packages/next/index.ts"],

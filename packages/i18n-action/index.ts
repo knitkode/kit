@@ -1,5 +1,11 @@
 import { getInput, info } from "@actions/core";
-import { i18nCompiler } from "@koine/i18n/compiler";
+import {
+  getConfig,
+  getInputData,
+  getSummaryData,
+  writeInput,
+  writeSummary,
+} from "@koine/i18n/action";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
@@ -10,22 +16,21 @@ const main = async () => {
   const branch = ref.replace("refs/heads/", "");
   const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
 
-  const defaultLocale = getInput("defaultLocale");
-  const hideDefaultLocaleInUrl =
-    getInput("hideDefaultLocaleInUrl") === "false" || true;
-  const config = { defaultLocale, hideDefaultLocaleInUrl };
+  const input = await getInputData({ cwd });
+  const summary = await getSummaryData(getConfig(input), { sourceUrl }, input);
 
-  const i18n = i18nCompiler({ input: { cwd }, ...config });
-  const [input] = await Promise.all([
-    i18n.writeInput({
+  await Promise.all([
+    writeInput({
       cwd,
       output: getInput("output_input") || ".github/input.json",
+      data: input,
     }),
-    i18n.writeSummary({
+    writeSummary({
       cwd,
       outputJson: getInput("output_summary_json") || ".github/summary.json",
       outputMarkdown: getInput("output_summary_md") || ".github/summary.md",
       sourceUrl,
+      data: summary,
     }),
   ]);
 

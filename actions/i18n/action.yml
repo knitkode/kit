@@ -4,14 +4,6 @@ branding:
   icon: align-justify
   color: black
 inputs:
-  defaultLocale:
-    description: "default locale"
-    required: false
-    default: "en"
-  hideDefaultLocaleInUrl:
-    description: "hide default locale in url"
-    required: false
-    default: true
   output_input:
     description: "relative path for the .json filesystem extracted data generated file."
     required: false
