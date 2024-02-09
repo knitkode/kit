@@ -38,5 +38,6 @@
     "classed\\([\\s\\S]*?'([^']*)'\\s?\\)",
     "twix\\([\\s\\S]*?\"([^\"]*)\"\\s?\\)",
     "twix\\([\\s\\S]*?`([^`]*)`\\s?\\)"
-  ]
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

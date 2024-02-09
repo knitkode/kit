@@ -1,11 +1,5 @@
 import { getInput, info } from "@actions/core";
-import {
-  getConfig,
-  getInputData,
-  getSummaryData,
-  writeInput,
-  writeSummary,
-} from "@koine/i18n/action";
+import { i18nAction } from "@koine/i18n/action";
 import { Git } from "./git.js";
 
 const cwd = process.cwd();
@@ -14,25 +8,17 @@ const main = async () => {
   const repo = process.env["GITHUB_REPOSITORY"] as `${string}/${string}`;
   const ref = process.env["GITHUB_REF"] as `refs/heads/${string}`;
   const branch = ref.replace("refs/heads/", "");
-  const sourceUrl = `https://github.com/${repo}/blob/${branch}`;
+  const url = `https://github.com/${repo}/blob/${branch}`;
 
-  const input = await getInputData({ cwd });
-  const summary = await getSummaryData(getConfig(input), { sourceUrl }, input);
-
-  await Promise.all([
-    writeInput({
-      cwd,
-      output: getInput("output_input") || ".github/input.json",
-      data: input,
-    }),
-    writeSummary({
-      cwd,
-      outputJson: getInput("output_summary_json") || ".github/summary.json",
-      outputMarkdown: getInput("output_summary_md") || ".github/summary.md",
-      sourceUrl,
-      data: summary,
-    }),
-  ]);
+  const input = await i18nAction({
+    cwd,
+    url,
+    output: {
+      input: getInput("output_input") || ".github/input.json",
+      summaryJson: getInput("output_summary_json") || ".github/summary.json",
+      summaryMarkdown: getInput("output_summary_md") || ".github/summary.md",
+    },
+  });
 
   info(`Found locales: ${input.localesFolders.join(", ")}`);
   info(`Found ${input.translationFiles.length} JSON files`);

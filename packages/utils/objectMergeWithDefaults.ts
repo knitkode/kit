@@ -1,20 +1,26 @@
+import type { Simplify } from "type-fest";
+import type { PlainObject } from "./getType";
 import { isObject } from "./isObject";
 
-type MergeWithDefaults<Defaults, Overrides> = Defaults extends object
-  ? Overrides extends object
-    ? Defaults & {
-        [K in keyof Overrides]: Overrides[K] extends undefined
-          ? never
-          : K extends keyof Defaults
-            ? MergeWithDefaults<Defaults[K], Required<Overrides[K]>>
-            : Overrides[K];
-      }
-    : Overrides extends undefined
-      ? Defaults
-      : Overrides
-  : Overrides extends undefined
+export type ObjectMergeWithDefaults<Defaults, Overrides> = Simplify<
+  Overrides extends undefined
     ? Defaults
-    : Overrides;
+    : Overrides extends PlainObject
+      ? {
+          [K in keyof Overrides]-?: Overrides[K] extends undefined
+            ? K extends keyof Defaults
+              ? Defaults[K]
+              : never
+            : K extends keyof Defaults
+              ? ObjectMergeWithDefaults<Defaults[K], Overrides[K]>
+              : Overrides[K];
+        } /*  & (Defaults extends PlainObject
+          ? {
+              [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
+            }
+          : Defaults) */
+      : Overrides
+>;
 
 /**
  * Merge object _overrides_ onto object _defaults_, immutably
@@ -26,31 +32,34 @@ type MergeWithDefaults<Defaults, Overrides> = Defaults extends object
  *
  * @category object
  */
-export let objectMergeWithDefaults = <T extends object, D extends object>(
-  defaults: T,
-  overrides?: D,
-): MergeWithDefaults<T, D> =>
-  overrides === undefined
-    ? defaults
-    : Object.keys(overrides).reduce(
-        (withDefaults, _key) => {
-          const keyDefaults = _key as keyof T;
-          const keyOverrides = _key as keyof D;
+export let objectMergeWithDefaults = <
+  D extends PlainObject,
+  O extends PlainObject,
+>(
+  defaults: D,
+  overrides?: O,
+): ObjectMergeWithDefaults<D, O> =>
+  overrides
+    ? Object.keys(overrides).reduce(
+        (result, _key) => {
+          const keyDefaults = _key as Extract<keyof D, string>;
+          const keyOverrides = _key as Extract<keyof O, string>;
           if (isObject(overrides[keyOverrides])) {
-            // if (!defaults[keyDefaults]) {
-            //   withDefaults[keyDefaults] = {} as T[keyof T];
-            // }
-            withDefaults[keyDefaults] = objectMergeWithDefaults(
-              defaults[keyDefaults] as unknown as T,
-              overrides[keyOverrides] as unknown as T,
+            if (!defaults[keyDefaults]) {
+              defaults[keyDefaults] = {} as any;
+            }
+            result[keyDefaults] = objectMergeWithDefaults(
+              defaults[keyDefaults] as D,
+              overrides[keyOverrides] as O,
             );
           } else {
-            withDefaults[keyDefaults] =
+            result[keyDefaults] =
               overrides[keyOverrides] === undefined
                 ? defaults[keyDefaults]
                 : overrides[keyOverrides];
           }
-          return withDefaults;
+          return result;
         },
         { ...defaults } as any,
-      );
+      )
+    : defaults;
