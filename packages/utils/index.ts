@@ -68,6 +68,7 @@ export { getUrlHashPathname } from "./getUrlHashPathname";
 export { getUrlPathnameParts } from "./getUrlPathnameParts";
 export { getUrlQueryParams } from "./getUrlQueryParams";
 export { imgEmptyPixel } from "./imgEmptyPixel";
+export { isAbsoluteUrl } from "./isAbsoluteUrl";
 export { isAnyObject } from "./isAnyObject";
 export { isArray } from "./isArray";
 export { isBlob } from "./isBlob";

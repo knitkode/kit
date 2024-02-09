@@ -1,8 +1,8 @@
-import type { Simplify } from "type-fest";
+// import type { Simplify } from "type-fest";
 import type { PlainObject } from "./getType";
 import { isObject } from "./isObject";
 
-export type ObjectMergeWithDefaults<Defaults, Overrides> = Simplify<
+export type ObjectMergeWithDefaults<Defaults, Overrides> =
   Overrides extends undefined
     ? Defaults
     : Overrides extends PlainObject
@@ -14,13 +14,28 @@ export type ObjectMergeWithDefaults<Defaults, Overrides> = Simplify<
             : K extends keyof Defaults
               ? ObjectMergeWithDefaults<Defaults[K], Overrides[K]>
               : Overrides[K];
-        } /*  & (Defaults extends PlainObject
-          ? {
-              [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
-            }
-          : Defaults) */
-      : Overrides
->;
+        }
+      : Overrides;
+// FIXME: this type breaks compilation
+// export type ObjectMergeWithDefaults<Defaults, Overrides> = Simplify<
+//   Overrides extends undefined
+//     ? Defaults
+//     : Overrides extends PlainObject
+//       ? {
+//           [K in keyof Overrides]-?: Overrides[K] extends undefined
+//             ? K extends keyof Defaults
+//               ? Defaults[K]
+//               : never
+//             : K extends keyof Defaults
+//               ? ObjectMergeWithDefaults<Defaults[K], Overrides[K]>
+//               : Overrides[K];
+//         } /*  & (Defaults extends PlainObject
+//           ? {
+//               [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
+//             }
+//           : Defaults) */
+//       : Overrides
+// >;
 
 /**
  * Merge object _overrides_ onto object _defaults_, immutably
