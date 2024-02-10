@@ -18,7 +18,7 @@ export type WithKoineOptions = NextConfig & {
  * @property {boolean} [options.nx=false] Nx monorepo setup
  * @property {boolean} [options.svg=false] SVG to react components
  */
-export let withKoine = (options: WithKoineOptions = {}) => {
+export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
   const { nx = true, svg = true, i18n, ...restNextConfig } = options;
   const nextConfig: NextConfig = {
     // @see https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
