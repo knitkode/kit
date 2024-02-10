@@ -1,10 +1,15 @@
 import type { NextConfig } from "next";
-import { type WithI18nLegacyOptions, withI18nLegacy } from "@koine/i18n/next";
+import {
+  type WithI18nAsyncOptions,
+  type WithI18nLegacyOptions,
+  withI18nLegacy,
+} from "@koine/i18n/next";
 
 export type WithKoineOptions = NextConfig & {
   nx?: boolean;
   svg?: boolean;
-} & Partial<WithI18nLegacyOptions>;
+} & Partial<WithI18nLegacyOptions> &
+  WithI18nAsyncOptions;
 
 /**
  * Get Next.js config with some basic opinionated defaults
@@ -79,7 +84,7 @@ export let withKoine = (options: WithKoineOptions = {}) => {
   }
 
   if (i18n) {
-    return withI18nLegacy({ ...options, i18n })(nextConfig);
+    return withI18nLegacy({ ...options, ...nextConfig, i18n });
   }
 
   return nextConfig;
