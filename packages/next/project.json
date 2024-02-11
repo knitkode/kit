@@ -16,10 +16,11 @@
         "assets": [
           {
             "input": "packages/next",
-            "glob": "/**/*.{md,.d.ts}",
+            "glob": "/**/*.{md,d.ts}",
             "output": "./"
           }
         ],
+
         "generateExportsField": true,
         "skipTypeCheck": false,
         "external": "all",
