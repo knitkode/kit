@@ -4,7 +4,7 @@
     "outDir": "../../dist/out-tsc",
     "types": ["node"]
   },
-  "files": ["typings.d.ts"],
+  "files": [],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }

@@ -1,8 +1,14 @@
-// import { memo } from "react";
 import type { NextSeoProps } from "next-seo/lib/types";
 import Head from "next/head";
 import { type LinkTag, type MetaTag, seoBuildTags } from "./seoBuildTags";
-import type { SeoData } from "./types-seo";
+
+export type SeoData = {
+  hidden?: boolean;
+  title?: string;
+  description?: string;
+  keywords?: string | string[];
+  ogimage?: string;
+};
 
 type SeoPropsOpenGraph = NextSeoProps["openGraph"] & {
   image?: string;
@@ -50,8 +56,6 @@ export type SeoProps = Omit<
  *
  * @deprecated
  */
-export const Seo = (props: SeoProps) => {
-  return <Head>{seoBuildTags(props)}</Head>;
-};
+export let Seo = (props: SeoProps) => <Head>{seoBuildTags(props)}</Head>;
 
 export default Seo;

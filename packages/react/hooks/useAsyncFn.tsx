@@ -1,6 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
-import type { FunctionReturningPromise, PromiseType } from "../types";
 import { useMountedState } from "./useMountedState";
+
+type PromiseType<P extends Promise<any>> =
+  P extends Promise<infer T> ? T : never;
+
+type FunctionReturningPromise = (...args: any[]) => Promise<any>;
 
 export type UseAsyncState<T> =
   | {

@@ -58,6 +58,7 @@ export const seoBuildTags = ({
   canonical,
   metaTags,
   linkTags,
+  schema,
 }: BuildTagsParams = {}) => {
   const id = "seo-";
   const render: React.ReactNode[] = [];
@@ -167,6 +168,16 @@ export const seoBuildTags = ({
     linkTags.forEach((tag) => {
       render.push(<link key={id + "link-" + (tag.href || tag.rel)} {...tag} />);
     });
+  }
+
+  if (schema) {
+    render.push(
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        key={id + "schema"}
+      />,
+    );
   }
 
   // TODO: alternates and canonical

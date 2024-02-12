@@ -10,7 +10,7 @@ export type AnalyticsGoogleProps = {
   id?: string;
 };
 
-export const AnalyticsGoogle = ({ id }: AnalyticsGoogleProps) => {
+export let AnalyticsGoogle = ({ id }: AnalyticsGoogleProps) => {
   const uid = id || process.env["NEXT_PUBLIC_GTM_ID"];
   const { events, asPath, query } = useRouter();
   const [ready, setReady] = useState(false);

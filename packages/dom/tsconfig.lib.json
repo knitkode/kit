@@ -5,7 +5,7 @@
     "types": ["node"],
     "esModuleInterop": true
   },
-  "files": ["typings.d.ts"],
+  "files": [],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }

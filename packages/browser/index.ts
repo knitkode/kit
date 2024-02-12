@@ -1,5 +1,6 @@
 export { createStorage, type CreateStorageConfig } from "./createStorage";
 export { getZonedDate } from "./getZonedDate";
+export { gtag } from "./gtag";
 export { gtagPageview, type GtmPageviewArgs } from "./gtagPageview";
 export { isIE } from "./isIE";
 export { isMobile } from "./isMobile";

@@ -134,6 +134,7 @@ export {
   type ObjectMergeWithDefaults,
 } from "./objectMergeWithDefaults";
 export { objectOmit } from "./objectOmit";
+export { objectSort } from "./objectSort";
 export { objectSortByKeysMatching } from "./objectSortByKeysMatching";
 export { objectToArray } from "./objectToArray";
 export { parseCookie } from "./parseCookie";

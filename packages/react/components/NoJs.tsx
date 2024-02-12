@@ -1,4 +1,4 @@
-export type NoJsProps = object;
+export type NoJsProps = Record<string, never>;
 
 export let NoJs = (_props: NoJsProps) => {
   return (

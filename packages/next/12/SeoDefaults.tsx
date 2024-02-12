@@ -1,7 +1,6 @@
-// import { memo } from "react";
 import type { DefaultSeoProps } from "next-seo/lib/types";
 import Head from "next/head";
-// import { useRouter } from "next/router";
+import type { JsonObject } from "@koine/utils";
 import { type LinkTag, type MetaTag, seoBuildTags } from "./seoBuildTags";
 
 /**
@@ -22,14 +21,14 @@ export type SeoDefaultsProps = Omit<
 > & {
   metaTags?: ReadonlyArray<MetaTag>;
   linkTags?: ReadonlyArray<LinkTag>;
+  schema?: JsonObject;
 };
 
 /**
  * @deprecated
  */
-export const SeoDefaults = (props: SeoDefaultsProps) => {
-  // const router = useRouter();
-  return <Head>{seoBuildTags(props)}</Head>;
-};
+export let SeoDefaults = (props: SeoDefaultsProps) => (
+  <Head>{seoBuildTags(props)}</Head>
+);
 
 export default SeoDefaults;

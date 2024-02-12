@@ -3,6 +3,8 @@
  * the `koine` ecosystem.
  */
 
+declare type AssertTrue<T extends true> = T;
+
 // as in type-fest start
 declare type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 // as in type-fest end
