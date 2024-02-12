@@ -7,52 +7,58 @@ import useSWRMutation, {
 } from "swr/mutation";
 import { createApi } from "./index";
 import { createUseApi } from "./swr";
+import type { Api } from "./types";
 
 /* eslint-disable import/order */
 
-/// <reference types="./typings.d.ts" />
+/* eslint-disable import/order */
 
-type MutationRequestMethod = Exclude<Koine.Api.RequestMethod, "get">;
-type MutationHookName = Exclude<keyof Koine.Api.HooksMapsByName, "use">;
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
+
+type MutationRequestMethod = Exclude<Api.RequestMethod, "get">;
+type MutationHookName = Exclude<keyof Api.HooksMapsByName, "use">;
 
 type KoineApiMethodHookSWR<
   THookName extends MutationHookName,
-  TEndpoints extends Koine.Api.Endpoints,
+  TEndpoints extends Api.Endpoints,
 > = <
-  TEndpoint extends Koine.Api.EndpointUrl<TEndpoints>,
-  TMethod extends MutationRequestMethod = Koine.Api.HooksMapsByName[THookName],
+  TEndpoint extends Api.EndpointUrl<TEndpoints>,
+  TMethod extends MutationRequestMethod = Api.HooksMapsByName[THookName],
 >(
   endpoint: TEndpoint,
-  options?: Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>,
+  options?: Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>,
   config?: SWRMutationConfiguration<
-    Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
-    Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
+    Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
+    Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
     TEndpoint,
-    Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
+    Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
   >,
 ) => SWRMutationResponse<
-  Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
-  Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
+  Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
+  Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
   TEndpoint,
-  Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
+  Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
 >;
 
 let createUseMutationApi =
-  <
-    TEndpoints extends Koine.Api.Endpoints,
-    TMethod extends MutationRequestMethod,
-  >(
-    api: Koine.Api.Client<TEndpoints>,
+  <TEndpoints extends Api.Endpoints, TMethod extends MutationRequestMethod>(
+    api: Api.Client<TEndpoints>,
     method: TMethod,
   ) =>
-  <TEndpoint extends Koine.Api.EndpointUrl<TEndpoints>>(
+  <TEndpoint extends Api.EndpointUrl<TEndpoints>>(
     endpoint: TEndpoint,
-    options?: Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>,
+    options?: Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>,
     config?: SWRMutationConfiguration<
-      Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
-      Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
+      Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
+      Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
       TEndpoint,
-      Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
+      Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
     >,
   ) => {
     const sender = async (
@@ -60,11 +66,11 @@ let createUseMutationApi =
       // defined when calling the usePost/Put/etc. hook, these will be overriden
       // by the _options just here below
       _endpoint:
-        | [TEndpoint, Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>]
+        | [TEndpoint, Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>]
         | TEndpoint,
       // these are the options arriving when calling `trigger({ json, query, etc... })
       _options: Readonly<{
-        arg: Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>;
+        arg: Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>;
       }>,
     ) => {
       const endpoint = Array.isArray(_endpoint) ? _endpoint[0] : _endpoint;
@@ -81,10 +87,10 @@ let createUseMutationApi =
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     return useSWRMutation<
-      Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
-      Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
+      Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
+      Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,
       TEndpoint,
-      Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
+      Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>
     >(
       // @ts-expect-error FIXME: I can't get it...
       options ? [endpoint, options] : endpoint,
@@ -96,10 +102,10 @@ let createUseMutationApi =
 /**
  * It creates an api client extended with auto-generated SWR wrapper hooks
  */
-export let createSwrMutationApi = <TEndpoints extends Koine.Api.Endpoints>(
+export let createSwrMutationApi = <TEndpoints extends Api.Endpoints>(
   ...args: Parameters<typeof createApi>
 ) => {
-  const api = createApi<TEndpoints>(...args) as Koine.Api.Client<TEndpoints> & {
+  const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
     [HookName in MutationHookName]: KoineApiMethodHookSWR<HookName, TEndpoints>;
   } & {
     use: ReturnType<typeof createUseApi<TEndpoints>>;

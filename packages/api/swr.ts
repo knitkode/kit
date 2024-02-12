@@ -1,3 +1,4 @@
+/* eslint-disable import/order */
 "use client";
 
 import useSWR, {
@@ -7,8 +8,17 @@ import useSWR, {
 } from "swr";
 import { isFunction } from "@koine/utils";
 import { createApi } from "./index";
+import type { Api } from "./types";
 
-/// <reference types="./typings.d.ts" />
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
+
+/* eslint-disable import/order */
 
 type SWRConfigurationExtended<
   Data = any,
@@ -38,13 +48,13 @@ type SWRConfigurationExtended<
  * @internal
  */
 export let createUseApi =
-  <TEndpoints extends Koine.Api.Endpoints>(api: Koine.Api.Client<TEndpoints>) =>
-  <TEndpoint extends Koine.Api.EndpointUrl<TEndpoints>>(
+  <TEndpoints extends Api.Endpoints>(api: Api.Client<TEndpoints>) =>
+  <TEndpoint extends Api.EndpointUrl<TEndpoints>>(
     endpoint: TEndpoint,
-    options?: Koine.Api.EndpointOptions<TEndpoints, TEndpoint, "get">,
+    options?: Api.EndpointOptions<TEndpoints, TEndpoint, "get">,
     config?: SWRConfigurationExtended<
-      Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
-      Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
+      Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
+      Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
     >,
   ) => {
     // const fetcher = async (_endpoint: TEndpoint) => {
@@ -56,9 +66,9 @@ export let createUseApi =
     //       if (ok) {
     //         return data;
     //       }
-    //       throw new Error() as unknown as Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>;
+    //       throw new Error() as unknown as Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>;
     //     } catch(e) {
-    //       throw new Error() as unknown as Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>;;
+    //       throw new Error() as unknown as Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>;;
     //     }
     //   };
     // }
@@ -68,7 +78,7 @@ export let createUseApi =
         ...(options || {}),
         throwErr: true,
       });
-      return data as Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">;
+      return data as Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">;
     };
 
     const shouldNotFetch =
@@ -78,25 +88,25 @@ export let createUseApi =
     // <Data = any, Error = any>(key: Key, config: SWRConfigurationExtended<Data, Error, Fetcher<Data>> | undefined): SWRResponse<Data, Error>;
     // eslint-disable-next-line react-hooks/rules-of-hooks
     return useSWR<
-      Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
-      Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
+      Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
+      Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
     >(
       shouldNotFetch ? null : options ? [endpoint, options] : [endpoint],
       fetcher,
       config,
     ) as SWRResponse<
-      Koine.Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
-      Koine.Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
+      Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
+      Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
     >;
   };
 
 /**
  * It creates an api client extended with auto-generated SWR wrapper hooks
  */
-export let createSwrApi = <TEndpoints extends Koine.Api.Endpoints>(
+export let createSwrApi = <TEndpoints extends Api.Endpoints>(
   ...args: Parameters<typeof createApi>
 ) => {
-  const api = createApi<TEndpoints>(...args) as Koine.Api.Client<TEndpoints> & {
+  const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
     use: ReturnType<typeof createUseApi<TEndpoints>>;
   };
 

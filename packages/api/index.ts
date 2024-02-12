@@ -4,6 +4,7 @@ import {
   errorToString,
   isFullObject,
 } from "@koine/utils";
+import type { Api } from "./types";
 
 /**
  * Custom `ApiError` class extending `Error` to throw in failed response.
@@ -13,9 +14,9 @@ import {
  *
  */
 export class ApiError<
-  TResponseFail extends Koine.Api.ResponseFail = unknown,
+  TResponseFail extends Api.ResponseFail = unknown,
 > extends Error {
-  constructor(result: Koine.Api.ResultFail<TResponseFail>) {
+  constructor(result: Api.ResultFail<TResponseFail>) {
     super(`Request failed with ${result.status} ${result.msg}`);
     this.name = "ApiError";
     Object.assign(this, result);
@@ -25,7 +26,7 @@ export class ApiError<
 export let createApiResultOk = <T>(
   data: T = {} as T,
   msg?: string,
-): Koine.Api.ResultOk<T> => ({
+): Api.ResultOk<T> => ({
   ok: true,
   fail: false,
   data,
@@ -37,7 +38,7 @@ export let createApiResultFail = <T>(
   data: T = {} as T,
   msg?: string,
   status?: number,
-): Koine.Api.ResultFail<T> => ({
+): Api.ResultFail<T> => ({
   fail: true,
   data,
   msg: msg || "",
@@ -50,7 +51,7 @@ let apiMethods = [
   "put",
   "patch",
   "delete",
-] as Koine.Api.RequestMethod[];
+] as Api.RequestMethod[];
 
 /**
  * Create api client
@@ -58,10 +59,10 @@ let apiMethods = [
  * @param apiName Short name to use in debug logs
  * @param baseUrl Either relativ eor absolute, it must end without trailing slash
  */
-export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
+export let createApi = <TEndpoints extends Api.Endpoints>(
   apiName: string,
   baseUrl: string,
-  options?: Koine.Api.ClientOptions,
+  options?: Api.ClientOptions,
 ) => {
   const {
     headers: headersBase = {},
@@ -74,25 +75,24 @@ export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
   } = options || {};
 
   return apiMethods.reduce(
-    <TMethod extends Koine.Api.RequestMethod>(
-      api: Koine.Api.Client<TEndpoints>,
+    <TMethod extends Api.RequestMethod>(
+      api: Api.Client<TEndpoints>,
       method: TMethod,
     ) => {
       // @ts-expect-error FIXME: type
       api[method] = async <
-        TEndpoint extends Koine.Api.EndpointUrl<TEndpoints>,
-        TOptions extends Koine.Api.EndpointOptions<
+        TEndpoint extends Api.EndpointUrl<TEndpoints>,
+        TOptions extends Api.EndpointOptions<
           TEndpoints,
           TEndpoint,
           TMethod
-        > = Koine.Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>,
-        TResponseOk extends Koine.Api.ResponseOk = Koine.Api.EndpointResponseOk<
+        > = Api.EndpointOptions<TEndpoints, TEndpoint, TMethod>,
+        TResponseOk extends Api.ResponseOk = Api.EndpointResponseOk<
           TEndpoints,
           TEndpoint,
           TMethod
         >,
-        TResponseFail extends
-          Koine.Api.ResponseFail = Koine.Api.EndpointResponseFail<
+        TResponseFail extends Api.ResponseFail = Api.EndpointResponseFail<
           TEndpoints,
           TEndpoint,
           TMethod
@@ -179,7 +179,7 @@ export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
         }
 
         let response: null | Response = null;
-        let result: null | Koine.Api.Result<TResponseOk, TResponseFail> = null;
+        let result: null | Api.Result<TResponseOk, TResponseFail> = null;
         let msg = "";
 
         try {
@@ -195,7 +195,10 @@ export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
         if (response) {
           try {
             if (processRes) {
-              result = await processRes<TResponseOk>(response, options || {});
+              result = await processRes<TResponseOk, TResponseFail>(
+                response,
+                options || {},
+              );
             } else {
               result = await response.json();
             }
@@ -206,7 +209,10 @@ export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
 
         if (result === null) {
           if (processErr) {
-            result = await processErr<TResponseFail>(msg, options || {});
+            result = await processErr<TResponseOk, TResponseFail>(
+              msg,
+              options || {},
+            );
           } else {
             // this error should only happen on network errors or wrong API urls
             // there is no specific HTTP error for this, we can consider these
@@ -219,7 +225,7 @@ export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
               status: 100,
               fail: true,
               ok: false,
-            } as Koine.Api.ResultFail<TResponseFail>;
+            } as Api.ResultFail<TResponseFail>;
           }
         }
 
@@ -242,6 +248,8 @@ export let createApi = <TEndpoints extends Koine.Api.Endpoints>(
       };
       return api;
     },
-    {} as Koine.Api.Client<TEndpoints>,
+    {} as Api.Client<TEndpoints>,
   );
 };
+
+export type { Api } from "./types";
