@@ -1,6 +1,6 @@
 {
   "name": "@koine/koine",
-  "version": "2.0.0-beta.61",
+  "version": "2.0.0-beta.62",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -34,7 +34,7 @@
     "regenerator-runtime": "^0.14.1",
     "simple-git": "^3.22.0",
     "swr": "^2.2.4",
-    "sync-request-curl": "^3.0.0",
+    "synckit": "^0.9.0",
     "tailwindcss": "^3.4.1",
     "tslib": "^2.6.2",
     "type-fest": "^4.10.2"
