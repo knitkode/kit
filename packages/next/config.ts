@@ -92,14 +92,14 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
   }
 
   if (i18nRoutes) {
-    return withI18nLegacy({ ...options, ...nextConfig, i18nRoutes });
+    return withI18nLegacy({ ...options, ...restNextConfig, i18nRoutes });
   }
 
   if (i18nCompiler) {
     if (nx) {
-      return withI18nAsync({ ...options, ...nextConfig, i18nCompiler });
+      return withI18nAsync({ ...options, ...restNextConfig, i18nCompiler });
     }
-    return withI18n({ ...options, ...nextConfig, i18nCompiler });
+    return withI18n({ ...options, ...restNextConfig, i18nCompiler });
   }
 
   return nextConfig;
