@@ -59,7 +59,7 @@ IN THE SOFTWARE.
 
 @koine/i18n
 
-@koine/i18n-action
+@koine/i18n-actions
 
 @kwsites/file-exists
 MIT
