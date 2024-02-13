@@ -1,4 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx --no-install commitlint --edit $1
+# FIXME: disabled commitlint until https://github.com/alessandrojcm/commitlint-pre-commit-hook/issues/63
+# npx --no-install commitlint --edit $1

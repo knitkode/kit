@@ -3,7 +3,6 @@
   "sideEffects": false,
   "dependencies": {
     "@koine/browser": "*",
-    "@koine/react": "*",
     "@koine/utils": "*",
     "@koine/i18n": "*"
   },
@@ -13,16 +12,7 @@
     "react": "^18.2.0"
   },
   "peerDependenciesMeta": {
-    "@kuus/yup": {
-      "optional": true
-    },
     "next-seo": {
-      "optional": true
-    },
-    "react-swipeable": {
-      "optional": true
-    },
-    "tailwindcss": {
       "optional": true
     }
   }
