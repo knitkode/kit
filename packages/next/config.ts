@@ -21,13 +21,7 @@ export type WithKoineOptions = NextConfig & {
  * @property {boolean} [options.svg=false] SVG to react components
  */
 export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
-  const {
-    nx = true,
-    svg = true,
-    i18nRoutes,
-    i18nCompiler,
-    ...restNextConfig
-  } = options;
+  const { nx, svg, i18nRoutes, i18nCompiler, ...restNextConfig } = options;
   const nextConfig: NextConfig = {
     // @see https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
     eslint: {
@@ -92,14 +86,14 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
   }
 
   if (i18nRoutes) {
-    return withI18nLegacy({ ...options, ...restNextConfig, i18nRoutes });
+    return withI18nLegacy({ ...nextConfig, i18nRoutes });
   }
 
   if (i18nCompiler) {
     if (nx) {
-      return withI18nAsync({ ...options, ...restNextConfig, i18nCompiler });
+      return withI18nAsync({ ...nextConfig, i18nCompiler });
     }
-    return withI18n({ ...options, ...restNextConfig, i18nCompiler });
+    return withI18n({ ...nextConfig, i18nCompiler });
   }
 
   return nextConfig;
