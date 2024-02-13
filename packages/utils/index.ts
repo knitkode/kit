@@ -2,6 +2,7 @@ export { accentsSets, type AccentsSet } from "./accentSets";
 export { addOrReplaceAtIdx } from "./addOrReplaceAtIdx";
 export { areEqual } from "./areEqual";
 export { arrayFilterFalsy } from "./arrayFilterFalsy";
+export { arrayFindLastIndex } from "./arrayFindLastIndex";
 export { arrayOfAll } from "./arrayOfAll";
 export { arraySum } from "./arraySum";
 export { arrayToLookup } from "./arrayToLookup";

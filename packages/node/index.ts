@@ -1,1 +1,1 @@
-export { fsWrite } from "./fsWrite";
+export { fsWrite, fsWriteSync } from "./fsWrite";

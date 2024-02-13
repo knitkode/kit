@@ -2,13 +2,15 @@ import type { NextConfig } from "next";
 import {
   type WithI18nAsyncOptions,
   type WithI18nLegacyOptions,
+  withI18n,
+  withI18nAsync,
   withI18nLegacy,
 } from "@koine/i18n/next";
 
 export type WithKoineOptions = NextConfig & {
   nx?: boolean;
   svg?: boolean;
-} & Partial<WithI18nLegacyOptions> &
+} & WithI18nLegacyOptions &
   WithI18nAsyncOptions;
 
 /**
@@ -19,7 +21,13 @@ export type WithKoineOptions = NextConfig & {
  * @property {boolean} [options.svg=false] SVG to react components
  */
 export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
-  const { nx = true, svg = true, i18n, ...restNextConfig } = options;
+  const {
+    nx = true,
+    svg = true,
+    i18nRoutes,
+    i18nCompiler,
+    ...restNextConfig
+  } = options;
   const nextConfig: NextConfig = {
     // @see https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
     eslint: {
@@ -83,8 +91,15 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
     }
   }
 
-  if (i18n) {
-    return withI18nLegacy({ ...options, ...nextConfig, i18n });
+  if (i18nRoutes) {
+    return withI18nLegacy({ ...options, ...nextConfig, i18nRoutes });
+  }
+
+  if (i18nCompiler) {
+    if (nx) {
+      return withI18nAsync({ ...options, ...nextConfig, i18nCompiler });
+    }
+    return withI18n({ ...options, ...nextConfig, i18nCompiler });
   }
 
   return nextConfig;
