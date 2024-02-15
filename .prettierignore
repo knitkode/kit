@@ -1,3 +1,5 @@
+packages/i18n/compiler-mocked.spec.ts
+
 CHANGELOG.md
 pnpm-lock.yaml
 pnpm-workspaces.yaml

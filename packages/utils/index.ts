@@ -42,6 +42,7 @@ export { encode } from "./encode";
 export { ensureInt } from "./ensureInt";
 // export {} from "./env"
 export { errorToString } from "./errorToString";
+export { escapeRegExp } from "./escapeRegExp";
 export { findDuplicatedIndexes } from "./findDuplicatedIndexes";
 export { forin } from "./forin";
 export { gbToBytes } from "./gbToBytes";
