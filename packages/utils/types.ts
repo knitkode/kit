@@ -44,3 +44,37 @@ export type KeysTailsStartsWith<
 export type Reverse<Tuple> = Tuple extends [infer Head, ...infer Rest]
   ? [...Reverse<Rest>, Head]
   : [];
+
+// /**
+//  * @category object
+//  */
+// export type ObjectHasKeys<
+//   Source extends object,
+//   Union,
+// > = Union extends keyof Source ? true : false;
+
+// /**
+//  * @category object
+//  */
+// export type ObjectHasAllKeys<
+//   Source extends object,
+//   Union,
+// > = keyof Source extends Union
+//   ? Union extends keyof Source
+//     ? true
+//     : false
+//   : false;
+
+// /**
+//  * @category object
+//  */
+// export type ObjectFilterValues<T extends object, Value> = {
+//   [Key in ObjectFilterKeys<T, Value>]: T[Key];
+// };
+
+// /**
+//  * @category object
+//  */
+// export type ObjectFilterKeys<T extends object, Value> = {
+//   [Key in keyof T]: T[Key] extends Value ? Key : never;
+// }[keyof T];
