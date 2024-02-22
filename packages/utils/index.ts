@@ -3,7 +3,7 @@ export { addOrReplaceAtIdx } from "./addOrReplaceAtIdx";
 export { areEqual } from "./areEqual";
 export { arrayFilterFalsy } from "./arrayFilterFalsy";
 export { arrayFindLastIndex } from "./arrayFindLastIndex";
-export { arrayOfAll } from "./arrayOfAll";
+export { arrayOfAll, type ArrayOfAll } from "./arrayOfAll";
 export { arraySum } from "./arraySum";
 export { arrayToLookup } from "./arrayToLookup";
 export { arrayUniqueByProperties } from "./arrayUniqueByProperties";
