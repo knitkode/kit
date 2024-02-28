@@ -48,7 +48,10 @@
       "cache": true
     },
     "build": {
-      "executor": "nx:noop",
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm dev postbuild {projectName}"
+      },
       "dependsOn": ["build-bundle"]
     },
     "lint": {

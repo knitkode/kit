@@ -38,10 +38,10 @@ export const postbuild = () =>
   new Command("postbuild")
     .description("Manage postbuild exports/bundling")
     .argument("<slug>", "The lib package slug (same as folder name)")
-    // .option(
-    //   "-e --ext",
-    //   "Whether to automatically add the .js extension to relative imports (for esm libs)",
-    // )
+    .option(
+      "-ext --ext",
+      "Whether to automatically add the .js extension to relative imports (for esm libs)",
+    )
     .option("-c --cjs", "When true build is managed as CommonJs library")
     .option("-e --esm", "When true build is managed as ESM library")
     .action(async (arg: string, options: CmdOptions) => {
@@ -117,7 +117,8 @@ async function manageLibBuildArtifacts(libSlug: string, options: CmdOptions) {
         // }
 
         // 4) write lib exports
-        await writeLibExports(lib, options, hasEsm, hasCjs);
+        // await writeLibExports(lib, options, hasEsm, hasCjs);
+        await writeLibEsmExports(lib, options);
 
         // 5) write npmignore
         if (npmignoreContent.length) {
@@ -253,5 +254,54 @@ async function writeLibExports(
     }
 
     data.exports = exports;
+  });
+}
+
+async function writeLibEsmExports(
+  lib: Lib,
+  options: CmdOptions,
+) {
+  const paths = await glob(lib.dist + "/**/*.{js,scss}", {
+    ignore: [
+      // ignore build artifacts
+      lib.dist + "/cjs/**/*",
+      lib.dist + "/esm/**/*",
+      // ignore executables
+      lib.dist + "/bin/*.js",
+      // root index is already exported by `exports: { ".": { import: "./index.js" } }`
+      lib.dist + "/index.js",
+      // ignore "private" files prefixed with `_` (local convention)
+      lib.dist + "/_*.js",
+    ],
+  });
+
+  const pathsToExports = paths
+    .map((fileOrFolderPath) => {
+      const dir = relative(lib.dist, fileOrFolderPath);
+      return dir;
+    })
+    .sort();
+
+  // console.log(`${lib.name}:`, pathsToExports);
+
+  const defaultExp = getLibExport(options, true, false);
+  const exports = pathsToExports.reduce(
+    (map, path) => {
+      const isScssFile = path.endsWith(".scss");
+      const name = isScssFile
+        ? path
+        : path.replace(/\.js$/, "").replace(/\/index$/, "");
+      const exp = getLibExport(options, true, false, name, `./${path}`);
+      map[exp.name] = exp.obj;
+
+      return map;
+    },
+    {
+      [defaultExp.name]: defaultExp.obj,
+    } as Record<string, object>,
+  );
+
+  await editJSONfile(lib.dist, "package.json", (data) => {
+    data.exports = { ...exports, ...data.exports };
   });
 }
