@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "rollup": {
+      "implementation": "./src/executors/rollup/executor",
+      "schema": "./src/executors/rollup/schema.json",
+      "description": "rollup executor"
+    }
+  }
+}
