@@ -1,6 +1,7 @@
 import type { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
-import { createApiResultFail, createApiResultOk } from "./index";
+import { createApiResultFail } from "./createApiResultFail";
+import { createApiResultOk } from "./createApiResultOk";
 
 export let nextApiResponse = {
   ok<T>(data: T, msg?: string) {

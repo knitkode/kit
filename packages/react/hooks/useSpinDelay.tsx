@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-enum State {
+const enum State {
   IDLE,
   DELAY,
   DISPLAY,

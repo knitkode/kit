@@ -5,41 +5,17 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
+    "build": {},
+    "build-modularized": {},
+    "build-bundle": {
       "options": {
-        "outputPath": "dist/packages/next",
-        "tsConfig": "packages/next/tsconfig.lib.json",
-        "project": "packages/next/package.json",
-        "main": "packages/next/index.ts",
-        "assets": [
-          {
-            "input": "packages/next",
-            "glob": "/**/*.{md,d.ts}",
-            "output": "./"
-          }
-        ],
-
-        "generateExportsField": true,
-        "skipTypeCheck": false,
-        "external": "all",
-        "format": ["cjs", "esm"],
-        "compiler": "swc",
-        "deleteOutputPath": true,
-        "additionalEntryPoints": ["packages/next/{config,12}.ts"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "packages/next/**/*.{ts,tsx,js,jsx}",
-          "packages/next/package.json"
+        "additionalEntryPoints": [
+          "packages/next/12.ts",
+          "packages/next/config.ts"
         ]
       }
     },
+    "lint": {},
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/next"],

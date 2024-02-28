@@ -5,39 +5,13 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
+    "build": {},
+    "build-modularized": {},
+    "build-bundle": {
       "options": {
-        "outputPath": "dist/packages/node",
-        "tsConfig": "packages/node/tsconfig.lib.json",
-        "project": "packages/node/package.json",
-        "main": "packages/node/index.ts",
-        "assets": [
-          {
-            "input": "packages/node",
-            "glob": "/*.{md}",
-            "output": "./"
-          }
-        ],
-        "generateExportsField": true,
-        "skipTypeCheck": false,
-        "external": "all",
-        "format": ["cjs", "esm"],
-        "compiler": "swc",
-        "deleteOutputPath": true,
         "additionalEntryPoints": ["packages/node/jest.ts"]
       }
     },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "packages/node/**/*.ts",
-          "packages/node/package.json"
-        ]
-      }
-    }
+    "lint": {}
   }
 }

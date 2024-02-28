@@ -5,39 +5,17 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
+    "build": {},
+    "build-modularized": {},
+    "build-bundle": {
       "options": {
-        "outputPath": "dist/packages/api",
-        "tsConfig": "packages/api/tsconfig.lib.json",
-        "project": "packages/api/package.json",
-        "main": "packages/api/index.ts",
-        "assets": [
-          {
-            "input": "packages/api",
-            "glob": "/*.{md,d.ts}",
-            "output": "./"
-          }
-        ],
-        "generateExportsField": true,
-        "skipTypeCheck": false,
-        "external": "all",
-        "format": ["cjs", "esm"],
-        "compiler": "swc",
-        "deleteOutputPath": true,
-        "additionalEntryPoints": ["packages/api/{next,swr,swr-mutation}.ts"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "packages/api/**/*.ts",
-          "packages/api/package.json"
+        "additionalEntryPoints": [
+          "packages/api/next.ts",
+          "packages/api/swr.ts",
+          "packages/api/swr-mutation.ts"
         ]
       }
-    }
+    },
+    "lint": {}
   }
 }

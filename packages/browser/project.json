@@ -5,38 +5,9 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/browser",
-        "tsConfig": "packages/browser/tsconfig.lib.json",
-        "project": "packages/browser/package.json",
-        "main": "packages/browser/index.ts",
-        "assets": [
-          {
-            "input": "packages/browser",
-            "glob": "/*.{md,d.ts}",
-            "output": "./"
-          }
-        ],
-        "generateExportsField": true,
-        "skipTypeCheck": false,
-        "external": "all",
-        "format": ["cjs", "esm"],
-        "compiler": "swc",
-        "deleteOutputPath": true
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": [
-          "packages/browser/**/*.ts",
-          "packages/browser/package.json"
-        ]
-      }
-    }
+    "build": {},
+    "build-modularized": {},
+    "build-bundle": {},
+    "lint": {}
   }
 }

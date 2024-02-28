@@ -1,4 +1,3 @@
-/* eslint-disable import/order */
 "use client";
 
 import useSWR, {
@@ -7,18 +6,8 @@ import useSWR, {
   type SWRResponse,
 } from "swr";
 import { isFunction } from "@koine/utils";
-import { createApi } from "./index";
+import { createApi } from "./createApi";
 import type { Api } from "./types";
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
 
 type SWRConfigurationExtended<
   Data = any,

@@ -4,16 +4,62 @@
     "libsDir": "packages"
   },
   "targetDefaults": {
-    "build": {
+    "build-modularized": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "buildableProjectDepsInPackageJsonType": "peerDependencies",
-        "updateBuildableProjectDepsInPackageJson": true
+        "outputPath": "dist/packages/{projectName}",
+        "tsConfig": "packages/{projectName}/tsconfig.lib.json",
+        "project": "packages/{projectName}/package.json",
+        "main": "packages/{projectName}/index.ts",
+        "clean": false
       },
-      "dependsOn": ["^build"],
+      "dependsOn": ["^build-modularized"],
       "inputs": ["production", "^production"],
       "cache": true
     },
+    "build-bundle": {
+      "executor": "@nx/rollup:rollup",
+      // "executor": "@koine/nx:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/{projectName}",
+        "tsConfig": "packages/{projectName}/tsconfig.lib.json",
+        "project": "packages/{projectName}/package.json",
+        "main": "packages/{projectName}/index.ts",
+        "buildableProjectDepsInPackageJsonType": "peerDependencies",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "generateExportsField": true,
+        "deleteOutputPath": false,
+        "skipTypeCheck": true,
+        "external": "all",
+        "format": ["cjs", "esm"],
+        "compiler": "swc",
+        "assets": [
+          {
+            "input": "packages/{projectName}",
+            "glob": "/*.{md,d.ts}",
+            "output": "./"
+          }
+        ]
+      },
+      "dependsOn": ["build-modularized"],
+      "inputs": ["production", "^production"],
+      "cache": true
+    },
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build-bundle"]
+    },
     "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "packages/{projectName}/**/*.{ts,tsx,js,jsx}",
+          "packages/{projectName}/package.json"
+        ]
+      },
       "cache": true
     },
     "test": {

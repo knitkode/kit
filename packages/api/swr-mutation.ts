@@ -1,25 +1,12 @@
-/* eslint-disable import/order */
 "use client";
 
 import useSWRMutation, {
   type SWRMutationConfiguration,
   type SWRMutationResponse,
 } from "swr/mutation";
-import { createApi } from "./index";
+import { createApi } from "./createApi";
 import { createUseApi } from "./swr";
 import type { Api } from "./types";
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
-
-/* eslint-disable import/order */
 
 type MutationRequestMethod = Exclude<Api.RequestMethod, "get">;
 type MutationHookName = Exclude<keyof Api.HooksMapsByName, "use">;

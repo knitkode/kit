@@ -17,9 +17,6 @@ type ExtractEndpointParams<T extends string> = string extends T
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Api {
-  // @see https://stackoverflow.com/a/60702896/1938970
-  // import { Exact } from "type-fest";
-
   //////////////////////////////////////////////////////////////////////////////
   //
   // Client
@@ -259,7 +256,7 @@ export namespace Api {
      * A dictionary to dynamically interpolate endpoint url params, e.g.:
      *
      * ```js
-     * myapi.get("user/{id}", { path: { id: "12" }})
+     * myapi.get("user/{id}", { params: { id: "12" }})
      * ```
      * results in a call to the endpoint `"user/12"`
      */

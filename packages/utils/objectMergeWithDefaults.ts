@@ -1,4 +1,3 @@
-// import type { Simplify } from "type-fest";
 import type { PlainObject } from "./getType";
 import { isObject } from "./isObject";
 
