@@ -1,4 +1,3 @@
-// import type { ClassValue } from "clsx";
 type ClassValue =
   | ClassArray
   | ClassDictionary
@@ -12,9 +11,6 @@ type ClassArray = ClassValue[];
 
 export type ClsxClassValue = ClassValue;
 
-// import _clsx from "clsx";
-
-// export const clsx = _clsx;
 let toVal = (mix: any) => {
   let k,
     y,
