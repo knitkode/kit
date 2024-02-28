@@ -14,3 +14,5 @@ export let mapListBy = <T extends Record<string | number | symbol, any>>(
     },
     {} as Record<T[keyof T], T>,
   );
+
+export default mapListBy;

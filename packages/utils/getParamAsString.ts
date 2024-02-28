@@ -11,3 +11,5 @@ import { isArray } from "./isArray";
  */
 export let getParamAsString = (raw?: string | string[]) =>
   (isArray(raw) ? raw[0] : raw) || "";
+
+export default getParamAsString;

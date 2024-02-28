@@ -43,3 +43,5 @@ export let accentsSets: AccentsSet[] = [
   ["y", "ÝŶŸỲỴỶỸ"],
   ["z", "ŹŻŽ"],
 ];
+
+export default accentsSets;

@@ -8,3 +8,5 @@
 export let escapeRegExp = (text: string) =>
   text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 // text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+
+export default escapeRegExp;

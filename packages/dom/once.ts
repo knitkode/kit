@@ -19,3 +19,5 @@ export let once = (
 
   return on(el, type, handlerWrapper, options);
 };
+
+export default once;

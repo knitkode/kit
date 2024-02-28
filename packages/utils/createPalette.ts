@@ -51,3 +51,5 @@ export let createPalette = <
 
   return [map as TMap, tailwindPalette, Object.values<TColor>(map)] as const;
 };
+
+export default createPalette;

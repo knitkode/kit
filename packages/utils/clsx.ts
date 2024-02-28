@@ -68,3 +68,5 @@ export let clsx: (...args: ClassValue[]) => string = function () {
   }
   return str;
 };
+
+export default clsx;

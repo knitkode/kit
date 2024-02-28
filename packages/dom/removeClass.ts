@@ -10,3 +10,5 @@ export let removeClass = <T extends Element>(el?: T, className = "") => {
   }
   if (el) el.classList.remove(className);
 };
+
+export default removeClass;

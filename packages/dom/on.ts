@@ -30,3 +30,5 @@ export let on = <TType extends AnyDOMEventType>(
 
   return noop;
 };
+
+export default on;

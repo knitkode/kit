@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isSymbol = (payload: any): payload is symbol =>
   getType(payload) === "Symbol";
+
+export default isSymbol;

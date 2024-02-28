@@ -23,3 +23,5 @@ export let slugify = (text: string, separator = "-") =>
     .replace(/^-+/, "") // trim - from start of text
     .replace(/-+$/, "") // trim - from end of text
     .replace(/-/g, separator);
+
+export default slugify;

@@ -39,3 +39,5 @@ export let invariant = (
     throw new Error(msgPrefix + msgProvided);
   }
 };
+
+export default invariant;

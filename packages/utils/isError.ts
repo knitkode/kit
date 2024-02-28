@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isError = (payload: any): payload is Error =>
   getType(payload) === "Error";
+
+export default isError;

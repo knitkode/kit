@@ -14,3 +14,5 @@ export let isNodeList = (nodes: any): nodes is NodeList => {
       (typeof nodes[0] === "object" && nodes[0].nodeType > 0))
   );
 };
+
+export default isNodeList;

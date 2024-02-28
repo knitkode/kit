@@ -12,3 +12,5 @@ export let findDuplicatedIndexes = (arr: any[]) => {
 
   return indexes;
 };
+
+export default findDuplicatedIndexes;

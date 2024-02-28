@@ -26,3 +26,5 @@ export let navigateToHashParams = (
 
   return newHash;
 };
+
+export default navigateToHashParams;

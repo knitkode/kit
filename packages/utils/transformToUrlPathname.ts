@@ -13,3 +13,5 @@ export let transformToUrlPathname = (toPathname?: string) =>
   isString(toPathname)
     ? `/${encodeURIComponent(toPathname.replace(/\s/g, "-").toLowerCase())}`
     : "";
+
+export default transformToUrlPathname;

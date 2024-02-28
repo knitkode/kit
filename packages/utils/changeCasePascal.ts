@@ -23,3 +23,5 @@ export let changeCasePascal = (input: string, options?: PascalCaseOptions) => {
     : pascalCaseTransformFactory(lower, upper);
   return prefix + words.map(transform).join(options?.delimiter ?? "") + suffix;
 };
+
+export default changeCasePascal;

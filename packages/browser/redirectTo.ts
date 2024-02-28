@@ -16,3 +16,5 @@ export let redirectTo = (url: string, params?: AnyQueryParams) => {
     location.href = url.replace(/\?+$/g, "") + queryString;
   }
 };
+
+export default redirectTo;

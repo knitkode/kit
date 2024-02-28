@@ -15,3 +15,5 @@ export let getUrlPathnameParts = (pathname = "") =>
     .replace(/^\//, "")
     .split("/")
     .filter(Boolean);
+
+export default getUrlPathnameParts;

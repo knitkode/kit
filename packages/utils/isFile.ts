@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isFile = (payload: any): payload is File =>
   getType(payload) === "File";
+
+export default isFile;

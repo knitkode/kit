@@ -8,3 +8,5 @@ import { getType } from "./getType";
  */
 export let isAnyObject = (payload: any): payload is PlainObject =>
   getType(payload) === "Object";
+
+export default isAnyObject;

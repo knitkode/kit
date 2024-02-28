@@ -18,3 +18,5 @@ export let listenUrlSearchParams = (
       handler(newValue);
     }
   });
+
+export default listenUrlSearchParams;

@@ -9,3 +9,5 @@ export let storage = {
   l: storageClient(),
   s: storageClient(true),
 };
+
+export default storage;

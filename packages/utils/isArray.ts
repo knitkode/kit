@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isArray = (payload: any): payload is any[] =>
   getType(payload) === "Array";
+
+export default isArray;

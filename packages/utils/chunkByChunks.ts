@@ -37,3 +37,5 @@ export let chunkByChunks = <T>(
 
   return output;
 };
+
+export default chunkByChunks;

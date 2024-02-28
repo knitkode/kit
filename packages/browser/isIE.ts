@@ -16,3 +16,5 @@ export let isIE = (ssrValue = true) => {
   }
   return false;
 };
+
+export default isIE;

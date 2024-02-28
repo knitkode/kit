@@ -9,3 +9,5 @@ import { getType } from "./getType";
  */
 export let isNumber = (payload: any): payload is number =>
   getType(payload) === "Number" && !isNaN(payload);
+
+export default isNumber;

@@ -29,3 +29,5 @@ export let shuffle = <T>(array: T[]) => {
   }
   return result;
 };
+
+export default shuffle;

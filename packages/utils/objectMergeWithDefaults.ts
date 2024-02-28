@@ -77,3 +77,5 @@ export let objectMergeWithDefaults = <
         { ...defaults } as any,
       )
     : defaults;
+
+export default objectMergeWithDefaults;

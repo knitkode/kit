@@ -20,3 +20,5 @@ export let off = <TType extends AnyDOMEventType>(
   }
   if (el) el.removeEventListener(type, handler as EventListener, options);
 };
+
+export default off;

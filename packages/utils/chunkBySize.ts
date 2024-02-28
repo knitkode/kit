@@ -9,3 +9,5 @@ export let chunkBySize = <T>(arr: T[], size: number): T[][] => {
   }
   return output;
 };
+
+export default chunkBySize;

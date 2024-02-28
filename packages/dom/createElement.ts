@@ -20,3 +20,5 @@ export let createElement = <
   }
   return el;
 };
+
+export default createElement;

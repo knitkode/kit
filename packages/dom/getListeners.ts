@@ -16,3 +16,5 @@ export let getListeners = () => {
   }
   return obj;
 };
+
+export default getListeners;

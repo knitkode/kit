@@ -10,3 +10,5 @@ import { changeCaseNone } from "./changeCaseNone";
  */
 export let changeCaseSnake = (input: string, options?: Options) =>
   changeCaseNone(input, { delimiter: "_", ...options });
+
+export default changeCaseSnake;

@@ -10,3 +10,5 @@ import { changeCaseNone } from "./changeCaseNone";
  */
 export let changeCaseKebab = (input: string, options?: Options) =>
   changeCaseNone(input, { delimiter: "-", ...options });
+
+export default changeCaseKebab;

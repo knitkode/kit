@@ -19,3 +19,5 @@ export let isPrimitive = (
   isNumber(payload) ||
   isString(payload) ||
   isSymbol(payload);
+
+export default isPrimitive;

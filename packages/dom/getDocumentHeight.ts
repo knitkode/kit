@@ -15,3 +15,5 @@ export let getDocumentHeight = () => {
     documentElement.clientHeight,
   );
 };
+
+export default getDocumentHeight;

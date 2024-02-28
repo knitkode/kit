@@ -14,3 +14,5 @@
  */
 export let convertRange = (num: number, r1: number[], r2: number[]): number =>
   ((num - r1[0]) * (r2[1] - r2[0])) / (r1[1] - r1[0]) + r2[0];
+
+export default convertRange;

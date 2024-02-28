@@ -9,3 +9,5 @@ export let uid = (prefix = "id") => {
   lastId++;
   return `${prefix}-${lastId}`;
 };
+
+export default uid;

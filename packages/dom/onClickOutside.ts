@@ -22,3 +22,5 @@ export let onClickOutside = <T extends HTMLElement>(
 
   return unbind;
 };
+
+export default onClickOutside;

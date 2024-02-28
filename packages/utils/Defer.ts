@@ -34,3 +34,5 @@ export function Defer<T>() /* : PromiseConstructor */ {
   // }
   return self as Deferred<T>;
 }
+
+export default Defer;

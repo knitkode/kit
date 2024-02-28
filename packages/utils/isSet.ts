@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isSet = (payload: any): payload is Set<any> =>
   getType(payload) === "Set";
+
+export default isSet;

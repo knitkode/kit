@@ -18,3 +18,5 @@ export let objectSort = <T extends object>(
       compareFn as (a: [string, any], b: [string, any]) => number,
     ),
   );
+
+export default objectSort;

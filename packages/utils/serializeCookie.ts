@@ -126,3 +126,5 @@ export let serializeCookie = (
 
   return str;
 };
+
+export default serializeCookie;

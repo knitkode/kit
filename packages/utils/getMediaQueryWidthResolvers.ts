@@ -95,3 +95,5 @@ export let getMediaQueryWidthResolvers = <
     only,
   };
 };
+
+export default getMediaQueryWidthResolvers;

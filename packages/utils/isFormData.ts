@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isFormData = (payload: any): payload is FormData =>
   getType(payload) === "FormData";
+
+export default isFormData;

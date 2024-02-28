@@ -11,3 +11,5 @@ export let listenScroll = (handler: () => void, el?: AnyDOMEventTargetLoose) =>
     capture: true,
     passive: true,
   });
+
+export default listenScroll;

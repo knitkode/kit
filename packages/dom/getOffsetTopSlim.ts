@@ -9,3 +9,5 @@
  */
 export let getOffsetTopSlim = <T extends HTMLElement>(elem: T) =>
   elem.getBoundingClientRect().top + window.scrollY;
+
+export default getOffsetTopSlim;

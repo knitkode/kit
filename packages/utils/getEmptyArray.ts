@@ -12,3 +12,5 @@ export let getEmptyArray = /* <T extends undefined | null = undefined> */ (
   Array.from<undefined>({
     length: !isNumber(length) ? parseInt(length, 10) : length,
   });
+
+export default getEmptyArray;

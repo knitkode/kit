@@ -21,3 +21,5 @@ export let getVisualBackgroundColor = (elem?: null | HTMLElement): string => {
 
   return bg;
 };
+
+export default getVisualBackgroundColor;

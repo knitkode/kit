@@ -17,3 +17,5 @@ export let getOffsetTop = <T extends HTMLElement>(elem: T) => {
   }
   return location >= 0 ? location : 0;
 };
+
+export default getOffsetTop;

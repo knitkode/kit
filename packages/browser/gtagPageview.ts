@@ -30,3 +30,5 @@ export let gtagPageview = (...args: GtmPageviewArgs) =>
 //     window.gtag("send", "event", ...args);
 //   }
 // };
+
+export default gtagPageview;

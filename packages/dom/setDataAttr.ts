@@ -19,3 +19,5 @@ export let setDataAttr = <T extends Element>(
   // element.dataset[attribute] = value.toString();
   element.setAttribute("data-" + attribute, value.toString());
 };
+
+export default setDataAttr;

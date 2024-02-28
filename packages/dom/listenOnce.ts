@@ -21,3 +21,5 @@ export let listenOnce = (
     callback(event, target || window);
     unlisten(types, selector, temp);
   });
+
+export default listenOnce;

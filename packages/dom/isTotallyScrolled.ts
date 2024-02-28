@@ -6,3 +6,5 @@
  */
 export let isTotallyScrolled = <T extends HTMLElement>(el?: T | null) =>
   el ? el.scrollHeight - el.scrollTop <= el.clientHeight : false;
+
+export default isTotallyScrolled;

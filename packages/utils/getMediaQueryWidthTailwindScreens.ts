@@ -40,3 +40,5 @@ export let getMediaQueryWidthTailwindScreens = (
 
   return screens;
 };
+
+export default getMediaQueryWidthTailwindScreens;

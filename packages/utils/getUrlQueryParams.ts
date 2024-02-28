@@ -39,3 +39,5 @@ export let getUrlQueryParams = <T extends NonNullable<AnyQueryParams>>(
 
   return params as T;
 };
+
+export default getUrlQueryParams;

@@ -14,3 +14,5 @@ export let navigateToHash = (hash = "") => {
     true,
   );
 };
+
+export default navigateToHash;

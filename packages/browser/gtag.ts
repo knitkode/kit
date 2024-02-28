@@ -35,3 +35,5 @@ export let gtag = <T extends unknown[]>(...args: T) => {
 // declare interface Window {
 //   gtag: (...args: Record<string, unknown>[]) => Record<string, unknown>;
 // }
+
+export default gtag;

@@ -11,3 +11,5 @@ export let objectToArray = <T extends object, R>(
   Object.keys(obj).map(
     iterator as unknown as (key: string, idx: number, values: string[]) => R,
   );
+
+export default objectToArray;

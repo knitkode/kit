@@ -73,5 +73,6 @@ export type CookieAttributesClient = CookieAttributes;
 
 /**
  * @category cookie
+ * @internal
  */
 export let defaultAttributesClient = { path: "/" };

@@ -127,3 +127,5 @@ export let debouncePromise = <
 
   return debouncedFunction;
 };
+
+export default debouncePromise;

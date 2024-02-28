@@ -16,3 +16,5 @@ export let navigateToMergedParams = (
   replace?: boolean,
 ) =>
   navigateToParams(mergeUrlQueryParams(getUrlQueryParams(), params), replace);
+
+export default navigateToMergedParams;

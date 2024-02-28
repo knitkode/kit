@@ -8,3 +8,5 @@ import { isPlainObject } from "./isPlainObject";
  */
 export let isObject = (payload: any): payload is PlainObject =>
   isPlainObject(payload);
+
+export default isObject;

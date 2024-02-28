@@ -17,3 +17,5 @@ export let $ = <T extends Element = HTMLElement>(
   (parent ? parent : document).querySelector(
     avoidEscape ? selector : selector.replace(/:/g, "\\:"),
   ) as unknown as T;
+
+export default $;

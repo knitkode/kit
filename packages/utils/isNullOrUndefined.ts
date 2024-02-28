@@ -8,3 +8,5 @@ import { isUndefined } from "./isUndefined";
  * @category is
  */
 export let isNullOrUndefined = isOneOf(isNull, isUndefined);
+
+export default isNullOrUndefined;

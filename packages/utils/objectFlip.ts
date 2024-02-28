@@ -12,3 +12,5 @@ export let objectFlip = <T extends PropertyKey, U extends PropertyKey>(
       keyTransformer ? keyTransformer(key) : key,
     ]),
   ) as Record<U, T>;
+
+export default objectFlip;

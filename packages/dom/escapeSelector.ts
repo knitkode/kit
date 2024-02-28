@@ -5,3 +5,5 @@
  * @param selector
  */
 export let escapeSelector = (selector: string) => selector.replace(/:/g, "\\:");
+
+export default escapeSelector;

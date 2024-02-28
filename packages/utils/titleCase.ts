@@ -11,3 +11,5 @@ export let titleCase = (input?: null | string) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase(),
       )
     : "";
+
+export default titleCase;

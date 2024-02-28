@@ -19,3 +19,5 @@ export let siblings = <T extends Element>(node: T) => {
 
   return [];
 };
+
+export default siblings;

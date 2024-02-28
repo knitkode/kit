@@ -17,3 +17,5 @@ export let isInViewport = <T extends Element>(elem: T) => {
       (window.innerWidth || document.documentElement.clientWidth)
   );
 };
+
+export default isInViewport;

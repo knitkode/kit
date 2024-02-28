@@ -12,3 +12,5 @@ export let removeAccents = (text = "", sets: AccentsSet[] = accentsSets) => {
   }
   return text;
 };
+
+export default removeAccents;

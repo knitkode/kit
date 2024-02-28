@@ -16,3 +16,5 @@ export let getOffset = <T extends HTMLElement>(elem: T) => {
   }
   return { top, left };
 };
+
+export default getOffset;

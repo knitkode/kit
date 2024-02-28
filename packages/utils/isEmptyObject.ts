@@ -7,3 +7,5 @@ import { isPlainObject } from "./isPlainObject";
  */
 export let isEmptyObject = (payload: any): payload is { [K in any]: never } =>
   isPlainObject(payload) && Object.keys(payload).length === 0;
+
+export default isEmptyObject;

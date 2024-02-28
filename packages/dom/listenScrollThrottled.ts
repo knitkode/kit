@@ -10,3 +10,5 @@ export let listenScrollThrottled = (
   el?: Parameters<typeof listenScroll>[1],
   ...args: Parameters<typeof throttle>
 ) => listenScroll(throttle(...args), el);
+
+export default listenScrollThrottled;

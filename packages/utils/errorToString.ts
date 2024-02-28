@@ -8,3 +8,5 @@ import { isString } from "./isString";
  */
 export let errorToString = (e: unknown) =>
   e instanceof Error ? e.message : isString(e) ? e : "";
+
+export default errorToString;

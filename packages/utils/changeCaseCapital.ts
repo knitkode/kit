@@ -25,3 +25,5 @@ export let changeCaseCapital = (input: string, options?: Options) => {
     suffix
   );
 };
+
+export default changeCaseCapital;

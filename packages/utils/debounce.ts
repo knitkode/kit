@@ -28,3 +28,5 @@ export let debounce = <T extends (...args: any[]) => any>(
     if (callNow) fn.apply(context, args);
   };
 };
+
+export default debounce;

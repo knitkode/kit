@@ -7,3 +7,5 @@ import { isArray } from "./isArray";
  */
 export let isEmptyArray = (payload: any): payload is [] =>
   isArray(payload) && payload.length === 0;
+
+export default isEmptyArray;

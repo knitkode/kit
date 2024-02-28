@@ -10,3 +10,5 @@ export let listenScrollDebounced = (
   el?: Parameters<typeof listenScroll>[1],
   ...args: Parameters<typeof debounce>
 ) => listenScroll(debounce(...args), el);
+
+export default listenScrollDebounced;

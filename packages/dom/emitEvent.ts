@@ -11,3 +11,5 @@ export let emitEvent = (type = "customEvent", detail = {}) => {
     }),
   );
 };
+
+export default emitEvent;

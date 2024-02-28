@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isUndefined = (payload: any): payload is undefined =>
   getType(payload) === "Undefined";
+
+export default isUndefined;

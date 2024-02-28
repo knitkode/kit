@@ -21,3 +21,5 @@ export let objectOmit = <T extends object, Keys extends (keyof T)[]>(
     },
     {} as Omit<T, Keys[number]>,
   );
+
+export default objectOmit;

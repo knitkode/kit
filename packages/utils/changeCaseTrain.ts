@@ -10,3 +10,5 @@ import type { Options } from "./changeCaseHelpers";
  */
 export let changeCaseTrain = (input: string, options?: Options) =>
   changeCaseCapital(input, { delimiter: "-", ...options });
+
+export default changeCaseTrain;

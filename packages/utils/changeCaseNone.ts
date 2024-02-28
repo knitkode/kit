@@ -19,3 +19,5 @@ export let changeCaseNone = (input: string, options?: Options) => {
     suffix
   );
 };
+
+export default changeCaseNone;

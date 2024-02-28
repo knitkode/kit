@@ -18,3 +18,5 @@ export let objectSortByKeysMatching = <T extends object>(
 //     a === keyMatch ? -1 : a.localeCompare(b),
 //   ),
 // );
+
+export default objectSortByKeysMatching;

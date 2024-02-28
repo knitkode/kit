@@ -47,3 +47,5 @@ export let scrollTo = (
     behavior: behavior || "smooth",
   });
 };
+
+export default scrollTo;

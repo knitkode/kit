@@ -7,3 +7,5 @@ import { isString } from "./isString";
  */
 export let isFullString = (payload: any): payload is string =>
   isString(payload) && payload !== "";
+
+export default isFullString;

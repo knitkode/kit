@@ -22,3 +22,5 @@ export let setVendorCSS = <T extends HTMLElement>(
   // @ts-expect-error nevermind now...
   element.style[prop] = value;
 };
+
+export default setVendorCSS;

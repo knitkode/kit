@@ -151,7 +151,7 @@ export { removeCookie } from "./removeCookie";
 export { removeDuplicatesByKey } from "./removeDuplicatesByKey";
 export { removeDuplicatesComparing } from "./removeDuplicatesComparing";
 export { removeIndexesFromArray } from "./removeIndexesFromArray";
-export { removeTralingSlash } from "./removeTrailingSlash";
+export { removeTrailingSlash } from "./removeTrailingSlash";
 export { removeUrlQueryParams } from "./removeUrlQueryParams";
 export { round } from "./round";
 export { roundTo } from "./roundTo";

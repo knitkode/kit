@@ -14,3 +14,5 @@ export let isObjectStringKeyed = (
   payload: any,
 ): payload is PlainObjectStringKeyed =>
   isPlainObject<PlainObjectStringKeyed>(payload);
+
+export default isObjectStringKeyed;

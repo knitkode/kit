@@ -9,3 +9,5 @@ export let arrayFilterFalsy = <T extends unknown[]>(list?: null | T) =>
     NonNullable<T>[number],
     undefined | false | 0 | ""
   >[];
+
+export default arrayFilterFalsy;

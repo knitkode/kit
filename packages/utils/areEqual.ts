@@ -97,3 +97,5 @@ export let areEqual = (a: Comparable, b?: Comparable) => {
   // console.log(`areEqual took ${performance.now() - t0} ms`);
   return true;
 };
+
+export default areEqual;

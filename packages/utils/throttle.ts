@@ -22,3 +22,5 @@ export let throttle = <TFn extends Function, TContext>(
     return;
   };
 };
+
+export default throttle;

@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isNaNValue = (payload: any): payload is typeof NaN =>
   getType(payload) === "Number" && isNaN(payload);
+
+export default isNaNValue;

@@ -31,3 +31,5 @@ export let objectFlat = <
     return acc;
   }, {} as TReturn);
 };
+
+export default objectFlat;

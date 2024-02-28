@@ -59,3 +59,5 @@ export let parseCookie = <
 
   return obj;
 };
+
+export default parseCookie;

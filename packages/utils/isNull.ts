@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isNull = (payload: any): payload is null =>
   getType(payload) === "Null";
+
+export default isNull;

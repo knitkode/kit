@@ -4,3 +4,5 @@
  */
 export let decode = <TReturn extends string>(str: string) =>
   str.replace(/.{3}/g, (c) => String.fromCharCode(parseInt(c, 10))) as TReturn;
+
+export default decode;

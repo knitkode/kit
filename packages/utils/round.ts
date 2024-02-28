@@ -21,3 +21,5 @@ export let round = (
         number.toFixed(decimals).replace(trailingZeroes ? "" : /\.+0*$/, ""),
       )
     : parseInt(number + "", 10);
+
+export default round;

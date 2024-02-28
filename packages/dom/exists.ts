@@ -5,3 +5,5 @@
  */
 export let exists = (node?: Element) =>
   node && node instanceof window.HTMLElement;
+
+export default exists;

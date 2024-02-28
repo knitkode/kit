@@ -5,3 +5,5 @@
  */
 export let lowercase = <T extends string>(str?: null | T) =>
   (str || "").toLowerCase() as Lowercase<T>;
+
+export default lowercase;

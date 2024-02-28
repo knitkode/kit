@@ -7,3 +7,5 @@ import { isNumber } from "./isNumber";
  */
 export let isNegativeNumber = (payload: any): payload is number =>
   isNumber(payload) && payload < 0;
+
+export default isNegativeNumber;

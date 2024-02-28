@@ -70,3 +70,5 @@ export let setCookie = <T extends string = string>(
   return (document.cookie =
     name + "=" + converterWrite(value) + stringifiedAttributes);
 };
+
+export default setCookie;

@@ -47,3 +47,5 @@ export let Emitter = <EventMap extends { [key: string]: any }>(
     },
   };
 };
+
+export default Emitter;

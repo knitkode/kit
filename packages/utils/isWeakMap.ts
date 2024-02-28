@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isWeakMap = (payload: any): payload is WeakMap<any, any> =>
   getType(payload) === "WeakMap";
+
+export default isWeakMap;

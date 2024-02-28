@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isMap = (payload: any): payload is Map<any, any> =>
   getType(payload) === "Map";
+
+export default isMap;

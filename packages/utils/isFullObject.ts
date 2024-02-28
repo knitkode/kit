@@ -8,3 +8,5 @@ import { isPlainObject } from "./isPlainObject";
  */
 export let isFullObject = (payload: any): payload is PlainObject =>
   isPlainObject(payload) && Object.keys(payload).length > 0;
+
+export default isFullObject;

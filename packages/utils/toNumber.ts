@@ -7,3 +7,5 @@ import { isNumber } from "./isNumber";
  */
 export let toNumber = (input?: string | number, fallback?: number) =>
   isNumber(input) ? input : input ? parseFloat(input) : fallback || 0;
+
+export default toNumber;

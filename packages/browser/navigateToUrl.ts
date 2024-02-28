@@ -8,3 +8,5 @@ export let navigateToUrl = (url = "", replace?: boolean) => {
     history[replace ? "replaceState" : "pushState"](history.state, "", url);
   }
 };
+
+export default navigateToUrl;

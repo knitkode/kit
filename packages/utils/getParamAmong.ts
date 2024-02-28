@@ -18,3 +18,5 @@ export let getParamAmong = <T extends string[]>(
   const string = getParamAsString(raw);
   return allowedValues.includes(string) ? (string as T[number]) : null;
 };
+
+export default getParamAmong;

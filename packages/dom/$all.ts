@@ -14,3 +14,5 @@ export let $all = <T extends Element = HTMLElement>(
   (parent ? parent : document).querySelectorAll(
     avoidEscape ? selector : selector.replace(/:/g, "\\:"),
   ) as unknown as NodeListOf<T>;
+
+export default $all;

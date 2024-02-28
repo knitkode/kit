@@ -10,3 +10,5 @@ export let listenResizeThrottled = (
   el?: Parameters<typeof listenResize>[1],
   ...args: Parameters<typeof throttle>
 ) => listenResize(throttle(...args), el);
+
+export default listenResizeThrottled;

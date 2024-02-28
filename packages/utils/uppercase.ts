@@ -6,3 +6,5 @@
  */
 export let uppercase = <T extends string>(str?: null | T) =>
   (str || "").toUpperCase() as Uppercase<T>;
+
+export default uppercase;

@@ -1,4 +1,4 @@
-import { removeTralingSlash } from "./removeTrailingSlash";
+import { removeTrailingSlash } from "./removeTrailingSlash";
 
 /**
  * Normalise URL pathname (relative URL)
@@ -9,4 +9,6 @@ import { removeTralingSlash } from "./removeTrailingSlash";
  * @category location
  */
 export let normaliseUrlPathname = (pathname = "") =>
-  removeTralingSlash(pathname.replace(/\/+/g, "/"));
+  removeTrailingSlash(pathname.replace(/\/+/g, "/"));
+
+export default normaliseUrlPathname;

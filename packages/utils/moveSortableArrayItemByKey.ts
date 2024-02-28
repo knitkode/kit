@@ -19,3 +19,5 @@ export let moveSortableArrayItemByKey = <T, K extends keyof T>(
   items.splice(idxTo, 0, item);
   return [...items];
 };
+
+export default moveSortableArrayItemByKey;

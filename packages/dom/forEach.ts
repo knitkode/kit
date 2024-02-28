@@ -37,4 +37,4 @@ export let forEach = <T extends HTMLElement, TScope = object>(
 //   }
 // }
 
-// export default forEach;
+export default forEach;

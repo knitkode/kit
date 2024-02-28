@@ -39,3 +39,5 @@ export let mergeObjects = <T extends object = object>(
 
   return mergeObjects(target, ...sources);
 };
+
+export default mergeObjects;

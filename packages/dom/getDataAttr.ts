@@ -10,3 +10,5 @@
 export let getDataAttr = (element: HTMLElement, attribute: string) =>
   // element.dataset[attribute];
   element.getAttribute("data-" + attribute);
+
+export default getDataAttr;

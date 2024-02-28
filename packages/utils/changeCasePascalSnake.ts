@@ -10,3 +10,5 @@ import type { Options } from "./changeCaseHelpers";
  */
 export let changeCasePascalSnake = (input: string, options?: Options) =>
   changeCaseCapital(input, { delimiter: "_", ...options });
+
+export default changeCasePascalSnake;

@@ -16,3 +16,5 @@ export let arrayUniqueByProperties = <T extends any[]>(
         keys.every((k) => itemWith[k] === item[k]),
       ) === idx,
   ) as T;
+
+export default arrayUniqueByProperties;

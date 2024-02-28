@@ -12,3 +12,5 @@ export let truncate = (
       ? input.substring(0, length) + "..."
       : input
     : "";
+
+export default truncate;

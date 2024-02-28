@@ -9,3 +9,5 @@ export let calculateFixedOffset = (selector = "[data-fixed]") => {
 
   return fixedOffset;
 };
+
+export default calculateFixedOffset;

@@ -10,3 +10,5 @@ import { isAnyObject } from "./isAnyObject";
  */
 export let isObjectLike = <T extends PlainObject>(payload: any): payload is T =>
   isAnyObject(payload);
+
+export default isObjectLike;

@@ -33,3 +33,5 @@ export type ArrayOfAll<
     ? true
     : "Incomplete"
   : "Incomplete";
+
+export default arrayOfAll;

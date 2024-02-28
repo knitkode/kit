@@ -16,3 +16,5 @@ export let updateLinkParams = (
   $anchor.href = href;
   return href;
 };
+
+export default updateLinkParams;

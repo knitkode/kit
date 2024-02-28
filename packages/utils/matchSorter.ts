@@ -502,3 +502,5 @@ export type {
   RankingInfo,
   ValueGetterKey,
 };
+
+export default matchSorter;

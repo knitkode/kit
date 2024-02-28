@@ -16,3 +16,5 @@ export let split = <T extends string, D extends string>(
   string: T,
   delimiter: D,
 ) => string.split(delimiter) as Split<T, D>;
+
+export default split;

@@ -3,5 +3,7 @@
  *
  * @category location
  */
-export let removeTralingSlash = (urlLike?: string | null) =>
+export let removeTrailingSlash = (urlLike?: string | null) =>
   (urlLike || "").replace(/\/*$/, "");
+
+export default removeTrailingSlash;

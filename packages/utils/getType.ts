@@ -24,3 +24,5 @@ export type TypeGuard<A, B extends A> = (payload: A) => payload is B;
  */
 export let getType = (payload: any): string =>
   Object.prototype.toString.call(payload).slice(8, -1);
+
+export default getType;

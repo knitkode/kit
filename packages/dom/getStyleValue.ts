@@ -6,3 +6,5 @@
  */
 export let getStyleValue = <T extends HTMLElement>(el: T, prop: string) =>
   getComputedStyle(el, null).getPropertyValue(prop);
+
+export default getStyleValue;

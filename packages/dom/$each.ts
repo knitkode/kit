@@ -20,3 +20,5 @@ export let $each = <T extends Element = HTMLElement>(
     callback.call(scope, nodes[i] as unknown as T, i);
   }
 };
+
+export default $each;

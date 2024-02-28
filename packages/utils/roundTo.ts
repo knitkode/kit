@@ -35,3 +35,5 @@ export let roundTo = (num: number, decimals = 2): string => {
   }
   return "";
 };
+
+export default roundTo;

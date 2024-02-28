@@ -89,3 +89,5 @@ export let listenUrlSearch = (handler: Handler) => {
     (history as HistoryExtended).__.h.delete(handler);
   };
 };
+
+export default listenUrlSearch;

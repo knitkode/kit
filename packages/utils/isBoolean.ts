@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isBoolean = (payload: any): payload is boolean =>
   getType(payload) === "Boolean";
+
+export default isBoolean;

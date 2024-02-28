@@ -10,3 +10,5 @@ export let randomKey = <T extends Record<string | number, unknown>>(
   const keys = Object.keys(obj);
   return keys[(keys.length * Math.random()) << 0];
 };
+
+export default randomKey;

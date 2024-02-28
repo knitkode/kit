@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isPromise = (payload: any): payload is Promise<any> =>
   getType(payload) === "Promise";
+
+export default isPromise;

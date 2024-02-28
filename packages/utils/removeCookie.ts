@@ -14,3 +14,5 @@ export let removeCookie = (
     expires: -1,
   });
 };
+
+export default removeCookie;

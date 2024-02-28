@@ -55,3 +55,5 @@ export let quaranteneProps = <
 type QuaranteneProps<TProps extends Record<never, never>> = readonly (keyof {
   [K in keyof TProps]?: TProps[K];
 })[];
+
+export default quaranteneProps;

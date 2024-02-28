@@ -21,3 +21,5 @@ export let isExternalUrl = (url: string, currentUrl?: string) => {
 
   return currentUrl ? reg.exec(currentUrl)?.[1] !== urlMatches[1] : true;
 };
+
+export default isExternalUrl;

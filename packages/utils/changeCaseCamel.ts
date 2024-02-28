@@ -32,3 +32,5 @@ export let changeCaseCamel = (input: string, options?: PascalCaseOptions) => {
     suffix
   );
 };
+
+export default changeCaseCamel;

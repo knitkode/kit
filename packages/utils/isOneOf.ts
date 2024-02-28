@@ -46,3 +46,5 @@ export function isOneOf(
     (!!d && d(value)) ||
     (!!e && e(value));
 }
+
+export default isOneOf;

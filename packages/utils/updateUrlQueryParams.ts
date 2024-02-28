@@ -18,3 +18,5 @@ export let updateUrlQueryParams = (
     : newParams;
   return parts[0] + buildUrlQueryString(allParams);
 };
+
+export default updateUrlQueryParams;

@@ -28,3 +28,5 @@ export const jestCreateExpectedThrownError =
       );
     }
   };
+
+export default jestCreateExpectedThrownError;

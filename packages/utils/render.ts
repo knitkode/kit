@@ -201,3 +201,5 @@ export let render = (tmpl: string, def?: Definitions): RenderFunction => {
   }
   return () => "";
 };
+
+export default render;

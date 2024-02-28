@@ -13,3 +13,5 @@ export let addClass = <T extends Element = HTMLElement>(
   }
   if (el) el.classList.add(className);
 };
+
+export default addClass;

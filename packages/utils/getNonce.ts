@@ -8,3 +8,5 @@ declare let __webpack_nonce__: string;
  */
 export let getNonce = () =>
   isUndefined(__webpack_nonce__) ? null : __webpack_nonce__;
+
+export default getNonce;

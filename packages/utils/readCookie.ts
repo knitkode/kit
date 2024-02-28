@@ -51,3 +51,5 @@ export function readCookie<
 
   return name ? all[name] : all;
 }
+
+export default readCookie;

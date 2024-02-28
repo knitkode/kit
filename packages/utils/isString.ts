@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isString = (payload: any): payload is string =>
   getType(payload) === "String";
+
+export default isString;

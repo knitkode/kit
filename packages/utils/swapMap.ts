@@ -17,3 +17,5 @@ export let swapMap = <
   }
   return output;
 };
+
+export default swapMap;

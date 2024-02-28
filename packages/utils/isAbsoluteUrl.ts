@@ -6,3 +6,5 @@ let reg = /^(?:[a-z+]+:)?\/\//i;
  * @category is
  */
 export let isAbsoluteUrl = (url: string) => reg.test(url);
+
+export default isAbsoluteUrl;

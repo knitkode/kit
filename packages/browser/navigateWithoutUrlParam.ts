@@ -21,3 +21,5 @@ export let navigateWithoutUrlParam = (
 
   return navigateToParams(params, replace);
 };
+
+export default navigateWithoutUrlParam;

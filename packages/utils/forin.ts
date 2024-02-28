@@ -12,3 +12,5 @@ export let forin = <T>(
     cb(key, object[key]);
   }
 };
+
+export default forin;

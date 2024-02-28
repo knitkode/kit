@@ -5,3 +5,5 @@ import { isUndefined } from "./isUndefined";
  * @category is
  */
 export let isBrowserNow = () => !isUndefined(window);
+
+export default isBrowserNow;

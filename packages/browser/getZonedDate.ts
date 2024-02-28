@@ -43,3 +43,5 @@ export let getZonedDate = (dateString = "", timeZone?: string) => {
     ? utcToZonedTime(new Date(dateString), timeZone)
     : new Date(dateString);
 };
+
+export default getZonedDate;

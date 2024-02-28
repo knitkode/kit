@@ -31,3 +31,5 @@ export let buildUrlQueryString = <T extends AnyQueryParams>(params: T) => {
   // removes the last &
   return output ? `?${output.replace(/&+$/, "")}` : "";
 };
+
+export default buildUrlQueryString;

@@ -20,3 +20,5 @@ export let getParamAsInt = <TFallback extends number | null | undefined>(
   }
   return fallback;
 };
+
+export default getParamAsInt;

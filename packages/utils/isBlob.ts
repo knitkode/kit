@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isBlob = (payload: any): payload is Blob =>
   getType(payload) === "Blob";
+
+export default isBlob;

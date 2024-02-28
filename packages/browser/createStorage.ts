@@ -171,3 +171,5 @@ export let createStorage = <T extends CreateStorageConfig>(
     },
   };
 };
+
+export default createStorage;

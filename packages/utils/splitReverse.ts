@@ -15,3 +15,5 @@ export let splitReverse = <T extends string, D extends string>(
   string: T,
   delimiter: D,
 ) => string.split(delimiter).reverse() as SplitReverse<T, D>;
+
+export default splitReverse;

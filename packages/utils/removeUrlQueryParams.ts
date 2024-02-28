@@ -22,3 +22,5 @@ export let removeUrlQueryParams = (
   }
   return parts[0] + buildUrlQueryString(params);
 };
+
+export default removeUrlQueryParams;

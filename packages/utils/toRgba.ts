@@ -13,3 +13,5 @@ export let toRgba = (hex: string, alpha = 1) => {
   }
   return "";
 };
+
+export default toRgba;

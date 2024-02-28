@@ -39,6 +39,24 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
       scrollRestoration: true,
       ...(restNextConfig.experimental || {}),
     },
+    modularizeImports: {
+      ...(restNextConfig.modularizeImports || {}),
+      // @see https://www.zhoulujun.net/nextjs/advanced-features/compiler.html#modularize-imports
+      "@koine/api": { transform: "@koine/api/{{member}}" },
+      "@koine/browser": { transform: "@koine/browser/{{member}}" },
+      "@koine/dom": { transform: "@koine/dom/{{member}}" },
+      "@koine/node": { transform: "@koine/node/{{member}}" },
+      "@koine/i18n/?(((\\w*)?/?)*)": {
+        transform: "@koine/i18n/{{ matches.[1] }}/{{member}}",
+      },
+      "@koine/react/?(((\\w*)?/?)*)": {
+        transform: "@koine/react/{{ matches.[1] }}/{{member}}",
+      },
+      "@koine/next/?(((\\w*)?/?)*)": {
+        transform: "@koine/next/{{ matches.[1] }}/{{member}}",
+      },
+      "@koine/utils": { transform: "@koine/utils/{{member}}" },
+    },
     ...restNextConfig,
   };
 

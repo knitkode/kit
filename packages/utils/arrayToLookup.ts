@@ -13,3 +13,5 @@ export let arrayToLookup = <T extends string | number | symbol>(
     },
     {} as Record<T, 1>,
   );
+
+export default arrayToLookup;

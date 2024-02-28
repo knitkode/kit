@@ -38,4 +38,4 @@ export let listenResizeDebounced = (
 //   return listenResize(debounce(...args.slice(1)), args[0]);
 // }
 
-// export default listenResizeDebounced;
+export default listenResizeDebounced;

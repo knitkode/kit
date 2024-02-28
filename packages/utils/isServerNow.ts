@@ -5,3 +5,5 @@ import { isUndefined } from "./isUndefined";
  * @category is
  */
 export let isServerNow = () => isUndefined(window);
+
+export default isServerNow;

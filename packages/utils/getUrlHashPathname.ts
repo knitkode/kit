@@ -7,3 +7,5 @@
  */
 export let getUrlHashPathname = (hash = "") =>
   (hash || location.hash).split("?")[0].replace(/^#\//, "");
+
+export default getUrlHashPathname;

@@ -163,3 +163,5 @@ export let storageClient = <
     has,
   };
 };
+
+export default storageClient;

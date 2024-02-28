@@ -7,3 +7,5 @@ import { isNumber } from "./isNumber";
  */
 export let isFloat = (payload: any): payload is number =>
   isNumber(payload) && payload % 1 !== 0;
+
+export default isFloat;

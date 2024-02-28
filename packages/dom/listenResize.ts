@@ -8,3 +8,5 @@ import type { AnyDOMEventTargetLoose } from "./types";
  */
 export let listenResize = (handler: () => void, el?: AnyDOMEventTargetLoose) =>
   on(el || window, "resize", handler);
+
+export default listenResize;

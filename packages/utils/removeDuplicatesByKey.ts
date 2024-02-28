@@ -23,3 +23,5 @@ export let removeDuplicatesByKey = <
 
   return output;
 };
+
+export default removeDuplicatesByKey;

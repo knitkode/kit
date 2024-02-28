@@ -26,3 +26,5 @@ export function debounceRaf<T extends (...args: any[]) => any>(
     });
   };
 }
+
+export default debounceRaf;

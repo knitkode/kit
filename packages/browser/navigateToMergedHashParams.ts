@@ -18,3 +18,5 @@ export let navigateToMergedHashParams = (
     mergeUrlQueryParams(getUrlHashParams(hash), params),
     hash,
   );
+
+export default navigateToMergedHashParams;

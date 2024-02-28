@@ -8,3 +8,5 @@
  */
 export let isNumericLiteral = (payload: string): payload is `${number}` =>
   /^[+-]?\d+(\.\d+)?$/.test(payload);
+
+export default isNumericLiteral;

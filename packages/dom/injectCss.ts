@@ -18,3 +18,5 @@ export let injectCss = (
   }
   styleblock.innerHTML = cssString;
 };
+
+export default injectCss;

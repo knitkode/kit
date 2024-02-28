@@ -10,3 +10,5 @@ import { changeCaseNone } from "./changeCaseNone";
  */
 export let changeCasePath = (input: string, options?: Options) =>
   changeCaseNone(input, { delimiter: "/", ...options });
+
+export default changeCasePath;

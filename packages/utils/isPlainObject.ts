@@ -13,3 +13,5 @@ export let isPlainObject = <TReturn = PlainObject>(
     ? false
     : payload.constructor === Object &&
       Object.getPrototypeOf(payload) === Object.prototype;
+
+export default isPlainObject;

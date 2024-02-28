@@ -14,3 +14,5 @@ export let removeIndexesFromArray = <T>(
   }
   return output;
 };
+
+export default removeIndexesFromArray;

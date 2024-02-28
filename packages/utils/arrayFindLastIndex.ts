@@ -21,3 +21,5 @@ export let arrayFindLastIndex = <T>(
   }
   return -1;
 };
+
+export default arrayFindLastIndex;

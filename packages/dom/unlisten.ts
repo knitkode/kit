@@ -52,3 +52,5 @@ export let unlisten = <
     activeEvents[type]!.splice(index, 1);
   });
 };
+
+export default unlisten;

@@ -21,3 +21,5 @@ export let parseURL = (url: string) => {
     }
   );
 };
+
+export default parseURL;

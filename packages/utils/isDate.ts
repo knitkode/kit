@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isDate = (payload: any): payload is Date =>
   getType(payload) === "Date" && !isNaN(payload);
+
+export default isDate;

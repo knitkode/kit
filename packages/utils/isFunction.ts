@@ -7,3 +7,5 @@ import type { AnyFunction } from "./getType";
  */
 export let isFunction = (payload: any): payload is AnyFunction =>
   typeof payload === "function";
+
+export default isFunction;

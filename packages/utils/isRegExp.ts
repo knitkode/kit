@@ -7,3 +7,5 @@ import { getType } from "./getType";
  */
 export let isRegExp = (payload: any): payload is RegExp =>
   getType(payload) === "RegExp";
+
+export default isRegExp;

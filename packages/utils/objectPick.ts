@@ -16,3 +16,5 @@ export let objectPick = <T extends object, Keys extends (keyof T)[]>(
 
   return output as Pick<T, Keys[number]>;
 };
+
+export default objectPick;

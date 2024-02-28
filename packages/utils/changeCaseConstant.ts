@@ -19,3 +19,5 @@ export let changeCaseConstant = (input: string, options?: Options) => {
     suffix
   );
 };
+
+export default changeCaseConstant;

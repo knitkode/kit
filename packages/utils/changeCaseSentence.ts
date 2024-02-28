@@ -29,3 +29,5 @@ export let changeCaseSentence = (input: string, options?: Options) => {
     suffix
   );
 };
+
+export default changeCaseSentence;

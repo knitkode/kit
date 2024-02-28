@@ -26,3 +26,5 @@ export let isType = <T extends AnyFunction | AnyClass>(
     Boolean(payload && payload.constructor === type)
   );
 };
+
+export default isType;

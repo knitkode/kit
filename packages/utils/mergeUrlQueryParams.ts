@@ -22,3 +22,5 @@ export let mergeUrlQueryParams = <T extends AnyQueryParams>(
 
   return oldParams as T;
 };
+
+export default mergeUrlQueryParams;

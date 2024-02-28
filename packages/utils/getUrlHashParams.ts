@@ -16,3 +16,5 @@ export let getUrlHashParams = <T extends NonNullable<AnyQueryParams>>(
   }
   return {} as T;
 };
+
+export default getUrlHashParams;

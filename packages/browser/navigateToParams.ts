@@ -25,3 +25,5 @@ export let navigateToParams = (
 
   return queryString;
 };
+
+export default navigateToParams;
