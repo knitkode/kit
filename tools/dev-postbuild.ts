@@ -252,7 +252,9 @@ async function adjustSwcOutput(lib: Lib, rootDir: string) {
       // await rename(join(nestedOutputDir, relativePath), dest);
     }),
   );
-  await rm(nestedOutputDir, { recursive: true });
+  try {
+    await rm(nestedOutputDir, { recursive: true });
+  } catch(e) {}
 }
 
 async function copyAllFiles(lib: Lib, rootDir: string) {
