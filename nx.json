@@ -53,7 +53,8 @@
         "outputPath": "dist/packages/{projectName}/esm",
         "tsConfig": "packages/{projectName}/tsconfig.lib.json",
         "project": "packages/{projectName}/package.json",
-        "main": "packages/{projectName}/index.ts"
+        "main": "packages/{projectName}/index.ts",
+        "clean": true
       },
       "dependsOn": ["^build-modularized-esm"],
       "inputs": ["production", "^production"],
@@ -66,7 +67,8 @@
         "outputPath": "dist/packages/{projectName}/cjs",
         "tsConfig": "packages/{projectName}/tsconfig.lib.cjs.json",
         "project": "packages/{projectName}/package.json",
-        "main": "packages/{projectName}/index.ts"
+        "main": "packages/{projectName}/index.ts",
+        "clean": true
       },
       "dependsOn": ["^build-modularized-cjs"],
       "inputs": ["production", "^production"],
@@ -76,12 +78,14 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
+          "pnpm dev prebuild {projectName}",
           "nx run {projectName}:build-modularized-esm",
           "nx run {projectName}:build-modularized-cjs",
           "pnpm dev postbuild {projectName}"
         ],
         "parallel": false
-      }
+      },
+      "dependsOn": ["^build"]
       // we need to run the two not parallely otherwise swc outputs the same format...
       // "command": "pnpm dev postbuild {projectName}"
       // "dependsOn": ["build-modularized-cjs", "build-modularized-esm"]
