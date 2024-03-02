@@ -1,5 +1,6 @@
 {
   "name": "@koine/nx",
+  "private": true,
   "version": "0.0.1",
   "dependencies": {
     "@nx/devkit": "18.0.5",
