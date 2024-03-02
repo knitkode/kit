@@ -6,16 +6,18 @@
   "tags": [],
   "targets": {
     "build": {
-      "additionalEntryPoints": [
-        "packages/api/ApiError.ts",
-        "packages/api/createApi.ts",
-        "packages/api/createApiResultFail.ts",
-        "packages/api/createApiResultOk.ts",
-        "packages/api/next.ts",
-        "packages/api/swr.ts",
-        "packages/api/swr-mutation.ts",
-        "packages/api/swr-types.ts"
-      ]
+      "options": {
+        "additionalEntryPoints": [
+          "packages/api/ApiError.ts",
+          "packages/api/createApi.ts",
+          "packages/api/createApiResultFail.ts",
+          "packages/api/createApiResultOk.ts",
+          "packages/api/next.ts",
+          "packages/api/swr.ts",
+          "packages/api/swr-mutation.ts",
+          "packages/api/swr-types.ts"
+        ]
+      }
     },
     "build-modularized-cjs": {},
     "build-modularized-esm": {},
