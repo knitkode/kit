@@ -6,6 +6,8 @@
   "tags": [],
   "targets": {
     "build": {},
+    "build-modularized-cjs": {},
+    "build-modularized-esm": {},
     "build-modularized": {},
     "build-bundle": {},
 

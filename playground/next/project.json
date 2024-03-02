@@ -43,7 +43,14 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "playground/next/**/*.{ts,tsx,js,jsx}",
+          "playground/next/package.json"
+        ]
+      }
     }
   },
   "tags": []

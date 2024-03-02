@@ -14,5 +14,12 @@
     "twix\\([\\s\\S]*?`([^`]*)`\\s?\\)"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.validate": ["json"]
+  "eslint.validate": ["json"],
+  "eslint.experimental.useFlatConfig": true,
+  "files.associations": {
+    "tsconfig.*.json": "jsonc",
+    "tsconfig.json": "jsonc",
+    "nx.json": "jsonc",
+    "project.json": "jsonc"
+  }
 }

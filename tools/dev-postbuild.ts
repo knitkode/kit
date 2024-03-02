@@ -4,11 +4,10 @@
  * Postbuild command to launch for a particular package/lib
  */
 import { existsSync } from "node:fs";
-import { copyFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, rename, rm, writeFile } from "node:fs/promises";
 import { dirname, join, relative, resolve } from "node:path";
 import chalk from "chalk";
 import { Command } from "commander";
-import { ensureDir } from "fs-extra";
 import { glob, globSync } from "glob";
 import ora from "ora";
 import { tsAddJsExtension } from "ts-add-js-extension";
@@ -84,41 +83,23 @@ async function manageLibBuildArtifacts(libSlug: string, options: CmdOptions) {
           });
         }
 
+        if (hasEsm) await adjustSwcOutput(lib, esmPath);
+        if (hasCjs) await adjustSwcOutput(lib, cjsPath);
+
         // 2) move and rename esm files to root
         if (hasEsm) {
           npmignoreContent.push("/esm");
-          await Promise.all(
-            globSync(esmPath + "/**/*.{js,ts,json}").map(async (filepath) => {
-              let rel = relative(esmPath, filepath);
-              // if (hasCjs) rel = rel.replace(/\.js$/, ".mjs");
-              const dest = join(lib.dist, rel);
-              await ensureDir(dirname(dest));
-              await copyFile(filepath, dest);
-              // await rename(filepath, join(lib.dist, rel));
-            }),
-          );
-          // await rm(esmPath, { recursive: true });
+          await copyAllFiles(lib, esmPath);
         }
 
         // 3) move and rename cjs files to root
-        // if (hasCjs) {
-        //   npmignoreContent.push("/cjs");
-        //   await Promise.all(
-        //     globSync(cjsPath + "/**/*.{js,ts,json}").map(async (filepath) => {
-        //       let rel = relative(cjsPath, filepath);
-        //       // if (hasEsm) rel = rel.replace(/\.js$/, ".cjs");
-        //       const dest = join(lib.dist, rel);
-        //       await ensureDir(dirname(dest));
-        //       await copyFile(filepath, dest);
-        //       // await rename(filepath, join(lib.dist, rel));
-        //     }),
-        //   );
-        //   // await rm(cjsPath, { recursive: true });
-        // }
+        if (!hasEsm && hasCjs) {
+          npmignoreContent.push("/cjs");
+          await copyAllFiles(lib, cjsPath);
+        }
 
         // 4) write lib exports
-        // await writeLibExports(lib, options, hasEsm, hasCjs);
-        await writeLibEsmExports(lib, options);
+        await writeLibExports(lib, options, hasEsm, hasCjs);
 
         // 5) write npmignore
         if (npmignoreContent.length) {
@@ -257,51 +238,36 @@ async function writeLibExports(
   });
 }
 
-async function writeLibEsmExports(
-  lib: Lib,
-  options: CmdOptions,
-) {
-  const paths = await glob(lib.dist + "/**/*.{js,scss}", {
-    ignore: [
-      // ignore build artifacts
-      lib.dist + "/cjs/**/*",
-      lib.dist + "/esm/**/*",
-      // ignore executables
-      lib.dist + "/bin/*.js",
-      // root index is already exported by `exports: { ".": { import: "./index.js" } }`
-      lib.dist + "/index.js",
-      // ignore "private" files prefixed with `_` (local convention)
-      lib.dist + "/_*.js",
-    ],
-  });
-
-  const pathsToExports = paths
-    .map((fileOrFolderPath) => {
-      const dir = relative(lib.dist, fileOrFolderPath);
-      return dir;
-    })
-    .sort();
-
-  // console.log(`${lib.name}:`, pathsToExports);
-
-  const defaultExp = getLibExport(options, true, false);
-  const exports = pathsToExports.reduce(
-    (map, path) => {
-      const isScssFile = path.endsWith(".scss");
-      const name = isScssFile
-        ? path
-        : path.replace(/\.js$/, "").replace(/\/index$/, "");
-      const exp = getLibExport(options, true, false, name, `./${path}`);
-      map[exp.name] = exp.obj;
-
-      return map;
-    },
-    {
-      [defaultExp.name]: defaultExp.obj,
-    } as Record<string, object>,
+// FIXME: this is due to the problem that swc places output js files in a subfolder
+async function adjustSwcOutput(lib: Lib, rootDir: string) {
+  const nestedOutputDir = join(rootDir, lib.slug);
+  const paths = await glob("**/*.{ts,js,cjs,mjs,json}", {
+    absolute: false,
+    cwd: nestedOutputDir,
+  })
+  await Promise.all(paths.map(async (relativePath) => {
+      const dest = join(rootDir, relativePath);
+      await mkdir(dirname(dest), { recursive: true });
+      await copyFile(join(nestedOutputDir, relativePath), dest);
+      // await rename(join(nestedOutputDir, relativePath), dest);
+    }),
   );
+  await rm(nestedOutputDir, { recursive: true });
+}
 
-  await editJSONfile(lib.dist, "package.json", (data) => {
-    data.exports = { ...exports, ...data.exports };
-  });
+async function copyAllFiles(lib: Lib, rootDir: string) {
+  const paths = await glob("**/*.{ts,js,cjs,mjs,json}", {
+    absolute: false,
+    cwd: rootDir,
+  })
+  await Promise.all(
+    paths.map(async (relativePath) => {
+      // if (hasCjs) rel = rel.replace(/\.js$/, ".mjs");
+      const dest = join(lib.dist, relativePath);
+      await mkdir(dirname(dest), { recursive: true });
+      await copyFile(join(rootDir, relativePath), dest);
+      // await rename(join(rootDir, relativePath), dest);
+    }),
+  );
+  await rm(rootDir, { recursive: true });
 }

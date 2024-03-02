@@ -21,6 +21,7 @@
     "build-bundle": {
       "executor": "nx:noop"
     },
+    "TODO: update lint task": {},
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
