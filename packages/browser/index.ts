@@ -13,6 +13,6 @@ export { navigateToMergedParams } from "./navigateToMergedParams";
 export { navigateToParams } from "./navigateToParams";
 export { navigateToUrl } from "./navigateToUrl";
 export { navigateWithoutUrlParam } from "./navigateWithoutUrlParam";
-export { redirectTo } from "./redirectTo";
 export { storage } from "./storage";
+export { redirectTo } from "./redirectTo";
 export { storageClient, type StorageClientConfig } from "./storageClient";

@@ -5,7 +5,18 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {},
+    "build": {
+      "options": {
+        "additionalEntryPoints": [
+          "packages/next/12.ts",
+          "packages/next/config.ts",
+          "packages/next/load.ts",
+          "packages/next/ThemeContext.tsx",
+          "packages/next/ThemeProvider.tsx",
+          "packages/next/useTheme.tsx"
+        ]
+      }
+    },
     "build-modularized-cjs": {},
     "build-modularized-esm": {},
     "build-modularized": {},

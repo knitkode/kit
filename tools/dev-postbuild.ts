@@ -83,8 +83,10 @@ async function manageLibBuildArtifacts(libSlug: string, options: CmdOptions) {
           });
         }
 
-        if (hasEsm) await adjustSwcOutput(lib, esmPath);
-        if (hasCjs) await adjustSwcOutput(lib, cjsPath);
+        if (lib.name !== "i18n") {
+          if (hasEsm) await adjustSwcOutput(lib, esmPath);
+          if (hasCjs) await adjustSwcOutput(lib, cjsPath);
+        }
 
         // 2) move and rename esm files to root
         if (hasEsm) {
@@ -96,6 +98,7 @@ async function manageLibBuildArtifacts(libSlug: string, options: CmdOptions) {
         if (!hasEsm && hasCjs) {
           npmignoreContent.push("/cjs");
           await copyAllFiles(lib, cjsPath);
+          await removePackageJsons(lib);
         }
 
         // 4) write lib exports
@@ -241,11 +244,13 @@ async function writeLibExports(
 // FIXME: this is due to the problem that swc places output js files in a subfolder
 async function adjustSwcOutput(lib: Lib, rootDir: string) {
   const nestedOutputDir = join(rootDir, lib.slug);
+  // console.log({ nestedOutputDir, rootDir });
   const paths = await glob("**/*.{ts,js,cjs,mjs,json}", {
     absolute: false,
     cwd: nestedOutputDir,
-  })
-  await Promise.all(paths.map(async (relativePath) => {
+  });
+  await Promise.all(
+    paths.map(async (relativePath) => {
       const dest = join(rootDir, relativePath);
       await mkdir(dirname(dest), { recursive: true });
       await copyFile(join(nestedOutputDir, relativePath), dest);
@@ -253,7 +258,7 @@ async function adjustSwcOutput(lib: Lib, rootDir: string) {
     }),
   );
   // try {
-    await rm(nestedOutputDir, { recursive: true });
+  await rm(nestedOutputDir, { recursive: true });
   // } catch(e) {}
 }
 
@@ -261,7 +266,7 @@ async function copyAllFiles(lib: Lib, rootDir: string) {
   const paths = await glob("**/*.{ts,js,cjs,mjs,json}", {
     absolute: false,
     cwd: rootDir,
-  })
+  });
   await Promise.all(
     paths.map(async (relativePath) => {
       // if (hasCjs) rel = rel.replace(/\.js$/, ".mjs");
@@ -272,4 +277,16 @@ async function copyAllFiles(lib: Lib, rootDir: string) {
     }),
   );
   await rm(rootDir, { recursive: true });
+}
+
+async function removePackageJsons(lib: Lib) {
+  const paths = await glob("package.json", {
+    absolute: true,
+    cwd: join(lib.dist, "cjs"),
+  });
+  await Promise.all(
+    paths.map(async (absolutePath) => {
+      await rm(absolutePath);
+    }),
+  );
 }

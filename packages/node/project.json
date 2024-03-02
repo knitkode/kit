@@ -5,7 +5,15 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {},
+    "build": {
+      "options": {
+        "additionalEntryPoints": [
+          "packages/node/fsWrite.ts",
+          "packages/node/fsWriteSync.ts",
+          "packages/node/jest.ts"
+        ]
+      }
+    },
     "build-modularized-cjs": {},
     "build-modularized-esm": {},
     "build-modularized": {},

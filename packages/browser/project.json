@@ -5,7 +5,30 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {},
+    "build": {
+      "options": {
+        "additionalEntryPoints": [
+          "packages/browser/createStorage.ts",
+          "packages/browser/getZonedDate.ts",
+          "packages/browser/gtag.ts",
+          "packages/browser/gtagPageview.ts",
+          "packages/browser/isIE.ts",
+          "packages/browser/isMobile.ts",
+          "packages/browser/listenUrlSearch.ts",
+          "packages/browser/listenUrlSearchParams.ts",
+          "packages/browser/navigateToHash.ts",
+          "packages/browser/navigateToHashParams.ts",
+          "packages/browser/navigateToMergedHashParams.ts",
+          "packages/browser/navigateToMergedParams.ts",
+          "packages/browser/navigateToParams.ts",
+          "packages/browser/navigateToUrl.ts",
+          "packages/browser/navigateWithoutUrlParam.ts",
+          "packages/browser/redirectTo.ts",
+          "packages/browser/storage.ts",
+          "packages/browser/storageClient.ts"
+        ]
+      }
+    },
     "build-modularized-cjs": {},
     "build-modularized-esm": {},
     "build-modularized": {},

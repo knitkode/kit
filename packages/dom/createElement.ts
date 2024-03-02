@@ -1,5 +1,10 @@
-import type { LiteralUnion } from "@koine/utils";
+// import type { LiteralUnion } from "@koine/utils";
 import { addClass } from "./addClass";
+
+// FIXME: inline the typ or the rollup build breaks?
+type LiteralUnion<LiteralType, BaseType extends string> =
+  | LiteralType
+  | (BaseType & Record<never, never>);
 
 /**
  * Shortcut for `document.createElement`, allowing to to create an HTML element

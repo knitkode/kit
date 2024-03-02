@@ -74,7 +74,7 @@
       "inputs": ["production", "^production"],
       "cache": true
     },
-    "build": {
+    "_build": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
@@ -89,6 +89,37 @@
       // we need to run the two not parallely otherwise swc outputs the same format...
       // "command": "pnpm dev postbuild {projectName}"
       // "dependsOn": ["build-modularized-cjs", "build-modularized-esm"]
+    },
+    "build": {
+      "executor": "@nx/rollup:rollup",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/{projectName}",
+        "tsConfig": "packages/{projectName}/tsconfig.lib.json",
+        "project": "packages/{projectName}/package.json",
+        "main": "packages/{projectName}/index.ts",
+        "buildableProjectDepsInPackageJsonType": "peerDependencies",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "generateExportsField": true,
+        "deleteOutputPath": true,
+        "external": "all",
+        // "output": {
+        //   "exports": "named"
+        // },
+        "format": ["cjs", "esm"],
+        // FIXME: find out why with `swc` the build breaks
+        "compiler": "tsc",
+        "assets": [
+          {
+            "input": "packages/{projectName}",
+            "glob": "/*.{md,d.ts}",
+            "output": "./"
+          }
+        ]
+      },
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"],
+      "cache": true
     },
     "lint": {
       "executor": "@nx/eslint:lint",
