@@ -1,4 +1,4 @@
-import { $ } from "./$";
+import { dom } from "./dom";
 
 /**
  * Inject css
@@ -10,7 +10,7 @@ export let injectCss = (
   cssString = "",
   root: Document = document,
 ) => {
-  let styleblock = $<HTMLStyleElement>("#" + id);
+  let styleblock = dom<HTMLStyleElement>("#" + id);
   if (!styleblock) {
     styleblock = root.createElement("style");
     styleblock.id = id;
