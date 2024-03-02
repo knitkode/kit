@@ -6,10 +6,10 @@
  * @param parent It falls back to `window.document`
  * @param avoidEscape Whether to avoid escaping `:` in the selector string
  * @example <caption>Basic DOM selection</caption>
- * const $container = $(".my-section:");
- * const $el = $("[data-some-attr]", $container);
+ * const $container = dom(".my-section:");
+ * const $el = dom("[data-some-attr]", $container);
  */
-export let $ = <T extends Element = HTMLElement>(
+export let dom = <T extends Element = HTMLElement>(
   selector: string,
   parent?: HTMLElement | Document | null,
   avoidEscape?: boolean,
@@ -18,4 +18,4 @@ export let $ = <T extends Element = HTMLElement>(
     avoidEscape ? selector : selector.replace(/:/g, "\\:"),
   ) as unknown as T;
 
-export default $;
+export default dom;

@@ -1,9 +1,9 @@
-export { $ } from "./$";
-export { $all } from "./$all";
-export { $each } from "./$each";
 export { addClass } from "./addClass";
 export { calculateFixedOffset } from "./calculateFixedOffset";
 export { createElement } from "./createElement";
+export { dom } from "./dom";
+export { domAll } from "./domAll";
+export { domEach } from "./domEach";
 export { emitEvent } from "./emitEvent";
 export { escapeSelector } from "./escapeSelector";
 export { exists } from "./exists";

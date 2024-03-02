@@ -6,7 +6,7 @@
  * @param parent It falls back to `window.document`
  * @param avoidEscape Whether to avoid escaping `:` in the selector string
  */
-export let $all = <T extends Element = HTMLElement>(
+export let domAll = <T extends Element = HTMLElement>(
   selector: string,
   parent?: Element | HTMLElement | Document | null,
   avoidEscape?: boolean,
@@ -15,4 +15,4 @@ export let $all = <T extends Element = HTMLElement>(
     avoidEscape ? selector : selector.replace(/:/g, "\\:"),
   ) as unknown as NodeListOf<T>;
 
-export default $all;
+export default domAll;

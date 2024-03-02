@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { debounce } from "@koine/utils";
 import {
-  $each,
   calculateFixedOffset,
+  domEach,
   injectCss,
   listenResizeDebounced,
 } from "@koine/dom";
@@ -36,7 +36,7 @@ export let useFixedOffset = (selector?: string) => {
     update();
 
     if (ResizeObserver) {
-      // const elements = $all("[data-fixed]");
+      // const elements = domAll("[data-fixed]");
 
       const observer = new ResizeObserver((entries) => {
         let newFixedOffset = 0;
@@ -53,7 +53,7 @@ export let useFixedOffset = (selector?: string) => {
         updateOnResize();
       });
 
-      $each(selector || "[data-fixed]", ($el) => {
+      domEach(selector || "[data-fixed]", ($el) => {
         if (observer) observer.observe($el);
       });
 

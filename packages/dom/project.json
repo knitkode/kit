@@ -8,12 +8,12 @@
     "build": {
       "options": {
         "additionalEntryPoints": [
-          "packages/dom/$.ts",
-          "packages/dom/$all.ts",
-          "packages/dom/$each.ts",
           "packages/dom/addClass.ts",
           "packages/dom/calculateFixedOffset.ts",
           "packages/dom/createElement.ts",
+          "packages/dom/dom.ts",
+          "packages/dom/domAll.ts",
+          "packages/dom/domEach.ts",
           "packages/dom/emitEvent.ts",
           "packages/dom/escapeSelector.ts",
           "packages/dom/exists.ts",

@@ -1,9 +1,9 @@
-import { $each } from "./$each";
+import { domEach } from "./domEach";
 
 export let calculateFixedOffset = (selector = "[data-fixed]") => {
   let fixedOffset = 0;
 
-  $each(selector, ($el) => {
+  domEach(selector, ($el) => {
     fixedOffset += $el.offsetHeight;
   });
 
