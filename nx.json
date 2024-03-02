@@ -66,8 +66,7 @@
         "outputPath": "dist/packages/{projectName}/cjs",
         "tsConfig": "packages/{projectName}/tsconfig.lib.cjs.json",
         "project": "packages/{projectName}/package.json",
-        "main": "packages/{projectName}/index.ts",
-        "skipTypeCheck": true
+        "main": "packages/{projectName}/index.ts"
       },
       "dependsOn": ["^build-modularized-cjs"],
       "inputs": ["production", "^production"],
