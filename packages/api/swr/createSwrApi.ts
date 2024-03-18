@@ -34,7 +34,14 @@ type SWRConfigurationExtended<
 };
 
 /**
- * @internal
+ * @private
+ */
+export type CreatedUseApi<TEndpoints extends Api.Endpoints> = ReturnType<
+  typeof createUseApi<TEndpoints>
+>;
+
+/**
+ * @private
  */
 export let createUseApi =
   <TEndpoints extends Api.Endpoints>(api: Api.Client<TEndpoints>) =>
@@ -96,7 +103,7 @@ export let createSwrApi = <TEndpoints extends Api.Endpoints>(
   ...args: Parameters<typeof createApi>
 ) => {
   const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
-    use: ReturnType<typeof createUseApi<TEndpoints>>;
+    use: CreatedUseApi<TEndpoints>;
   };
 
   api.use = createUseApi<TEndpoints>(api);

@@ -11,6 +11,7 @@
       "legacyDecorator": true
     },
     "keepClassNames": true,
+    "preserveAllComments": true,
     "externalHelpers": true,
     "loose": true
   },

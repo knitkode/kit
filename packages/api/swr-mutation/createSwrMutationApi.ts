@@ -5,7 +5,7 @@ import useSWRMutation, {
   type SWRMutationResponse,
 } from "swr/mutation";
 import { createApi } from "../createApi";
-import { createUseApi } from "../swr/createSwrApi";
+import { type CreatedUseApi, createUseApi } from "../swr/createSwrApi";
 import type { Api } from "../types";
 
 type MutationRequestMethod = Exclude<Api.RequestMethod, "get">;
@@ -95,7 +95,7 @@ export let createSwrMutationApi = <TEndpoints extends Api.Endpoints>(
   const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
     [HookName in MutationHookName]: KoineApiMethodHookSWR<HookName, TEndpoints>;
   } & {
-    use: ReturnType<typeof createUseApi<TEndpoints>>;
+    use: CreatedUseApi<TEndpoints>;
   };
 
   api.use = createUseApi(api);
