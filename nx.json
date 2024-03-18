@@ -104,8 +104,7 @@
         "deleteOutputPath": true,
         "external": "all",
         "format": ["cjs", "esm"],
-        // FIXME: find out why with `swc` the build breaks
-        "compiler": "tsc",
+        "compiler": "swc",
         "assets": [
           {
             "input": "packages/{projectName}",
