@@ -17,8 +17,11 @@ export let slugify = (text: string, separator = "-") =>
     accentsSets.concat([["-", "[·/_,:;']"]]),
   )
     .replace(/\s+/g, "-") // replace spaces with -
-    .replace(/&/g, "-and-") // replace & with 'and'
-    .replace(/[^\w-]+/g, "") // remove all non-word chars
+    // .replace(/&/g, "-and-") // replace & with 'and'
+    // it used to be:
+    // .replace(/[^\w-]+/g, "") // remove all non-word chars
+    // and now with chinese support @see https://stackoverflow.com/a/25698970
+    .replace(/[^a-zA-Z0-9_\u3400-\u9FBF\s-]+/g, "") // remove all non-word chars
     .replace(/--+/g, "-") // replace multiple - with single -
     .replace(/^-+/, "") // trim - from start of text
     .replace(/-+$/, "") // trim - from end of text

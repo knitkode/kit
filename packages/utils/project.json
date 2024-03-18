@@ -66,6 +66,7 @@
           "packages/utils/getUrlHashPathname.ts",
           "packages/utils/getUrlPathnameParts.ts",
           "packages/utils/getUrlQueryParams.ts",
+          "packages/utils/hashAny.ts",
           "packages/utils/imgEmptyPixel.ts",
           "packages/utils/invariant.ts",
           "packages/utils/isAbsoluteUrl.ts",

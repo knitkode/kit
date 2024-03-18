@@ -103,9 +103,6 @@
         "generateExportsField": true,
         "deleteOutputPath": true,
         "external": "all",
-        // "output": {
-        //   "exports": "named"
-        // },
         "format": ["cjs", "esm"],
         // FIXME: find out why with `swc` the build breaks
         "compiler": "tsc",

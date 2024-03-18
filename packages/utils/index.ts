@@ -69,6 +69,7 @@ export { getUrlHashParams } from "./getUrlHashParams";
 export { getUrlHashPathname } from "./getUrlHashPathname";
 export { getUrlPathnameParts } from "./getUrlPathnameParts";
 export { getUrlQueryParams } from "./getUrlQueryParams";
+export { hashAny } from "./hashAny";
 export { imgEmptyPixel } from "./imgEmptyPixel";
 export { isAbsoluteUrl } from "./isAbsoluteUrl";
 export { isAnyObject } from "./isAnyObject";
