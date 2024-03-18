@@ -1,4 +1,4 @@
-import { accentsSets } from "./accentSets";
+import { accentsSets } from "./accentsSets";
 import { removeAccents } from "./removeAccents";
 
 /**

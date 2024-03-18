@@ -10,7 +10,7 @@
         "additionalEntryPoints": [
           "packages/utils/Defer.ts",
           "packages/utils/Emitter.ts",
-          "packages/utils/accentSets.ts",
+          "packages/utils/accentsSets.ts",
           "packages/utils/addOrReplaceAtIdx.ts",
           "packages/utils/areEqual.ts",
           "packages/utils/arrayFilterFalsy.ts",

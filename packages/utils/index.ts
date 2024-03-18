@@ -1,4 +1,4 @@
-export { accentsSets, type AccentsSet } from "./accentSets";
+export { accentsSets, type AccentsSet } from "./accentsSets";
 export { addOrReplaceAtIdx } from "./addOrReplaceAtIdx";
 export { areEqual } from "./areEqual";
 export { arrayFilterFalsy } from "./arrayFilterFalsy";

@@ -1,5 +1,5 @@
-import type { AccentsSet } from "./accentSets";
-import { accentsSets } from "./accentSets";
+import type { AccentsSet } from "./accentsSets";
+import { accentsSets } from "./accentsSets";
 
 /**
  * @category text
