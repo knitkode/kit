@@ -1,4 +1,6 @@
 packages/i18n/compiler-mocked.spec.ts
+__mocks__/**/.code
+__mocks__/**/summary.md
 
 CHANGELOG.md
 pnpm-lock.yaml

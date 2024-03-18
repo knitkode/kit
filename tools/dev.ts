@@ -2,8 +2,8 @@ import chalk from "chalk";
 import { Option, program } from "commander";
 import { libs } from "./dev-libs.js";
 import { link } from "./dev-link.js";
-import { prebuild } from "./dev-prebuild.js";
 import { postbuild } from "./dev-postbuild.js";
+import { prebuild } from "./dev-prebuild.js";
 import { publish } from "./dev-publish.js";
 
 export const oraOpts = {
