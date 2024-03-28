@@ -7,6 +7,11 @@ import {
   withI18nLegacy,
 } from "@koine/i18n/next";
 
+/**
+ * @legacy
+ */
+export type Routes = NonNullable<WithI18nLegacyOptions["i18nRoutes"]>["routes"];
+
 export type WithKoineOptions = NextConfig & {
   nx?: boolean;
   svg?: boolean;
