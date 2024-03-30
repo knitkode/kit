@@ -13,8 +13,12 @@ export type ObjectMergeWithDefaults<Defaults, Overrides> =
             : K extends keyof Defaults
               ? ObjectMergeWithDefaults<Defaults[K], Overrides[K]>
               : Overrides[K];
-        }
-      : Overrides;
+        } & (Defaults extends PlainObject
+          ? {
+              [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
+            }
+          : Defaults)
+      : Defaults;
 // FIXME: this type breaks compilation
 // export type ObjectMergeWithDefaults<Defaults, Overrides> = Simplify<
 //   Overrides extends undefined
