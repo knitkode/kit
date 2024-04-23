@@ -18,8 +18,8 @@ dependencies:
     specifier: ^3.6.0
     version: 3.6.0
   date-fns-tz:
-    specifier: ^2.0.1
-    version: 2.0.1(date-fns@3.6.0)
+    specifier: ^3.0.1
+    version: 3.0.1(date-fns@3.6.0)
   minimatch:
     specifier: ^9.0.3
     version: 9.0.3
@@ -8165,12 +8165,13 @@ packages:
       is-data-view: 1.0.1
     dev: true
 
-  /date-fns-tz@2.0.1(date-fns@3.6.0):
-    resolution: {integrity: sha512-fJCG3Pwx8HUoLhkepdsP7Z5RsucUi+ZBOxyM5d0ZZ6c4SdYustq0VMmOu6Wf7bli+yS/Jwp91TOCqn9jMcVrUA==}
+  /date-fns-tz@3.0.1(date-fns@3.6.0):
+    resolution: {integrity: sha512-LGKFMKEllm9tCirgYhha3rqfw5nstTULXnKKCk2qO/qju1rfxpUI9IXzmpOd5w727TtrfenAVafql0B/vs6aQQ==}
     peerDependencies:
-      date-fns: 2.x
+      date-fns: ^3.0.0
     dependencies:
       date-fns: 3.6.0
+      lodash.clonedeep: 4.5.0
     dev: false
 
   /date-fns@3.6.0:
@@ -12023,6 +12024,10 @@ packages:
   /lodash.camelcase@4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
     dev: true
+
+  /lodash.clonedeep@4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
+    dev: false
 
   /lodash.debounce@4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
