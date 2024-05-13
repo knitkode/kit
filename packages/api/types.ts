@@ -5,7 +5,7 @@ type _Response = Response;
 /**
  * @borrows [awesome-template-literal-types](https://github.com/ghoullier/awesome-template-literal-types#router-params-parsing)
  */
-type ExtractEndpointParams<T extends string> = string extends T
+type ExtractEndpointParams<T extends string> = string | number extends T
   ? Record<string, string>
   : // eslint-disable-next-line @typescript-eslint/no-unused-vars
     T extends `${infer _Start}{${infer Param}}${infer Rest}`
@@ -13,7 +13,7 @@ type ExtractEndpointParams<T extends string> = string extends T
     : // eslint-disable-next-line @typescript-eslint/no-unused-vars
       T extends `${infer _Start}{${infer Param}}`
       ? { [k in Param]: string | number }
-      : never;
+      : {};
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Api {

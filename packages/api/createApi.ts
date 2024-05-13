@@ -117,7 +117,8 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
 
         if (isFullObject(params)) {
           for (const key in params) {
-            url = url.replace(`{${key}}`, params[key].toString());
+            // TODO: not the greatest assertion...
+            url = url.replace(`{${key}}`, params[key] as string);
           }
         }
 
