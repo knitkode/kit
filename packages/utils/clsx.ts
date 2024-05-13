@@ -3,6 +3,7 @@ type ClassValue =
   | ClassDictionary
   | string
   | number
+  | bigint
   | null
   | boolean
   | undefined;
