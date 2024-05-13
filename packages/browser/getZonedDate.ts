@@ -1,4 +1,4 @@
-import { toZonedTime } from "date-fns-tz/toZonedTime";
+import { toZonedTime } from "date-fns-tz";
 import { isBrowser } from "@koine/utils";
 
 /**
