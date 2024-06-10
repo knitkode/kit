@@ -86,9 +86,6 @@
         "parallel": false
       },
       "dependsOn": ["^build"]
-      // we need to run the two not parallely otherwise swc outputs the same format...
-      // "command": "pnpm dev postbuild {projectName}"
-      // "dependsOn": ["build-modularized-cjs", "build-modularized-esm"]
     },
     "build": {
       "executor": "@nx/rollup:rollup",

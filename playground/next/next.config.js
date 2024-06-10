@@ -2,14 +2,29 @@
 
 const { composePlugins, withNx } = require("@nx/next");
 const webpack = require("webpack");
-// const { withI18n } = require("@koine/i18n/next");
-// const { withI18n } = require("../../dist/packages/i18n/next.cjs");
+// const { withI18nAsync } = require("@koine/i18n/next");
+// const { withI18nAsync } = require("../../dist/packages/i18n/next.cjs");
 // const { join } = require("path");
 
 /**
- * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
+ * @type {import('../../dist/packages/i18n/next').WithI18nAsyncOptions}
  **/
 const nextConfig = {
+  // i18nCompiler: {
+  //   defaultLocale: "en",
+  //   baseUrl: "https://playground.koine.io",
+  //   input: {
+  //     source: "./locales",
+  //   },
+  //   code: {
+  //     adapter: {
+  //       name: "next",
+  //       options: {
+  //         router: "app"
+  //       }
+  //     },
+  //   }
+  // },
   nx: {
     // Set this to true if you would like to use SVGR
     // See: https://github.com/gregberge/svgr
@@ -55,6 +70,7 @@ const nextConfig = {
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
+  // withI18nAsync,
 ];
 
 module.exports = composePlugins(...plugins)(
