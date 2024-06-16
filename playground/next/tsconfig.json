@@ -15,7 +15,8 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "esModuleInterop": true
   },
   "include": [
     "**/*.ts",
