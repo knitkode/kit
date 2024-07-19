@@ -16,7 +16,12 @@
         "name": "next"
       }
     ],
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/components": ["./playground/next/components"],
+      "@/i18n": ["./playground/next/i18n"],
+      "@/i18n/*": ["./playground/next/i18n/*"]
+    }
   },
   "include": [
     "**/*.ts",

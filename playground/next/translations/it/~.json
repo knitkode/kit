@@ -1,0 +1,43 @@
+{
+  "home": "/",
+  "about": "/chi-siamo",
+  "account": {
+    "user": {
+      "profile": "/account/utente",
+      "[id]": "/account/utente/{{ id }}",
+      "settings": {
+        "index": "/account/utente/impostazioni",
+        "personal": "/account/utente/impostazioni/personali"
+      }
+    }
+  },
+  "products": {
+    "index": "/prodotti",
+    "[id]": {
+      "index": "^/{{ id }}",
+      "edit": {
+        "index": "^/modifica",
+        "details": "^/dettagli"
+      }
+    }
+  },
+  "apps": {
+    "tool": {
+      "index": "/apps/strumento/*",
+      "things": {
+        "index": "/cose",
+        "[id]": {
+          "index": "/cose/{{ id }}",
+          "detail": {
+            "index": "/cose/{{ id }}/dettaglio",
+            "new": "/cose/{{ id }}/dettaglio/nuovo",
+            "[detailId]": {
+              "index": "/cose/{{ id }}/dettaglio/{{ detailId }}",
+              "edit": "/cose/{{ id }}/dettaglio/{{ detailId }}/modifica"
+            }
+          }
+        }
+      }
+    }
+  }
+}
