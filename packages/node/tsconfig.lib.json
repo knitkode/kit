@@ -5,7 +5,6 @@
     "types": ["node", "jest"]
     // "esModuleInterop": true
   },
-  "files": [],
   "include": ["**/*.ts"],
   "exclude": ["**/*.spec.ts"]
 }

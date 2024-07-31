@@ -10,7 +10,8 @@
         "additionalEntryPoints": [
           "packages/node/fsWrite.ts",
           "packages/node/fsWriteSync.ts",
-          "packages/node/jest.ts"
+          "packages/node/jest.ts",
+          "packages/node/swc.ts"
         ]
       }
     },
@@ -19,7 +20,10 @@
     "build-modularized": {},
     "build-bundle": {
       "options": {
-        "additionalEntryPoints": ["packages/node/jest.ts"]
+        "additionalEntryPoints": [
+          "packages/node/jest.ts",
+          "packages/node/swc.ts"
+        ]
       }
     },
     "lint": {}

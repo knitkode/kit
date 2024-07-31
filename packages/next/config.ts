@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { swcTransformsKoine } from "@koine/node/swc";
 import {
   type WithI18nAsyncOptions,
   type WithI18nLegacyOptions,
@@ -28,7 +29,6 @@ export type WithKoineOptions = NextConfig & {
 export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
   const { nx, svg, i18nRoutes, i18nCompiler, ...restNextConfig } = options;
   const nextConfig: NextConfig = {
-    // @see https://nextjs.org/docs/api-reference/next.config.js/custom-page-extensions#including-non-page-files-in-the-pages-directory
     eslint: {
       ignoreDuringBuilds: true, // we have this strict check on each commit
     },
@@ -44,23 +44,10 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
       scrollRestoration: true,
       ...(restNextConfig.experimental || {}),
     },
+    // @see https://www.zhoulujun.net/nextjs/advanced-features/compiler.html#modularize-imports
     modularizeImports: {
       ...(restNextConfig.modularizeImports || {}),
-      // @see https://www.zhoulujun.net/nextjs/advanced-features/compiler.html#modularize-imports
-      "@koine/api": { transform: "@koine/api/{{member}}" },
-      "@koine/browser": { transform: "@koine/browser/{{member}}" },
-      "@koine/dom": { transform: "@koine/dom/{{member}}" },
-      "@koine/node": { transform: "@koine/node/{{member}}" },
-      "@koine/i18n/?(((\\w*)?/?)*)": {
-        transform: "@koine/i18n/{{ matches.[1] }}/{{member}}",
-      },
-      "@koine/react/?(((\\w*)?/?)*)": {
-        transform: "@koine/react/{{ matches.[1] }}/{{member}}",
-      },
-      "@koine/next/?(((\\w*)?/?)*)": {
-        transform: "@koine/next/{{ matches.[1] }}/{{member}}",
-      },
-      "@koine/utils": { transform: "@koine/utils/{{member}}" },
+      ...swcTransformsKoine,
     },
     ...restNextConfig,
   };

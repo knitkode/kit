@@ -13,9 +13,9 @@
           "packages/api/createApiResultFail.ts",
           "packages/api/createApiResultOk.ts",
           "packages/api/next.ts",
-          "packages/api/swr.ts",
           "packages/api/swr-mutation.ts",
-          "packages/api/swr-types.ts"
+          "packages/api/swr.ts",
+          "packages/api/types.ts"
         ]
       }
     },

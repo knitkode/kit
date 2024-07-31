@@ -1,17 +1,14 @@
-import { I18nLayout, defaultLocale, getT } from "@/i18n";
+import { i18nServer } from "@/i18n/server";
 
-export default async function NotFound() {
-  const locale = defaultLocale;
-  const t = await getT(defaultLocale, "404");
+const i18nNotFound = i18nServer.layout(() => ({}));
+
+export default i18nNotFound.default(async (props) => {
+  const { i18nHtmlAttrs } = props;
+  const t = await i18nServer.getT("404");
 
   return (
-    <html lang={locale}>
-      <body>
-        {/* <I18nLayout locale={locale} namespaces={[]}>
-          {t("text")}
-        </I18nLayout> */}
-        {t("text")}
-      </body>
+    <html {...i18nHtmlAttrs}>
+      <body>{t("title")}</body>
     </html>
   );
-}
+});

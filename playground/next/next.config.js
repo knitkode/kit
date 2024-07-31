@@ -135,7 +135,7 @@ class I18nWebpackPlugin {
    * @param {import("webpack").Compiler} compiler
    */
   apply(compiler) {
-    const i18nInputFolder = resolve(__dirname, "./locales");
+    const i18nInputFolder = resolve(__dirname, "./translations");
     const logger = compiler.infrastructureLogger;
 
     if (compiler.hooks) {
@@ -297,17 +297,17 @@ const nextConfig = {
             // });
             
             return {
-              testVar: `"ciao mate"`,
-              testFn: `(function(name) { return "ciao " + name;})`,
-              testRequireT: `(function(name) {
-                const { t } = require("${i18nDir}/t");
-                const locale = global.locale;
-                return "ciao " + name + " " + t.$404_seo_title(locale);
-              })`,
+              // testVar: `"ciao mate"`,
+              // testFn: `(function(name) { return "ciao " + name;})`,
+              // testRequireT: `(function(name) {
+              //   const $t = require("${i18nDir}/$t");
+              //   const locale = global.__i18n_locale;
+              //   return "ciao " + name + " " + $t.$404_seo_title(locale);
+              // })`,
 
               t: `(function(i18nKey, ...args) {
-                  const { t } = require("${i18nDir}/t");
-                  const locale = global.locale;
+                  const $t = require("${i18nDir}/$t");
+                  const locale = global.__i18n_locale;
 
                   /**
                    * Normalise translation key
@@ -330,23 +330,26 @@ const nextConfig = {
                     return /^[0-9]/.test(replaced) ? "$" + replaced : replaced;
                   };
                   const fnName = normaliseTranslationKey(
-                    i18nKey.split(".")
+                    i18nKey.replace(/:/, ".").split(".")
                       .filter(Boolean)
                       .map(normaliseTranslationKey)
                       .join("_")
                   );
                   // console.log({ fnName });
-                  return t[fnName](locale, ...args);
+                  return $t["$t_" + fnName](locale, ...args);
                 })`,
 
-              ...["$404_title", "$404_seo_title"].reduce((map, tPath) => {
-                map[tPath] = `(function(...args) {
-                  const { t } = require("${i18nDir}/t");
-                  const locale = global.locale;
-                  return t.${tPath}(locale, ...args);
-                })`
-                return map;
-              }, {}),
+              // ...["$404_title", "$404_seo_title"].reduce((map, tPath) => {
+              //   map[tPath] = `(function(...args) {
+              //     // const $t = require("${i18nDir}/$t");
+              //     // const locale = global.__i18n_locale;
+              //     // return $t.${tPath}(locale, ...args);
+              //     const $t = require("${i18nDir}/$t/$t_${tPath}");
+              //     const locale = global.__i18n_locale;
+              //     return $t(locale, ...args);
+              //   })`
+              //   return map;
+              // }, {}),
             };
           },
           {

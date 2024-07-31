@@ -180,10 +180,12 @@ export { wait } from "./wait";
 
 export type {
   AnythingFalsy,
+  FlatObjectFirstLevel,
   KeysStartsWith,
   KeysTailsStartsWith,
   PickStartsWith,
   PickStartsWithTails,
+  Reverse,
 } from "./types";
 
 /**

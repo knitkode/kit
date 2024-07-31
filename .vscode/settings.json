@@ -1,7 +1,14 @@
 {
   "files.exclude": {
     ".nx": true,
+    // @see https://github.com/microsoft/vscode/issues/869#issuecomment-255660177
+    "**/*.js": { "when": "$(basename).ts" },
+    "**/*.d.ts": { "when": "$(basename).ts" },
+    // "**/typings.d.ts": false,
     "actions/**/*.{js,json,txt}": true
+  },
+  "search.exclude": {
+    "**/__mocks__": true
   },
   "window.title": "${dirty} KnitKode/koine - ${activeFolderMedium}",
   "workbench.colorCustomizations": {
@@ -15,7 +22,7 @@
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "eslint.validate": ["json"],
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
   "files.associations": {
     "tsconfig.*.json": "jsonc",
     "tsconfig.json": "jsonc",

@@ -46,8 +46,8 @@ export let listen = <
     // Push to active events
     activeEvents[type]?.push({
       selector: selector,
-      // @ts-expect-error FIXME: type...
-      callback: callback,
+      // FIXME: remove assertion, fix type
+      callback: callback as never,
     });
   });
 };

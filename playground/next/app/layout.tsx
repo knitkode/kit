@@ -1,8 +1,4 @@
-import { I18nLayoutRoot } from "@/i18n";
+import { i18nServer } from "@/i18n/server";
 import "./global.css";
 
-type Props = React.PropsWithChildren;
-
-export default function Layout({ children }: Props) {
-  return <I18nLayoutRoot>{children}</I18nLayoutRoot>;
-}
+export default i18nServer.LayoutRoot;

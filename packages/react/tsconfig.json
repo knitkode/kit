@@ -5,7 +5,6 @@
     "allowSyntheticDefaultImports": true
     // "esModuleInterop": true,
   },
-  "files": [],
   "include": [],
   "references": [
     {

@@ -47,7 +47,6 @@
           "packages/utils/decode.ts",
           "packages/utils/encode.ts",
           "packages/utils/ensureInt.ts",
-          "packages/utils/env.ts",
           "packages/utils/errorToString.ts",
           "packages/utils/escapeRegExp.ts",
           "packages/utils/findDuplicatedIndexes.ts",

@@ -1,1 +1,1 @@
-export * from "./jest/jestCreateExpectedThrownError";
+export { jestCreateExpectedThrownError } from "./jest/jestCreateExpectedThrownError";
