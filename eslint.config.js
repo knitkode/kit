@@ -1,3 +1,4 @@
+// @ts-check
 const { FlatCompat } = require("@eslint/eslintrc");
 const js = require("@eslint/js");
 const globals = require("globals");
@@ -11,7 +12,7 @@ const compat = new FlatCompat({
 });
 
 /**
- * @type {import("@eslint/eslintrc").ConfigArray}
+ * @type {import("@eslint/config-array").ConfigArray}
  */
 module.exports = [
   js.configs.recommended,
@@ -64,6 +65,7 @@ module.exports = [
       // files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
       rules: {
         ...config.rules,
+        "import/no-amd": "off",
         "no-unused-vars": "off",
         "no-restricted-globals": "off",
         "prefer-const": "off",

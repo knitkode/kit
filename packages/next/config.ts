@@ -13,22 +13,29 @@ import {
  */
 export type Routes = NonNullable<WithI18nLegacyOptions["i18nRoutes"]>["routes"];
 
+type ModularizeShortcut = {
+  /**
+   * A list of the packages to modularize, if a `scope` is given that will be
+   * automatically prepended before a slash e.g. `{scope}/@{lib}`.
+   * @example ["components", "utils"]
+   */
+  libs: string[];
+  /**
+   * The scope of the packages to modularize, if given a slash is automatically
+   * appended between the scope and the lib name
+   * @example "@"
+   */
+  scope?: string;
+};
+
 export type WithKoineOptions = NextConfig & {
   nx?: boolean;
   svg?: boolean;
   /**
    * Shortcut option to automatically create swc transforms to feed into
-   * next.js' `modularizeImports`
+   * _Next.js_' `modularizeImports`
    */
-  modularize?:
-    | {
-        scope: string;
-        libs: string[];
-      }[]
-    | {
-        scope: string;
-        libs: string[];
-      };
+  modularize?: ModularizeShortcut[] | ModularizeShortcut;
 } & WithI18nLegacyOptions &
   WithI18nAsyncOptions;
 

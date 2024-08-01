@@ -102,6 +102,7 @@
         "external": "all",
         "format": ["cjs", "esm"],
         "compiler": "swc",
+        "rollupConfig": "packages/nx/rollupConfig.js",
         "assets": [
           {
             "input": "packages/{projectName}",

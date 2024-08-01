@@ -20,14 +20,17 @@ export const swcCreateTransforms = <
   TScope extends string,
 >(
   libs: TLibs,
-  scope: TScope,
+  scope?: TScope,
 ) =>
   libs.reduce(
     (map, lib) => ({
       ...map,
-      ...swcCreateTransform(`${scope}/${lib}`),
+      ...swcCreateTransform(scope ? `${scope}/${lib}` : lib),
     }),
-    {} as SwcTransforms<TLibs[number], `${TScope}/`>,
+    {} as SwcTransforms<
+      TLibs[number],
+      TScope extends string ? `${TScope}/` : ``
+    >,
   );
 
 export default swcCreateTransforms;
