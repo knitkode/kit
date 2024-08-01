@@ -1,5 +1,5 @@
 import type { NextConfig } from "next";
-import { swcTransformsKoine } from "@koine/node/swc";
+import { swcCreateTransforms, swcTransformsKoine } from "@koine/node/swc";
 import {
   type WithI18nAsyncOptions,
   type WithI18nLegacyOptions,
@@ -16,6 +16,19 @@ export type Routes = NonNullable<WithI18nLegacyOptions["i18nRoutes"]>["routes"];
 export type WithKoineOptions = NextConfig & {
   nx?: boolean;
   svg?: boolean;
+  /**
+   * Shortcut option to automatically create swc transforms to feed into
+   * next.js' `modularizeImports`
+   */
+  modularize?:
+    | {
+        scope: string;
+        libs: string[];
+      }[]
+    | {
+        scope: string;
+        libs: string[];
+      };
 } & WithI18nLegacyOptions &
   WithI18nAsyncOptions;
 
@@ -27,7 +40,8 @@ export type WithKoineOptions = NextConfig & {
  * @property {boolean} [options.svg=false] SVG to react components
  */
 export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
-  const { nx, svg, i18nRoutes, i18nCompiler, ...restNextConfig } = options;
+  const { nx, svg, i18nRoutes, i18nCompiler, modularize, ...restNextConfig } =
+    options;
   const nextConfig: NextConfig = {
     eslint: {
       ignoreDuringBuilds: true, // we have this strict check on each commit
@@ -46,6 +60,17 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
     },
     // @see https://www.zhoulujun.net/nextjs/advanced-features/compiler.html#modularize-imports
     modularizeImports: {
+      ...(modularize
+        ? Array.isArray(modularize)
+          ? modularize.reduce(
+              (map, single) => ({
+                ...map,
+                ...swcCreateTransforms(single.libs, single.scope),
+              }),
+              {},
+            )
+          : swcCreateTransforms(modularize.libs, modularize.scope)
+        : {}),
       ...(restNextConfig.modularizeImports || {}),
       ...swcTransformsKoine,
     },
@@ -66,8 +91,8 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
         // ...[_config, options]: Parameters<NonNullable<NextConfig['webpack']>>
       ) => {
         const webpackConfig =
-          typeof nextConfig.webpack === "function"
-            ? nextConfig.webpack(_config, options)
+          typeof restNextConfig.webpack === "function"
+            ? restNextConfig.webpack(_config, options)
             : _config;
 
         // @see https://dev.to/dolearning/importing-svgs-to-next-js-nna#svgr
