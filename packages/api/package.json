@@ -4,6 +4,20 @@
   "dependencies": {
     "@koine/utils": "*"
   },
+  "exports": {
+    "./swr/createSwrApi": {
+      "module": "./swr/createSwrApi.esm.js",
+      "types": "./swr/createSwrApi.d.ts",
+      "import": "./swr/createSwrApi.esm.js",
+      "default": "./swr/createSwrApi.cjs.js"
+    },
+    "./swr-mutation/createSwrApi": {
+      "module": "./swr-mutation/createSwrMutationApi.esm.js",
+      "types": "./swr-mutation/createSwrMutationApi.d.ts",
+      "import": "./swr-mutation/createSwrMutationApi.esm.js",
+      "default": "./swr-mutation/createSwrMutationApi.cjs.js"
+    }
+  },
   "peerDependencies": {
     "next": "^14.0.4",
     "swr": "^2.2.4"
