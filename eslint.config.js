@@ -3,6 +3,7 @@ const { FlatCompat } = require("@eslint/eslintrc");
 const js = require("@eslint/js");
 const globals = require("globals");
 const jsoncParser = require("jsonc-eslint-parser");
+// @ts-ignore
 const tsParser = require("@typescript-eslint/parser");
 const pluginNx = require("@nx/eslint-plugin");
 
