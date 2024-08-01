@@ -4,43 +4,22 @@ const { composePlugins, withNx } = require("@nx/next");
 const webpack = require("webpack");
 // const { withI18nAsync } = require("@koine/i18n/next");
 // const { withI18nAsync } = require("../../dist/packages/i18n/next.cjs");
-const { join, resolve, relative } = require("path");
-// const debounce = require("lodash.debounce");
-
-let debounce = (fn, wait, immediate) => {
-  let timeout;
-
-  return function (...args) {
-    const context = this;
-
-    const later = function () {
-      timeout = null;
-      if (!immediate) fn.apply(context, args);
-    };
-
-    const callNow = immediate && !timeout;
-
-    if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-
-    if (callNow) fn.apply(context, args);
-  };
-};
+const { resolve, relative } = require("path");
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-const NullFactory = require("webpack/lib/NullFactory");
+// const NullFactory = require("webpack/lib/NullFactory");
 // const WebpackError = require("webpack/lib/WebpackError");
-const ConstDependency = require("webpack/lib/dependencies/ConstDependency");
+// const ConstDependency = require("webpack/lib/dependencies/ConstDependency");
 // const ParserHelpers = require("webpack/lib/javascript/JavascriptParserHelpers");
 
 const PLUGIN_NAME2 = "I18nWebpackPlugin2";
 
 class I18nWebpackPlugin2 {
-  constructor(options) {
-    options = options || {};
+  constructor(/* options */) {
+    // options = options || {};
 
     this.tName = "t";
   }
@@ -62,9 +41,9 @@ class I18nWebpackPlugin2 {
           PLUGIN_NAME2,
           /**
            * @param {import("webpack").javascript.JavascriptParser} parser
-           * @param {import("webpack").javascript...} options
+           * @param {import("webpack").javascript[never]} _options
            */
-          (parser, options) => {
+          (parser, _options) => {
             parser.hooks.callMemberChain.for("i18n").tap(
               PLUGIN_NAME2,
               /**
@@ -116,80 +95,6 @@ class I18nWebpackPlugin2 {
 }
 
 // module.exports = I18nWebpackPlugin2;
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
-const PLUGIN_NAME = "I18nWebpackPlugin";
-class I18nWebpackPlugin {
-  opts;
-
-  constructor(opts) {
-    this.opts = opts;
-  }
-
-  /**
-   * @see https://webpack.js.org/api/compiler-hooks/
-   *
-   * @param {import("webpack").Compiler} compiler
-   */
-  apply(compiler) {
-    const i18nInputFolder = resolve(__dirname, "./translations");
-    const logger = compiler.infrastructureLogger;
-
-    if (compiler.hooks) {
-      const addI18nFolderDeps = debounce(
-        /**
-         * @param {import("webpack").Compilation} compilation
-         */
-        (compilation) => {
-          if (!compilation.contextDependencies.has(i18nInputFolder)) {
-            compilation.contextDependencies.add(i18nInputFolder);
-            logger?.(
-              "i18nCompiler input folder added to context deps",
-              "info",
-              [],
-            );
-          } else {
-            logger?.(
-              "i18nCompiler input folder already added to context deps",
-              "info",
-              [],
-            );
-          }
-        },
-        1000,
-        true,
-      );
-
-      compiler.hooks.thisCompilation.tap(PLUGIN_NAME, addI18nFolderDeps);
-
-      const maybeRunI18n = debounce(
-        /**
-         * @param {import("webpack").Compiler} compiler
-         */
-        async (compiler, callback) => {
-          const isI18nInputFile = compiler.modifiedFiles?.has(i18nInputFolder);
-          if (isI18nInputFile) {
-            logger?.("i18nCompiler should compile now.", "info", []);
-          }
-
-          callback();
-          // compiler.modifiedFiles?.forEach((filepath, _, filesSet/* , v2, s */) => {
-          //   console.log({ filepath })
-          // })
-        },
-        100,
-        true,
-      );
-
-      compiler.hooks.watchRun.tapAsync(PLUGIN_NAME, maybeRunI18n);
-    } else {
-      // compiler.plugin('done', done);
-    }
-  }
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
@@ -248,8 +153,6 @@ const nextConfig = {
     //   ],
     // });
 
-    // const I18nWebpackPlugin2 = require("./webpack-plugin.js");
-
     // webpackConfig.resolve = {
     //   alias: {
     //     "@/i18n": resolve(__dirname, './i18n'),
@@ -257,14 +160,13 @@ const nextConfig = {
     // };
 
     webpackConfig.plugins.push(
-      // new I18nWebpackPlugin({}),
       // new I18nWebpackPlugin2({}),
 
-      new webpack.ProvidePlugin({
-        // _useLocale: ["@/i18n", "useLocale"],
-        // _getLocale: ["@/i18n", "getLocale"],
-        // _getT: ["@/i18n", "getT"],
-      }),
+      // new webpack.ProvidePlugin({
+      //   // _useLocale: ["@/i18n", "useLocale"],
+      //   // _getLocale: ["@/i18n", "getLocale"],
+      //   // _getT: ["@/i18n", "getT"],
+      // }),
       /**
        * @see similar projects:
        * - https://github.com/yanivkalfa/i18n-gettext-webpack-plugin
