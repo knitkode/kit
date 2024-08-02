@@ -10,9 +10,7 @@
  * TODO: turn objects into arrays for smaller output?
  *
  * @name match-sorter
- * @license MIT license
- * @copyright (c) 2020 Kent C. Dodds
- * @author Kent C. Dodds <me@kentcdodds.com> (https://kentcdodds.com)
+ * @borrows [kentcdodds/match-sorter](https://github.com/kentcdodds/match-sorter)
  */
 import { isString } from "./isString";
 import { removeAccents } from "./removeAccents";
@@ -94,6 +92,9 @@ let defaultBaseSortFn: BaseSorter<unknown> = (a, b) =>
 
 /**
  * Takes an array of items and a value and returns a new array with the items that match the given value
+ *
+ * @borrows [kentcdodds/match-sorter](https://github.com/kentcdodds/match-sorter)
+ *
  * @param {Array} items - the items to sort
  * @param {String} value - the value to use for ranking
  * @param {Object} options - Some options to configure the sorter
@@ -389,7 +390,7 @@ let getItemValues = <ItemType>(
   } else if (Object.hasOwnProperty.call(item, key)) {
     value = (item as IndexableByString)[key];
   } else if (key.includes(".")) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+     
     return getNestedValues<ItemType>(key, item);
   } else {
     value = null;

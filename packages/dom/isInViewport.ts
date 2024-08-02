@@ -1,7 +1,7 @@
 /**
  * Determine if an element is in the viewport
  *
- * @borrows (c) 2017 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @borrows [Chris Ferdinandi](https://gomakethings.com)
  *
  * @param elem The element
  * @return Returns true if element is in the viewport

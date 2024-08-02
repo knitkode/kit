@@ -2,8 +2,7 @@
  * Debounce function (with `requestAnimationFrame`)
  *
  * @category function
- * @borrows [vanillajstoolkit/debounce](https://vanillajstoolkit.com/helpers/debounce/)
- * @license (c) 2021 Chris Ferdinandi, MIT License, https://gomakethings.com
+ * @borrows [vanillajstoolkit/debounce by Chris Ferdinandi](https://vanillajstoolkit.com/helpers/debounce/)
  */
 export function debounceRaf<T extends (...args: any[]) => any>(
   this: unknown,

@@ -9,7 +9,7 @@ export type AnythingFalsy = null | undefined | 0 | "";
  * Flatten an object bringing the first depth-level of properties to the object
  * root.
  *
- * @borrows [jcalz SO' answer](https://stackoverflow.com/a/78779784/1938970)
+ * @borrows [SO' answer by jcalz](https://stackoverflow.com/a/78779784/1938970)
  */
 export type FlatObjectFirstLevel<T extends object> =
   { [K in keyof T]: (x: T[K]) => void } extends Record<

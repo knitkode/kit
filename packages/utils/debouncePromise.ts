@@ -37,7 +37,6 @@ interface DebouncedPromise<FunctionReturn> {
  *
  * @category function
  * @borrows [chodorowicz/ts-debounce](https://github.com/chodorowicz/ts-debounce)
- * @license MIT: Jakub Chodorowicz
  */
 export let debouncePromise = <
   Args extends any[],

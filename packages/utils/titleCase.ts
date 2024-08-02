@@ -2,7 +2,6 @@
  * @category text
  *
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case/blob/master/packages/title-case/src/index.ts)
- * @license Blake Embrey (hello@blakeembrey.com)
  */
 export let titleCase = (input?: null | string) =>
   input

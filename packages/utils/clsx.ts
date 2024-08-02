@@ -47,7 +47,6 @@ let toVal = (mix: any) => {
  *
  * @category impl
  * @borrows [lukeed/clsx](https://github.com/lukeed/clsx)
- * @license MIT Luke Edwards https://github.com/lukeed/clsx/blob/master/license
  */
 export let clsx: (...args: ClassValue[]) => string = function () {
   let i = 0,

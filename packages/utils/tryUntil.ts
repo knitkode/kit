@@ -21,9 +21,10 @@ export let tryUntil = (
       // console.log("resolved after", new Date() - timeWas, "ms");
       clearInterval(wait);
       resolve();
-      // @ts-expect-error ...
-    } else if (new Date() - timeWas > timeout) {
-      // Timeout
+    } else if (
+      (new Date() as unknown as number) - (timeWas as unknown as number) >
+      timeout
+    ) {
       // console.log("rejected after", new Date() - timeWas, "ms");
       clearInterval(wait);
       if (reject) reject();
