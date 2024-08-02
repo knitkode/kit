@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "allowJs": false,
     "downlevelIteration": true,
-    "removeComments": true,
+    "removeComments": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
