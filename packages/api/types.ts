@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-object-type */
 
 type _Response = Response;
 
@@ -7,15 +8,12 @@ type _Response = Response;
  */
 type ExtractEndpointParams<T extends string> = string | number extends T
   ? Record<string, string>
-  : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    T extends `${infer _Start}{${infer Param}}${infer Rest}`
+  : T extends `${infer _Start}{${infer Param}}${infer Rest}`
     ? { [k in Param | keyof ExtractEndpointParams<Rest>]: string | number }
-    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      T extends `${infer _Start}{${infer Param}}`
+    : T extends `${infer _Start}{${infer Param}}`
       ? { [k in Param]: string | number }
       : {};
 
-// eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Api {
   //////////////////////////////////////////////////////////////////////////////
   //
@@ -423,7 +421,7 @@ export namespace Api {
  * type Post = Api.Generate.PostHelpers<Endpoints>;
  * ```
  */
-// eslint-disable-next-line @typescript-eslint/no-namespace
+
 export namespace Api.Generate {
   //////////////////////////////////////////////////////////////////////////////
   //

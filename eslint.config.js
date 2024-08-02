@@ -47,10 +47,13 @@ module.exports = [
     ...config,
     files: ["**/*.spec.ts", "**/*.spec.tsx"],
   })),
-  ...compat.extends("plugin:@nx/javascript").map((config) => ({
-    ...config,
-    files: ["**/*.js", "**/*.mjs"],
-  })),
+  // ...compat.extends("plugin:@nx/javascript").map((config) => ({
+  //   ...config,
+  //   files: ["**/*.js", "**/*.mjs"],
+  // })),
+  {
+    ignores: ["**/*.js"],
+  },
   ...compat
     .extends(
       "plugin:@nx/javascript",
@@ -63,6 +66,7 @@ module.exports = [
     .map((config) => ({
       ...config,
       files: ["**/*.ts", "**/*.tsx"],
+      ignores: ["**/*.d.ts"],
       // files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
       rules: {
         ...config.rules,

@@ -72,7 +72,6 @@ let createUseMutationApi =
 
     // config.fetcher = sender;
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     return useSWRMutation<
       Api.EndpointResponseOk<TEndpoints, TEndpoint, TMethod>,
       Api.EndpointResponseFail<TEndpoints, TEndpoint, TMethod>,

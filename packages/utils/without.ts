@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 // TODO: finish this up, this is not exported yet
 // ready to copy-paste to https://www.typescriptlang.org/play
 

@@ -1,7 +1,7 @@
 const baseConfig = require("../../eslint.config.js");
 
 /**
- * @type {import("@eslint/eslintrc").ConfigArray}
+ * @type {import("@eslint/config-array").ConfigArray}
  */
 module.exports = [
   ...baseConfig,

@@ -33,7 +33,7 @@ export let getUrlQueryParams = <T extends NonNullable<AnyQueryParams>>(
     params = JSON.parse(paramsAsObj, (key, value) =>
       key === "" ? value : decodeURIComponent(value),
     );
-  } catch (e) {
+  } catch (_e) {
     // do nothing or warn on process.env["NODE_ENV"] === "development"
   }
 

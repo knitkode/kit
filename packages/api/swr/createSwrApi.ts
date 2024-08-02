@@ -75,7 +75,7 @@ export let createUseApi =
       (isFunction(config?.when) && config?.when() === false);
 
     // <Data = any, Error = any>(key: Key, config: SWRConfigurationExtended<Data, Error, Fetcher<Data>> | undefined): SWRResponse<Data, Error>;
-    // eslint-disable-next-line react-hooks/rules-of-hooks
+
     return useSWR<
       Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
       Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">

@@ -33,14 +33,14 @@ declare type NextPageDataStaticPaths<Params extends { [key: string]: any }> = (
 /**
  * [`next.js` pages router](https://nextjs.org/docs/pages) utility type
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 declare type NextPageDataStatic<P extends { [key: string]: any }> =
   import("next").GetStaticProps<P, import("querystring").ParsedUrlQuery>;
 
 /**
  * [`next.js` pages router](https://nextjs.org/docs/pages) utility type
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+
 declare type NextPageDataServer<P extends { [key: string]: any }> =
   import("next").GetServerSideProps<P, import("querystring").ParsedUrlQuery>;
 

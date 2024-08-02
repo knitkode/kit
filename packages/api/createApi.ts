@@ -196,7 +196,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         if (throwErr && result?.fail) {
           // throw new ApiError<Failed>(result);
           // I prefer to throw an object literal despite what eslint says
-          // eslint-disable-next-line no-throw-literal
+
           throw result;
         }
 

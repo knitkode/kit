@@ -41,7 +41,7 @@ export let Emitter = <EventMap extends { [key: string]: any }>(
     ) {
       (all.get(`${namespace}.${String(name)}`) || [])
         .slice()
-        .map((handler: (data?: EventMap[EventName]) => any) => {
+        .forEach((handler: (data?: EventMap[EventName]) => any) => {
           handler(data);
         });
     },

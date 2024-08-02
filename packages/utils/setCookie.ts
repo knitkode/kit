@@ -17,7 +17,6 @@ export let setCookie = <T extends string = string>(
   value: string | T,
   attributes: CookieAttributesClient = {},
 ): string | undefined => {
-  // eslint-disable-next-line prefer-const
   let { expires, ...restAttrs } = attributes;
   const cleanedAttrs = {
     expires: "",

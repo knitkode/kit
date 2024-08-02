@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable eqeqeq */
 // import { OBJECT, isUndefined } from './shared'
 import { isUndefined } from "./isUndefined";
 
