@@ -4,6 +4,9 @@
   "sourceRoot": "playground/next",
   "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "nx:noop"
+    },
     "build-app": {
       "executor": "@nx/next:build",
       "outputs": ["{options.outputPath}"],

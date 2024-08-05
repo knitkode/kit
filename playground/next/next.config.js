@@ -2,7 +2,7 @@
 
 const { composePlugins, withNx } = require("@nx/next");
 const webpack = require("webpack");
-// const { withI18nAsync } = require("@koine/i18n/next");
+const { withKoine } = require("@koine/next/config");
 // const { withI18nAsync } = require("../../dist/packages/i18n/next.cjs");
 const { resolve, relative } = require("path");
 
@@ -101,46 +101,54 @@ class I18nWebpackPlugin2 {
 ////////////////////////////////////////////////////////////////////////////////
 
 /**
- * @type {import('../../dist/packages/i18n/next').WithI18nAsyncOptions}
+ * @type {import('../../dist/packages/next/config').WithKoineOptions}
  **/
 const nextConfig = {
-  // i18nCompiler: {
-  //   defaultLocale: "en",
-  //   baseUrl: "https://playground.koine.io",
-  //   input: {
-  //     source: "./locales",
-  //   },
-  //   code: {
-  //     adapter: {
-  //       name: "next",
-  //       options: {
-  //         router: "app"
-  //       }
-  //     },
-  //   }
-  // },
-  redirects: async () => {
-    return require("./i18n/next-redirects");
-  },
-  rewrites: async () => {
-    return require("./i18n/next-rewrites");
-  },
-  modularizeImports: {
-    // TODO: automatically add through koine/i18n plugin based on output path
-    // and reading tsconfig.json?
-    // "@/i18n/?(((\\w*)?/?)*)": {
-    //   transform: "@/i18n/{{ matches.[1] }}/{{member}}",
-    // },
-    "@koine/i18n/?(((\\w*)?/?)*)": {
-      transform: "@koine/i18n/{{ matches.[1] }}/{{member}}",
+  i18nCompiler: {
+    defaultLocale: "en",
+    baseUrl: "https://playground.koine.io",
+    input: {
+      source: "./translations",
     },
+    code: {
+      adapter: {
+        name: "next",
+        options: {
+          router: "app"
+        }
+      },
+      write: {
+        output: "./i18n",
+        tsconfig: {
+          alias: "@",
+          path: "./tsconfig.json"
+        }
+        // typescriptCompilation: true,
+      },
+    }
   },
-  typescript: {
-    ignoreBuildErrors: true
-  },
-  eslint: {
-    ignoreDuringBuilds: true
-  },
+  // redirects: async () => {
+  //   return require("./i18n/next-redirects");
+  // },
+  // rewrites: async () => {
+  //   return require("./i18n/next-rewrites");
+  // },
+  // modularizeImports: {
+  //   // TODO: automatically add through koine/i18n plugin based on output path
+  //   // and reading tsconfig.json?
+  //   // "@/i18n/?(((\\w*)?/?)*)": {
+  //   //   transform: "@/i18n/{{ matches.[1] }}/{{member}}",
+  //   // },
+  //   "@koine/i18n/?(((\\w*)?/?)*)": {
+  //     transform: "@koine/i18n/{{ matches.[1] }}/{{member}}",
+  //   },
+  // },
+  // typescript: {
+  //   ignoreBuildErrors: true
+  // },
+  // eslint: {
+  //   ignoreDuringBuilds: true
+  // },
   webpack: (webpackConfig /* , options */) => {
     // webpackConfig.module.rules.push({
     //   test: /\.tsx/,
@@ -265,34 +273,12 @@ const nextConfig = {
   },
 };
 
-// const { i18nCompiler } = require("../../dist/packages/i18n/compiler.cjs");
-
-// const compiler = i18nCompiler({
-//   defaultLocale: "en",
-//   fs: {
-//     cwd: join(__dirname, "locales"),
-//   },
-// });
-
-// compiler.write.code({
-//   adapter: "next",
-//   output: "i18n",
-//   skipTsCompile: true,
-//   skipTranslations: true,
-// });
-
 const plugins = [
-  // Add more Next.js plugins to this list if needed.
   withNx,
+  withKoine,
   // withI18nAsync,
 ];
 
 module.exports = composePlugins(...plugins)(
-  // withI18n({
-  //   defaultLocale: "it",
-  //   fs: {
-  //     cwd: join(__dirname, "locales"),
-  //   },
-  // })(nextConfig),
   nextConfig,
 );

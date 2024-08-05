@@ -18,13 +18,33 @@
     ],
     "esModuleInterop": true,
     "paths": {
-      "@koine/browser": ["./packages/browser/index.ts"],
-      "@koine/dom": ["./packages/dom/index.ts"],
-      "@koine/i18n": ["./packages/i18n/index.ts"],
-      "@koine/utils": ["./packages/utils/index.ts"],
-      "@/components": ["./playground/next/components"],
-      "@/i18n": ["./playground/next/i18n"],
-      "@/i18n/*": ["./playground/next/i18n/*"]
+      "@koine/browser": [
+        "./packages/browser/index.ts"
+      ],
+      "@koine/dom": [
+        "./packages/dom/index.ts"
+      ],
+      "@koine/i18n": [
+        "./packages/i18n/index.ts"
+      ],
+      "@koine/utils": [
+        "./packages/utils/index.ts"
+      ],
+      "@/components": [
+        "./playground/next/components"
+      ],
+      "@/i18n": [
+        "./playground/next/i18n"
+      ],
+      "@/i18n/*": [
+        "./playground/next/i18n/*"
+      ],
+      "@": [
+        "./i18n/index.ts"
+      ],
+      "@/*": [
+        "./i18n/*"
+      ]
     }
   },
   "include": [

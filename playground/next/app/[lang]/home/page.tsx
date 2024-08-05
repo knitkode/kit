@@ -1,21 +1,17 @@
 import { i18nServer } from "@/i18n/server";
 
-type Props = {};
-
-const i18nPage = i18nServer.page<Props>((_props, _locale) => {
-  return {
-    route: { id: "home" },
-    // namespaces: ["~home"],
-  };
+const page = i18nServer.page({
+  route: { id: "home" },
+  // namespaces: ["~home"],
 });
 
-export const generateMetadata = i18nPage.generateMetadata(async () => {
+export const generateMetadata = page.generateMetadata(() => {
   return {
     title: "Playground Next",
   };
 });
 
-export default i18nPage.default(async function (_props, locale) {
+export default page.default(() => {
   // console.log("page render locale:", locale);
   return (
     <>

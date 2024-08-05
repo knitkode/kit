@@ -111,6 +111,25 @@
           }
         ]
       },
+      "defaultConfiguration": "playground",
+      "configurations": {
+        "playground": {
+          "outputPath": "node_modules/@koine/{projectName}",
+          "updateBuildableProjectDepsInPackageJson": false,
+          "format": ["cjs", "esm"],
+          "skipTypeCheck": true,
+          "watch": true
+        },
+        "watch": {
+          "outputPath": "node_modules/@koine/{projectName}",
+          "updateBuildableProjectDepsInPackageJson": false,
+          "format": ["cjs", "esm"],
+          "skipTypeCheck": true
+        },
+        "build": {
+          "watch": false
+        }
+      },
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"],
       "cache": true
