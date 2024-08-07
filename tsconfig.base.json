@@ -39,6 +39,7 @@
       "@koine/i18n": ["packages/i18n/index.ts"],
       "@koine/i18n/compiler": ["packages/i18n/compiler.ts"],
       "@koine/i18n/next": ["packages/i18n/next.ts"],
+      "@koine/i18n/types": ["packages/i18n/types.ts"],
       "@koine/next": ["packages/next/index.ts"],
       "@koine/next/12": ["packages/next/12.ts"],
       "@koine/next/config": ["packages/next/config.ts"],
