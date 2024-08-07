@@ -52,7 +52,6 @@
         "eslintConfig": "playground/next/eslint.config.js",
         "lintFilePatterns": [
           "playground/next/**/*.{ts,tsx,js,jsx}",
-          "!playground/next/.next/",
           "playground/next/package.json"
         ]
       },

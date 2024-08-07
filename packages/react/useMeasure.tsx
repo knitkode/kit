@@ -208,7 +208,6 @@ export let useMeasure = (options?: UseMeasureOptions): UseMeasureReturn => {
   useEffect(() => {
     removeListeners();
     addListeners();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scroll /* , scrollChange, resizeChange */]);
 
   useEffect(() => {
@@ -217,7 +216,6 @@ export let useMeasure = (options?: UseMeasureOptions): UseMeasureReturn => {
 
     // remove all listeners when the components unmounts
     return removeListeners;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return [ref, bounds, forceRefresh];

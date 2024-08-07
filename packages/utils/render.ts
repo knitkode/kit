@@ -1,4 +1,3 @@
-/* eslint-disable no-new-func */
 type DefinitionExtended = {
   __exp?: { [key: string]: number | boolean | string }; // RenderData;
   arg: string;

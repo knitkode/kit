@@ -1,10 +1,10 @@
 {
   "files.exclude": {
     ".nx": true,
+    "actions/**/*.{js,json,txt}": true,
     // @see https://github.com/microsoft/vscode/issues/869#issuecomment-255660177
-    "**/*.js": { "when": "$(basename).ts" },
-    "**/*.d.ts": { "when": "$(basename).ts" },
-    "actions/**/*.{js,json,txt}": true
+    // "**/*.js": { "when": "$(basename).ts" },
+    // "**/*.d.ts": { "when": "$(basename).ts" }
   },
   "search.exclude": {
     "**/__mocks__": true

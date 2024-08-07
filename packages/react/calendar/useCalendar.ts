@@ -232,7 +232,6 @@ export let useCalendar = ({
     const [start, end] = range;
     loadCalendars(calendars, start, end);
     setTodayInView(isTodayInView(start, end));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [range]);
 
   useEffect(() => {

@@ -8,7 +8,6 @@ export type ExtendableComponent<Props = any> =
 
 export let extendComponent = <
   Component extends ExtendableComponent,
-  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   DefaultProps extends {},
 >(
   component: Component,

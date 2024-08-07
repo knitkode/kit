@@ -15,7 +15,6 @@ export let useInterval = <T extends () => unknown>(
 
   useEffect(() => {
     savedCallback.current = callback;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callback, ...deps]);
 
   useEffect(() => {

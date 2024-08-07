@@ -22,7 +22,6 @@ export let useKeyUp = (
     });
 
     return listener;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [callback, ...deps]);
 };
 

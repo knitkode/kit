@@ -1,4 +1,5 @@
-//@ts-check
+/* eslint-disable */
+// @ts-check
 
 const { composePlugins, withNx } = require("@nx/next");
 const webpack = require("webpack");

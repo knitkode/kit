@@ -4,7 +4,7 @@
  * @category function
  * @borrows [Mobius1/Rangeable](https://github.com/Mobius1/Rangeable/)
  */
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+
 export let throttle = <TFn extends Function, TContext>(
   fn: TFn,
   limit: number,

@@ -54,7 +54,6 @@ export let clsx: (...args: ClassValue[]) => string = function () {
     x,
     str = "";
   while (i < arguments.length) {
-    // eslint-disable-next-line prefer-rest-params
     if ((tmp = arguments[i++])) {
       if ((x = toVal(tmp))) {
         str && (str += " ");

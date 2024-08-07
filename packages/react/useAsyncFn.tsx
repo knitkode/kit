@@ -71,7 +71,7 @@ export let useAsyncFn = <T extends FunctionReturningPromise>(
         return error;
       },
     ) as ReturnType<T>;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // FIXME: es lint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
   return [state, callback as unknown as T];

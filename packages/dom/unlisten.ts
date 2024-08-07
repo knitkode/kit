@@ -48,7 +48,7 @@ export let unlisten = <
     // FIXME: remove assertion, fix type
     const index = getIndex(events, selector, callback as never);
     if (index < 0) return;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
     activeEvents[type]!.splice(index, 1);
   });
 };

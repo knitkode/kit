@@ -11,7 +11,6 @@ export function debounceRaf<T extends (...args: any[]) => any>(
   let timeout: number;
 
   return function (this: unknown, ...args: Parameters<T>) {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
 
     // If there's a timer, cancel it

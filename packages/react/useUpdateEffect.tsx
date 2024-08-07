@@ -11,7 +11,6 @@ export let useUpdateEffect: typeof useEffect = (effect, deps) => {
     if (!isFirstMount) {
       return effect();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 };
 

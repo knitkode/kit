@@ -70,7 +70,6 @@ export let debouncePromise = <
     this: ThisParameterType<F>,
     ...args: Parameters<F>
   ) {
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
     const context = this;
     return new Promise<ReturnType<F>>((resolve, reject) => {
       const invokeFunction = function () {

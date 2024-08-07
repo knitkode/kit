@@ -5,8 +5,8 @@ const baseConfig = require("../../eslint.config.js");
  */
 module.exports = [
   ...baseConfig,
-  {
-    files: ["packages/react/**/*.ts", "packages/react/**/*.tsx"],
-    rules: {},
-  },
+  // {
+  //   files: ["packages/react/**/*.ts", "packages/react/**/*.tsx"],
+  //   rules: {},
+  // },
 ];

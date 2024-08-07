@@ -13,7 +13,7 @@ const compat = new FlatCompat({
 });
 
 /**
- * @type {import("@eslint/config-array").ConfigArray}
+ * @type {import("@eslint/config-array").ConfigObject[]}
  */
 module.exports = [
   js.configs.recommended,
@@ -51,9 +51,9 @@ module.exports = [
   //   ...config,
   //   files: ["**/*.js", "**/*.mjs"],
   // })),
-  {
-    ignores: ["**/*.js"],
-  },
+  // {
+  //   ignores: ["**/*.js"],
+  // },
   ...compat
     .extends(
       "plugin:@nx/javascript",
@@ -66,14 +66,15 @@ module.exports = [
     .map((config) => ({
       ...config,
       files: ["**/*.ts", "**/*.tsx"],
-      ignores: ["**/*.d.ts"],
+      // ignores: ["**/*.d.ts"],
       // files: ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
       rules: {
-        ...config.rules,
+        "no-undef": "off", // https://stackoverflow.com/a/64197516/1938970
         "import/no-amd": "off",
         "no-restricted-globals": "off",
         "prefer-const": "off",
         // "@typescript-eslint/explicit-module-boundary-types": ["error"],
+        "no-unused-vars": "off",
         "@typescript-eslint/no-unused-vars": [
           "warn",
           {
@@ -83,12 +84,12 @@ module.exports = [
             caughtErrorsIgnorePattern: "^_",
             destructuredArrayIgnorePattern: "^_",
             varsIgnorePattern: "^_",
-            ignoreRestSiblings: true
+            ignoreRestSiblings: true,
           },
         ],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-namespace": "off",
-        "react-hooks/exhaustive-deps": "off", // FIXME: eslint rule https://github.com/eslint/eslint/issues/18746
+        // "react-hooks/exhaustive-deps": "off", // FIXME: eslint rule https://github.com/eslint/eslint/issues/18746
         "@nx/enforce-module-boundaries": [
           "error",
           {

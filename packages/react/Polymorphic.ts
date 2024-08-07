@@ -11,7 +11,7 @@
  * - [forwardRef performance](https://github.com/facebook/react/issues/13456)
  * - [React docs: Exposing DOM Refs to Parent Components](https://github.com/facebook/react/issues/13456)
  */
-// eslint-disable-next-line @typescript-eslint/no-namespace
+
 export namespace Polymorphic {
   type Merge<P1 = Record<string, never>, P2 = Record<string, never>> = Omit<
     P1,
@@ -20,9 +20,7 @@ export namespace Polymorphic {
     P2;
 
   type ComponentTypes =
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     | React.ComponentClass<any>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     | React.FunctionComponent<any>
     | keyof JSX.IntrinsicElements;
 

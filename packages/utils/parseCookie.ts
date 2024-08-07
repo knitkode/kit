@@ -45,7 +45,7 @@ export let parseCookie = <
     const key = pair.substring(0, index).trim() as keyof T;
 
     // only assign once
-    // eslint-disable-next-line eqeqeq
+
     if (undefined == obj[key]) {
       let val = pair.substring(index + 1, pair.length).trim();
 
