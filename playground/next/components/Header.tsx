@@ -10,7 +10,7 @@ export type HeaderProps = React.PropsWithChildren<{
   className?: string;
 }>;
 
-export const Header = (props: HeaderProps) => {
+export const Header = (_props: HeaderProps) => {
   const current = useLocale();
   const alternates = useI18nSwitch();
 

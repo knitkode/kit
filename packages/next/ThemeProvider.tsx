@@ -118,7 +118,7 @@ export const ThemeProvider = ({
     // Save to storage
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme);
-    } catch (e) {
+    } catch (_e) {
       // Unsupported
     }
   }, []);
@@ -327,7 +327,7 @@ const getTheme = (key: string, fallback?: string) => {
   let theme;
   try {
     theme = localStorage.getItem(key) || undefined;
-  } catch (e) {
+  } catch (_e) {
     // Unsupported
   }
   return theme || fallback;

@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck Deprecated attempts of custom rollup executor
 import { join, parse, resolve } from "node:path";
 import {
   type ExecutorContext,
@@ -17,8 +19,8 @@ import {
   type NormalizedRollupExecutorOptions,
   normalizeRollupExecutorOptions,
 } from "@nx/rollup/src/executors/rollup/lib/normalize";
-import { runRollup } from "@nx/rollup/src/executors/rollup/lib/run-rollup";
-import { updatePackageJson } from "@nx/rollup/src/executors/rollup/lib/update-package-json";
+import { updatePackageJson } from "@nx/rollup/src/plugins/package-json/update-package-json";
+import { runRollup } from "@nx/rollup/src/plugins/plugin";
 import { deleteOutputDir } from "@nx/rollup/src/utils/fs";
 import * as rollup from "rollup";
 // import * as ts from "typescript";
@@ -50,41 +52,11 @@ export default async function* _runExecutor(
   // @ts-expect-error same as nx source
   process.env.NODE_ENV ??= "production";
 
-  const project =
-    context.projectsConfigurations!.projects[context.projectName!];
-  const sourceRoot = project.sourceRoot!;
-  const { target, dependencies } = calculateProjectBuildableDependencies(
-    context.taskGraph,
-    context.projectGraph!,
-    context.root,
-    context.projectName!,
-    context.targetName!,
-    context.configurationName!,
-    true,
-  );
-
-  const options = normalizeRollupExecutorOptions(
-    rawOptions,
-    context,
-    sourceRoot,
-  );
+  const options = normalizeRollupExecutorOptions(rawOptions, context);
 
   const packageJson = readJsonFile(options.project);
 
-  const npmDeps = (
-    context.projectGraph!.dependencies[context.projectName!] ?? []
-  )
-    .filter((d) => d.target.startsWith("npm:"))
-    .map((d) => d.target.slice(4));
-
-  const rollupOptions = createRollupOptions(
-    options,
-    dependencies,
-    context,
-    packageJson,
-    sourceRoot,
-    npmDeps,
-  );
+  const rollupOptions = createRollupOptions(options, context);
 
   const outfile = resolveOutfile(context, options);
 

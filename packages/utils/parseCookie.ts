@@ -6,7 +6,7 @@ import type { CookieAttributesServer } from "./cookie";
 let tryDecode = (str: string, decode: (input: string) => string) => {
   try {
     return decode(str);
-  } catch (e) {
+  } catch (_e) {
     return str;
   }
 };
@@ -45,6 +45,7 @@ export let parseCookie = <
     const key = pair.substring(0, index).trim() as keyof T;
 
     // only assign once
+    // eslint-disable-next-line eqeqeq
     if (undefined == obj[key]) {
       let val = pair.substring(index + 1, pair.length).trim();
 

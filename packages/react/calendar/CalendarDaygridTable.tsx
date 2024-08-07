@@ -136,7 +136,7 @@ CalendarDaygridTableProps) => {
         </tr>
       </TableHead>
       <TableBody>
-        {weeksEvents.map((week, i) => (
+        {weeksEvents.map((week) => (
           <TableBodyRow {...week.props}>
             {week.days.map((day) => (
               <TableBodyCell {...day.props}>

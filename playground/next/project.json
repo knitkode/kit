@@ -49,11 +49,14 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
+        "eslintConfig": "playground/next/eslint.config.js",
         "lintFilePatterns": [
           "playground/next/**/*.{ts,tsx,js,jsx}",
+          "!playground/next/.next/",
           "playground/next/package.json"
         ]
-      }
+      },
+      "cache": true
     }
   },
   "tags": []

@@ -4,7 +4,6 @@
     // @see https://github.com/microsoft/vscode/issues/869#issuecomment-255660177
     "**/*.js": { "when": "$(basename).ts" },
     "**/*.d.ts": { "when": "$(basename).ts" },
-    // "**/typings.d.ts": false,
     "actions/**/*.{js,json,txt}": true
   },
   "search.exclude": {

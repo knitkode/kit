@@ -3,8 +3,9 @@
   "sideEffects": false,
   "dependencies": {
     "@koine/browser": "*",
-    "@koine/utils": "*",
-    "@koine/i18n": "*"
+    "@koine/i18n": "*",
+    "@koine/node": "*",
+    "@koine/utils": "*"
   },
   "peerDependencies": {
     "next": "^14.0.4",

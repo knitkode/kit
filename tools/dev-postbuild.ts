@@ -4,28 +4,28 @@
  * Postbuild command to launch for a particular package/lib
  */
 import { existsSync } from "node:fs";
-import { copyFile, mkdir, rename, rm, writeFile } from "node:fs/promises";
-import { dirname, join, relative, resolve } from "node:path";
+import { copyFile, mkdir, rm, writeFile } from "node:fs/promises";
+import { dirname, join, relative } from "node:path";
 import chalk from "chalk";
 import { Command } from "commander";
-import { glob, globSync } from "glob";
+import { glob } from "glob";
 import ora from "ora";
 import { tsAddJsExtension } from "ts-add-js-extension";
 import { oraOpts } from "./dev.js";
 import { type Lib, editJSONfile, self } from "./helpers.js";
 
-type LibConfig = {
-  name: string;
-  /**
-   * Set to explicit `"none"` to delete the key/value if found
-   */
-  type?: "none" | "module" | "commonjs";
-  /**
-   * Set to explicit `"none"` to delete the key/value if found
-   */
-  exports?: "none" | ("esm" | "cjs")[];
-  minify?: boolean;
-};
+// type LibConfig = {
+//   name: string;
+//   /**
+//    * Set to explicit `"none"` to delete the key/value if found
+//    */
+//   type?: "none" | "module" | "commonjs";
+//   /**
+//    * Set to explicit `"none"` to delete the key/value if found
+//    */
+//   exports?: "none" | ("esm" | "cjs")[];
+//   minify?: boolean;
+// };
 
 type CmdOptions = {
   ext?: boolean;

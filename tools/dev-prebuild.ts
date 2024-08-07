@@ -5,6 +5,7 @@ import ora from "ora";
 import { oraOpts } from "./dev.js";
 import { self } from "./helpers.js";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 type CmdOptions = {};
 
 export const prebuild = () =>
@@ -24,7 +25,7 @@ export const prebuild = () =>
       console.log();
     });
 
-async function manageLibBuildArtifacts(libSlug: string, options: CmdOptions) {
+async function manageLibBuildArtifacts(libSlug: string, _options: CmdOptions) {
   await Promise.all(
     self.libs
       .filter((lib) => lib.slug === libSlug)

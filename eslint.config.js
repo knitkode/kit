@@ -71,7 +71,6 @@ module.exports = [
       rules: {
         ...config.rules,
         "import/no-amd": "off",
-        "no-unused-vars": "off",
         "no-restricted-globals": "off",
         "prefer-const": "off",
         // "@typescript-eslint/explicit-module-boundary-types": ["error"],
@@ -80,12 +79,16 @@ module.exports = [
           {
             args: "after-used",
             argsIgnorePattern: "^_",
-            ignoreRestSiblings: true,
+            caughtErrors: "all",
+            caughtErrorsIgnorePattern: "^_",
+            destructuredArrayIgnorePattern: "^_",
+            varsIgnorePattern: "^_",
+            ignoreRestSiblings: true
           },
         ],
-        "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-namespace": "off",
+        "react-hooks/exhaustive-deps": "off", // FIXME: eslint rule https://github.com/eslint/eslint/issues/18746
         "@nx/enforce-module-boundaries": [
           "error",
           {

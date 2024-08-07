@@ -1,0 +1,4 @@
+packages:
+  # disabled
+  # - "packages/*"
+  - "packages/i18n/actions"

@@ -120,7 +120,7 @@ const nextConfig = {
       write: {
         output: "./i18n",
         tsconfig: {
-          alias: "@",
+          alias: "@/i18n",
           path: "./tsconfig.json"
         }
         // typescriptCompilation: true,

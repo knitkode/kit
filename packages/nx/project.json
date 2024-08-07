@@ -42,9 +42,7 @@
     "build-bundle": {
       "executor": "nx:noop"
     },
-    "lint": {
-      "executor": "@nx/eslint:lint"
-    },
+    "lint": {},
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

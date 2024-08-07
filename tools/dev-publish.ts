@@ -3,8 +3,8 @@
  *
  */
 import { execSync } from "node:child_process";
-import { rm } from "node:fs/promises";
-import { join } from "node:path";
+// import { rm } from "node:fs/promises";
+// import { join } from "node:path";
 import type { Config as _SWCConfig } from "@swc/core";
 import chalk from "chalk";
 import { Command, Option } from "commander";
@@ -81,7 +81,7 @@ export const publish = () =>
           .filter((lib) => !!lib.name && !lib.pkg.private)
           .map(
             (lib) =>
-              new Promise<void>(async (resolve, reject) => {
+              new Promise<void>((resolve, reject) => {
                 const suffixText = chalk.dim(`[${lib.name}]`);
                 const spinner = ora({
                   suffixText,

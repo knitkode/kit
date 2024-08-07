@@ -12,7 +12,9 @@ import { decode, encode, isUndefined } from "@koine/utils";
  *
  * FIXME: types https://github.com/jquense/yup/issues/1700
  */
-export let encodeForm = <T extends ObjectShape = {}>(validationRules: T) => {
+export let encodeForm = <T extends ObjectShape = ObjectShape>(
+  validationRules: T,
+) => {
   const encoded = {} as Record<string, T[keyof T]>;
   const encodedNames = {} as Record<keyof T, string>;
 
@@ -41,8 +43,8 @@ export let encodeForm = <T extends ObjectShape = {}>(validationRules: T) => {
  * which are considered programmatic form data not created by user input.
  */
 export let decodeForm = <
-  ReturnAs extends Record<string, unknown> = {},
-  FormData extends Record<string, unknown> = {},
+  ReturnAs extends Record<string, unknown> = Record<string, unknown>,
+  FormData extends Record<string, unknown> = Record<string, unknown>,
 >(
   formData: FormData,
 ) => {

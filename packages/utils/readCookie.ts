@@ -42,7 +42,7 @@ export function readCookie<
       if (name === found) {
         break;
       }
-    } catch (e) {
+    } catch (_e) {
       if (process.env["NODE_ENV"] === "development") {
         console.warn("[@koine/utils:readCookie] failed to decode", value);
       }

@@ -1,3 +1,5 @@
+/* eslint-disable */
+// @ts-nocheck Deprecated attempts of custom rollup executor
 const { resolve, dirname } = require("path");
 const ts = require("typescript");
 const rollupPluginTs = require("rollup-plugin-ts");

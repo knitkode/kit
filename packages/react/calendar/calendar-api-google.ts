@@ -127,7 +127,7 @@ async function getCalendarEventsFromGoogle({
       const event = transformCalendarEventFromGoogle(googleEvent, calendar);
       events[event.uid] = event;
     });
-  } catch (e) {
+  } catch (_e) {
     // if (onError) onError(e);
   }
 

@@ -14,6 +14,7 @@ export type Lib = (typeof libs)[number];
 
 const pkg = require(join(__dirname, "../package.json")) as PackageJson;
 
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const scope = pkg.name!.split("/")[0];
 
 const libs = (globSync(join(__dirname, "../packages/*")) || []).map((src) => {
@@ -33,12 +34,15 @@ const libs = (globSync(join(__dirname, "../packages/*")) || []).map((src) => {
     internalDeps = Object.keys(deps).filter((depName) =>
       depName.startsWith(scope),
     );
-  } catch (e) {}
+  } catch (_e) {
+    // nothing
+  }
 
   return {
     src,
     dist,
     slug,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     name: pkg.name!,
     pkg,
     deps,
@@ -81,7 +85,7 @@ export async function editJSONfile(
         if (newContent) {
           await writeFile(filePath, newContent);
         }
-      } catch (err) {
+      } catch (_e) {
         console.log("editJSONfile failed for:", filePath);
         // throw e;
         return;
