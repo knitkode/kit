@@ -6,6 +6,15 @@ const baseConfig = require("../../eslint.config.js");
 module.exports = [
   ...baseConfig,
   {
+    languageOptions: {
+      ...baseConfig.languageOptions,
+      globals: {
+        ...baseConfig.languageOptions.globals,
+        i18n: false,
+      },
+    },
+  },
+  {
     ignores: [
       "playground/next/i18n/",
       "playground/next/.next/",

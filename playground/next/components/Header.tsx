@@ -1,9 +1,10 @@
 "use client";
 
-// import { locales, useI18nSwitch, useLocale } from "@/i18n";
-import { locales } from "@/i18n/locales";
-import { useI18nSwitch } from "@/i18n/useI18nSwitch";
-import { useLocale } from "@/i18n/useLocale";
+import React from "react";
+import { locales, useI18nSwitch, useLocale } from "@/i18n";
+// import { locales } from "@/i18n/locales";
+// import { useI18nSwitch } from "@/i18n/useI18nSwitch";
+// import { useLocale } from "@/i18n/useLocale";
 import Link from "next/link";
 
 export type HeaderProps = React.PropsWithChildren<{

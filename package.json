@@ -71,6 +71,8 @@
     "@swc/core": "1.7.4",
     "@swc/helpers": "~0.5.12",
     "@swc/jest": "0.2.36",
+    "@testing-library/jest-dom": "^6.4.8",
+    "@testing-library/react": "^16.0.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/eslint__eslintrc": "^2.1.2",
     "@types/eslint__js": "^8.42.3",

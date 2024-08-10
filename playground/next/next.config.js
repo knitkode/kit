@@ -106,8 +106,10 @@ class I18nWebpackPlugin2 {
  **/
 const nextConfig = {
   i18nCompiler: {
+    baseUrl: "http://localhost:4200",
+    // baseUrl: "https://playground.koine.io",
     defaultLocale: "en",
-    baseUrl: "https://playground.koine.io",
+    hideDefaultLocaleInUrl: true,
     input: {
       source: "./translations",
     },
@@ -208,7 +210,6 @@ const nextConfig = {
             // });
             
             return {
-              // testVar: `"ciao mate"`,
               // testFn: `(function(name) { return "ciao " + name;})`,
               // testRequireT: `(function(name) {
               //   const $t = require("${i18nDir}/$t");

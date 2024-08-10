@@ -93,14 +93,14 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
       delete nextConfig["nx"];
 
       nextConfig.webpack = (
-        _config,
-        options,
-        // ...[_config, options]: Parameters<NonNullable<NextConfig['webpack']>>
+        _webpackConfig,
+        webpackConfigContext,
+        // ...[_webpackConfig, webpackConfigContext]: Parameters<NonNullable<NextConfig['webpack']>>
       ) => {
         const webpackConfig =
           typeof restNextConfig.webpack === "function"
-            ? restNextConfig.webpack(_config, options)
-            : _config;
+            ? restNextConfig.webpack(_webpackConfig, webpackConfigContext)
+            : _webpackConfig;
 
         // @see https://dev.to/dolearning/importing-svgs-to-next-js-nna#svgr
         webpackConfig.module.rules.push({
