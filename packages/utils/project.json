@@ -182,13 +182,6 @@
     "build-modularized": {},
     "build-bundle": {},
     "lint": {},
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/utils"],
-      "options": {
-        "jestConfig": "packages/utils/jest.config.js",
-        "passWithNoTests": true
-      }
-    }
+    "test": {}
   }
 }

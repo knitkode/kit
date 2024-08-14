@@ -30,6 +30,7 @@ export type ObjectMergeWithDefaults<Defaults, Overrides> =
  *
  * @category object
  */
+// TODO: check https://github.com/unjs/defu more sophisticated implementation
 export let objectMergeWithDefaults = <
   D extends PlainObject,
   O extends PlainObject,

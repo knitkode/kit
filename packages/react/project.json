@@ -54,14 +54,7 @@
       }
     },
     "lint": {},
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/react"],
-      "options": {
-        "jestConfig": "packages/react/jest.config.js",
-        "passWithNoTests": true
-      }
-    },
+    "test": {},
     "storybook": {
       "executor": "@nx/storybook:storybook",
       "options": {

@@ -221,10 +221,7 @@ const nextConfig = {
                   const $t = require("${i18nDir}/$t");
                   const locale = global.__i18n_locale;
 
-                  /**
-                   * Normalise translation key
-                   */
-                  const normaliseTranslationKey = (key) => {
+                  const translationKeyToFnName = (key) => {
                     const sep = "/";
                     const slashRegex = new RegExp(sep, "g");
                     const replaced = key
@@ -241,10 +238,10 @@ const nextConfig = {
                     // ensure the key does not start with a number (invalid js)
                     return /^[0-9]/.test(replaced) ? "$" + replaced : replaced;
                   };
-                  const fnName = normaliseTranslationKey(
+                  const fnName = translationKeyToFnName(
                     i18nKey.replace(/:/, ".").split(".")
                       .filter(Boolean)
-                      .map(normaliseTranslationKey)
+                      .map(translationKeyToFnName)
                       .join("_")
                   );
                   // console.log({ fnName });

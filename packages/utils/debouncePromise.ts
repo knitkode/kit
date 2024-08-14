@@ -2,6 +2,8 @@
  * Copy pasted from [chodorowicz/ts-debounce](https://github.com/chodorowicz/ts-debounce/blob/master/src/index.ts)
  *
  * @module
+ *
+ * TODO: check and maybe use [unjs implementation](https://github.com/unjs/perfect-debounc)
  */
 
 /**

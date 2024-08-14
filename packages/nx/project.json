@@ -43,13 +43,7 @@
       "executor": "nx:noop"
     },
     "lint": {},
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
-      "options": {
-        "jestConfig": "packages/nx/jest.config.ts"
-      }
-    }
+    "test": {}
   },
   "tags": []
 }

@@ -145,6 +145,12 @@
       "cache": true
     },
     "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/packages/{projectName}"],
+      "options": {
+        "jestConfig": "packages/{projectName}/jest.config.js",
+        "passWithNoTests": true
+      },
       "cache": true
     },
     "e2e": {

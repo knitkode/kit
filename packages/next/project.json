@@ -29,13 +29,6 @@
       }
     },
     "lint": {},
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/packages/next"],
-      "options": {
-        "jestConfig": "packages/next/jest.config.js",
-        "passWithNoTests": true
-      }
-    }
+    "test": {}
   }
 }
