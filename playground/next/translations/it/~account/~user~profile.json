@@ -11,6 +11,11 @@
     "one": "Uno",
     "other": "Altri"
   },
+  "dontConsiderMeAPluralIDontHaveOther": {
+    "1": "uno",
+    "2": "due",
+    "3": "tre"
+  },
   "pluralAsObjectWithExtraKeys": {
     "one": "Uno",
     "other": "Altri",

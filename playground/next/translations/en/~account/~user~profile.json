@@ -11,6 +11,11 @@
     "one": "One",
     "other": "Others"
   },
+  "dontConsiderMeAPluralIDontHaveOther": {
+    "1": "one",
+    "2": "two",
+    "3": "three"
+  },
   "pluralAsObjectWithExtraKeys": {
     "one": "One",
     "other": "Others",
