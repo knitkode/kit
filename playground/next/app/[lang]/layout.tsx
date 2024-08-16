@@ -24,11 +24,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default layout.default((props) => {
-  const { children, i18nHtmlAttrs } = props;
+  const { children, i18nHtmlAttrs, I18nScript } = props;
 
   return (
     <html {...i18nHtmlAttrs}>
       <body>
+        {I18nScript}
         <Header />
         {children}
       </body>

@@ -11,96 +11,6 @@ const { resolve, relative } = require("path");
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 
-// const NullFactory = require("webpack/lib/NullFactory");
-// const WebpackError = require("webpack/lib/WebpackError");
-// const ConstDependency = require("webpack/lib/dependencies/ConstDependency");
-// const ParserHelpers = require("webpack/lib/javascript/JavascriptParserHelpers");
-
-const PLUGIN_NAME2 = "I18nWebpackPlugin2";
-
-class I18nWebpackPlugin2 {
-  constructor(/* options */) {
-    // options = options || {};
-
-    this.tName = "t";
-  }
-
-  /**
-   * @see https://webpack.js.org/api/compiler-hooks/
-   *
-   * @param {import("webpack").Compiler} compiler
-   */
-  apply(compiler) {
-    compiler.hooks.normalModuleFactory.tap(
-      PLUGIN_NAME2,
-      /**
-       *
-       * @param {import("webpack").NormalModuleFactory} factory
-       */
-      (factory) => {
-        factory.hooks.parser.for("javascript/auto").tap(
-          PLUGIN_NAME2,
-          /**
-           * @param {import("webpack").javascript.JavascriptParser} parser
-           * @param {import("webpack").javascript[never]} _options
-           */
-          (parser, _options) => {
-            parser.hooks.callMemberChain.for("i18n").tap(
-              PLUGIN_NAME2,
-              /**
-               *
-               * @param {import("estree").SimpleCallExpression} expression
-               * @param {*} properties
-               * @returns
-               */
-              (expression, properties) => {
-                const property = properties[0];
-
-                if (property === "t") {
-                  console.log(PLUGIN_NAME2, {
-                    expression,
-                    properties,
-                    callee: expression.callee,
-                  });
-                }
-              },
-            );
-
-            parser.hooks.call.for("t").tap(PLUGIN_NAME2, (expression) => {
-              console.log(PLUGIN_NAME2, { expression });
-            });
-
-            // parser.hooks.program.tap(
-            //   PLUGIN_NAME2,
-            //   /**
-            //    * @param {import("estree").Program} program
-            //    * @param {import("estree").Comment[]} comments
-            //    */
-            //   (program, comments) => {
-            //     program.body.map((value, index, array) => {
-            //       // value.type
-            //       switch (value.type) {
-            //         case "FunctionDeclaration":
-            //           console.log("found FunctionDeclaration", value);
-            //       }
-            //       return value;
-            //     })
-            //     // console.log(PLUGIN_NAME2, { program });
-            //   },
-            // );
-          },
-        );
-      },
-    );
-  }
-}
-
-// module.exports = I18nWebpackPlugin2;
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////
-
 /**
  * @type {import('../../dist/packages/next/config').WithKoineOptions}
  **/
@@ -210,13 +120,6 @@ const nextConfig = {
             // });
             
             return {
-              // testFn: `(function(name) { return "ciao " + name;})`,
-              // testRequireT: `(function(name) {
-              //   const $t = require("${i18nDir}/$t");
-              //   const locale = global.__i18n_locale;
-              //   return "ciao " + name + " " + $t.$404_seo_title(locale);
-              // })`,
-
               t: `(function(i18nKey, ...args) {
                   const $t = require("${i18nDir}/$t");
                   const locale = global.__i18n_locale;
@@ -247,18 +150,6 @@ const nextConfig = {
                   // console.log({ fnName });
                   return $t["$t_" + fnName](locale, ...args);
                 })`,
-
-              // ...["$404_title", "$404_seo_title"].reduce((map, tPath) => {
-              //   map[tPath] = `(function(...args) {
-              //     // const $t = require("${i18nDir}/$t");
-              //     // const locale = global.__i18n_locale;
-              //     // return $t.${tPath}(locale, ...args);
-              //     const $t = require("${i18nDir}/$t/$t_${tPath}");
-              //     const locale = global.__i18n_locale;
-              //     return $t(locale, ...args);
-              //   })`
-              //   return map;
-              // }, {}),
             };
           },
           {
