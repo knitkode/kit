@@ -29,42 +29,36 @@ type ModularizeShortcut = {
 };
 
 export type WithKoineOptions = NextConfig & {
+  /**
+   * Set it to `true` when your _Next.js_ app is built inside a Nx monorepo
+   */
   nx?: boolean;
+  /**
+   * Set it to `true` in order to be able importing React components directly
+   * from `.svg` files.
+   *
+   * It automatically configure webpack taking into account the `nx` option.
+   */
   svg?: boolean;
   /**
    * Shortcut option to automatically create swc transforms to feed into
-   * _Next.js_' `modularizeImports`
+   * _Next.js_' `modularizeImports`.
+   *
+   * Pass one or a list of {@link ModularizeShortcut shortcut object}.
    */
   modularize?: ModularizeShortcut[] | ModularizeShortcut;
 } & WithI18nLegacyOptions &
   WithI18nAsyncOptions;
 
 /**
- * Get Next.js config with some basic opinionated defaults
+ * Get _Next.js_ config with some extra {@link WithKoineOptions options}
  *
- * @param {object} options
- * @property {boolean} [options.nx=false] Nx monorepo setup
- * @property {boolean} [options.svg=false] SVG to react components
+ * @param options
  */
 export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
   const { nx, svg, i18nRoutes, i18nCompiler, modularize, ...restNextConfig } =
     options;
   const nextConfig: NextConfig = {
-    eslint: {
-      ignoreDuringBuilds: true, // we have this strict check on each commit
-    },
-    typescript: {
-      ignoreBuildErrors: true, // we have this strict check on each commit
-    },
-    poweredByHeader: false,
-    experimental: {
-      // @see https://github.com/vercel/vercel/discussions/5973#discussioncomment-472618
-      // @see critters error https://github.com/vercel/next.js/issues/20742
-      // optimizeCss: true,
-      // @see https://github.com/vercel/next.js/discussions/30174#discussion-3643870
-      scrollRestoration: true,
-      ...(restNextConfig.experimental || {}),
-    },
     // @see https://www.zhoulujun.net/nextjs/advanced-features/compiler.html#modularize-imports
     modularizeImports: {
       ...(modularize
