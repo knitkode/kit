@@ -1,5 +1,26 @@
 import type { Replace } from "type-fest";
 
+// export type AssertTrue<T extends true> = T;
+
+/**
+ * Type to test types
+ *
+ * @example
+ *
+ * ```ts
+ * type _Test = TestType<
+ *   A extends B ? true : false,
+ *   A & { intruder: 1 } extends B ? false : true
+ * >;
+ * // or, if you want to skip the wrong implementation test, simply
+ * type _Test = TestType<A extends B ? true : false>;
+ * ```
+ */
+export type TestType<
+  RightImplementation extends true,
+  WrongImplementation extends true = true,
+> = RightImplementation | WrongImplementation;
+
 /**
  * Whatever that in javascript returns `false` when checked in an `if` condition
  */
