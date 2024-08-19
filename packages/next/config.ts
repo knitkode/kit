@@ -1,5 +1,10 @@
 import type { NextConfig } from "next";
-import { swcCreateTransforms, swcTransformsKoine } from "@koine/node/swc";
+import {
+  type SwcTransformingLib,
+  swcCreateTransform,
+  swcCreateTransforms,
+  swcTransformsKoine,
+} from "@koine/node/swc";
 import {
   type WithI18nAsyncOptions,
   type WithI18nLegacyOptions,
@@ -12,21 +17,6 @@ import {
  * @legacy
  */
 export type Routes = NonNullable<WithI18nLegacyOptions["i18nRoutes"]>["routes"];
-
-type ModularizeShortcut = {
-  /**
-   * A list of the packages to modularize, if a `scope` is given that will be
-   * automatically prepended before a slash e.g. `{scope}/@{lib}`.
-   * @example ["components", "utils"]
-   */
-  libs: string[];
-  /**
-   * The scope of the packages to modularize, if given a slash is automatically
-   * appended between the scope and the lib name
-   * @example "@"
-   */
-  scope?: string;
-};
 
 export type WithKoineOptions = NextConfig & {
   /**
@@ -44,9 +34,9 @@ export type WithKoineOptions = NextConfig & {
    * Shortcut option to automatically create swc transforms to feed into
    * _Next.js_' `modularizeImports`.
    *
-   * Pass one or a list of {@link ModularizeShortcut shortcut object}.
+   * Pass _one_ or an _array_ of {@link SwcTransformingLib lib transform object}.
    */
-  modularize?: ModularizeShortcut[] | ModularizeShortcut;
+  modularize?: SwcTransformingLib[] | SwcTransformingLib;
 } & WithI18nLegacyOptions &
   WithI18nAsyncOptions;
 
@@ -63,14 +53,8 @@ export let withKoine = (options: WithKoineOptions = {}): NextConfig => {
     modularizeImports: {
       ...(modularize
         ? Array.isArray(modularize)
-          ? modularize.reduce(
-              (map, single) => ({
-                ...map,
-                ...swcCreateTransforms(single.libs, single.scope),
-              }),
-              {},
-            )
-          : swcCreateTransforms(modularize.libs, modularize.scope)
+          ? swcCreateTransforms(modularize)
+          : swcCreateTransform(modularize)
         : {}),
       ...(restNextConfig.modularizeImports || {}),
       ...swcTransformsKoine,
