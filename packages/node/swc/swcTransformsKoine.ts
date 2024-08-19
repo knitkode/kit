@@ -4,14 +4,14 @@ import { swcCreateTransforms } from "./swcCreateTransforms";
 // the packages/libs.ts file to the tsconfig.base.json does not seem to be enough
 // import { koineLibs } from "../../libs";
 const koineLibs = [
-  "api",
-  "browser",
-  "dom",
-  "i18n",
-  "next",
-  "node",
-  "react",
-  "utils",
+  { path: "@koine/api" },
+  { path: "@koine/browser", flat: true },
+  { path: "@koine/dom", flat: true },
+  { path: "@koine/i18n" },
+  { path: "@koine/next" },
+  { path: "@koine/node" },
+  { path: "@koine/react" },
+  { path: "@koine/utils", flat: true },
 ] as const;
 
 /**
@@ -20,17 +20,6 @@ const koineLibs = [
  * @category tooling
  * @category swc
  */
-export const swcTransformsKoine = swcCreateTransforms(koineLibs, "@koine");
-// prettier-ignore
-// export const swcTransformsKoine = {
-//   ...swcCreateTransform("@koine/api"),
-//   ...swcCreateTransform("@koine/browser"/* , true */),
-//   ...swcCreateTransform("@koine/dom"/* , true */),
-//   ...swcCreateTransform("@koine/i18n"),
-//   ...swcCreateTransform("@koine/next"),
-//   ...swcCreateTransform("@koine/node"),
-//   ...swcCreateTransform("@koine/react"),
-//   ...swcCreateTransform("@koine/utils"/* , true */),
-// }
+export const swcTransformsKoine = swcCreateTransforms(koineLibs);
 
 export default swcTransformsKoine;

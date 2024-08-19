@@ -1,13 +1,18 @@
 import type { FlatObjectFirstLevel } from "@koine/utils";
-import { type SwcTransform, swcCreateTransform } from "./swcCreateTransform";
+import {
+  type SwcTransform,
+  type SwcTransformingLib,
+  swcCreateTransform,
+} from "./swcCreateTransform";
 
-export type SwcTransforms<
-  Names extends string,
-  Prefix extends string,
-> = FlatObjectFirstLevel<{
-  // [N in Names]: ReturnType<typeof swcCreateTransform<`${Prefix}${N}`>>;
-  [N in Names]: SwcTransform<`${Prefix}${N}`>;
-}>;
+export type SwcTransforms<TLibs extends readonly SwcTransformingLib[]> =
+  FlatObjectFirstLevel<{
+    // [N in Names]: ReturnType<typeof swcCreateTransform<`${N}`>>;
+    [TLib in TLibs[number] as TLib["path"]]: SwcTransform<
+      TLib["path"],
+      TLib["flat"]
+    >;
+  }>;
 
 /**
  * @see https://www.zhoulujun.net/nextjs/advanced-features/compiler.html#modularize-imports
@@ -16,21 +21,16 @@ export type SwcTransforms<
  * @category swc
  */
 export const swcCreateTransforms = <
-  TLibs extends readonly string[],
-  TScope extends string,
+  TLibs extends readonly SwcTransformingLib[],
 >(
   libs: TLibs,
-  scope?: TScope,
 ) =>
   libs.reduce(
     (map, lib) => ({
       ...map,
-      ...swcCreateTransform(scope ? `${scope}/${lib}` : lib),
+      ...swcCreateTransform(lib),
     }),
-    {} as SwcTransforms<
-      TLibs[number],
-      TScope extends string ? `${TScope}/` : ``
-    >,
+    {} as SwcTransforms<TLibs>,
   );
 
 export default swcCreateTransforms;

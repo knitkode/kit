@@ -1,26 +1,48 @@
-export type SwcTransform<LibName extends string> = Record<
-  `${LibName}/?(((\\w*)?/?)*)`,
+/**
+ * Definition of a lib to transform with SWC, it consists of:
+ *
+ * 1) `path`: the library path e.g. `@/components`
+ * 2) `flat` flag: `true` for packages where all consumable exports are at the
+ * root level (no exports from nested folders), `false` or `undefined` otherwise
+ */
+export type SwcTransformingLib = {
+  path: string;
+  flat?: boolean;
+};
+
+export type SwcTransform<
+  Path extends string,
+  Flat extends undefined | boolean = false,
+> = Record<
+  `${Path}/?(((\\w*)?/?)*)`,
   {
-    transform: `${LibName}/{{ matches.[1] }}/{{member}}`;
+    transform: Flat extends true
+      ? `${Path}/{{member}}`
+      : `${Path}/{{ matches.[1] }}/{{member}}`;
   }
 >;
 
 /**
  * @category swc
- * @param name e.g. `@myorg/mylib` or `@/myprojectlib`
+ *
+ * @param path e.g. `@myorg/mylib` or `@/myprojectlib`
  * @param flat Pass `true` for packages where all consumable exports are at the
  * root level (no exports from nested folders)
  */
-export function swcCreateTransform<T extends string>(name: T, _flat = false) {
-  // if (flat) {
-  //   return { [name]: { transform: `${name}/{{member}}` } };
-  // }
+export function swcCreateTransform<TLib extends SwcTransformingLib>(lib: TLib) {
+  const { path, flat } = lib;
+  if (flat) {
+    return { [path]: { transform: `${path}/{{member}}` } } as SwcTransform<
+      typeof path,
+      true
+    >;
+  }
 
   return {
-    [`${name}/?(((\\w*)?/?)*)`]: {
-      transform: `${name}/{{ matches.[1] }}/{{member}}`,
+    [`${path}/?(((\\w*)?/?)*)`]: {
+      transform: `${path}/{{ matches.[1] }}/{{member}}`,
     },
-  } as SwcTransform<T>;
+  } as SwcTransform<typeof path, false>;
 }
 
 export default swcCreateTransform;
