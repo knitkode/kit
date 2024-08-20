@@ -14,7 +14,7 @@ export type SwcTransform<
   Path extends string,
   Flat extends undefined | boolean = false,
 > = Record<
-  `${Path}/?(((\\$\\w*)?/?)*)`,
+  `${Path}/?(((\\$*\\w*)?/?)*)`,
   {
     transform: Flat extends true
       ? `${Path}/{{member}}`
@@ -40,7 +40,7 @@ export function swcCreateTransform<TLib extends SwcTransformingLib>(lib: TLib) {
   }
 
   return {
-    [`${path}/?(((\\$\\w*)?/?)*)`]: {
+    [`${path}/?(((\\$*\\w*)?/?)*)`]: {
       transform: `${path}/{{ matches.[1] }}/{{member}}`,
     },
   } as SwcTransform<typeof path, false>;
