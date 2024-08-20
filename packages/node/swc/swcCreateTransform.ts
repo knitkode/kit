@@ -14,7 +14,7 @@ export type SwcTransform<
   Path extends string,
   Flat extends undefined | boolean = false,
 > = Record<
-  `${Path}/?(((\\w*)?/?)*)`,
+  `${Path}/?(((\\$\\w*)?/?)*)`,
   {
     transform: Flat extends true
       ? `${Path}/{{member}}`
@@ -25,6 +25,7 @@ export type SwcTransform<
 /**
  * @category swc
  *
+ * @see {@link https://rregex.dev/ rust regex playground}
  * @param path e.g. `@myorg/mylib` or `@/myprojectlib`
  * @param flat Pass `true` for packages where all consumable exports are at the
  * root level (no exports from nested folders)
@@ -39,7 +40,7 @@ export function swcCreateTransform<TLib extends SwcTransformingLib>(lib: TLib) {
   }
 
   return {
-    [`${path}/?(((\\w*)?/?)*)`]: {
+    [`${path}/?(((\\$\\w*)?/?)*)`]: {
       transform: `${path}/{{ matches.[1] }}/{{member}}`,
     },
   } as SwcTransform<typeof path, false>;
