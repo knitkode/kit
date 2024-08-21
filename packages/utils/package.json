@@ -1,6 +1,11 @@
 {
   "name": "@koine/utils",
   "sideEffects": false,
+  "exports": {
+    "./typings": {
+      "types": "./typings.d.ts"
+    }
+  },
   "dependencies": {
     "type-fest": "^4.10.3"
   }

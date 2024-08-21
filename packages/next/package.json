@@ -1,6 +1,11 @@
 {
   "name": "@koine/next",
   "sideEffects": false,
+  "exports": {
+    "./typings": {
+      "types": "./typings.d.ts"
+    }
+  },
   "dependencies": {
     "@koine/browser": "*",
     "@koine/i18n": "*",

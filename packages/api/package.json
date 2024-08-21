@@ -1,10 +1,10 @@
 {
   "name": "@koine/api",
   "sideEffects": false,
-  "dependencies": {
-    "@koine/utils": "*"
-  },
   "exports": {
+    "./typings": {
+      "types": "./typings.d.ts"
+    },
     "./swr/createSwrApi": {
       "module": "./swr/createSwrApi.esm.js",
       "types": "./swr/createSwrApi.d.ts",
@@ -17,6 +17,9 @@
       "import": "./swr-mutation/createSwrMutationApi.esm.js",
       "default": "./swr-mutation/createSwrMutationApi.cjs.js"
     }
+  },
+  "dependencies": {
+    "@koine/utils": "*"
   },
   "peerDependencies": {
     "next": "^14.0.4",
