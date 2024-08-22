@@ -26,7 +26,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
   options?: Api.ClientOptions,
 ) => {
   const {
-    fetchFn = fetch,
+    fetchFn: fetchBase = fetch,
     headers: headersBase = {},
     request: requestBase = {},
     throwErr: throwErrBase,
@@ -64,6 +64,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         options?: TOptions,
       ) => {
         const {
+          fetchFn = fetchBase,
           request = requestBase,
           headers = headersBase,
           timeout = timeoutBase,
