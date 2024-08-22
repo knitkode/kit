@@ -26,6 +26,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
   options?: Api.ClientOptions,
 ) => {
   const {
+    fetchFn = fetch,
     headers: headersBase = {},
     request: requestBase = {},
     throwErr: throwErrBase,
@@ -147,7 +148,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         let msg = "";
 
         try {
-          response = await fetch(url, requestInit);
+          response = await fetchFn(url, requestInit);
         } catch (e) {
           msg = errorToString(e);
         }

@@ -20,13 +20,19 @@ export namespace Api {
   //
   //////////////////////////////////////////////////////////////////////////////
 
-  type ClientCreator<TEndpoints extends Endpoints> = (
-    apiName: string,
-    baseUrl: string,
-    options?: ClientOptions,
-  ) => Client<TEndpoints>;
+  // type ClientCreator<TEndpoints extends Endpoints> = (
+  //   apiName: string,
+  //   baseUrl: string,
+  //   options?: ClientOptions,
+  // ) => Client<TEndpoints>;
 
   export type ClientOptions = {
+    /**
+     * Optionally override the `fetch` function
+     *
+     * @default fetch - The standard {@link fetch}
+     */
+    fetchFn?: typeof fetch;
     /**
      * Headers will be merged with
      * ```
