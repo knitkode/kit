@@ -37,15 +37,29 @@ type SWRConfigurationExtended<
  * @private
  */
 export let createUseApi =
-  <TEndpoints extends Api.Endpoints>(api: Api.Client<TEndpoints>) =>
+  <TEndpoints extends Api.Endpoints>(
+    api: Api.Client<TEndpoints>,
+    defaultSwrConfig?: SWRConfigurationExtended,
+  ) =>
+  /**
+   * Api SWR wrapped hook
+   *
+   * @param endpoint Endpoint URL string
+   * @param options {@link Api.EndpointOptions API endpoint options}
+   * @param swrConfig {@link SWRConfigurationExtended Extended SWR configuration}
+   */
   <TEndpoint extends Api.EndpointUrl<TEndpoints>>(
     endpoint: TEndpoint,
     options?: Api.EndpointOptions<TEndpoints, TEndpoint, "get">,
-    config?: SWRConfigurationExtended<
+    swrConfig?: SWRConfigurationExtended<
       Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
       Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
     >,
   ) => {
+    const swrConfigResolved = {
+      ...(defaultSwrConfig || {}),
+      ...(swrConfig || {}),
+    };
     // const fetcher = async (_endpoint: TEndpoint) => {
     //   try {
     //     const { ok, data } = await api.get(_endpoint, {
@@ -71,8 +85,9 @@ export let createUseApi =
     };
 
     const shouldNotFetch =
-      config?.when === false ||
-      (isFunction(config?.when) && config?.when() === false);
+      swrConfigResolved?.when === false ||
+      (isFunction(swrConfigResolved?.when) &&
+        swrConfigResolved?.when() === false);
 
     // <Data = any, Error = any>(key: Key, config: SWRConfigurationExtended<Data, Error, Fetcher<Data>> | undefined): SWRResponse<Data, Error>;
 
@@ -82,7 +97,7 @@ export let createUseApi =
     >(
       shouldNotFetch ? null : options ? [endpoint, options] : [endpoint],
       fetcher,
-      config,
+      swrConfigResolved,
     ) as SWRResponse<
       Api.EndpointResponseOk<TEndpoints, TEndpoint, "get">,
       Api.EndpointResponseFail<TEndpoints, TEndpoint, "get">
@@ -93,13 +108,22 @@ export let createUseApi =
  * It creates an api client extended with auto-generated SWR wrapper hooks
  */
 export let createSwrApi = <TEndpoints extends Api.Endpoints>(
-  ...args: Parameters<typeof createApi>
+  apiName: string,
+  baseUrl: string,
+  defaultOptions?: Api.ClientOptions,
+  defaultSwrConfig?: SWRConfigurationExtended,
+  // ...args: Parameters<typeof createApi>
 ) => {
-  const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
+  const api = createApi<TEndpoints>(
+    apiName,
+    baseUrl,
+    defaultOptions,
+  ) as Api.Client<TEndpoints> & {
+    // const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
     use: ReturnType<typeof createUseApi<TEndpoints>>;
   };
 
-  api.use = createUseApi<TEndpoints>(api);
+  api.use = createUseApi<TEndpoints>(api, defaultSwrConfig);
 
   return api;
 };

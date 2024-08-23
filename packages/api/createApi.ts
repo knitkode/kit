@@ -23,7 +23,7 @@ let apiMethods = [
 export let createApi = <TEndpoints extends Api.Endpoints>(
   apiName: string,
   baseUrl: string,
-  options?: Api.ClientOptions,
+  defaultOptions?: Api.ClientOptions,
 ) => {
   const {
     fetchFn: fetchBase = fetch,
@@ -34,7 +34,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
     processReq: processReqBase,
     processRes: processResBase,
     processErr: processErrBase,
-  } = options || {};
+  } = defaultOptions || {};
 
   return apiMethods.reduce(
     <TMethod extends Api.RequestMethod>(
