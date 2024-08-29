@@ -16,7 +16,9 @@
  */
 export let arrayOfAll =
   <T>() =>
-  <U extends T[]>(array: U & ([T] extends [U[number]] ? unknown : "Invalid")) =>
+  <U extends T[] | readonly T[]>(
+    array: U & ([T] extends [U[number]] ? unknown : "Invalid"),
+  ) =>
     array;
 
 /**
@@ -26,7 +28,7 @@ export let arrayOfAll =
  * ```
  */
 export type ArrayOfAll<
-  List extends unknown[],
+  List extends unknown[] | readonly unknown[],
   Union,
 > = List[number] extends Union
   ? Union extends List[number]
