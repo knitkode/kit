@@ -18,7 +18,7 @@ let apiMethods = [
  * Create api client
  *
  * @param apiName Short name to use in debug logs
- * @param baseUrl Either relativ eor absolute, it must end without trailing slash
+ * @param baseUrl Either relative or absolute, it must end without trailing slash
  */
 export let createApi = <TEndpoints extends Api.Endpoints>(
   apiName: string,

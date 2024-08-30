@@ -1,1 +1,1 @@
-export { createSwrApi } from "./swr/createSwrApi";
+export { createSwrApi, type ApiSWR } from "./swr/createSwrApi";
