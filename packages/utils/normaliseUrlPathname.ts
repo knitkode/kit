@@ -7,6 +7,7 @@ import { removeTrailingSlash } from "./removeTrailingSlash";
  * - removes the trailing slash
  *
  * @category location
+ * @returns Empty string if given `pathname` is undefined
  */
 export let normaliseUrlPathname = (pathname = "") =>
   removeTrailingSlash(pathname.replace(/\/+/g, "/"));
