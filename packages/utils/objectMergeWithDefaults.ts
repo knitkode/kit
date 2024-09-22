@@ -1,14 +1,6 @@
 import type { PlainObject } from "./getType";
 import { isObject } from "./isObject";
 
-type GetObjectKeys<T, DeleteIfNull extends boolean = false> = keyof {
-  [K in keyof T as DeleteIfNull extends true
-    ? T[K] extends null
-      ? never
-      : K
-    : K]: T[K];
-};
-
 export type ObjectMergeWithDefaults<
   Defaults,
   Overrides,
@@ -17,10 +9,7 @@ export type ObjectMergeWithDefaults<
   ? Defaults
   : Overrides extends PlainObject
     ? {
-        [K in GetObjectKeys<
-          Overrides,
-          DeleteIfNull
-        >]-?: Overrides[K] extends undefined
+        [K in keyof Overrides]-?: Overrides[K] extends undefined | null
           ? K extends keyof Defaults
             ? Defaults[K]
             : never
@@ -39,10 +28,12 @@ export type ObjectMergeWithDefaults<
  *
  * Simple object merging utility, by design:
  * - no `array` support
- * - `undefined` values do not override default values, a.k.a. it makes it harder
- * to remove a property defined on the defaults
+ * - `undefined` and `null` values do not override default values, a.k.a. it
+ * makes it harder to remove a property defined on the defaults
  *
  * @category object
+ * @param defaults
+ * @param overrides
  */
 // TODO: check https://github.com/unjs/defu more sophisticated implementation
 export let objectMergeWithDefaults = <
@@ -52,27 +43,25 @@ export let objectMergeWithDefaults = <
 >(
   defaults: D,
   overrides?: O,
-  deleteKeyIfNull?: DeleteIfNull,
 ): ObjectMergeWithDefaults<D, O, DeleteIfNull> =>
   overrides
     ? Object.keys(overrides).reduce(
         (result, _key) => {
           const keyDefaults = _key as Extract<keyof D, string>;
           const keyOverrides = _key as Extract<keyof O, string>;
-          if (deleteKeyIfNull && overrides[keyOverrides] === null) {
-            delete result[keyDefaults];
-          } else if (isObject(overrides[keyOverrides])) {
+
+          if (isObject(overrides[keyOverrides])) {
             if (!defaults[keyDefaults]) {
               defaults[keyDefaults] = {} as any;
             }
             result[keyDefaults] = objectMergeWithDefaults(
               defaults[keyDefaults] as D,
               overrides[keyOverrides] as O,
-              deleteKeyIfNull,
             );
           } else {
             result[keyDefaults] =
-              overrides[keyOverrides] === undefined
+              overrides[keyOverrides] === undefined ||
+              overrides[keyOverrides] === null
                 ? defaults[keyDefaults]
                 : overrides[keyOverrides];
           }

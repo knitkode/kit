@@ -1,12 +1,11 @@
 import { objectMergeWithDefaults } from "./objectMergeWithDefaults";
 
 test("objectMergeWithDefaults", () => {
-  expect(
-    objectMergeWithDefaults(
-      { a: "a", b: { c: "c", d: "d" } },
-      { b: { e: "e" } },
-    ),
-  ).toEqual({
+  const a = objectMergeWithDefaults(
+    { a: "a", b: { c: "c", d: "d" } },
+    { b: { e: "e" } },
+  );
+  expect(a).toEqual({
     a: "a",
     b: { c: "c", d: "d", e: "e" },
   });
@@ -24,10 +23,10 @@ test("objectMergeWithDefaults", () => {
   const c = objectMergeWithDefaults(
     { a: "a", b: { c: "c", d: "d" } },
     { b: null, c: { f: "f" } },
-    true,
   );
   expect(c).toEqual({
     a: "a",
+    b: { c: "c", d: "d" },
     c: { f: "f" },
   });
 });
