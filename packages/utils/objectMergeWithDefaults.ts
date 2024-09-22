@@ -68,6 +68,7 @@ export let objectMergeWithDefaults = <
             result[keyDefaults] = objectMergeWithDefaults(
               defaults[keyDefaults] as D,
               overrides[keyOverrides] as O,
+              deleteKeyIfNull,
             );
           } else {
             result[keyDefaults] =
