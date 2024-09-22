@@ -1,24 +1,38 @@
 import type { PlainObject } from "./getType";
 import { isObject } from "./isObject";
 
-export type ObjectMergeWithDefaults<Defaults, Overrides> =
-  Overrides extends undefined
-    ? Defaults
-    : Overrides extends PlainObject
-      ? {
-          [K in keyof Overrides]-?: Overrides[K] extends undefined
-            ? K extends keyof Defaults
-              ? Defaults[K]
-              : never
-            : K extends keyof Defaults
-              ? ObjectMergeWithDefaults<Defaults[K], Overrides[K]>
-              : Overrides[K];
-        } & (Defaults extends PlainObject
-          ? {
-              [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
-            }
-          : Defaults)
-      : Defaults;
+type GetObjectKeys<T, DeleteIfNull extends boolean = false> = keyof {
+  [K in keyof T as DeleteIfNull extends true
+    ? T[K] extends null
+      ? never
+      : K
+    : K]: T[K];
+};
+
+export type ObjectMergeWithDefaults<
+  Defaults,
+  Overrides,
+  DeleteIfNull extends boolean = false,
+> = Overrides extends undefined
+  ? Defaults
+  : Overrides extends PlainObject
+    ? {
+        [K in GetObjectKeys<
+          Overrides,
+          DeleteIfNull
+        >]-?: Overrides[K] extends undefined
+          ? K extends keyof Defaults
+            ? Defaults[K]
+            : never
+          : K extends keyof Defaults
+            ? ObjectMergeWithDefaults<Defaults[K], Overrides[K], DeleteIfNull>
+            : Overrides[K];
+      } & (Defaults extends PlainObject
+        ? {
+            [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
+          }
+        : Defaults)
+    : Defaults;
 
 /**
  * Merge object _overrides_ onto object _defaults_, immutably
@@ -34,16 +48,20 @@ export type ObjectMergeWithDefaults<Defaults, Overrides> =
 export let objectMergeWithDefaults = <
   D extends PlainObject,
   O extends PlainObject,
+  DeleteIfNull extends boolean,
 >(
   defaults: D,
   overrides?: O,
-): ObjectMergeWithDefaults<D, O> =>
+  deleteKeyIfNull?: DeleteIfNull,
+): ObjectMergeWithDefaults<D, O, DeleteIfNull> =>
   overrides
     ? Object.keys(overrides).reduce(
         (result, _key) => {
           const keyDefaults = _key as Extract<keyof D, string>;
           const keyOverrides = _key as Extract<keyof O, string>;
-          if (isObject(overrides[keyOverrides])) {
+          if (deleteKeyIfNull && overrides[keyOverrides] === null) {
+            delete result[keyDefaults];
+          } else if (isObject(overrides[keyOverrides])) {
             if (!defaults[keyDefaults]) {
               defaults[keyDefaults] = {} as any;
             }
