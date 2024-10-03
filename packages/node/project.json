@@ -8,6 +8,8 @@
     "build": {
       "options": {
         "additionalEntryPoints": [
+          "packages/node/fsMoveAndRestoreTemporaryPaths.ts",
+          "packages/node/fsMoveAndRestoreTemporaryPathsSync.ts",
           "packages/node/fsWrite.ts",
           "packages/node/fsWriteSync.ts",
           "packages/node/jest.ts",
