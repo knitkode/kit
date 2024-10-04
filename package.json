@@ -1,6 +1,6 @@
 {
   "name": "@koine/koine",
-  "version": "2.0.0-beta.168",
+  "version": "2.0.0-beta.169",
   "private": true,
   "scripts": {
     "pn": "pnpm nx run playground-next:serve:development",
