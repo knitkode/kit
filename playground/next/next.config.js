@@ -120,7 +120,7 @@ const nextConfig = {
             // });
             
             return {
-              t: `(function(i18nKey, ...args) {
+              t: `(function(trace, ...args) {
                   const $t = require("${i18nDir}/$t");
                   const locale = global.__i18n_locale;
 
@@ -142,7 +142,7 @@ const nextConfig = {
                     return /^[0-9]/.test(replaced) ? "$" + replaced : replaced;
                   };
                   const fnName = translationKeyToFnName(
-                    i18nKey.replace(/:/, ".").split(".")
+                    trace.replace(/:/, ".").split(".")
                       .filter(Boolean)
                       .map(translationKeyToFnName)
                       .join("_")
