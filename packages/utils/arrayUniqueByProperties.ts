@@ -6,15 +6,21 @@
  * @param keys The keys to compare in each array item
  * @returns The filtered array
  */
-export let arrayUniqueByProperties = <T extends any[]>(
-  array: T,
-  keys: (keyof T[number])[],
-) =>
-  array.filter(
-    (item, idx, arr) =>
-      arr.findIndex((itemWith) =>
-        keys.every((k) => itemWith[k] === item[k]),
-      ) === idx,
-  ) as T;
+export const arrayUniqueByProperties = <T>(
+  array: T[],
+  keys: (keyof T)[],
+): T[] => {
+  const seen = new Set<string>();
+
+  return array.filter((item) => {
+    // Create a unique key based on the specified properties
+    const key = keys.map(k => item[k]).join('|');
+    if (seen.has(key)) {
+      return false; // Already seen, so filter out
+    }
+    seen.add(key); // Add to the seen set
+    return true; // Keep this item
+  });
+};
 
 export default arrayUniqueByProperties;

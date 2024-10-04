@@ -4,26 +4,25 @@
  * array, therefore the `newItem` must match the type of the `list` items.
  *
  * @category array
+ * @param list The original array to modify.
+ * @param newItem The item to add or replace.
+ * @param newIdx The index at which to replace the item (if defined).
+ * @returns A new array with the item added or replaced.
  */
 export let addOrReplaceAtIdx = <T>(
   list: T[],
   newItem: T,
   newIdx?: number,
 ): T[] => {
-  if (list.length === 0) {
-    return [newItem];
+  if (newIdx !== undefined && newIdx >= 0 && newIdx < list.length) {
+    return [
+      ...list.slice(0, newIdx),  // Items before the index
+      newItem,                   // New item
+      ...list.slice(newIdx + 1), // Items after the index
+    ];
   }
 
-  if (typeof newIdx === "undefined" || list.length - 1 < newIdx) {
-    return [...list, newItem];
-  }
-
-  return list.map((item, idx) => {
-    if (idx === newIdx) {
-      return newItem;
-    }
-    return item;
-  });
+  return [...list, newItem]; // Add to the end if newIdx is not valid
 };
 
 export default addOrReplaceAtIdx;

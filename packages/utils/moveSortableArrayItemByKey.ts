@@ -15,9 +15,14 @@ export let moveSortableArrayItemByKey = <T, K extends keyof T>(
   const idxFrom = itemsKeys.indexOf(fromItem[key]);
   const idxTo = itemsKeys.indexOf(toItem[key]);
 
-  const [item] = items.splice(idxFrom, 1);
-  items.splice(idxTo, 0, item);
-  return [...items];
+  if (idxFrom >= 0 && idxTo >= 0) {
+    const copy = [...items];
+    const [item] = copy.splice(idxFrom, 1);
+    copy.splice(idxTo, 0, item);
+    return copy;
+  }
+
+  return items;
 };
 
 export default moveSortableArrayItemByKey;

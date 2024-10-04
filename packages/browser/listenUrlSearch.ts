@@ -15,10 +15,12 @@ type Extension = {
  */
 type Handler = (prevLocationSearch: string, newLocationSearch: string) => void;
 
-type HistoryExtended = History & { __: Extension };
+export type HistoryExtended = History & { __: Extension };
 type HistoryPushState = (typeof window)["history"]["pushState"];
 type HistoryReplaceState = (typeof window)["history"]["replaceState"];
 type HistoryMethod = HistoryPushState | HistoryReplaceState;
+
+declare const history: HistoryExtended;
 
 let extendHistoryMethod = (
   fn: HistoryMethod,
