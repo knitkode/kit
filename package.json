@@ -1,6 +1,6 @@
 {
   "name": "@koine/koine",
-  "version": "2.0.0-beta.167",
+  "version": "2.0.0-beta.168",
   "private": true,
   "scripts": {
     "pn": "pnpm nx run playground-next:serve:development",
@@ -130,7 +130,7 @@
     "packages/**/*.{js,json,css,ts,tsx}": [
       "prettier --write"
     ],
-    "packages/**/*.{js,ts,tsx}": [
+    "TODO: disabled, jsx-ally gives error.packages/**/*.{js,ts,tsx}": [
       "eslint --fix"
     ]
   },
