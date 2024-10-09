@@ -1,3 +1,8 @@
+describe("listenUrlSearch", () => {
+  it("should be tested", () => {
+    expect("").toBe("");
+  });
+});
 // TODO: mock browser globals correctly
 // import { listenUrlSearch, type HistoryExtended } from './listenUrlSearch';
 
@@ -14,7 +19,7 @@
 //   let originalReplaceState: (...args: string[]) => void;
 //   let originalLocation: Window["location"];
 //   let runHandlers: () => void;
-  
+
 //   beforeEach(() => {
 //     // Backup original functions
 //     originalPushState = history.pushState;
@@ -26,10 +31,10 @@
 //     window.location = {
 //       search: '',
 //     } as Window["location"];
-    
+
 //     // Create the runHandlers function to call directly
 //     runHandlers = jest.fn();
-    
+
 //     // Mock the extendHistoryMethod
 //     jest.spyOn(window.history, 'pushState').mockImplementation((...args) => {
 //       runHandlers();

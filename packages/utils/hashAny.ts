@@ -22,7 +22,7 @@ let counter = 0;
  * This is not a serialization function, and the result is not guaranteed to be
  * parsable.
  *
- * @borrows [`swr`'s `stableHash`](https://github.com/vercel/swr/blob/main/src/_internal/utils/shared.ts)
+ * @borrows [`swr`'s `stableHash`](https://github.com/vercel/swr/blob/main/src/_internal/utils/hash.ts)
  *
  * That is not exported by the package, the following is not possible:
  * ```js

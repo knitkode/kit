@@ -4,7 +4,6 @@
     "jsx": "preserve",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    // "esModuleInterop": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,

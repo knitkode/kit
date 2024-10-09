@@ -1,3 +1,4 @@
+import type { MergeDeep, RequiredDeep, Simplify } from "type-fest";
 import type { PlainObject } from "./getType";
 import { isObject } from "./isObject";
 
@@ -5,23 +6,24 @@ export type ObjectMergeWithDefaults<
   Defaults,
   Overrides,
   DeleteIfNull extends boolean = false,
-> = Overrides extends undefined
-  ? Defaults
-  : Overrides extends PlainObject
-    ? {
-        [K in keyof Overrides]-?: Overrides[K] extends undefined | null
-          ? K extends keyof Defaults
-            ? Defaults[K]
-            : never
-          : K extends keyof Defaults
-            ? ObjectMergeWithDefaults<Defaults[K], Overrides[K], DeleteIfNull>
-            : Overrides[K];
-      } & (Defaults extends PlainObject
-        ? {
-            [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
-          }
-        : Defaults)
-    : Defaults;
+> = Simplify<RequiredDeep<MergeDeep<Overrides, Defaults>>>;
+//  Overrides extends undefined
+//   ? Defaults
+//   : Overrides extends PlainObject
+//     ? {
+//         [K in keyof Overrides]-?: Overrides[K] extends undefined | null
+//           ? K extends keyof Defaults
+//             ? Defaults[K]
+//             : never
+//           : K extends keyof Defaults
+//             ? ObjectMergeWithDefaults<Defaults[K], Overrides[K], DeleteIfNull>
+//             : Overrides[K];
+//       } & (Defaults extends PlainObject
+//         ? {
+//             [K in Exclude<keyof Defaults, keyof Overrides>]: Defaults[K];
+//           }
+//         : Defaults)
+//     : Defaults;
 
 /**
  * Merge object _overrides_ onto object _defaults_, immutably

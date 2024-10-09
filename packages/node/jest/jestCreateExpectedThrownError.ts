@@ -13,19 +13,21 @@ import { log } from "console";
  * ```
  */
 export const jestCreateExpectedThrownError =
-  (pkgName: string, fnName: string) =>
+  (pkgName: string, fnName: string, shouldLog?: boolean) =>
   (expectFn: () => ReturnType<jest.Expect>) => {
     try {
       expectFn().toThrow(new RegExp(`\\[${pkgName}\\]:${fnName}, .*`, "g"));
     } catch (e) {
-      log(
-        "\x1b[32m",
-        "   ✓",
-        "\x1b[0m",
-        "throw",
-        "\x1b[2m",
-        (e as Error).message.replace(`[${pkgName}]:${fnName}, `, ""),
-      );
+      if (shouldLog) {
+        log(
+          "\x1b[32m",
+          "   ✓",
+          "\x1b[0m",
+          "throw",
+          "\x1b[2m",
+          (e as Error).message.replace(`[${pkgName}]:${fnName}, `, ""),
+        );
+      }
     }
   };
 
