@@ -4,17 +4,20 @@ import { dom } from "./dom";
  * Inject css
  *
  * @param id The `<style>` HTMLElement's `id`
+ * @param cssString The CSS to inject
+ * @param root The root HTMLElement where to prepend the style
  */
 export let injectCss = (
   id: string,
   cssString = "",
-  root: Document = document,
+  root?: null | HTMLElement,
 ) => {
-  let styleblock = dom<HTMLStyleElement>("#" + id);
+  root = root || document.body;
+  let styleblock = dom<HTMLStyleElement>("#" + id, root);
   if (!styleblock) {
-    styleblock = root.createElement("style");
+    styleblock = document.createElement("style");
     styleblock.id = id;
-    root.body.appendChild(styleblock);
+    root.prepend(styleblock);
   }
   styleblock.innerHTML = cssString;
 };
