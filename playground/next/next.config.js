@@ -122,7 +122,7 @@ const nextConfig = {
             return {
               t: `(function(trace, ...args) {
                   const $t = require("${i18nDir}/$t");
-                  const locale = global.__i18n_locale;
+                  const locale = globalThis.__i18n_locale;
 
                   const translationKeyToFnName = (key) => {
                     const sep = "/";
