@@ -5,5 +5,5 @@
     "types": ["jest", "node"],
     "verbatimModuleSyntax": false
   },
-  "include": ["**/*.ts", "**/*.spec.ts", "**/*.d.ts"]
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
 }
