@@ -1,4 +1,4 @@
-import type { Replace } from "type-fest";
+import type { Replace, Simplify } from "type-fest";
 
 // export type AssertTrue<T extends true> = T;
 
