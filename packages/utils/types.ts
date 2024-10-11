@@ -5,6 +5,7 @@ import type { Replace } from "type-fest";
 /**
  * Type to test types
  *
+ * @category type
  * @example
  *
  * ```ts
@@ -23,6 +24,8 @@ export type TestType<
 
 /**
  * Whatever that in javascript returns `false` when checked in an `if` condition
+ *
+ * @category type
  */
 export type AnythingFalsy = null | undefined | 0 | "";
 
@@ -31,6 +34,7 @@ export type AnythingFalsy = null | undefined | 0 | "";
  * root.
  *
  * @borrows [SO' answer by jcalz](https://stackoverflow.com/a/78779784/1938970)
+ * @category type
  */
 export type FlatObjectFirstLevel<T extends object> =
   { [K in keyof T]: (x: T[K]) => void } extends Record<
@@ -43,6 +47,8 @@ export type FlatObjectFirstLevel<T extends object> =
 /**
  * Pick the keys of an object `T` that starts with `S`. It produces a mapped type
  * with a subset of `T` whose keys start with `S`.
+ *
+ * @category type
  */
 export type PickStartsWith<T extends object, S extends string> = {
   [K in keyof T as K extends `${S}${string}` ? K : never]: T[K];
@@ -50,6 +56,8 @@ export type PickStartsWith<T extends object, S extends string> = {
 
 /**
  * Returns a union of all the keys of an object `T` which starts with `S`.
+ *
+ * @category type
  */
 export type KeysStartsWith<
   T extends object,
@@ -59,6 +67,8 @@ export type KeysStartsWith<
 /**
  * Pick the keys of an object `T` that starts with `S`. It produces a mapped type
  * with a subset of `T` whose keys start with `S` *and have `S`* removed.
+ *
+ * @category type
  */
 export type PickStartsWithTails<T extends object, S extends string> = {
   [K in keyof T as K extends `${S}${string}` ? Replace<K, S, ""> : never]: T[K];
@@ -67,6 +77,8 @@ export type PickStartsWithTails<T extends object, S extends string> = {
 /**
  * Returns a union of all the keys of an object `T` which starts with `S`.
  * The strings in the produced union *have `S` removed*.
+ *
+ * @category type
  */
 export type KeysTailsStartsWith<
   T extends object,
@@ -79,6 +91,70 @@ export type KeysTailsStartsWith<
 export type Reverse<Tuple> = Tuple extends [infer Head, ...infer Rest]
   ? [...Reverse<Rest>, Head]
   : [];
+
+/**
+ * Make _nullable_ all properties of objec T (deeply)
+ * @use `{ key: $ | null }`
+ *
+ * @category type
+ */
+export type NullableObjectDeep<T extends object> = {
+  [K in keyof T]: T[K] extends object
+    ? NullableObjectDeep<T[K]> | null
+    : T[K] | null;
+};
+
+/**
+ * Make _non nullable_ all properties of objec T (deeply)
+ * @use `{ key: NonNullable<$> }`
+ *
+ * @category type
+ */
+export type NonNullableObjectDeep<T extends object> = {
+  [K in keyof T]: T[K] extends object
+    ? NonNullableObjectDeep<NonNullable<T[K]>>
+    : NonNullable<T[K]>;
+};
+
+/**
+ * Make _required_ all properties of objec T (deeply)
+ * @use `{ key-?: Exclude<$, undefined> }`
+ *
+ * @category type
+ */
+export type RequiredObjectDeep<T extends object> = Simplify<{
+  [K in keyof T]-?: T[K] extends object
+    ? Exclude<RequiredObjectDeep<T[K]>, undefined>
+    : Exclude<T[K], undefined>;
+}>;
+
+/**
+ * Make _required_ and _non nullable_ all properties of objec T (deeply)
+ * @use `{ key-?: NonNullable<$> }`
+ *
+ * @category type
+ */
+export type RequiredNonNullableObjectDeep<T extends object> = Simplify<{
+  [K in keyof T]-?: T[K] extends object
+    ? NonNullable<RequiredNonNullableObjectDeep<T[K]>>
+    : NonNullable<T[K]>;
+}>;
+type a = Omit<{}, "">;
+
+/**
+ * Construct a type with the properties of T except for those whose value is `never`
+ * 
+ * @category type
+ * 
+@example
+```ts
+type A = OmitNever<"a" | never>; // A = "a"
+type B = OmitNever<{ a: never; b: 1 }> // B = { b: 1; }
+```
+ */
+export type OmitNever<T> = {
+  [K in keyof T as T[K] extends never ? never : K]: T[K];
+};
 
 // /**
 //  * @category object

@@ -183,8 +183,13 @@ export type {
   FlatObjectFirstLevel,
   KeysStartsWith,
   KeysTailsStartsWith,
+  NonNullableObjectDeep,
+  NullableObjectDeep,
+  OmitNever,
   PickStartsWith,
   PickStartsWithTails,
+  RequiredNonNullableObjectDeep,
+  RequiredObjectDeep,
   Reverse,
   TestType,
 } from "./types";

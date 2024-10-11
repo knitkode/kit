@@ -6,6 +6,7 @@ import { getType } from "./getType";
  *
  * @category is
  */
+// TODO: check https://github.com/sindresorhus/is-plain-obj more precise
 export let isPlainObject = <TReturn = PlainObject>(
   payload: any,
 ): payload is TReturn =>
