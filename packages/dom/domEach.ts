@@ -12,7 +12,7 @@ import { domAll } from "./domAll";
 export let domEach = <T extends Element = HTMLElement>(
   selector: string,
   callback: ($element: T, index: number) => any,
-  parent?: HTMLElement,
+  parent?: Element | HTMLElement | Document | null,
   scope?: object,
 ) => {
   const nodes = domAll(selector, parent);

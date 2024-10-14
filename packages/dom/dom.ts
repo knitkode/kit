@@ -11,7 +11,7 @@
  */
 export let dom = <T extends Element = HTMLElement>(
   selector: string,
-  parent?: HTMLElement | Document | null,
+  parent?: Element | HTMLElement | Document | null,
   avoidEscape?: boolean,
 ) =>
   (parent ? parent : document).querySelector(
