@@ -7,10 +7,13 @@ import type {
 /**
  * Shortcut for `removeEventListener`
  */
-export let off = <TType extends AnyDOMEventType>(
+export let off = <
+  TTarget extends AnyDOMEventTargetLoose,
+  TType extends AnyDOMEventType,
+>(
   el: AnyDOMEventTargetLoose,
   type: TType,
-  handler: (event: AnyDOMEvent<TType>) => void,
+  handler: (event: AnyDOMEvent<TTarget, TType>) => void,
   options: EventListenerOptions | boolean = false,
 ) => {
   if (process.env["NODE_ENV"] === "development") {

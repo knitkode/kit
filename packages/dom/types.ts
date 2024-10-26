@@ -8,18 +8,20 @@ export type AnyDOMEventTarget = Window | Document | HTMLElement | Element;
  */
 export type AnyDOMEventTargetLoose = AnyDOMEventTarget | AnythingFalsy;
 
-type StandardDOMEventTypes = keyof GlobalEventHandlersEventMap;
+export type AnyWindowEventType = keyof WindowEventMap;
+export type AnyGlobalEventType = keyof GlobalEventHandlersEventMap;
 
-export type AnyDOMEventType = LiteralUnion<
-  StandardDOMEventTypes | "storage" | "popstate",
-  string
->;
+export type AnyDOMEventType<
+  TTarget extends AnyDOMEventTargetLoose = AnyDOMEventTargetLoose,
+> = TTarget extends Window ? AnyWindowEventType : AnyGlobalEventType;
 
-export type AnyDOMEvent<TType extends AnyDOMEventType> =
-  TType extends StandardDOMEventTypes
+export type AnyDOMEvent<
+  TTarget extends AnyDOMEventTargetLoose,
+  TType extends AnyWindowEventType | AnyGlobalEventType,
+> = TTarget extends Window
+  ? TType extends keyof WindowEventMap
+    ? WindowEventMap[TType]
+    : Event
+  : TType extends keyof GlobalEventHandlersEventMap
     ? GlobalEventHandlersEventMap[TType]
-    : TType extends "storage"
-      ? StorageEvent
-      : TType extends "popstate"
-        ? PopStateEvent
-        : Event;
+    : Event;
