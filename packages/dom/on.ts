@@ -1,4 +1,4 @@
-import { noop, type AnythingFalsy } from "@koine/utils";
+import { noop } from "@koine/utils";
 import { off } from "./off";
 import type {
   AnyWindowEventType,
@@ -6,6 +6,7 @@ import type {
   AnyGlobalEventType,
   AnyDOMEvent,
   AnyDOMEventTargetLoose,
+  AnyDOMEventType,
 } from "./types";
 
 /**
@@ -14,44 +15,48 @@ import type {
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */
 export function on<
-  TTarget extends Exclude<AnyDOMEventTargetLoose, Window | Document>,
-  // TTarget extends HTMLElement | Element | AnythingFalsy,
-  TType extends AnyGlobalEventType
+  Target extends Exclude<AnyDOMEventTargetLoose, Window | Document>,
+  Type extends AnyGlobalEventType
 >(
-  el: TTarget,
-  type: TType,
-  handler: (event: AnyDOMEvent<TTarget, TType>) => void,
+  el: Target,
+  type: Type,
+  handler: (event: AnyDOMEvent<Target, Type>) => void,
   options?: AddEventListenerOptions | boolean,
 ): () => void;
 export function on<
-  TTarget extends Exclude<AnyDOMEventTargetLoose, Window | HTMLElement | Element>,
-  // TTarget extends Document | AnythingFalsy,
-  TType extends AnyDocumentEventType
+  Target extends Exclude<AnyDOMEventTargetLoose, Window | HTMLElement | Element>,
+  Type extends AnyDocumentEventType
 >(
-  el: TTarget,
-  type: TType,
-  handler: (event: AnyDOMEvent<TTarget, TType>) => void,
+  el: Target,
+  type: Type,
+  handler: (event: AnyDOMEvent<Target, Type>) => void,
   options?: AddEventListenerOptions | boolean,
 ): () => void;
 export function on<
-  TTarget extends Exclude<AnyDOMEventTargetLoose, Document | HTMLElement | Element>,
-  // TTarget extends Window | AnythingFalsy,
-  TType extends AnyWindowEventType
+  Target extends Exclude<AnyDOMEventTargetLoose, Document | HTMLElement | Element>,
+  Type extends AnyWindowEventType
 >(
-  el: TTarget,
-  type: TType,
-  handler: (event: AnyDOMEvent<TTarget, TType>) => void,
+  el: Target,
+  type: Type,
+  handler: (event: AnyDOMEvent<Target, Type>) => void,
   options?: AddEventListenerOptions | boolean,
 ): () => void;
 export function on<
-  TTarget extends AnyDOMEventTargetLoose,
-  TType extends AnyGlobalEventType | AnyDocumentEventType | AnyWindowEventType,
-  // TType extends TTarget extends { addEventListener: (...args: infer T) => void } ? T[0] : ""
+  Target extends AnyDOMEventTargetLoose,
+  Type extends AnyDOMEventType<AnyDOMEventTargetLoose>
 >(
-  el: TTarget,
-  type: TType,
-  handler: (event: AnyDOMEvent<TTarget, TType>) => void,
-  // handler: THandler /* EventListener |  */ /* ((event: Event) => void) */,
+  el: Target,
+  type: Type,
+  handler: (event: AnyDOMEvent<Target, Type>) => void,
+  options?: AddEventListenerOptions | boolean,
+): () => void;
+export function on<
+  Target extends AnyDOMEventTargetLoose,
+  Type extends AnyDOMEventType<AnyDOMEventTargetLoose>
+>(
+  el: Target,
+  type: Type,
+  handler: (event: AnyDOMEvent<Target, Type>) => void,
   options: AddEventListenerOptions | boolean = false,
 ) {
   if (process.env["NODE_ENV"] === "development") {
