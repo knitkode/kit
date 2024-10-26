@@ -4,7 +4,7 @@ import {
   eventHandler,
 } from "./_listen-delegation";
 import { on } from "./on";
-import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
+import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
 // import { off } from "./off";
 
@@ -18,7 +18,7 @@ import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
  * @param callback The function to run when the event fires
  */
 export let listen = <
-  TTypes extends AnyDOMEventType,
+  TTypes extends AnyWindowEventType,
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
@@ -33,9 +33,9 @@ export let listen = <
   if (!selector || !callback) return;
 
   // Loop through each event type
-  (types.split(",") as AnyDOMEventType[]).forEach(function (type) {
+  (types.split(",") as AnyWindowEventType[]).forEach(function (type) {
     // Remove whitespace
-    type = type.trim() as AnyDOMEventType;
+    type = type.trim() as AnyWindowEventType;
 
     // If no event of this type yet, setup
     if (!activeEvents[type]) {

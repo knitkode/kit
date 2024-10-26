@@ -5,7 +5,7 @@ import {
   getIndex,
 } from "./_listen-delegation";
 import { off } from "./off";
-import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
+import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
 /**
  * Stop listening for an event
@@ -17,7 +17,7 @@ import type { AnyDOMEventTarget, AnyDOMEventType } from "./types";
  * @param callback The function to remove
  */
 export let unlisten = <
-  TTypes extends AnyDOMEventType,
+  TTypes extends AnyWindowEventType,
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
@@ -29,17 +29,17 @@ export let unlisten = <
   callback: EventCallback<TTarget, TTypes>,
 ) => {
   // Loop through each event type
-  types.split(",").forEach((type) => {
+  types.split(",").forEach((_type) => {
     // Remove whitespace
-    type = type.trim();
-    const events = activeEvents[type];
+    const type = _type.trim() as AnyWindowEventType;
+    const events = activeEvents[(type)];
 
     // if event type doesn't exist, bail
     if (!events) return;
 
     // If it's the last event of it's type, remove entirely
     if (events.length < 2 || !selector) {
-      delete activeEvents[type];
+      delete activeEvents[(type)];
       off(window, type, eventHandler, true);
       return;
     }

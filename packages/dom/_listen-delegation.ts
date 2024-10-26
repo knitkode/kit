@@ -9,14 +9,14 @@
  */
 import { isString } from "@koine/utils";
 import { escapeSelector } from "./escapeSelector";
-import type { AnyDOMEvent, AnyDOMEventTarget, AnyDOMEventType } from "./types";
+import type { AnyDOMEvent, AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
 /**
  * @internal
  */
 export type EventCallback<
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
-  TType extends AnyDOMEventType = AnyDOMEventType,
+  TType extends AnyWindowEventType = AnyWindowEventType,
 > = (event: AnyDOMEvent<TTarget, TType>, desiredTarget: TTarget) => any;
 
 /**
@@ -32,7 +32,7 @@ export type ListenEvent = {
  *
  * @internal
  */
-export let activeEvents: Partial<Record<AnyDOMEventType, ListenEvent[]>> = {};
+export let activeEvents: Partial<Record<AnyWindowEventType, ListenEvent[]>> = {};
 
 /**
  * Get the index for the listener
