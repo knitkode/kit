@@ -107,7 +107,7 @@ export let getRunTarget = (
  */
 export let eventHandler = (event: Event) => {
   // if (!activeEvents[event.type]) return;
-  activeEvents[event.type]?.forEach(function (listener) {
+  activeEvents[(event.type as keyof typeof activeEvents)]?.forEach(function (listener) {
     const target = getRunTarget(event.target as Element, listener.selector);
     if (!target) {
       return;
