@@ -1,4 +1,4 @@
-import { noop } from "@koine/utils";
+import { noop, type AnythingFalsy } from "@koine/utils";
 import { off } from "./off";
 import type {
   AnyWindowEventType,
@@ -14,7 +14,8 @@ import type {
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */
 export function on<
-  TTarget extends HTMLElement | Element, // Exclude<AnyDOMEventTargetLoose, Window | Document>,
+  TTarget extends Exclude<AnyDOMEventTargetLoose, Window | Document>,
+  // TTarget extends HTMLElement | Element | AnythingFalsy,
   TType extends AnyGlobalEventType
 >(
   el: TTarget,
@@ -23,7 +24,8 @@ export function on<
   options?: AddEventListenerOptions | boolean,
 ): void;
 export function on<
-  TTarget extends Document, // Exclude<AnyDOMEventTargetLoose, Window | HTMLElement | Element>,
+  TTarget extends Exclude<AnyDOMEventTargetLoose, Window | HTMLElement | Element>,
+  // TTarget extends Document | AnythingFalsy,
   TType extends AnyDocumentEventType
 >(
   el: TTarget,
@@ -32,7 +34,8 @@ export function on<
   options?: AddEventListenerOptions | boolean,
 ): void;
 export function on<
-  TTarget extends Window, // Exclude<AnyDOMEventTargetLoose, Document | HTMLElement | Element>,
+  TTarget extends Exclude<AnyDOMEventTargetLoose, Document | HTMLElement | Element>,
+  // TTarget extends Window | AnythingFalsy,
   TType extends AnyWindowEventType
 >(
   el: TTarget,

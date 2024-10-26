@@ -1,6 +1,6 @@
 import { off } from "./off";
 import { on } from "./on";
-import type { AnyDOMEventTargetLoose } from "./types";
+import type { AnyDOMEventTargetLoose, AnyDOMEventType } from "./types";
 
 /**
  * One shot listener, it `addEventListener` and removes it first time is called
@@ -8,7 +8,7 @@ import type { AnyDOMEventTargetLoose } from "./types";
  */
 export let once = (
   el: AnyDOMEventTargetLoose,
-  type: string,
+  type: AnyDOMEventType,
   handler: EventListener,
   options: EventListenerOptions | boolean = false,
 ) => {
@@ -17,6 +17,7 @@ export let once = (
     off(el, type, handlerWrapper);
   };
 
+  // @ts-expect-error dom listener types
   return on(el, type, handlerWrapper, options);
 };
 

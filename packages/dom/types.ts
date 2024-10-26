@@ -1,4 +1,4 @@
-import type { AnythingFalsy, LiteralUnion } from "@koine/utils";
+import type { AnythingFalsy } from "@koine/utils";
 
 export type AnyDOMEventTarget = Window | Document | HTMLElement | Element;
 
