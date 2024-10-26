@@ -1,6 +1,5 @@
 {
   "files.exclude": {
-    ".nx": true,
     "actions/**/*.{js,json,txt}": true,
     // @see https://github.com/microsoft/vscode/issues/869#issuecomment-255660177
     // "**/*.js": { "when": "$(basename).ts" },

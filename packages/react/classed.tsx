@@ -62,7 +62,7 @@ export let classed = <Props, Component extends React.ElementType = any>(
           let result = "";
 
           if (typeof arg === "function") {
-            result = arg(props);
+            result = arg(props as Props);
           } else if (typeof arg !== "undefined") {
             result = arg.toString();
           }
