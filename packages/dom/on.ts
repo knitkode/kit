@@ -22,7 +22,7 @@ export function on<
   type: TType,
   handler: (event: AnyDOMEvent<TTarget, TType>) => void,
   options?: AddEventListenerOptions | boolean,
-): void;
+): () => void;
 export function on<
   TTarget extends Exclude<AnyDOMEventTargetLoose, Window | HTMLElement | Element>,
   // TTarget extends Document | AnythingFalsy,
@@ -32,7 +32,7 @@ export function on<
   type: TType,
   handler: (event: AnyDOMEvent<TTarget, TType>) => void,
   options?: AddEventListenerOptions | boolean,
-): void;
+): () => void;
 export function on<
   TTarget extends Exclude<AnyDOMEventTargetLoose, Document | HTMLElement | Element>,
   // TTarget extends Window | AnythingFalsy,
@@ -42,7 +42,7 @@ export function on<
   type: TType,
   handler: (event: AnyDOMEvent<TTarget, TType>) => void,
   options?: AddEventListenerOptions | boolean,
-): void;
+): () => void;
 export function on<
   TTarget extends AnyDOMEventTargetLoose,
   TType extends AnyGlobalEventType | AnyDocumentEventType | AnyWindowEventType,
