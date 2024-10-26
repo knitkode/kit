@@ -9,19 +9,28 @@ export type AnyDOMEventTarget = Window | Document | HTMLElement | Element;
 export type AnyDOMEventTargetLoose = AnyDOMEventTarget | AnythingFalsy;
 
 export type AnyWindowEventType = keyof WindowEventMap;
+export type AnyDocumentEventType = keyof DocumentEventMap;
 export type AnyGlobalEventType = keyof GlobalEventHandlersEventMap;
 
 export type AnyDOMEventType<
   TTarget extends AnyDOMEventTargetLoose = AnyDOMEventTargetLoose,
-> = TTarget extends Window ? AnyWindowEventType : AnyGlobalEventType;
+> = TTarget extends Window
+  ? AnyWindowEventType
+  : TTarget extends Document
+    ? AnyDocumentEventType
+    : AnyGlobalEventType;
 
 export type AnyDOMEvent<
   TTarget extends AnyDOMEventTargetLoose,
-  TType extends AnyWindowEventType | AnyGlobalEventType,
+  TType extends AnyWindowEventType | AnyDocumentEventType | AnyGlobalEventType,
 > = TTarget extends Window
   ? TType extends keyof WindowEventMap
     ? WindowEventMap[TType]
     : Event
+  : TTarget extends Document
+    ? TType extends keyof DocumentEventMap
+      ? DocumentEventMap[TType]
+      : Event
   : TType extends keyof GlobalEventHandlersEventMap
     ? GlobalEventHandlersEventMap[TType]
     : Event;
