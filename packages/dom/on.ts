@@ -43,7 +43,7 @@ export function on<
 ): () => void;
 export function on<
   Target extends AnyDOMEventTargetLoose,
-  Type extends AnyDOMEventType<AnyDOMEventTargetLoose>
+  Type extends AnyDOMEventType<Target>
 >(
   el: Target,
   type: Type,
@@ -52,7 +52,7 @@ export function on<
 ): () => void;
 export function on<
   Target extends AnyDOMEventTargetLoose,
-  Type extends AnyDOMEventType<AnyDOMEventTargetLoose>
+  Type extends AnyDOMEventType<Target>
 >(
   el: Target,
   type: Type,
