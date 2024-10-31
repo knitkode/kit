@@ -170,6 +170,7 @@
           "packages/utils/updateLinkParams.ts",
           "packages/utils/updateUrlQueryParams.ts",
           "packages/utils/uppercase.ts",
+          "packages/utils/urlSearchParamsSerializer.ts",
           "packages/utils/uuid.ts",
           "packages/utils/uuidNumeric.ts",
           "packages/utils/wait.ts",

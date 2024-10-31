@@ -175,6 +175,10 @@ export { uid } from "./uid";
 export { updateLinkParams } from "./updateLinkParams";
 export { updateUrlQueryParams } from "./updateUrlQueryParams";
 export { uppercase } from "./uppercase";
+export {
+  urlSearchParamsSerializer,
+  type UrlSearchParamSerializer
+} from "./urlSearchParamsSerializer";
 export { uuid } from "./uuid";
 export { uuidNumeric } from "./uuidNumeric";
 export { wait } from "./wait";
@@ -184,6 +188,7 @@ export type {
   FlatObjectFirstLevel,
   KeysStartsWith,
   KeysTailsStartsWith,
+  KeysOfValue,
   NonNullableObjectDeep,
   NullableObjectDeep,
   OmitNever,
@@ -193,6 +198,7 @@ export type {
   RequiredObjectDeep,
   Reverse,
   TestType,
+  OverloadsToTuple
 } from "./types";
 
 /**

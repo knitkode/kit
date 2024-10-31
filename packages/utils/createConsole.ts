@@ -1,7 +1,8 @@
 type ConsoleMethod = "log" | "info" | "warn" | "error" | "debug";
 
+// - enabled only when `process.env["NODE_ENV"] === "development"`
 /**
- * A basic native `console` enhancement enabled only when `process.env["NODE_ENV"] === "development"`:
+ * A basic native `console` enhancement:
  * - optional _prefix_ to all messages
  * - `first` logging method which prints only the first message among equals (a kind of more basic throttling)
  * - `once` logging method which prints only once a message among equals
@@ -15,15 +16,15 @@ export let createConsole = (prefix?: string) => {
    * @param message 
    */
   const print = (method: ConsoleMethod, message: string, ...args: unknown[]) => {
-    if (process.env["NODE_ENV"] === "development") {
+    // if (process.env["NODE_ENV"] === "development") {
       console[method]("\x1b[90m%s\x1b[0m" + message, prefix ? "[" + prefix + "] " : "", ...args);
-    }
+    // }
   }
 
   const createMethod = <T extends ConsoleMethod>(method: T) => {
     const standard = (message: string, ...args: unknown[]) => print(method, message, ...args);
 
-    if (process.env["NODE_ENV"] === "development") {
+    // if (process.env["NODE_ENV"] === "development") {
       const messages = new Set();
       let lastMessage = "";
 
@@ -40,10 +41,10 @@ export let createConsole = (prefix?: string) => {
           print(method, message, ...args);
         }
       }
-    } else {
-      standard.once = (..._args: unknown[]) => void 0;
-      standard.first = (..._args: unknown[]) => void 0;
-    }
+    // } else {
+    //   standard.once = (..._args: unknown[]) => void 0;
+    //   standard.first = (..._args: unknown[]) => void 0;
+    // }
 
     return standard;
   }

@@ -86,6 +86,14 @@ export type KeysTailsStartsWith<
 > = keyof PickStartsWithTails<T, S>;
 
 /**
+ * @borrows [Matt Pocock's _Get Keys of an Object Where Values Are of a Given Type_](https://www.totaltypescript.com/get-keys-of-an-object-where-values-are-of-a-given-type)
+ * @category type
+ */
+export type KeysOfValue<T, TCondition> = {
+  [K in keyof T]: T[K] extends TCondition ? K : never;
+}[keyof T];
+
+/**
  * @borrows [SO's answer by 钵钵鸡实力代购](https://stackoverflow.com/a/64994122/1938970)
  */
 export type Reverse<Tuple> = Tuple extends [infer Head, ...infer Rest]
@@ -139,7 +147,6 @@ export type RequiredNonNullableObjectDeep<T extends object> = Simplify<{
     ? NonNullable<RequiredNonNullableObjectDeep<T[K]>>
     : NonNullable<T[K]>;
 }>;
-type a = Omit<{}, "">;
 
 /**
  * Construct a type with the properties of T except for those whose value is `never`
@@ -189,3 +196,17 @@ export type OmitNever<T> = {
 // export type ObjectFilterKeys<T extends object, Value> = {
 //   [Key in keyof T]: T[Key] extends Value ? Key : never;
 // }[keyof T];
+
+
+export type OverloadsToTuple<T> = OverloadsToTuple5<T>;
+
+// prettier-ignore
+type OverloadsToTuple5<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; (...args: infer P3): infer R3; (...args: infer P4): infer R4; (...args: infer P5): infer R5; } ? [(...args: P1) => R1, (...args: P2) => R2, (...args: P3) => R3, (...args: P4) => R4, (...args: P5) => R5] : OverloadsToTuple4<T>;
+// prettier-ignore
+type OverloadsToTuple4<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; (...args: infer P3): infer R3; (...args: infer P4): infer R4; } ? [(...args: P1) => R1, (...args: P2) => R2, (...args: P3) => R3, (...args: P4) => R4] : OverloadsToTuple3<T>;
+// prettier-ignore
+type OverloadsToTuple3<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; (...args: infer P3): infer R3; } ? [(...args: P1) => R1, (...args: P2) => R2, (...args: P3) => R3] : OverloadsToTuple2<T>;
+// prettier-ignore
+type OverloadsToTuple2<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; } ? [(...args: P1) => R1, (...args: P2) => R2] : OverloadsToTuple1<T>;
+// prettier-ignore
+type OverloadsToTuple1<T> = T extends { (...args: infer P1): infer R1; } ? [(...args: P1) => R1] : never;
