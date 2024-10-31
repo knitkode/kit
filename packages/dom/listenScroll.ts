@@ -7,7 +7,7 @@ import type { AnyDOMEventTargetLoose } from "./types";
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */
 export let listenScroll = (handler: () => void, el?: AnyDOMEventTargetLoose) =>
-  on((el || window) as Window, "scroll", handler, {
+  on(el || window, "scroll", handler, {
     capture: true,
     passive: true,
   });

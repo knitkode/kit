@@ -6,7 +6,13 @@ import {
 import { on } from "./on";
 import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
-// import { off } from "./off";
+type CommaSeparatedListOf<T extends string> =
+  | `${T}`
+  | `${T},${T}` extends infer O ? O : never;
+  // | `${T},${T},${T}`
+  // | `${T},${T},${T},${T}`
+  // | `${T},${T},${T},${T},${T}`
+  // | `${T},${T},${T},${T},${T},${T}`
 
 /**
  * Listen an event
@@ -18,16 +24,12 @@ import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
  * @param callback The function to run when the event fires
  */
 export let listen = <
-  TTypes extends AnyWindowEventType,
+  TTypes extends CommaSeparatedListOf<AnyWindowEventType>,
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
-  // | `${TTypes},${TTypes}`
-  // | `${TTypes},${TTypes},${TTypes}`
-  // | `${TTypes},${TTypes},${TTypes},${TTypes}`
-  // | `${TTypes},${TTypes},${TTypes},${TTypes},${TTypes}`,
   selector: string,
-  callback: EventCallback<TTarget, TTypes>,
+  callback: EventCallback<TTarget>,
 ) => {
   // Make sure there's a selector and callback
   if (!selector || !callback) return;

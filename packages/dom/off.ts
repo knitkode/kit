@@ -9,9 +9,9 @@ import type {
  */
 export let off = <
   TTarget extends AnyDOMEventTargetLoose,
-  TType extends AnyDOMEventType,
+  TType extends AnyDOMEventType<TTarget> = AnyDOMEventType<TTarget>
 >(
-  el: AnyDOMEventTargetLoose,
+  el: TTarget,
   type: TType,
   handler: (event: AnyDOMEvent<TTarget, TType>) => void,
   options: EventListenerOptions | boolean = false,
@@ -21,7 +21,7 @@ export let off = <
       console.warn("[@koine/dom:off] unexisting DOM element");
     }
   }
-  if (el) el.removeEventListener(type, handler as EventListener, options);
+  if (el) el.removeEventListener(type, handler as any, options);
 };
 
 export default off;

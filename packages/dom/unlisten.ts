@@ -7,6 +7,14 @@ import {
 import { off } from "./off";
 import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
+type CommaSeparatedListOf<T extends string> =
+  | `${T}`
+  | `${T},${T}` extends infer O ? O : never;
+  // | `${T},${T},${T}`
+  // | `${T},${T},${T},${T}`
+  // | `${T},${T},${T},${T},${T}`
+  // | `${T},${T},${T},${T},${T},${T}`
+
 /**
  * Stop listening for an event
  *
@@ -17,16 +25,12 @@ import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
  * @param callback The function to remove
  */
 export let unlisten = <
-  TTypes extends AnyWindowEventType,
+  TTypes extends CommaSeparatedListOf<AnyWindowEventType>,
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 >(
   types: TTypes,
-  // | `${TTypes},${TTypes}`
-  // | `${TTypes},${TTypes},${TTypes}`
-  // | `${TTypes},${TTypes},${TTypes},${TTypes}`
-  // | `${TTypes},${TTypes},${TTypes},${TTypes},${TTypes}`,
   selector: string,
-  callback: EventCallback<TTarget, TTypes>,
+  callback: EventCallback<TTarget>,
 ) => {
   // Loop through each event type
   types.split(",").forEach((_type) => {

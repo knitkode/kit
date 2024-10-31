@@ -18,7 +18,7 @@ export let listenOnce = (
   callback: EventCallback,
 ) =>
   listen(types as AnyWindowEventType, selector, function temp(event) {
-    const target = getRunTarget(event.target as Element, selector);
+    const target = getRunTarget(event.target as HTMLElement, selector);
     callback(event, target || window);
     unlisten(types as AnyWindowEventType, selector, temp);
   });

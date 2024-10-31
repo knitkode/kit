@@ -16,8 +16,7 @@ import type { AnyDOMEvent, AnyDOMEventTarget, AnyWindowEventType } from "./types
  */
 export type EventCallback<
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
-  TType extends AnyWindowEventType = AnyWindowEventType,
-> = (event: AnyDOMEvent<TTarget, TType>, desiredTarget: TTarget) => any;
+> = (event: AnyDOMEvent<TTarget, any>, desiredTarget: TTarget) => any;
 
 /**
  * @internal
@@ -63,9 +62,9 @@ export let getIndex = (
  * @return If not false, run listener and pass the targeted element to use in the callback
  */
 export let getRunTarget = (
-  target: Element,
-  selector: string | Window | Document | Element,
-) => {
+  target: HTMLElement,
+  selector: string | Window & typeof globalThis | Document | Element,
+): AnyDOMEventTarget | null | false => {
   // @ts-expect-error FIXME: type
   if (["*", "window", window].includes(selector)) {
     return window;
@@ -82,7 +81,7 @@ export let getRunTarget = (
     return document;
 
   if (isString(selector)) {
-    return target.closest(escapeSelector(selector));
+    return target.closest<HTMLElement>(escapeSelector(selector));
   }
 
   // @ts-expect-error FIXME: type
@@ -92,7 +91,7 @@ export let getRunTarget = (
     }
     // @ts-expect-error FIXME: type
     if (selector.contains(target)) {
-      return selector;
+      return selector as HTMLElement;
     }
     return false;
   }
@@ -105,10 +104,10 @@ export let getRunTarget = (
  *
  * @internal
  */
-export let eventHandler = (event: Event) => {
+export let eventHandler = <T extends Event>(event: T) => {
   // if (!activeEvents[event.type]) return;
   activeEvents[(event.type as keyof typeof activeEvents)]?.forEach(function (listener) {
-    const target = getRunTarget(event.target as Element, listener.selector);
+    const target = getRunTarget(event.target as HTMLElement, listener.selector);
     if (!target) {
       return;
     }
