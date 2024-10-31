@@ -14,7 +14,9 @@
     "lint": "nx run-many --target=lint --all=true --fix",
     "story": "nx storybook react",
     "build:story": "nx build-storybook react",
-    "format": "pnpm prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",
+    "format": "nx format:write --uncommitted=true",
+    "format-all": "nx format:write",
+    "format2": "pnpm prettier **/*.{js,json,ts,tsx,css,scss,md,yml,yaml,php} --write",
     "clean": "killall node && pnpm nx reset && rm -rf ./tmp && rm -rf ./dist && rm -rf ./node_modules/.cache",
     "tools": "tsc tools/executors/**/**.ts --skipLibCheck true",
     "bt": "pnpm tools && pnpm clean && clear && pnpm build"
