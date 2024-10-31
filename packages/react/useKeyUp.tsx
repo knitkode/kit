@@ -6,7 +6,7 @@ export let useKeyUp = (
   deps: unknown[] = [],
 ) => {
   useEffect(() => {
-    const listener = on(window, "keyup", (event: KeyboardEvent) => {
+    const listener = on(window, "keyup", (event) => {
       // const { key } = event;
       // be sure we do not intercept keys combinations maybe used for other
       // actions like native browser navigation shortcuts
