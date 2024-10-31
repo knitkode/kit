@@ -14,6 +14,7 @@
           "packages/browser/gtagPageview.ts",
           "packages/browser/isIE.ts",
           "packages/browser/isMobile.ts",
+          "packages/browser/isWindowInsideIframe.ts",
           "packages/browser/listenUrlSearch.ts",
           "packages/browser/listenUrlSearchParams.ts",
           "packages/browser/navigateToHash.ts",

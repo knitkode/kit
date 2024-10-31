@@ -4,6 +4,7 @@ export { gtag } from "./gtag";
 export { gtagPageview, type GtmPageviewArgs } from "./gtagPageview";
 export { isIE } from "./isIE";
 export { isMobile } from "./isMobile";
+export { isWindowInsideIframe } from "./isWindowInsideIframe";
 export { listenUrlSearch } from "./listenUrlSearch";
 export { listenUrlSearchParams } from "./listenUrlSearchParams";
 export { navigateToHash } from "./navigateToHash";
