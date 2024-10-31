@@ -1,4 +1,8 @@
 {
   "name": "@koine/node",
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "@koine/utils": "*",
+    "glob": "^11.0.0"
+  }
 }

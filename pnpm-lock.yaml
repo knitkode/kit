@@ -27,7 +27,7 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1
       next:
-        specifier: ^15.0.1
+        specifier: ^13 || ^14 || ^15
         version: 15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4)
       next-seo:
         specifier: ^6.6.0
@@ -85,16 +85,16 @@ importers:
         specifier: ^9.13.0
         version: 9.13.0
       '@nx/devkit':
-        specifier: 20.0.6
+        specifier: ^20.0.6
         version: 20.0.6(nx@20.0.6(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13)))
       '@nx/eslint-plugin':
         specifier: ^20.0.6
         version: 20.0.6(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(@typescript-eslint/parser@8.11.0(eslint@9.13.0(jiti@2.3.3))(typescript@5.6.3))(eslint-config-prettier@9.1.0(eslint@9.13.0(jiti@2.3.3)))(eslint@9.13.0(jiti@2.3.3))(nx@20.0.6(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13)))(typescript@5.6.3)(verdaccio@6.0.1(typanion@3.14.0))
       '@nx/jest':
-        specifier: 20.0.6
+        specifier: ^20.0.6
         version: 20.0.6(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(nx@20.0.6(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13)))(ts-node@10.9.2(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(typescript@5.6.3))(typescript@5.6.3)(verdaccio@6.0.1(typanion@3.14.0))
       '@nx/js':
-        specifier: 20.0.6
+        specifier: ^20.0.6
         version: 20.0.6(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(nx@20.0.6(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13)))(typescript@5.6.3)(verdaccio@6.0.1(typanion@3.14.0))
       '@nx/linter':
         specifier: ^19.8.4
@@ -109,7 +109,7 @@ importers:
         specifier: ^20.0.6
         version: 20.0.6(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(@zkochan/js-yaml@0.0.7)(eslint@9.13.0(jiti@2.3.3))(nx@20.0.6(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3)(verdaccio@6.0.1(typanion@3.14.0))(webpack@5.95.0(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1))
       '@nx/rollup':
-        specifier: 20.0.6
+        specifier: ^20.0.6
         version: 20.0.6(@babel/core@7.26.0)(@babel/traverse@7.25.9)(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/babel__core@7.20.5)(@types/node@22.8.1)(nx@20.0.6(@swc-node/register@1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3))(@swc/core@1.7.4(@swc/helpers@0.5.13)))(ts-node@10.9.2(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(typescript@5.6.3))(typescript@5.6.3)(verdaccio@6.0.1(typanion@3.14.0))
       '@nx/storybook':
         specifier: ^20.0.6
@@ -308,7 +308,7 @@ importers:
     dependencies:
       '@koine/i18n':
         specifier: '*'
-        version: 2.0.0-beta.188(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)
+        version: 2.0.0-beta.189(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)
     devDependencies:
       '@actions/core':
         specifier: ^1.10.1
@@ -2042,8 +2042,8 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@koine/i18n@2.0.0-beta.188':
-    resolution: {integrity: sha512-idubAlVkO7DxTis58x1eK713UdqdrJg0w+6Gmub7MbgKF2u9ioqnQ5swvA12f0P4xGsALgtZrSosvyy8K0GMXQ==}
+  '@koine/i18n@2.0.0-beta.189':
+    resolution: {integrity: sha512-QvJ+/4HEYLm01KM4x+8LBEYEnbcnPc4URyfxdIV3NV9Z33bz1j+Y3ZwBXX7iezWOgGYlnEyWchx2T75XTFVuJw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       next: ^14.0.4
@@ -2054,11 +2054,11 @@ packages:
       react:
         optional: true
 
-  '@koine/node@2.0.0-beta.188':
-    resolution: {integrity: sha512-ab2h2J9oUaOEPfNzUEwGh9ZrGa7NY1QyL/5/A30XhkMubFRP4rpD7KA+K9JQJZFjuMQxf369gARiJXw39GwtJg==}
+  '@koine/node@2.0.0-beta.189':
+    resolution: {integrity: sha512-HHf7TPwW1av8mby+z3mTcO9GmXJgSca69T8wUsn+jh5M5oFMf8bVuGfAg4NTr4/P4yUVn/ZCVwo3IM0DaxeHFA==}
 
-  '@koine/utils@2.0.0-beta.188':
-    resolution: {integrity: sha512-vnKHZaAsBVl/UOS066/70HFamZ4fWappbdBnK8Kl7Xj/YcZb4h4eq3AgG0h8gW77++X6mwxZWzZ9aF7MMO+5mQ==}
+  '@koine/utils@2.0.0-beta.189':
+    resolution: {integrity: sha512-4fHVsRokoqc5mXF0vsbqHXerxHUC+Hq0a5K86qaNB2YWHJftAqEvbZZt9qexZmGF7oHabH1b7YUxr19ABij+Lw==}
 
   '@kuus/yup@1.0.0-beta.7':
     resolution: {integrity: sha512-i8Gx8jI1FTGPcSFwY5BHVGA3Fafw2yWlJ+5F7AyMv2id7e3j9HMfGKTcBcKBV6RjHbCn93EKHdXa+CFmCDBUBA==}
@@ -3205,9 +3205,6 @@ packages:
   '@tsconfig/node10@1.0.11':
     resolution: {integrity: sha512-DcRjDCujK/kCk/cUe8Xz8ZSpm8mS3mNNpta+jGCA6USEDfktlNvm1+IuZ9eTcDbNk41BHwpHHeW+N1lKCz4zOw==}
 
-  '@tsconfig/node10@1.0.9':
-    resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
-
   '@tsconfig/node12@1.0.11':
     resolution: {integrity: sha512-cqefuRsh12pWyGsIoBKJA9luFu3mRxCA+ORZvA4ktLSzIuCUtWVxGIuXigEwO5/ywWFMZ2QEGKWvkZG1zDMTag==}
 
@@ -3676,21 +3673,12 @@ packages:
     resolution: {integrity: sha512-OPdCF6GsMIP+Az+aWfAAOEt2/+iVDKE7oy6lJ098aoe59oAmK76qV6Gw60SbZ8jHuG2wH058GF4pLFbYamYrVA==}
     engines: {node: '>=0.4.0'}
 
-  acorn-walk@8.3.2:
-    resolution: {integrity: sha512-cjkyv4OtNCIeqhHrfS81QWXoCBPExR/J62oyEqepVw8WaQeSqpW2uhuLPh1m9eWhDuOo/jUXVTlifvesOWp/4A==}
-    engines: {node: '>=0.4.0'}
-
   acorn-walk@8.3.4:
     resolution: {integrity: sha512-ueEepnujpqee2o5aIYnvHU6C0A42MNdsIDeqy5BydrkuC5R1ZuUFnm27EeFJGoEHJQgn3uleRvmTXaJgfXbt4g==}
     engines: {node: '>=0.4.0'}
 
   acorn@7.4.1:
     resolution: {integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==}
-    engines: {node: '>=0.4.0'}
-    hasBin: true
-
-  acorn@8.11.3:
-    resolution: {integrity: sha512-Y9rRfJG5jcKOE0CLisYbojUjIrIEE7AGMzA/Sm4BslANhbS+cDMpgBdcPT91oJ7OuJ9hYJBx59RjbhxVnrF8Xg==}
     engines: {node: '>=0.4.0'}
     hasBin: true
 
@@ -9790,7 +9778,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-compilation-targets': 7.25.9
-      '@babel/helper-plugin-utils': 7.24.0
+      '@babel/helper-plugin-utils': 7.25.9
       debug: 4.3.7
       lodash.debounce: 4.0.8
       resolve: 1.22.8
@@ -9801,7 +9789,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-compilation-targets': 7.25.9
-      '@babel/helper-plugin-utils': 7.24.0
+      '@babel/helper-plugin-utils': 7.25.9
       debug: 4.3.7
       lodash.debounce: 4.0.8
       resolve: 1.22.8
@@ -11846,10 +11834,10 @@ snapshots:
     dependencies:
       tslib: 2.8.0
 
-  '@koine/i18n@2.0.0-beta.188(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)':
+  '@koine/i18n@2.0.0-beta.189(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)':
     dependencies:
-      '@koine/node': 2.0.0-beta.188
-      '@koine/utils': 2.0.0-beta.188
+      '@koine/node': 2.0.0-beta.189
+      '@koine/utils': 2.0.0-beta.189
       comment-json: 4.2.5
       consola: 3.2.3
       glob: 11.0.0
@@ -11866,9 +11854,9 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@koine/node@2.0.0-beta.188': {}
+  '@koine/node@2.0.0-beta.189': {}
 
-  '@koine/utils@2.0.0-beta.188':
+  '@koine/utils@2.0.0-beta.189':
     dependencies:
       type-fest: 4.26.1
 
@@ -13619,9 +13607,6 @@ snapshots:
 
   '@tsconfig/node10@1.0.11': {}
 
-  '@tsconfig/node10@1.0.9':
-    optional: true
-
   '@tsconfig/node12@1.0.11': {}
 
   '@tsconfig/node14@1.0.3': {}
@@ -14261,17 +14246,11 @@ snapshots:
 
   acorn-walk@7.2.0: {}
 
-  acorn-walk@8.3.2:
-    optional: true
-
   acorn-walk@8.3.4:
     dependencies:
       acorn: 8.13.0
 
   acorn@7.4.1: {}
-
-  acorn@8.11.3:
-    optional: true
 
   acorn@8.13.0: {}
 
@@ -20510,13 +20489,13 @@ snapshots:
   ts-node@10.9.2(@swc/core@1.7.4(@swc/helpers@0.5.13))(@types/node@22.8.1)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.9
+      '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
       '@types/node': 22.8.1
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
+      acorn: 8.13.0
+      acorn-walk: 8.3.4
       arg: 4.1.3
       create-require: 1.1.1
       diff: 4.0.2

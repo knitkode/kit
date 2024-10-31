@@ -35,12 +35,17 @@ module.exports = [
     rules: {},
   },
   {
-    files: ["package.json"],
+    files: ["**/package.json"],
     languageOptions: {
       parser: jsoncParser,
     },
     rules: {
-      "@nx/dependency-checks": "error",
+      "@nx/dependency-checks": [
+        "error",
+        {
+          "ignoredFiles": ["**/*.spec.ts", "**/*.spec.tsx"]
+        }
+      ]
     },
   },
   ...compat.config({ env: { jest: true } }).map((config) => ({

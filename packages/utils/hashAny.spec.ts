@@ -14,7 +14,7 @@ describe("hashAny", () => {
     expect(hashAny([1, 2, 3])).toMatch(/^@\d+,\d+,\d+,$/); // Checking structure
     expect(hashAny(["a", "b", "c"])).toMatch(/^@"a","b","c",$/);
     expect(hashAny([1, "b", { key: "value" }])).toMatch(
-      /^@\d,"b",#key:\".+\",,$/,
+      /^@\d,"b",#key:".+",,$/,
     ); // Mixed types
   });
 
@@ -24,12 +24,12 @@ describe("hashAny", () => {
     expect(hashAny(obj)).toEqual(hashAny(obj2)); // Same content, different order should hash the same
 
     expect(hashAny({})).toBe("#"); // Empty object
-    expect(hashAny({ key: "value" })).toMatch(/^#key:\".+\",$/); // Single key-value
+    expect(hashAny({ key: "value" })).toMatch(/^#key:".+",$/); // Single key-value
   });
 
   test("hashing nested structures", () => {
     const nested = { a: [1, 2, { b: "c" }] };
-    expect(hashAny(nested)).toMatch(/^#a:@\d+,\d+,#b:\".+\",,,$/); // Nested structure
+    expect(hashAny(nested)).toMatch(/^#a:@\d+,\d+,#b:".+",,,$/); // Nested structure
   });
 
   test("hashing dates", () => {

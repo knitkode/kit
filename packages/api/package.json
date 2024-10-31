@@ -22,7 +22,7 @@
     "@koine/utils": "*"
   },
   "peerDependencies": {
-    "next": "^14.0.4",
+    "next": "^13 || ^14 || ^15",
     "swr": "^2.2.4"
   },
   "peerDependenciesMeta": {

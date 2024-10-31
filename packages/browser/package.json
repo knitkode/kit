@@ -3,7 +3,8 @@
   "sideEffects": false,
   "dependencies": {
     "@koine/dom": "*",
-    "@koine/utils": "*"
+    "@koine/utils": "*",
+    "date-fns-tz": "^3.2.0"
   },
   "peerDependenciesMeta": {
     "date-fns-tz": {
