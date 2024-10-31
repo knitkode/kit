@@ -43,9 +43,9 @@ module.exports = [
       "@nx/dependency-checks": [
         "error",
         {
-          "ignoredFiles": ["**/*.spec.ts", "**/*.spec.tsx"]
-        }
-      ]
+          ignoredFiles: ["**/*.spec.ts", "**/*.spec.tsx"],
+        },
+      ],
     },
   },
   ...compat.config({ env: { jest: true } }).map((config) => ({

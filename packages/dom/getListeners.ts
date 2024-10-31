@@ -11,7 +11,8 @@ export let getListeners = () => {
   const obj: typeof activeEvents = {};
   for (const type in activeEvents) {
     // if (activeEvents.hasOwnProperty(type)) {
-    obj[(type as keyof typeof obj)] = activeEvents[(type as keyof typeof activeEvents)];
+    obj[type as keyof typeof obj] =
+      activeEvents[type as keyof typeof activeEvents];
     // }
   }
   return obj;

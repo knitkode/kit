@@ -1,6 +1,5 @@
 import type {
-  AnythingFalsy,
-  // KeysOfValue,
+  AnythingFalsy, // KeysOfValue,
   // LiteralUnion,
   // OverloadsToTuple,
   PickStartsWith,
@@ -16,13 +15,13 @@ export type AnyDOMEventTargetLoose = AnyDOMEventTarget | AnythingFalsy;
 
 type MapEventTargetsByTargetName = HTMLElementTagNameMap &
   SVGElementTagNameMap &
-  MathMLElementTagNameMap/*  & {
+  MathMLElementTagNameMap /*  & {
     window: typeof window;
     document: Document;
   } */;
 
 export type AnyDOMEventTarget =
-  MapEventTargetsByTargetName[keyof MapEventTargetsByTargetName]
+  | MapEventTargetsByTargetName[keyof MapEventTargetsByTargetName]
   | typeof window
   | Document;
 
@@ -36,22 +35,22 @@ type MapByEventTargetName = {
   document: {
     target: Document;
     events: DocumentEventMap;
-  }
+  };
 } & {
   [Name in keyof MapEventTargetsByTargetName]: {
     target: MapEventTargetsByTargetName[Name];
     events: {
-        [Method in keyof PickStartsWith<
-          MapEventTargetsByTargetName[Name],
-          "on"
-        > as Method extends `on${infer EventType}`
-          ? EventType
-          : never]: MapEventTargetsByTargetName[Name][Method] extends
-          | ((this: any, ev: infer EventArg) => any)
-          | null
-          ? Exclude<EventArg, string | undefined>
-          : never;
-      } extends infer O
+      [Method in keyof PickStartsWith<
+        MapEventTargetsByTargetName[Name],
+        "on"
+      > as Method extends `on${infer EventType}`
+        ? EventType
+        : never]: MapEventTargetsByTargetName[Name][Method] extends
+        | ((this: any, ev: infer EventArg) => any)
+        | null
+        ? Exclude<EventArg, string | undefined>
+        : never;
+    } extends infer O
       ? O
       : never;
   };
@@ -139,7 +138,6 @@ export type AnyDOMEvent<
 
 // type $$ShouldBe_MouseEvent = GetEventMapByEventTarget<Document>["click"];
 // type $$ShouldBe_Event = GetEventMapByEventTarget<HTMLAudioElement>["waitingforkey"];
-
 
 // DocumentEventMap
 // HTMLBodyElementEventMap

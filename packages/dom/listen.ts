@@ -8,11 +8,13 @@ import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
 type CommaSeparatedListOf<T extends string> =
   | `${T}`
-  | `${T},${T}` extends infer O ? O : never;
-  // | `${T},${T},${T}`
-  // | `${T},${T},${T},${T}`
-  // | `${T},${T},${T},${T},${T}`
-  // | `${T},${T},${T},${T},${T},${T}`
+  | `${T},${T}` extends infer O
+  ? O
+  : never;
+// | `${T},${T},${T}`
+// | `${T},${T},${T},${T}`
+// | `${T},${T},${T},${T},${T}`
+// | `${T},${T},${T},${T},${T},${T}`
 
 /**
  * Listen an event

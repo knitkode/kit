@@ -65,7 +65,7 @@ describe("buildUrlQueryString", () => {
     expect(result).toBe("");
   });
 
-  // TODO: test 
+  // TODO: test
   // it("should handle complex objects correctly", () => {
   //   const result = buildUrlQueryString({
   //     key1: { nestedKey: "value" },

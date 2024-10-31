@@ -27,18 +27,18 @@ const nextConfig = {
       adapter: {
         name: "next",
         options: {
-          router: "app"
-        }
+          router: "app",
+        },
       },
       write: {
         output: "./i18n",
         tsconfig: {
           alias: "@/i18n",
-          path: "./tsconfig.json"
-        }
+          path: "./tsconfig.json",
+        },
         // typescriptCompilation: true,
       },
-    }
+    },
   },
   // redirects: async () => {
   //   return require("./i18n/next-redirects");
@@ -106,7 +106,8 @@ const nextConfig = {
             // fileDependencies: [fileDep],
           },
         ),
-        i18n: webpack.DefinePlugin.runtimeValue((ctx) => {
+        i18n: webpack.DefinePlugin.runtimeValue(
+          (ctx) => {
             const i18nDir = resolve(__dirname, "./i18n");
             const { context, layer, resource } = ctx.module;
             const requirePath = relative(resource, i18nDir);
@@ -118,7 +119,7 @@ const nextConfig = {
             //   resource,
             //   requirePath
             // });
-            
+
             return {
               t: `(function(trace, ...args) {
                   const $t = require("${i18nDir}/$t");
@@ -169,6 +170,4 @@ const plugins = [
   // withI18nAsync,
 ];
 
-module.exports = composePlugins(...plugins)(
-  nextConfig,
-);
+module.exports = composePlugins(...plugins)(nextConfig);

@@ -1,9 +1,9 @@
 import { noop } from "@koine/utils";
 import { off } from "./off";
 import type {
+  AnyDOMEvent,
   AnyDOMEventTargetLoose,
   AnyDOMEventType,
-  AnyDOMEvent, 
 } from "./types";
 
 /**
@@ -35,7 +35,7 @@ export function on<
 >(
   el: TTarget,
   type: TType,
-  handler: (/* this: TTarget,  */event: AnyDOMEvent<TTarget, TType>) => void,
+  handler: (/* this: TTarget,  */ event: AnyDOMEvent<TTarget, TType>) => void,
   options: AddEventListenerOptions | boolean = false,
 ) {
   if (process.env["NODE_ENV"] === "development") {
@@ -50,7 +50,7 @@ export function on<
   }
 
   return noop;
-};
+}
 
 export default on;
 

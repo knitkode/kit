@@ -1,20 +1,20 @@
-import { randomUUID } from 'node:crypto';
-import { copyFileSync, mkdirSync, realpathSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { dirname, join } from 'node:path';
+import { randomUUID } from "node:crypto";
+import { copyFileSync, mkdirSync, realpathSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
 import type { FsMoveAndRestoreTemporaryPathsOptions } from "./fsMoveAndRestoreTemporaryPaths";
 
 export function fsMoveAndRestoreTemporaryPathsSync(
   options: Omit<FsMoveAndRestoreTemporaryPathsOptions, "callback"> & {
     callback: () => void;
-  }
+  },
 ) {
   const {
     paths,
     destination,
     callback,
     tmpRoot = "",
-    tmpDir = randomUUID()
+    tmpDir = randomUUID(),
   } = options;
 
   if (!paths.length) callback();
@@ -23,10 +23,10 @@ export function fsMoveAndRestoreTemporaryPathsSync(
   // @see https://www.npmjs.com/package/temp-write
   const tmp = join(realpathSync(tmpdir()), tmpRoot, tmpDir);
 
-  const pathsInfo = paths.map(target => {
+  const pathsInfo = paths.map((target) => {
     const temporaryPath = join(tmp, target);
     const restorePath = join(destination, target);
-    
+
     mkdirSync(dirname(temporaryPath), { recursive: true });
     copyFileSync(restorePath, temporaryPath);
 

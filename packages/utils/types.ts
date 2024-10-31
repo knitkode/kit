@@ -197,7 +197,6 @@ export type OmitNever<T> = {
 //   [Key in keyof T]: T[Key] extends Value ? Key : never;
 // }[keyof T];
 
-
 export type OverloadsToTuple<T> = OverloadsToTuple5<T>;
 
 // prettier-ignore

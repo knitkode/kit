@@ -14,7 +14,7 @@ export const arrayUniqueByProperties = <T>(
 
   return array.filter((item) => {
     // Create a unique key based on the specified properties
-    const key = keys.map(k => item[k]).join('|');
+    const key = keys.map((k) => item[k]).join("|");
     if (seen.has(key)) {
       return false; // Already seen, so filter out
     }

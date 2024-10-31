@@ -24,12 +24,14 @@ export default page.default(() => {
         <div>{i18n.t("404:title")}</div>
         <div>{i18n.t("404:seo.title")}</div>
         <div>{i18n.t("404:seo").title}</div>
-        <div>{i18n.t("$faq:home").map(f => (
-          <p key={f.question}>
-            <b>{f.question}</b>
-            <em>{f.answer}</em>
-          </p>
-        ))}</div>
+        <div>
+          {i18n.t("$faq:home").map((f) => (
+            <p key={f.question}>
+              <b>{f.question}</b>
+              <em>{f.answer}</em>
+            </p>
+          ))}
+        </div>
       </div>
       {/* <div>
         <h3>i18n.$tFns... </h3>

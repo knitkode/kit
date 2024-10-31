@@ -390,7 +390,6 @@ let getItemValues = <ItemType>(
   } else if (Object.hasOwnProperty.call(item, key)) {
     value = (item as IndexableByString)[key];
   } else if (key.includes(".")) {
-     
     return getNestedValues<ItemType>(key, item);
   } else {
     value = null;

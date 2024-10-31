@@ -306,22 +306,22 @@ importers:
 
   packages/i18n/actions:
     dependencies:
-      '@koine/i18n':
-        specifier: '*'
-        version: 2.0.0-beta.189(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)
-    devDependencies:
       '@actions/core':
         specifier: ^1.10.1
         version: 1.11.1
+      '@koine/i18n':
+        specifier: '*'
+        version: 2.0.0-beta.189(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)
+      simple-git:
+        specifier: ^3.22.0
+        version: 3.27.0
+    devDependencies:
       '@vercel/ncc':
         specifier: ^0.38.1
         version: 0.38.2
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
-      simple-git:
-        specifier: ^3.22.0
-        version: 3.27.0
 
 packages:
 

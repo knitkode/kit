@@ -1,11 +1,9 @@
 {
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports"
-  ],
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
   "importOrder": [
     "^node:(.*)$",
-    "<THIRD_PARTY_MODULES>", 
-    "^@koine/utils(.*)$", 
+    "<THIRD_PARTY_MODULES>",
+    "^@koine/utils(.*)$",
     "^@koine/node(.*)$",
     "^@koine/dom(.*)$",
     "^@koine/browser(.*)$",

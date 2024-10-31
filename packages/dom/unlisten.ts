@@ -9,11 +9,13 @@ import type { AnyDOMEventTarget, AnyWindowEventType } from "./types";
 
 type CommaSeparatedListOf<T extends string> =
   | `${T}`
-  | `${T},${T}` extends infer O ? O : never;
-  // | `${T},${T},${T}`
-  // | `${T},${T},${T},${T}`
-  // | `${T},${T},${T},${T},${T}`
-  // | `${T},${T},${T},${T},${T},${T}`
+  | `${T},${T}` extends infer O
+  ? O
+  : never;
+// | `${T},${T},${T}`
+// | `${T},${T},${T},${T}`
+// | `${T},${T},${T},${T},${T}`
+// | `${T},${T},${T},${T},${T},${T}`
 
 /**
  * Stop listening for an event
@@ -36,14 +38,14 @@ export let unlisten = <
   types.split(",").forEach((_type) => {
     // Remove whitespace
     const type = _type.trim() as AnyWindowEventType;
-    const events = activeEvents[(type)];
+    const events = activeEvents[type];
 
     // if event type doesn't exist, bail
     if (!events) return;
 
     // If it's the last event of it's type, remove entirely
     if (events.length < 2 || !selector) {
-      delete activeEvents[(type)];
+      delete activeEvents[type];
       off(window, type, eventHandler, true);
       return;
     }

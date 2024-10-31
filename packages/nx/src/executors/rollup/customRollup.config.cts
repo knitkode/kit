@@ -1,9 +1,12 @@
 import { dirname, resolve } from "node:path";
 import { ExecutorContext, joinPathFragments } from "@nx/devkit";
-import { calculateProjectBuildableDependencies, computeCompilerOptionsPaths } from "@nx/js/src/utils/buildable-libs-utils";
+import {
+  calculateProjectBuildableDependencies,
+  computeCompilerOptionsPaths,
+} from "@nx/js/src/utils/buildable-libs-utils";
 import { type RollupExecutorOptions } from "@nx/rollup";
-import * as  ts from "typescript";
 import { build as tscProgBuild } from "tsc-prog";
+import * as ts from "typescript";
 
 /**
  * Issues:
@@ -26,8 +29,12 @@ import { build as tscProgBuild } from "tsc-prog";
  * @param {NxRolluOptions} options  TODO: find type
  * @returns
  */
-export function pluginNxTds(/* nxRollupConfig: any,  */options: RollupExecutorOptions, context: ExecutorContext) {
-  const project = context.projectsConfigurations!.projects[context.projectName!];
+export function pluginNxTds(
+  /* nxRollupConfig: any,  */ options: RollupExecutorOptions,
+  context: ExecutorContext,
+) {
+  const project =
+    context.projectsConfigurations!.projects[context.projectName!];
   const sourceRoot = project.sourceRoot!;
   const { target, dependencies } = calculateProjectBuildableDependencies(
     context.taskGraph!,

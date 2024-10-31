@@ -12,7 +12,7 @@ import type {
  */
 export let once = <
   TTarget extends AnyDOMEventTargetLoose,
-  TType extends AnyDOMEventType<TTarget> = AnyDOMEventType<TTarget>
+  TType extends AnyDOMEventType<TTarget> = AnyDOMEventType<TTarget>,
 >(
   el: TTarget,
   type: TType,

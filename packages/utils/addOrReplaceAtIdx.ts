@@ -16,8 +16,8 @@ export let addOrReplaceAtIdx = <T>(
 ): T[] => {
   if (newIdx !== undefined && newIdx >= 0 && newIdx < list.length) {
     return [
-      ...list.slice(0, newIdx),  // Items before the index
-      newItem,                   // New item
+      ...list.slice(0, newIdx), // Items before the index
+      newItem, // New item
       ...list.slice(newIdx + 1), // Items after the index
     ];
   }

@@ -177,7 +177,7 @@ export { updateUrlQueryParams } from "./updateUrlQueryParams";
 export { uppercase } from "./uppercase";
 export {
   urlSearchParamsSerializer,
-  type UrlSearchParamSerializer
+  type UrlSearchParamSerializer,
 } from "./urlSearchParamsSerializer";
 export { uuid } from "./uuid";
 export { uuidNumeric } from "./uuidNumeric";
@@ -198,7 +198,7 @@ export type {
   RequiredObjectDeep,
   Reverse,
   TestType,
-  OverloadsToTuple
+  OverloadsToTuple,
 } from "./types";
 
 /**

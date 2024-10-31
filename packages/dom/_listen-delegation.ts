@@ -9,7 +9,11 @@
  */
 import { isString } from "@koine/utils";
 import { escapeSelector } from "./escapeSelector";
-import type { AnyDOMEvent, AnyDOMEventTarget, AnyWindowEventType } from "./types";
+import type {
+  AnyDOMEvent,
+  AnyDOMEventTarget,
+  AnyWindowEventType,
+} from "./types";
 
 /**
  * @internal
@@ -31,7 +35,8 @@ export type ListenEvent = {
  *
  * @internal
  */
-export let activeEvents: Partial<Record<AnyWindowEventType, ListenEvent[]>> = {};
+export let activeEvents: Partial<Record<AnyWindowEventType, ListenEvent[]>> =
+  {};
 
 /**
  * Get the index for the listener
@@ -63,7 +68,7 @@ export let getIndex = (
  */
 export let getRunTarget = (
   target: HTMLElement,
-  selector: string | Window & typeof globalThis | Document | Element,
+  selector: string | (Window & typeof globalThis) | Document | Element,
 ): AnyDOMEventTarget | null | false => {
   // @ts-expect-error FIXME: type
   if (["*", "window", window].includes(selector)) {
@@ -106,11 +111,16 @@ export let getRunTarget = (
  */
 export let eventHandler = <T extends Event>(event: T) => {
   // if (!activeEvents[event.type]) return;
-  activeEvents[(event.type as keyof typeof activeEvents)]?.forEach(function (listener) {
-    const target = getRunTarget(event.target as HTMLElement, listener.selector);
-    if (!target) {
-      return;
-    }
-    listener.callback(event, target);
-  });
+  activeEvents[event.type as keyof typeof activeEvents]?.forEach(
+    function (listener) {
+      const target = getRunTarget(
+        event.target as HTMLElement,
+        listener.selector,
+      );
+      if (!target) {
+        return;
+      }
+      listener.callback(event, target);
+    },
+  );
 };

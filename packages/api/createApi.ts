@@ -66,7 +66,8 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         const {
           fetchFn = fetchBase,
           request = requestBase,
-          headers = headersBase,
+          // headers = headersBase,
+          headers = {},
           timeout = timeoutBase,
           processReq,
           processRes = processResBase,
@@ -82,6 +83,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
           headers: {
             "content-type": "application/json",
             ...headers,
+            ...headersBase
           },
         };
 
@@ -198,8 +200,9 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         if (throwErr && result?.fail) {
           // throw new ApiError<Failed>(result);
           // I prefer to throw an object literal despite what eslint says
-
+          
           throw result;
+          // throw Error(result.msg)
         }
 
         if (process.env["NODE_ENV"] === "development") {

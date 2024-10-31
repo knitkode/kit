@@ -7,7 +7,7 @@ describe("urlSearchParamsSerializer", () => {
     nameInUrl: NameInUrl,
     defaultValue: DefaultValue,
     serializeFromUrlSearchParamValue: (value: string) => DefaultValue,
-    serializeToUrlSearchParamValue: (value: DefaultValue) => string
+    serializeToUrlSearchParamValue: (value: DefaultValue) => string,
   ): UrlSearchParamSerializer<NameInUrl, DefaultValue> => [
     nameInUrl,
     defaultValue,
@@ -16,9 +16,24 @@ describe("urlSearchParamsSerializer", () => {
   ];
 
   const serializers = {
-    param1: createSerializableParam("paramOne", "default1", (v) => v, (v) => v),
-    param2: createSerializableParam("paramTwo", 0, (v) => parseInt(v, 10), (v) => v.toString()),
-    param3: createSerializableParam("paramThree", true, (v) => v === "true", (v) => (v ? "true" : "false")),
+    param1: createSerializableParam(
+      "paramOne",
+      "default1",
+      (v) => v,
+      (v) => v,
+    ),
+    param2: createSerializableParam(
+      "paramTwo",
+      0,
+      (v) => parseInt(v, 10),
+      (v) => v.toString(),
+    ),
+    param3: createSerializableParam(
+      "paramThree",
+      true,
+      (v) => v === "true",
+      (v) => (v ? "true" : "false"),
+    ),
   };
 
   describe("Basic functionality", () => {
