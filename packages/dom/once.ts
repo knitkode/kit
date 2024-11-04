@@ -19,9 +19,10 @@ export let once = <
   handler: (event: AnyDOMEvent<TTarget, TType>) => void,
   options: EventListenerOptions | boolean = false,
 ) => {
-  const handlerWrapper = (event: AnyDOMEvent<TTarget, TType>) => {
-    // @ts-ignore Type instantiation too deep
-    handler(event);
+  // @ ts-ignore Type instantiation too deep // (event: AnyDOMEvent<TTarget, TType>) => {
+  const handlerWrapper = (event: any) => {
+    // @ ts-ignore Type instantiation too deep
+    (handler as any)(event);
     off(el, type, handlerWrapper);
   };
 
