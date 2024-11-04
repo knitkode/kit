@@ -19,18 +19,6 @@
         ]
       }
     },
-    "build-modularized-cjs": {},
-    "build-modularized-esm": {},
-    "build-modularized": {},
-    "build-bundle": {
-      "options": {
-        "additionalEntryPoints": [
-          "packages/api/next.ts",
-          "packages/api/swr.ts",
-          "packages/api/swr-mutation.ts"
-        ]
-      }
-    },
     "lint": {},
     "test": {}
   }

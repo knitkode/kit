@@ -1,3 +1,4 @@
+import { jestSetNodeEnv } from "@koine/test/jest";
 import { createApi } from "./createApi";
 
 describe("createApi", () => {
@@ -140,16 +141,19 @@ describe("createApi", () => {
   //   }`);
   // });
 
-  test("logs request and response in development mode", async () => {
-    process.env = { ...process.env, NODE_ENV: "development" };
-    console.info = jest.fn();
-    const api = createApi(apiName, baseUrl, { fetchFn: mockFetch });
-    mockFetch.mockResolvedValue({
-      json: () => ({ data: "ok" }),
-      status: 200,
-      statusText: "OK",
+  describe("development mode", () => {
+    jestSetNodeEnv("development");
+
+    test("logs request and response in development mode", async () => {
+      console.info = jest.fn();
+      const api = createApi(apiName, baseUrl, { fetchFn: mockFetch });
+      mockFetch.mockResolvedValue({
+        json: () => ({ data: "ok" }),
+        status: 200,
+        statusText: "OK",
+      });
+      await api.get("test-endpoint");
+      expect(console.info).toHaveBeenCalled();
     });
-    await api.get("test-endpoint");
-    expect(console.info).toHaveBeenCalled();
   });
 });

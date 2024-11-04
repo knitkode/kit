@@ -3,7 +3,7 @@
  *
  * @category object
  */
-export let swapMap = <
+export let objectSwap = <
   T extends Record<string, string | number | symbol> = Record<
     string,
     string | number | symbol
@@ -18,4 +18,4 @@ export let swapMap = <
   return output;
 };
 
-export default swapMap;
+export default objectSwap;

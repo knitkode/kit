@@ -133,6 +133,7 @@
           "packages/utils/objectPick.ts",
           "packages/utils/objectSort.ts",
           "packages/utils/objectSortByKeysMatching.ts",
+          "packages/utils/objectSwap.ts",
           "packages/utils/objectToArray.ts",
           "packages/utils/parseCookie.ts",
           "packages/utils/parseURL.ts",
@@ -157,7 +158,6 @@
           "packages/utils/slugify.ts",
           "packages/utils/split.ts",
           "packages/utils/splitReverse.ts",
-          "packages/utils/swapMap.ts",
           "packages/utils/throttle.ts",
           "packages/utils/titleCase.ts",
           "packages/utils/toNumber.ts",
@@ -178,10 +178,6 @@
         ]
       }
     },
-    "build-modularized-cjs": {},
-    "build-modularized-esm": {},
-    "build-modularized": {},
-    "build-bundle": {},
     "lint": {},
     "test": {}
   }

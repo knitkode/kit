@@ -1,4 +1,4 @@
-// import { swapMap } from "./swapMap";
+// import { objectSwap } from "./objectSwap";
 
 /**
  * @param {string} searchParamName
@@ -50,7 +50,7 @@ export const urlSearchParamsSerializer = <
     // },
   );
 
-  // const searchParamsNamesToKeys = swapMap(keysToSearchParamsNames);
+  // const searchParamsNamesToKeys = objectSwap(keysToSearchParamsNames);
 
   return {
     /**

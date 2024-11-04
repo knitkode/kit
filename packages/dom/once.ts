@@ -20,7 +20,7 @@ export let once = <
   options: EventListenerOptions | boolean = false,
 ) => {
   const handlerWrapper = (event: AnyDOMEvent<TTarget, TType>) => {
-    // @ts-expect-error Type instantiation too deep
+    // @ ts-expect-error Type instantiation too deep
     handler(event);
     off(el, type, handlerWrapper);
   };

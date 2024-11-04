@@ -140,6 +140,7 @@ export {
 export { objectOmit } from "./objectOmit";
 export { objectSort } from "./objectSort";
 export { objectSortByKeysMatching } from "./objectSortByKeysMatching";
+export { objectSwap } from "./objectSwap";
 export { objectToArray } from "./objectToArray";
 export { parseCookie } from "./parseCookie";
 export { parseURL } from "./parseURL";
@@ -163,7 +164,6 @@ export { shuffle } from "./shuffle";
 export { slugify } from "./slugify";
 export { split } from "./split";
 export { splitReverse } from "./splitReverse";
-export { swapMap } from "./swapMap";
 export { throttle } from "./throttle";
 export { titleCase } from "./titleCase";
 export { toNumber } from "./toNumber";
