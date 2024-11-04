@@ -33,17 +33,14 @@ importers:
         specifier: ^6.6.0
         version: 6.6.0(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.3.1
+        specifier: ^18 || ^19
         version: 18.3.1
       react-dom:
-        specifier: ^18.3.1
+        specifier: ^18 || ^19
         version: 18.3.1(react@18.3.1)
       react-swipeable:
         specifier: ^7.0.1
         version: 7.0.1(react@18.3.1)
-      regenerator-runtime:
-        specifier: ^0.14.1
-        version: 0.14.1
       simple-git:
         specifier: ^3.27.0
         version: 3.27.0
@@ -136,16 +133,16 @@ importers:
         specifier: ~1.10.9
         version: 1.10.9(@swc/core@1.7.4(@swc/helpers@0.5.13))(@swc/types@0.1.13)(typescript@5.6.3)
       '@swc/cli':
-        specifier: 0.4.0
+        specifier: ^0.4.0
         version: 0.4.0(@swc/core@1.7.4(@swc/helpers@0.5.13))(chokidar@3.6.0)
       '@swc/core':
-        specifier: 1.7.4
+        specifier: ^1.7.4
         version: 1.7.4(@swc/helpers@0.5.13)
       '@swc/helpers':
-        specifier: ~0.5.13
+        specifier: ^0.5.13
         version: 0.5.13
       '@swc/jest':
-        specifier: 0.2.36
+        specifier: ^0.2.36
         version: 0.2.36(@swc/core@1.7.4(@swc/helpers@0.5.13))
       '@testing-library/dom':
         specifier: ^10.4.0
@@ -311,7 +308,7 @@ importers:
         version: 1.11.1
       '@koine/i18n':
         specifier: '*'
-        version: 2.0.0-beta.189(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)
+        version: 2.0.0-beta.190(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)
       simple-git:
         specifier: ^3.22.0
         version: 3.27.0
@@ -2042,11 +2039,11 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@koine/i18n@2.0.0-beta.189':
-    resolution: {integrity: sha512-QvJ+/4HEYLm01KM4x+8LBEYEnbcnPc4URyfxdIV3NV9Z33bz1j+Y3ZwBXX7iezWOgGYlnEyWchx2T75XTFVuJw==}
-    engines: {node: ^14.18.0 || >=16.0.0}
+  '@koine/i18n@2.0.0-beta.190':
+    resolution: {integrity: sha512-S55/azdbdZjvC8IRH11p2NJRG+owsEpMHuv9q0A5RlrucqBXBMnEoDxHE2v7xFnnSUhd2oHCkEqjAt7B+G2yQA==}
+    engines: {node: '>=18.0.0'}
     peerDependencies:
-      next: ^14.0.4
+      next: ^13 || ^14 || ^15
       react: '*'
     peerDependenciesMeta:
       next:
@@ -2054,11 +2051,11 @@ packages:
       react:
         optional: true
 
-  '@koine/node@2.0.0-beta.189':
-    resolution: {integrity: sha512-HHf7TPwW1av8mby+z3mTcO9GmXJgSca69T8wUsn+jh5M5oFMf8bVuGfAg4NTr4/P4yUVn/ZCVwo3IM0DaxeHFA==}
+  '@koine/node@2.0.0-beta.190':
+    resolution: {integrity: sha512-+MLsj6eUAh1FxF1zFjrPK+XnJ/tEDwkgNOLn/cNEIUvz8sOVzPmcm0jNqCorJaikF01nTIy8zfo0vVxMrvj7fA==}
 
-  '@koine/utils@2.0.0-beta.189':
-    resolution: {integrity: sha512-4fHVsRokoqc5mXF0vsbqHXerxHUC+Hq0a5K86qaNB2YWHJftAqEvbZZt9qexZmGF7oHabH1b7YUxr19ABij+Lw==}
+  '@koine/utils@2.0.0-beta.190':
+    resolution: {integrity: sha512-jFLf2ZwphZPoDCAPJEic3+Rt1QM9GLqOagnCY5D4PpghE1LLfWwFOMslJvfhfAmeH8dBwqQcu0CoQiCkTh0Akw==}
 
   '@kuus/yup@1.0.0-beta.7':
     resolution: {integrity: sha512-i8Gx8jI1FTGPcSFwY5BHVGA3Fafw2yWlJ+5F7AyMv2id7e3j9HMfGKTcBcKBV6RjHbCn93EKHdXa+CFmCDBUBA==}
@@ -5474,10 +5471,6 @@ packages:
     peerDependenciesMeta:
       vue-template-compiler:
         optional: true
-
-  form-data@4.0.0:
-    resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
-    engines: {node: '>= 6'}
 
   form-data@4.0.1:
     resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
@@ -9022,10 +9015,6 @@ packages:
   toposort@2.0.2:
     resolution: {integrity: sha512-0a5EOkAUp8D4moMi2W8ZF8jcga7BgZd91O/yabJCFY8az+XSzeGyTKs0Aoo897iV1Nj6guFq8orWDS96z91oGg==}
 
-  tough-cookie@4.1.3:
-    resolution: {integrity: sha512-aX/y5pVRkfRnfmuX+OdbSdXvPe6ieKX/G2s7e98f4poJHnqH3281gDPm/metm6E/WRamfx7WC4HUqkWHfQHprw==}
-    engines: {node: '>=6'}
-
   tough-cookie@4.1.4:
     resolution: {integrity: sha512-Loo5UUvLD9ScZ6jh8beX1T6sO1w2/MpCRpEP7V280GKMVUQ0Jzar2U3UJPsrdbziLEMMhu3Ujnq//rhiFuIeag==}
     engines: {node: '>=6'}
@@ -9545,18 +9534,6 @@ packages:
   write-file-atomic@4.0.2:
     resolution: {integrity: sha512-7KxauUdBmSdWnmpaGFg+ppNjKF8uNLry8LyzjauQDOVONfFLNKrKvQOxZ/VuTIcS/gge/YNahf5RIIQWTSarlg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
-
-  ws@8.17.0:
-    resolution: {integrity: sha512-uJq6108EgZMAl20KagGkzCKfMEjxmKvZHG7Tlq0Z6nOky7YF7aq4mOx6xK8TJ/i1LeK4Qus7INktacctDgY8Ow==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: '>=5.0.2'
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
 
   ws@8.17.1:
     resolution: {integrity: sha512-6XQFvXTkbfUOZOKKILFG1PDK2NDQs4azKQl26T0YS5CxqWLgXajbPZ+h4gZekJyRqFU8pvnbAbbs/3TgRPy+GQ==}
@@ -11834,10 +11811,10 @@ snapshots:
     dependencies:
       tslib: 2.8.0
 
-  '@koine/i18n@2.0.0-beta.189(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)':
+  '@koine/i18n@2.0.0-beta.190(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)(next@15.0.1(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.80.4))(react@18.3.1)':
     dependencies:
-      '@koine/node': 2.0.0-beta.189
-      '@koine/utils': 2.0.0-beta.189
+      '@koine/node': 2.0.0-beta.190
+      '@koine/utils': 2.0.0-beta.190
       comment-json: 4.2.5
       consola: 3.2.3
       glob: 11.0.0
@@ -11854,9 +11831,12 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@koine/node@2.0.0-beta.189': {}
+  '@koine/node@2.0.0-beta.190':
+    dependencies:
+      '@koine/utils': 2.0.0-beta.190
+      glob: 11.0.0
 
-  '@koine/utils@2.0.0-beta.189':
+  '@koine/utils@2.0.0-beta.190':
     dependencies:
       type-fest: 4.26.1
 
@@ -16388,12 +16368,6 @@ snapshots:
       typescript: 5.6.3
       webpack: 5.95.0(@swc/core@1.7.4(@swc/helpers@0.5.13))(esbuild@0.23.1)
 
-  form-data@4.0.0:
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
-
   form-data@4.0.1:
     dependencies:
       asynckit: 0.4.0
@@ -17600,7 +17574,7 @@ snapshots:
       decimal.js: 10.4.3
       domexception: 4.0.0
       escodegen: 2.1.0
-      form-data: 4.0.0
+      form-data: 4.0.1
       html-encoding-sniffer: 3.0.0
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
@@ -17609,13 +17583,13 @@ snapshots:
       parse5: 7.1.2
       saxes: 6.0.0
       symbol-tree: 3.2.4
-      tough-cookie: 4.1.3
+      tough-cookie: 4.1.4
       w3c-xmlserializer: 4.0.0
       webidl-conversions: 7.0.0
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.17.0
+      ws: 8.18.0
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -20371,13 +20345,6 @@ snapshots:
 
   toposort@2.0.2: {}
 
-  tough-cookie@4.1.3:
-    dependencies:
-      psl: 1.9.0
-      punycode: 2.3.1
-      universalify: 0.2.0
-      url-parse: 1.5.10
-
   tough-cookie@4.1.4:
     dependencies:
       psl: 1.9.0
@@ -21027,8 +20994,6 @@ snapshots:
     dependencies:
       imurmurhash: 0.1.4
       signal-exit: 3.0.7
-
-  ws@8.17.0: {}
 
   ws@8.17.1: {}
 
