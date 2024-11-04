@@ -8,20 +8,6 @@
     "build": {
       "executor": "nx:noop"
     },
-    "build-modularized": {
-      "executor": "@nx/js:swc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/packages/stories",
-        "tsConfig": "packages/stories/tsconfig.lib.json",
-        "main": "packages/stories/src/index.ts",
-        "assets": []
-      }
-    },
-    "build-bundle": {
-      "executor": "nx:noop"
-    },
-    "TODO: update lint task": {},
     "lint": {
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],

@@ -17,17 +17,6 @@
         ]
       }
     },
-    "build-modularized-cjs": {},
-    "build-modularized-esm": {},
-    "build-modularized": {},
-    "build-bundle": {
-      "options": {
-        "additionalEntryPoints": [
-          "packages/next/12.ts",
-          "packages/next/config.ts"
-        ]
-      }
-    },
     "lint": {},
     "test": {}
   }

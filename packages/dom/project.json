@@ -57,10 +57,7 @@
         ]
       }
     },
-    "build-modularized-cjs": {},
-    "build-modularized-esm": {},
-    "build-modularized": {},
-    "build-bundle": {},
-    "lint": {}
+    "lint": {},
+    "test": {}
   }
 }

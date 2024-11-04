@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.lib.json",
-  "compilerOptions": {
-    "module": "CommonJS",
-    "verbatimModuleSyntax": false
-  }
-}

@@ -42,17 +42,6 @@
         ]
       }
     },
-    "build-modularized-cjs": {},
-    "build-modularized-esm": {},
-    "build-modularized": {},
-    "build-bundle": {
-      "options": {
-        "additionalEntryPoints": [
-          "packages/react/calendar.ts",
-          "packages/react/forms.ts"
-        ]
-      }
-    },
     "lint": {},
     "test": {},
     "storybook": {

@@ -13,18 +13,6 @@
           "packages/node/fsSymlink.ts",
           "packages/node/fsWrite.ts",
           "packages/node/fsWriteSync.ts",
-          "packages/node/jest.ts",
-          "packages/node/swc.ts"
-        ]
-      }
-    },
-    "build-modularized-cjs": {},
-    "build-modularized-esm": {},
-    "build-modularized": {},
-    "build-bundle": {
-      "options": {
-        "additionalEntryPoints": [
-          "packages/node/jest.ts",
           "packages/node/swc.ts"
         ]
       }
