@@ -44,13 +44,14 @@
       "@koine/next/12": ["packages/next/12.ts"],
       "@koine/next/config": ["packages/next/config.ts"],
       "@koine/node": ["packages/node/index.ts"],
-      "@koine/node/jest": ["packages/node/jest.ts"],
       "@koine/node/swc": ["packages/node/swc.ts"],
       "@koine/nx": ["packages/nx/src/index.ts"],
       "@koine/react": ["packages/react/index.ts"],
       "@koine/react/calendar": ["packages/react/calendar.ts"],
       "@koine/react/forms": ["packages/react/forms.ts"],
       "@koine/stories": ["packages/stories/src/index.ts"],
+      "@koine/test": ["packages/test/index.ts"],
+      "@koine/test/jest": ["packages/test/jest.ts"],
       "@koine/utils": ["packages/utils/index.ts"]
     }
   },

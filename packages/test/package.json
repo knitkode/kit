@@ -1,0 +1,6 @@
+{
+  "name": "@koine/test",
+  "sideEffects": false,
+  "private": true,
+  "dependencies": {}
+}

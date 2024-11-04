@@ -1,0 +1,17 @@
+{
+  "name": "test",
+  "$schema": "../../test_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/test",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "options": {
+        "additionalEntryPoints": [
+          "packages/test/jest.ts"
+        ]
+      }
+    },
+    "lint": {}
+  }
+}
