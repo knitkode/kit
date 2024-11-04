@@ -4,6 +4,7 @@
     "^node:(.*)$",
     "<THIRD_PARTY_MODULES>",
     "^@koine/utils(.*)$",
+    "^@koine/test(.*)$",
     "^@koine/node(.*)$",
     "^@koine/dom(.*)$",
     "^@koine/browser(.*)$",
