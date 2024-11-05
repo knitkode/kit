@@ -66,6 +66,7 @@
       "outputs": ["{workspaceRoot}/coverage/packages/{projectName}"],
       "options": {
         "jestConfig": "packages/{projectName}/jest.config.js",
+        "coverage": true,
         "passWithNoTests": true
       },
       "cache": true
