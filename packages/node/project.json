@@ -8,15 +8,18 @@
     "build": {
       "options": {
         "additionalEntryPoints": [
+          "packages/node/fsFindUpSync.ts",
           "packages/node/fsMoveAndRestoreTemporaryPaths.ts",
           "packages/node/fsMoveAndRestoreTemporaryPathsSync.ts",
           "packages/node/fsSymlink.ts",
           "packages/node/fsWrite.ts",
           "packages/node/fsWriteSync.ts",
+          "packages/node/getDependencyVersion.ts",
           "packages/node/swc.ts"
         ]
       }
     },
-    "lint": {}
+    "lint": {},
+    "test": {}
   }
 }
