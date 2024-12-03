@@ -4,9 +4,9 @@
  * 
  * @category object
  */
-export let objectKeysMap = <T extends object>(
+export let objectKeysMap = <T extends object, TReturn>(
   object: T,
-  callback: (key: keyof T, value: T[keyof T], index: number) => any,
+  callback: (key: keyof T, value: T[keyof T], index: number) => TReturn,
 ) =>
   Object.keys(object).map((key, index) =>
     callback(
