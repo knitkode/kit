@@ -128,6 +128,7 @@
           "packages/utils/normaliseUrlPathname.ts",
           "packages/utils/objectFlat.ts",
           "packages/utils/objectFlip.ts",
+          "packages/utils/objectKeysMap.ts",
           "packages/utils/objectMergeWithDefaults.ts",
           "packages/utils/objectOmit.ts",
           "packages/utils/objectPick.ts",

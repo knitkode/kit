@@ -132,6 +132,7 @@ export { normaliseUrlPathname } from "./normaliseUrlPathname";
 export { normaliseUrl } from "./normaliseUrl";
 export { objectFlat } from "./objectFlat";
 export { objectFlip } from "./objectFlip";
+export { objectKeysMap } from "./objectKeysMap";
 export { objectPick } from "./objectPick";
 export {
   objectMergeWithDefaults,
