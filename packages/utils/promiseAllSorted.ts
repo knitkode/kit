@@ -13,12 +13,13 @@ export let promiseAllSorted = async <T extends Promise<any>[]>(
 ) =>
   (
     await Promise.all(
-      promises.map(async (promise, idx) => {
-        return { [indexKey]: idx, ...(await promise) } as Record<
-          typeof indexKey,
-          number
-        >;
-      }),
+      promises.map(
+        async (promise, idx) =>
+          ({ ...(await promise), [indexKey]: idx }) as Record<
+            typeof indexKey,
+            number
+          >,
+      ),
     )
   )
     .sort((a, b) => a[indexKey] - b[indexKey])
