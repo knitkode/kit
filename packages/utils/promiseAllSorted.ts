@@ -4,28 +4,15 @@
  * merging objects returned by an array of promises.
  *
  * @param promises
- * @param indexKey Temporary object key used on resolved promises data to keep their sorting (defaults to `"_$i"`)
  * @returns
  */
-export let promiseAllSorted = async <T extends Promise<any>[]>(
-  promises: T,
-  indexKey = "_$i",
-) =>
+export let promiseAllSorted = async <T extends Promise<any>[]>(promises: T) =>
   (
     await Promise.all(
-      promises.map(
-        async (promise, idx) =>
-          ({ ...(await promise), [indexKey]: idx }) as Record<
-            typeof indexKey,
-            number
-          >,
-      ),
+      promises.map(async (promise, idx) => ({ v: await promise, i: idx })),
     )
   )
-    .sort((a, b) => a[indexKey] - b[indexKey])
-    .map((data) => {
-      delete (data as Record<typeof indexKey, number>)[indexKey];
-      return data as Awaited<T>;
-    });
+    .sort((a, b) => a.i - b.i)
+    .map((data) => data.v as Awaited<T>);
 
 export default promiseAllSorted;
