@@ -14,7 +14,7 @@ describe("isInViewport", () => {
   });
 
   test("returns true when element is fully within the viewport", () => {
-    element.getBoundingClientRect = jest.fn(() => ({
+    element.getBoundingClientRect = vitest.fn(() => ({
       top: 50,
       left: 50,
       bottom: 100,
@@ -24,7 +24,7 @@ describe("isInViewport", () => {
   });
 
   test("returns false when element is partially above the viewport", () => {
-    element.getBoundingClientRect = jest.fn(() => ({
+    element.getBoundingClientRect = vitest.fn(() => ({
       top: -10,
       left: 50,
       bottom: 100,
@@ -34,7 +34,7 @@ describe("isInViewport", () => {
   });
 
   test("returns false when element is partially to the left of the viewport", () => {
-    element.getBoundingClientRect = jest.fn(() => ({
+    element.getBoundingClientRect = vitest.fn(() => ({
       top: 50,
       left: -10,
       bottom: 100,
@@ -44,7 +44,7 @@ describe("isInViewport", () => {
   });
 
   test("returns false when element is partially below the viewport", () => {
-    element.getBoundingClientRect = jest.fn(() => ({
+    element.getBoundingClientRect = vitest.fn(() => ({
       top: window.innerHeight - 10,
       left: 50,
       bottom: window.innerHeight + 10,
@@ -54,7 +54,7 @@ describe("isInViewport", () => {
   });
 
   test("returns false when element is partially to the right of the viewport", () => {
-    element.getBoundingClientRect = jest.fn(() => ({
+    element.getBoundingClientRect = vitest.fn(() => ({
       top: 50,
       left: window.innerWidth - 10,
       bottom: 100,
@@ -64,7 +64,7 @@ describe("isInViewport", () => {
   });
 
   test("returns false when element is completely outside the viewport", () => {
-    element.getBoundingClientRect = jest.fn(() => ({
+    element.getBoundingClientRect = vitest.fn(() => ({
       top: -100,
       left: -100,
       bottom: -50,

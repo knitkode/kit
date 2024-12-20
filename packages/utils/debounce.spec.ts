@@ -1,16 +1,16 @@
 import { debounce } from "./debounce";
 
 describe("debounce", () => {
-  jest.useFakeTimers(); // Use fake timers for controlling setTimeout
+  vitest.useFakeTimers(); // Use fake timers for controlling setTimeout
 
   let mockFunction: any;
 
   beforeEach(() => {
-    mockFunction = jest.fn(); // Create a mock function to test
+    mockFunction = vitest.fn(); // Create a mock function to test
   });
 
   afterEach(() => {
-    jest.clearAllTimers(); // Clear timers after each test
+    vitest.clearAllTimers(); // Clear timers after each test
   });
 
   test("calls the function after the specified wait time", () => {
@@ -19,7 +19,7 @@ describe("debounce", () => {
     debouncedFn();
     expect(mockFunction).not.toHaveBeenCalled(); // Should not be called immediately
 
-    jest.advanceTimersByTime(100); // Fast-forward time
+    vitest.advanceTimersByTime(100); // Fast-forward time
     expect(mockFunction).toHaveBeenCalledTimes(1); // Should be called once
   });
 
@@ -30,7 +30,7 @@ describe("debounce", () => {
     expect(mockFunction).toHaveBeenCalledTimes(1); // Should be called immediately
     expect(mockFunction).toHaveBeenCalledWith(); // Check if called with correct arguments
 
-    jest.advanceTimersByTime(100); // Fast-forward time
+    vitest.advanceTimersByTime(100); // Fast-forward time
     expect(mockFunction).toHaveBeenCalledTimes(1); // Should still be called only once
   });
 
@@ -43,7 +43,7 @@ describe("debounce", () => {
 
     expect(mockFunction).not.toHaveBeenCalled(); // Should not be called immediately
 
-    jest.advanceTimersByTime(100); // Fast-forward time
+    vitest.advanceTimersByTime(100); // Fast-forward time
     expect(mockFunction).toHaveBeenCalledTimes(1); // Should only be called once after the last call
   });
 
@@ -55,7 +55,7 @@ describe("debounce", () => {
 
     debouncedFn.call(context); // Call with specific context
 
-    jest.advanceTimersByTime(100); // Fast-forward time
+    vitest.advanceTimersByTime(100); // Fast-forward time
   });
 
   test("does not call the function when wait time is 0", () => {

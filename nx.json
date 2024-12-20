@@ -62,10 +62,10 @@
       "cache": true
     },
     "test": {
-      "executor": "@nx/jest:jest",
+      "executor": "@nx/vite:test",
       "outputs": ["{workspaceRoot}/coverage/packages/{projectName}"],
       "options": {
-        "jestConfig": "packages/{projectName}/jest.config.js",
+        "config": "packages/{projectName}/vite.config.ts",
         "coverage": true,
         "passWithNoTests": true
       },
@@ -88,7 +88,12 @@
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "sharedGlobals": [],
-    "production": ["default"]
+    "production": [
+      "default",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/src/test-setup.[jt]s"
+    ]
   },
   "generators": {
     "@nx/next": {
@@ -97,5 +102,18 @@
         "linter": "eslint"
       }
     }
-  }
+  },
+  "plugins": [
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "build",
+        "testTargetName": "test",
+        "serveTargetName": "serve",
+        "previewTargetName": "preview",
+        "serveStaticTargetName": "serve-static",
+        "typecheckTargetName": "typecheck"
+      }
+    }
+  ]
 }

@@ -8,7 +8,8 @@
     "build": {
       "options": {
         "additionalEntryPoints": [
-          "packages/test/jest.ts"
+          "packages/test/jest.ts",
+          "packages/test/vitest.ts"
         ]
       }
     },

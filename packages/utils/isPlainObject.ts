@@ -9,10 +9,15 @@ import { getType } from "./getType";
 // TODO: check https://github.com/sindresorhus/is-plain-obj more precise
 export let isPlainObject = <TReturn = PlainObject>(
   payload: any,
-): payload is TReturn =>
-  getType(payload) !== "Object"
-    ? false
-    : payload.constructor === Object &&
-      Object.getPrototypeOf(payload) === Object.prototype;
+): payload is TReturn => {
+  const type = getType(payload);
+  return (
+    type === "Module" ||
+    (type !== "Object"
+      ? false
+      : payload.constructor === Object &&
+        Object.getPrototypeOf(payload) === Object.prototype)
+  );
+};
 
 export default isPlainObject;

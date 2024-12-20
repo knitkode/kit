@@ -29,10 +29,9 @@
   },
   "sourceMaps": false,
   "exclude": [
-    "jest.config.ts",
+    "vite.config.ts",
     ".*\\.spec.tsx?$",
     ".*\\.test.tsx?$",
-    "./**/jest-setup.ts$",
     ".*.js$",
     "./*\\.d.ts"
   ],

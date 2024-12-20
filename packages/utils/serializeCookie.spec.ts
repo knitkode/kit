@@ -1,8 +1,8 @@
-import { jestSetNodeEnv } from "@koine/test/jest";
+import { vitestSetNodeEnv } from "@koine/test/vitest";
 import { serializeCookie } from "./serializeCookie";
 
 describe("serializeCookie", () => {
-  jestSetNodeEnv("development");
+  vitestSetNodeEnv("development");
 
   test("serializes a simple cookie", () => {
     expect(serializeCookie("foo", "bar")).toBe("foo=bar");

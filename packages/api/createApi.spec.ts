@@ -1,10 +1,10 @@
-import { jestSetNodeEnv } from "@koine/test/jest";
+import { vitestSetNodeEnv } from "@koine/test/vitest";
 import { createApi } from "./createApi";
 
 describe("createApi", () => {
   const apiName = "testApi";
   const baseUrl = "https://api.example.com";
-  const mockFetch = jest.fn();
+  const mockFetch = vitest.fn();
 
   beforeEach(() => {
     mockFetch.mockReset();
@@ -74,10 +74,9 @@ describe("createApi", () => {
   });
 
   test("applies request processor if provided", async () => {
-    const processReq = jest.fn(() => ["modified-url", {}, {}, {}, {}]);
+    const processReq = vitest.fn(() => ["modified-url", {}, {}, {}, {}]);
     const api = createApi(apiName, baseUrl, {
       fetchFn: mockFetch,
-      // @ts-expect-error
       processReq,
     });
     await api.get("test-endpoint");
@@ -89,13 +88,12 @@ describe("createApi", () => {
     mockFetch.mockResolvedValue({
       json: () => Promise.resolve({ value: "ok" }),
     });
-    const processRes = jest.fn(async (response) => {
+    const processRes = vitest.fn(async (response: Response) => {
       const data = await response.json();
       return { ok: true, data };
     });
     const api = createApi(apiName, baseUrl, {
       fetchFn: mockFetch,
-      // @ts-expect-error
       processRes,
     });
     const result = await api.get("test-endpoint");
@@ -105,12 +103,11 @@ describe("createApi", () => {
 
   test("handles errors with processErr if provided", async () => {
     const errorMessage = "Network error";
-    const processErr = jest.fn(() =>
+    const processErr = vitest.fn(() =>
       Promise.resolve({ ok: false, data: null, fail: true, msg: errorMessage }),
     );
     const api = createApi(apiName, baseUrl, {
       fetchFn: mockFetch,
-      // @ts-expect-error
       processErr,
     });
     mockFetch.mockRejectedValue(new Error(errorMessage));
@@ -142,10 +139,10 @@ describe("createApi", () => {
   // });
 
   describe("development mode", () => {
-    jestSetNodeEnv("development");
+    vitestSetNodeEnv("development");
 
     test("logs request and response in development mode", async () => {
-      console.info = jest.fn();
+      console.info = vitest.fn();
       const api = createApi(apiName, baseUrl, { fetchFn: mockFetch });
       mockFetch.mockResolvedValue({
         json: () => ({ data: "ok" }),

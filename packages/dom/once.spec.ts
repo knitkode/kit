@@ -1,8 +1,8 @@
-import { jestSetNodeEnv } from "@koine/test/jest";
+import { vitestSetNodeEnv } from "@koine/test/vitest";
 import { once } from "./once";
 
 describe("once", () => {
-  jestSetNodeEnv("development");
+  vitestSetNodeEnv("development");
 
   let button: HTMLButtonElement;
 
@@ -19,7 +19,7 @@ describe("once", () => {
   });
 
   test("calls the handler only once", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     // Add the event listener using `once`
     once(button, "click", mockHandler);
@@ -34,7 +34,7 @@ describe("once", () => {
   });
 
   test("removes the event listener after it is called", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     // Add the event listener using `once`
     once(button, "click", mockHandler);
@@ -54,7 +54,7 @@ describe("once", () => {
   });
 
   // test("does nothing when the element does not exist", () => {
-  //   const mockHandler = jest.fn();
+  //   const mockHandler = vitest.fn();
   //   const invalidElement = null; // Simulate non-existing element
 
   //   // Call `once` with a non-existing element
@@ -67,11 +67,11 @@ describe("once", () => {
   // });
 
   // test("logs a warning when trying to add a listener to a non-existing element in development mode", () => {
-  //   const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
+  //   const consoleSpy = vitest.spyOn(console, "warn").mockImplementation();
   //   const invalidElement = null;
 
   //   // @ts-expect-error test wrong implementation
-  //   once(invalidElement, "click", jest.fn());
+  //   once(invalidElement, "click", vitest.fn());
 
   //   expect(consoleSpy).toHaveBeenCalledWith(
   //     "[@koine/dom:on] unexisting DOM element",

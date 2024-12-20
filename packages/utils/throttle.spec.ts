@@ -1,10 +1,10 @@
 import { throttle } from "./throttle";
 
 describe("throttle", () => {
-  jest.useFakeTimers();
+  vitest.useFakeTimers();
 
   test("throttles a function call to the specified limit", () => {
-    const mockFn = jest.fn();
+    const mockFn = vitest.fn();
     const throttledFn = throttle(mockFn, 1000);
 
     // Call the throttled function multiple times
@@ -16,7 +16,7 @@ describe("throttle", () => {
     expect(mockFn).toHaveBeenCalledTimes(1);
 
     // Fast forward time by the throttle limit and call the function again
-    jest.advanceTimersByTime(1000);
+    vitest.advanceTimersByTime(1000);
     throttledFn();
 
     // The function should have been called a second time after the limit passed
@@ -24,23 +24,23 @@ describe("throttle", () => {
   });
 
   test("respects the limit when called continuously", () => {
-    const mockFn = jest.fn();
+    const mockFn = vitest.fn();
     const throttledFn = throttle(mockFn, 500);
 
     // Call the function in rapid succession within the throttle limit
     throttledFn();
-    jest.advanceTimersByTime(100);
+    vitest.advanceTimersByTime(100);
     throttledFn();
-    jest.advanceTimersByTime(100);
+    vitest.advanceTimersByTime(100);
     throttledFn();
-    jest.advanceTimersByTime(100);
+    vitest.advanceTimersByTime(100);
     throttledFn();
 
     // It should only be called once within the limit
     expect(mockFn).toHaveBeenCalledTimes(1);
 
     // Fast forward beyond the throttle limit
-    jest.advanceTimersByTime(500);
+    vitest.advanceTimersByTime(500);
     throttledFn();
 
     // Now it should have been called a second time
@@ -49,7 +49,7 @@ describe("throttle", () => {
 
   test("works with provided context", () => {
     const context = { value: 42 };
-    const mockFn = jest.fn(function (this: typeof context) {
+    const mockFn = vitest.fn(function (this: typeof context) {
       return this.value;
     });
     const throttledFn = throttle(mockFn, 1000, context);
@@ -62,7 +62,7 @@ describe("throttle", () => {
   });
 
   test("uses default context when none is provided", () => {
-    const mockFn = jest.fn();
+    const mockFn = vitest.fn();
     const throttledFn = throttle(mockFn, 1000);
 
     throttledFn.call({ custom: "context" });
@@ -72,18 +72,18 @@ describe("throttle", () => {
   });
 
   test("does not call function again until limit time passes", () => {
-    const mockFn = jest.fn();
+    const mockFn = vitest.fn();
     const throttledFn = throttle(mockFn, 1000);
 
     throttledFn();
     throttledFn();
-    jest.advanceTimersByTime(500); // Advance half of the throttle limit
+    vitest.advanceTimersByTime(500); // Advance half of the throttle limit
     throttledFn();
 
     // Function should still have only been called once within this time
     expect(mockFn).toHaveBeenCalledTimes(1);
 
-    jest.advanceTimersByTime(500); // Complete the throttle limit
+    vitest.advanceTimersByTime(500); // Complete the throttle limit
     throttledFn();
 
     // Now it should have been called twice
@@ -91,6 +91,6 @@ describe("throttle", () => {
   });
 
   afterEach(() => {
-    jest.clearAllTimers();
+    vitest.clearAllTimers();
   });
 });

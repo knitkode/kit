@@ -44,6 +44,7 @@ module.exports = [
         "error",
         {
           ignoredFiles: ["**/*.spec.ts", "**/*.spec.tsx"],
+          ignoredDependencies: ["@nx/vite", "vite"],
         },
       ],
     },

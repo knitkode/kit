@@ -1,8 +1,8 @@
-import { jestSetNodeEnv } from "@koine/test/jest";
+import { vitestSetNodeEnv } from "@koine/test/vitest";
 import { on } from "./on";
 
 describe("on", () => {
-  jestSetNodeEnv("development");
+  vitestSetNodeEnv("development");
 
   let button: HTMLButtonElement;
 
@@ -19,7 +19,7 @@ describe("on", () => {
   });
 
   test("adds an event listener to a valid element", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     on(button, "click", mockHandler);
 
@@ -30,7 +30,7 @@ describe("on", () => {
   });
 
   test("does nothing when the element does not exist", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
     const invalidElement = null; // Simulate non-existing element
 
     // @ts-expect-error test wrong implementation
@@ -43,7 +43,7 @@ describe("on", () => {
   });
 
   test("returns an automatic unbinding function", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     const unbind = on(button, "click", mockHandler);
 
@@ -60,11 +60,11 @@ describe("on", () => {
   });
 
   test("logs a warning when trying to add a listener to a non-existing element in development mode", () => {
-    const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
+    const consoleSpy = vitest.spyOn(console, "warn").mockImplementation();
     const invalidElement = null;
 
     // @ts-expect-error test wrong implementation
-    on(invalidElement, "click", jest.fn());
+    on(invalidElement, "click", vitest.fn());
 
     expect(consoleSpy).toHaveBeenCalledWith(
       "[@koine/dom:on] unexisting DOM element",
@@ -74,7 +74,7 @@ describe("on", () => {
   });
 
   test("handles different event types", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     on(window, "resize", mockHandler);
 

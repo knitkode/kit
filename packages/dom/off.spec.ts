@@ -1,8 +1,8 @@
-import { jestSetNodeEnv } from "@koine/test/jest";
+import { vitestSetNodeEnv } from "@koine/test/vitest";
 import { off } from "./off";
 
 describe("off", () => {
-  jestSetNodeEnv("development");
+  vitestSetNodeEnv("development");
 
   let button: HTMLButtonElement;
 
@@ -19,7 +19,7 @@ describe("off", () => {
   });
 
   test("removes an event listener from a valid element", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     // First, add the event listener
     button.addEventListener("click", mockHandler);
@@ -38,7 +38,7 @@ describe("off", () => {
   });
 
   test("does nothing when the element does not exist", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
     const invalidElement = null; // Simulate non-existing element
 
     // @ts-expect-error test wrong implementation
@@ -50,11 +50,11 @@ describe("off", () => {
   });
 
   test("logs a warning when trying to remove a listener from a non-existing element in development mode", () => {
-    const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
+    const consoleSpy = vitest.spyOn(console, "warn").mockImplementation();
     const invalidElement = null;
 
     // @ts-expect-error test wrong implementation
-    off(invalidElement, "click", jest.fn());
+    off(invalidElement, "click", vitest.fn());
 
     expect(consoleSpy).toHaveBeenCalledWith(
       "[@koine/dom:off] unexisting DOM element",
@@ -64,7 +64,7 @@ describe("off", () => {
   });
 
   test("removes an event listener added with options", () => {
-    const mockHandler = jest.fn();
+    const mockHandler = vitest.fn();
 
     // First, add the event listener with options
     button.addEventListener("click", mockHandler, { capture: true });

@@ -52,6 +52,7 @@
       "@koine/stories": ["packages/stories/src/index.ts"],
       "@koine/test": ["packages/test/index.ts"],
       "@koine/test/jest": ["packages/test/jest.ts"],
+      "@koine/test/vitest": ["packages/test/vitest.ts"],
       "@koine/utils": ["packages/utils/index.ts"]
     }
   },

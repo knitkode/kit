@@ -124,7 +124,6 @@ export { lowercase } from "./lowercase";
 export { mapListBy } from "./mapListBy";
 export { matchSorter } from "./matchSorter";
 export { mbToBytes } from "./mbToBytes";
-export { mergeObjects } from "./mergeObjects";
 export { mergeUrlQueryParams } from "./mergeUrlQueryParams";
 export { moveSortableArrayItemByKey } from "./moveSortableArrayItemByKey";
 export { noop } from "./noop";
@@ -134,6 +133,10 @@ export { objectFlat } from "./objectFlat";
 export { objectFlip } from "./objectFlip";
 export { objectKeysMap } from "./objectKeysMap";
 export { objectPick } from "./objectPick";
+export { objectMerge } from "./objectMerge";
+export { objectMergeArrayFn } from "./objectMergeArrayFn";
+export { objectMergeCreate, type ObjectMerge } from "./objectMergeCreate";
+export { objectMergeFn } from "./objectMergeFn";
 export {
   objectMergeWithDefaults,
   type ObjectMergeWithDefaults,
@@ -145,6 +148,7 @@ export { objectSwap } from "./objectSwap";
 export { objectToArray } from "./objectToArray";
 export { parseCookie } from "./parseCookie";
 export { parseURL } from "./parseURL";
+export { promiseAllSorted } from "./promiseAllSorted";
 export { quaranteneProps } from "./quaranteneProps";
 export { randomInt } from "./randomInt";
 export { randomKey } from "./randomKey";

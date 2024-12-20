@@ -10,7 +10,7 @@ describe("listenUrlSearch", () => {
 
 // declare const history: HistoryExtended;
 // // Mocking the external dependencies
-// jest.mock('@koine/utils', () => ({
+// vitest.mock('@koine/utils', () => ({
 //   isBrowser: true, // or false depending on what you want to test
 // }));
 
@@ -33,14 +33,14 @@ describe("listenUrlSearch", () => {
 //     } as Window["location"];
 
 //     // Create the runHandlers function to call directly
-//     runHandlers = jest.fn();
+//     runHandlers = vitest.fn();
 
 //     // Mock the extendHistoryMethod
-//     jest.spyOn(window.history, 'pushState').mockImplementation((...args) => {
+//     vitest.spyOn(window.history, 'pushState').mockImplementation((...args) => {
 //       runHandlers();
 //       return originalPushState.apply(history, args);
 //     });
-//     jest.spyOn(window.history, 'replaceState').mockImplementation((...args) => {
+//     vitest.spyOn(window.history, 'replaceState').mockImplementation((...args) => {
 //       runHandlers();
 //       return originalReplaceState.apply(history, args);
 //     });
@@ -51,11 +51,11 @@ describe("listenUrlSearch", () => {
 //     history.pushState = originalPushState;
 //     history.replaceState = originalReplaceState;
 //     window.location = originalLocation;
-//     jest.clearAllMocks(); // Clear mocks for each test
+//     vitest.clearAllMocks(); // Clear mocks for each test
 //   });
 
 //   it('should register a new handler and invoke it when the URL search changes', () => {
-//     const handler = jest.fn();
+//     const handler = vitest.fn();
 //     listenUrlSearch(handler);
 
 //     // Simulate a change in location.search
@@ -66,7 +66,7 @@ describe("listenUrlSearch", () => {
 //   });
 
 //   it('should not invoke the handler if the URL search has not changed', () => {
-//     const handler = jest.fn();
+//     const handler = vitest.fn();
 //     listenUrlSearch(handler);
 
 //     // Simulate no change in location.search
@@ -77,8 +77,8 @@ describe("listenUrlSearch", () => {
 //   });
 
 //   it('should allow multiple handlers to be registered', () => {
-//     const handler1 = jest.fn();
-//     const handler2 = jest.fn();
+//     const handler1 = vitest.fn();
+//     const handler2 = vitest.fn();
 //     listenUrlSearch(handler1);
 //     listenUrlSearch(handler2);
 
@@ -91,7 +91,7 @@ describe("listenUrlSearch", () => {
 //   });
 
 //   it('should deregister a handler', () => {
-//     const handler = jest.fn();
+//     const handler = vitest.fn();
 //     const deregister = listenUrlSearch(handler);
 
 //     // Simulate a change in location.search
@@ -111,7 +111,7 @@ describe("listenUrlSearch", () => {
 //   });
 
 //   it('should correctly handle the popstate event', () => {
-//     const handler = jest.fn();
+//     const handler = vitest.fn();
 //     listenUrlSearch(handler);
 
 //     // Simulate a popstate event
@@ -122,7 +122,7 @@ describe("listenUrlSearch", () => {
 //   });
 
 //   it('should not register the handler if it already exists', () => {
-//     const handler = jest.fn();
+//     const handler = vitest.fn();
 //     const deregister = listenUrlSearch(handler);
 //     listenUrlSearch(handler); // Registering the same handler again
 
@@ -133,7 +133,7 @@ describe("listenUrlSearch", () => {
 //   });
 
 //   it('should set up the history extension only once', () => {
-//     const handler = jest.fn();
+//     const handler = vitest.fn();
 //     listenUrlSearch(handler);
 //     listenUrlSearch(handler); // Call again
 
