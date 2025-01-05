@@ -93,7 +93,6 @@ export type ObjectMergeWithDefaults<
  * @param overrides The values to override and/or extend the defaults
  * @param deleteIfNull When `true` the overrides' object keys whose value is an explicit `null` will delete the keys of the output merge object
  */
-// TODO: check https://github.com/unjs/defu more sophisticated implementation
 export let objectMergeWithDefaults = <
   D extends PlainObject,
   O extends PlainObject,

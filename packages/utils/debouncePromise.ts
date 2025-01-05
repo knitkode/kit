@@ -3,7 +3,7 @@
  *
  * @module
  *
- * TODO: check and maybe use [unjs implementation](https://github.com/unjs/perfect-debounc)
+ * TODO: check and maybe use [unjs implementation](https://github.com/unjs/perfect-debounce)
  */
 
 /**
@@ -16,7 +16,7 @@ export type DebounceOptions<Result> = {
 };
 
 /**
- * @categroy functionn
+ * @category functionn
  */
 export interface DebouncedFunction<
   Args extends any[],

@@ -1,7 +1,6 @@
 /**
  * @category array
  * @see https://stackoverflow.com/a/8189268/1938970
- * @experimental TODO: untested
  */
 export let chunkByChunks = <T>(
   arr: T[],
