@@ -34,6 +34,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
     processReq: processReqBase,
     processRes: processResBase,
     processErr: processErrBase,
+    log: logBase = 0,
   } = defaultOptions || {};
 
   return apiMethods.reduce(
@@ -73,6 +74,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
           processRes = processResBase,
           processErr = processErrBase,
           throwErr = throwErrBase,
+          log = logBase,
         } = options || {};
         let { params, json, query } = options || {};
 
@@ -83,7 +85,7 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
           headers: {
             "content-type": "application/json",
             ...headers,
-            ...headersBase
+            ...headersBase,
           },
         };
 
@@ -200,17 +202,19 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         if (throwErr && result?.fail) {
           // throw new ApiError<Failed>(result);
           // I prefer to throw an object literal despite what eslint says
-          
+
           throw result;
           // throw Error(result.msg)
         }
 
         if (process.env["NODE_ENV"] === "development") {
-          const logMsg = `${result?.status}: api[${apiName}] ${method.toUpperCase()} ${url}`;
-          if (result?.ok) {
-            console.info(`🟢 ${logMsg}`);
-          } else {
-            console.info(`🔴 ${logMsg}`);
+          if (log >= 1) {
+            const logMsg = `${result?.status}: api[${apiName}] ${method.toUpperCase()} ${url}`;
+            if (result?.ok) {
+              console.info(`🟢 ${logMsg}`);
+            } else {
+              console.info(`🔴 ${logMsg}`);
+            }
           }
         }
         return result;

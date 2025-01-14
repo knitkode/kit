@@ -82,6 +82,15 @@ export namespace Api {
      * @default undefined
      */
     processErr?: ResponseProcessorErr;
+    /**
+     * Log level:
+     *
+     * - `0`: silent
+     * - `1`: ok/fail logging
+     *
+     * @default 0
+     */
+    log?: 0 | 1;
   };
 
   type ClientMethod<
