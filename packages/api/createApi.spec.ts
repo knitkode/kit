@@ -143,7 +143,7 @@ describe("createApi", () => {
 
     test("logs request and response in development mode", async () => {
       console.info = vitest.fn();
-      const api = createApi(apiName, baseUrl, { fetchFn: mockFetch });
+      const api = createApi(apiName, baseUrl, { fetchFn: mockFetch, log: 1 });
       mockFetch.mockResolvedValue({
         json: () => ({ data: "ok" }),
         status: 200,

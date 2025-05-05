@@ -4,7 +4,7 @@ describe("getDependencyVersion", () => {
   // console.log("next", getDependencyVersion("next"));
 
   it("returns correct full dependency version", () => {
-    expect(getDependencyVersion("next").join(".")).toBe("15.1.3");
+    expect(getDependencyVersion("next").join(".")).toBe("15.3.1");
   });
 
   it("returns correct major dependency version", () => {
@@ -12,10 +12,10 @@ describe("getDependencyVersion", () => {
   });
 
   it("returns correct minor dependency version", () => {
-    expect(getDependencyVersion("next", "minor")).toBe(1);
+    expect(getDependencyVersion("next", "minor")).toBe(3);
   });
 
   it("returns correct patch dependency version", () => {
-    expect(getDependencyVersion("next", "patch")).toBe(3);
+    expect(getDependencyVersion("next", "patch")).toBe(1);
   });
 });
