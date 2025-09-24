@@ -19,7 +19,7 @@ type ClassedAugmentedProps<Props> = Props & {
   ref?: React.Ref<any>;
 };
 
-type ClassedFinalProps<Props, Component> = Component extends React.ReactHTML
+type ClassedFinalProps<Props, Component> = Component extends React.HTMLElementType
   ? React.HTMLProps<Component> & ClassedAugmentedProps<Props>
   : ClassedAugmentedProps<Props>;
 

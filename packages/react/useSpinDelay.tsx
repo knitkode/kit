@@ -25,7 +25,7 @@ export let useSpinDelay = (
   minDuration = 200,
 ) => {
   const [state, setState] = useState<State>(State.IDLE);
-  const timeout = useRef<NodeJS.Timeout | undefined>();
+  const timeout = useRef<NodeJS.Timeout | undefined>(undefined);
 
   useEffect(() => {
     if (loading && state === State.IDLE) {

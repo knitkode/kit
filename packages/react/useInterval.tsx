@@ -11,7 +11,7 @@ export let useInterval = <T extends () => unknown>(
   delay: number,
   deps: unknown[] = [],
 ) => {
-  const savedCallback = useRef<T>();
+  const savedCallback = useRef<T>(null);
 
   useEffect(() => {
     savedCallback.current = callback;

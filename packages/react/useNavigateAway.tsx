@@ -45,7 +45,7 @@ type UseNavigateAwayBeforeunload = (event: BeforeUnloadEvent) => unknown;
 export let useNavigateAway = (handler: UseNavigateAwayHandler) => {
   const beforeUnloadHandlerRef = useRef<
     UseNavigateAwayBeforeunload | undefined
-  >();
+  >(null);
   // const pagehideHandlerRef = useRef<UseNavigateAwayPagehideHandler | undefined>();
 
   useEffect(() => {

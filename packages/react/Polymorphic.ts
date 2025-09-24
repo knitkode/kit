@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 /**
  * React Polymorphic components type utilities
  *
