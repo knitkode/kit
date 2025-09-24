@@ -38,7 +38,7 @@ export const postbuild = () =>
     .description("Manage postbuild exports/bundling")
     .argument("<slug>", "The lib package slug (same as folder name)")
     .option(
-      "-ext --ext",
+      "--ext",
       "Whether to automatically add the .js extension to relative imports (for esm libs)",
     )
     .option("-c --cjs", "When true build is managed as CommonJs library")
