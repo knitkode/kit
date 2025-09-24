@@ -10,6 +10,7 @@ export const objectMergeFn = objectMergeCreate((object, key, currentValue) => {
     object[key] = currentValue(object[key]);
     return true;
   }
+  return false;
 });
 
 export default objectMergeFn;

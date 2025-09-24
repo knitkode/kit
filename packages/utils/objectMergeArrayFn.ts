@@ -11,6 +11,7 @@ export const objectMergeArrayFn = objectMergeCreate(
       object[key] = currentValue(object[key]);
       return true;
     }
+    return false;
   },
 );
 

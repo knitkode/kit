@@ -131,6 +131,6 @@ export let objectMergeWithDefaults = <
         },
         { ...defaults } as any,
       )
-    : defaults;
+    : defaults as ObjectMergeWithDefaults<D, O, DeleteIfNull>;
 
 export default objectMergeWithDefaults;
