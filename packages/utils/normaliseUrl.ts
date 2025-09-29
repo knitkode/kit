@@ -1,5 +1,7 @@
 import { removeTrailingSlash } from "./removeTrailingSlash";
 
+const REGEX_NORMALISE_URL = /(:\/\/)|(\/)+/g;
+
 /**
  * Normalise URL, it works both for absolute and relative URLs
  *
@@ -10,6 +12,6 @@ import { removeTrailingSlash } from "./removeTrailingSlash";
  * @see https://stackoverflow.com/a/40649435/1938970
  */
 export let normaliseUrl = (absoluteUrl = "") =>
-  removeTrailingSlash(absoluteUrl.replace(/(:\/\/)|(\/)+/g, "$1$2"));
+  removeTrailingSlash(absoluteUrl.replace(REGEX_NORMALISE_URL, "$1$2"));
 
 export default normaliseUrl;
