@@ -1,6 +1,6 @@
 {
   "name": "@koine/koine",
-  "version": "2.0.0-beta.199",
+  "version": "2.0.0-beta.200",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -128,7 +128,7 @@
     "ts-jest": "^29.4.0",
     "tsc-prog": "^2.3.0",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.3",
     "verdaccio": "^6.1.5",
     "vite": "^6",
     "vitest": "^3.2.4",
