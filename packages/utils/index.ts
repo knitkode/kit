@@ -129,8 +129,10 @@ export { moveSortableArrayItemByKey } from "./moveSortableArrayItemByKey";
 export { noop } from "./noop";
 export { normaliseUrlPathname } from "./normaliseUrlPathname";
 export { normaliseUrl } from "./normaliseUrl";
+export { objectEntries } from "./objectEntries";
 export { objectFlat } from "./objectFlat";
 export { objectFlip } from "./objectFlip";
+export { objectKeys } from "./objectKeys";
 export { objectKeysMap } from "./objectKeysMap";
 export { objectPick } from "./objectPick";
 export { objectMerge } from "./objectMerge";
@@ -189,6 +191,7 @@ export { uuidNumeric } from "./uuidNumeric";
 export { wait } from "./wait";
 
 export type {
+  ExactlyAs,
   AnythingFalsy,
   FlatObjectFirstLevel,
   KeysStartsWith,

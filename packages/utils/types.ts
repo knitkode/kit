@@ -1,6 +1,13 @@
-import type { Replace, Simplify } from "type-fest";
+import type { Replace, Simplify, Exact } from "type-fest";
 
 // export type AssertTrue<T extends true> = T;
+
+/**
+ * Chceck that a type is exactly as another type
+ */
+export type ExactlyAs<Type> = ReturnType<
+  <T extends Exact<Type, T>>(values: T) => T
+>;
 
 /**
  * Type to test types
