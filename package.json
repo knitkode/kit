@@ -1,6 +1,6 @@
 {
   "name": "@koine/koine",
-  "version": "2.0.0-beta.200",
+  "version": "2.0.0-beta.201",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -42,7 +42,7 @@
     "synckit": "^0.11.8",
     "tailwindcss": "^4.1.11",
     "tslib": "^2.8.1",
-    "type-fest": "^4.41.0"
+    "type-fest": "^5.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.27.7",

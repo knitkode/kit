@@ -60,8 +60,8 @@ importers:
         specifier: ^2.8.1
         version: 2.8.1
       type-fest:
-        specifier: ^4.41.0
-        version: 4.41.0
+        specifier: ^5.1.0
+        version: 5.1.0
     devDependencies:
       '@babel/core':
         specifier: ^7.27.7
@@ -335,7 +335,7 @@ importers:
         version: 1.11.1
       '@koine/i18n':
         specifier: '*'
-        version: 2.0.0-beta.199(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)(next@15.3.4(@babel/core@7.27.7)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2))(react@19.1.0)
+        version: 2.0.0-beta.200(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)(next@15.3.4(@babel/core@7.27.7)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2))(react@19.1.0)
       simple-git:
         specifier: ^3.22.0
         version: 3.28.0
@@ -1982,8 +1982,8 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@koine/i18n@2.0.0-beta.199':
-    resolution: {integrity: sha512-kgjxMz03P9FjiNk5pEKWNy27r7YrrvOSUyZ5HTAIWrwAkuPUGCD4Asijs+v/2wX75h+XoXDv5Xze2SbJ5Oy3Jg==}
+  '@koine/i18n@2.0.0-beta.200':
+    resolution: {integrity: sha512-jiqMij/zndq4GsiiP/BYYyNM1GjGRRddvPVCXelb/9H21OCrherPhzDxFfT5RrGhUZzZW2odmcrpaZ8Ink13oQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       next: ^13 || ^14 || ^15
@@ -1994,11 +1994,11 @@ packages:
       react:
         optional: true
 
-  '@koine/node@2.0.0-beta.199':
-    resolution: {integrity: sha512-mnV0MNDdxyHdZO9Inzu1gPS+aCrUObfwizVUUozUr4e9/WtfkEf1mb0NE9gtA9rrW+ofjOkQ43kl7vhTfivJFg==}
+  '@koine/node@2.0.0-beta.200':
+    resolution: {integrity: sha512-nZ6EHYc21qyXqlzNEBKA/JzP9Cn1Ej4oreQeQtwmEvHioQ5jeibzPinY43FS/km1sO5cReX3xUaAHRyDsBieFQ==}
 
-  '@koine/utils@2.0.0-beta.199':
-    resolution: {integrity: sha512-8jYOxqKeq/4VdO/pSp+pwJ2dWj+JmYrcun303FW65lOGX/6AtMJGGf1Ix4jHo0JwSvXocxxKfLa5CW/E4TrpkQ==}
+  '@koine/utils@2.0.0-beta.200':
+    resolution: {integrity: sha512-smgH59+H8uym0opL9dlSsYX3SjY80p8+hWwL6w6qZpSCwULQEr1VveLLPrVrPffa16YCUtnkoPOQ+mmQhMTqHQ==}
 
   '@kuus/yup@1.0.0-beta.7':
     resolution: {integrity: sha512-i8Gx8jI1FTGPcSFwY5BHVGA3Fafw2yWlJ+5F7AyMv2id7e3j9HMfGKTcBcKBV6RjHbCn93EKHdXa+CFmCDBUBA==}
@@ -9400,6 +9400,10 @@ packages:
     resolution: {integrity: sha512-+XZ+r1XGIJGeQk3VvXhT6xx/VpbHsRzsTkGgF6E5RX9TTXD0118l87puaEBZ566FhqblC6U0d4XnubznJDm30A==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
+
   tailwindcss@4.1.11:
     resolution: {integrity: sha512-2E9TBm6MDD/xKYe+dvJZAmg3yxIEDNRc0jwlNyDg/4Fil2QcSLjFKGVff0lAf1jjeaArlG/M75Ey/EYr/OJtBA==}
 
@@ -9712,6 +9716,10 @@ packages:
   type-fest@4.41.0:
     resolution: {integrity: sha512-TeTSQ6H5YHvpqVwBRcnLDCBnDOHWYu7IvGbHT6N8AOymcr9PJGjc1GTtiWZTYg0NCgYwvnYWEkVChQAr9bjfwA==}
     engines: {node: '>=16'}
+
+  type-fest@5.1.0:
+    resolution: {integrity: sha512-wQ531tuWvB6oK+pchHIu5lHe5f5wpSCqB8Kf4dWQRbOYc9HTge7JL0G4Qd44bh6QuJCccIzL3bugb8GI0MwHrg==}
+    engines: {node: '>=20'}
 
   type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
@@ -12284,10 +12292,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@koine/i18n@2.0.0-beta.199(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)(next@15.3.4(@babel/core@7.27.7)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2))(react@19.1.0)':
+  '@koine/i18n@2.0.0-beta.200(@swc/core@1.12.7(@swc/helpers@0.5.17))(esbuild@0.25.5)(next@15.3.4(@babel/core@7.27.7)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2))(react@19.1.0)':
     dependencies:
-      '@koine/node': 2.0.0-beta.199
-      '@koine/utils': 2.0.0-beta.199
+      '@koine/node': 2.0.0-beta.200
+      '@koine/utils': 2.0.0-beta.200
       comment-json: 4.2.5
       consola: 3.4.2
       glob: 11.0.3
@@ -12304,12 +12312,12 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@koine/node@2.0.0-beta.199':
+  '@koine/node@2.0.0-beta.200':
     dependencies:
-      '@koine/utils': 2.0.0-beta.199
+      '@koine/utils': 2.0.0-beta.200
       glob: 11.0.3
 
-  '@koine/utils@2.0.0-beta.199':
+  '@koine/utils@2.0.0-beta.200':
     dependencies:
       type-fest: 4.41.0
 
@@ -21399,6 +21407,8 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.2.7
 
+  tagged-tag@1.0.0: {}
+
   tailwindcss@4.1.11: {}
 
   tapable@2.2.1: {}
@@ -21692,6 +21702,10 @@ snapshots:
   type-fest@2.19.0: {}
 
   type-fest@4.41.0: {}
+
+  type-fest@5.1.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   type-is@1.6.18:
     dependencies:

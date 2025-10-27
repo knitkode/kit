@@ -7,6 +7,6 @@
     }
   },
   "dependencies": {
-    "type-fest": "^4.10.3"
+    "type-fest": "^5.1.0"
   }
 }
