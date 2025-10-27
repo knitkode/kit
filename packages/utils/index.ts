@@ -209,11 +209,27 @@ export type {
   OverloadsToTuple,
 } from "./types";
 
-// type-fest start (v5.1.0)
+// type-fest start
 /**
+ * @borrows type-fest@v5.1.0
+ *
  * These types should not be documented by using [`excludeExternals` TypeDoc flag](https://typedoc.org/options/input/#excludeexternals)
  */
 export type {
+  Primitive,
+  TypedArray,
+  Class,
+  Constructor,
+  AbstractClass,
+  AbstractConstructor,
+  JsonObject,
+  JsonArray,
+  JsonPrimitive,
+  JsonValue,
+  UppercaseLetter,
+  LowercaseLetter,
+  DigitCharacter,
+  Alphanumeric,
   KeysOfUnion,
   DistributedOmit,
   DistributedPick,
@@ -424,4 +440,3 @@ export type {
   ExtractStrict,
   ExcludeStrict
 } from "type-fest";
-// end type-fest
