@@ -22,6 +22,8 @@ npm i @koine/i18n
 
 ## Dev notes
 
+To publish from local machine with npm CLI first set a granular token which skips 2FA: `npm config set //registry.npmjs.org/:_authToken="YOUR_TOKEN_HERE"`
+
 ## Github actions
 
 - See this [discussion](https://github.com/orgs/community/discussions/24990) and the [`CodeQL` action repo](https://github.com/github/codeql-action) regarding the ability to publish multiple actions from the same monorepo.
