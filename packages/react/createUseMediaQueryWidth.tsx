@@ -7,6 +7,8 @@ import {
 } from "@koine/utils";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
+type MediaQueryRule = "min" | "max" | "up" | "down" | "between" | "only";
+
 type _MediaQuerWidthDefExplicit<TBreakpoint extends string> =
   | `min-${TBreakpoint}`
   | `max-${TBreakpoint}`
@@ -41,10 +43,11 @@ export let createUseMediaQueryWidth = <
     const definition = media.substring(
       1,
     ) as _MediaQuerWidthDefExplicit<TBreakpoints>;
-    let [rule, ruleBreakpoint] = definition.split("-") as Split<
-      _MediaQuerWidthDefExplicit<TBreakpoints>,
-      "-"
-    >;
+    let [rule, ruleBreakpoint] = definition.split("-") as [MediaQueryRule, string];
+    // let [rule, ruleBreakpoint] = definition.split("-") as Split<
+    //   _MediaQuerWidthDefExplicit<TBreakpoints>,
+    //   "-"
+    // >;
     if (isUndefined(ruleBreakpoint)) {
       ruleBreakpoint = rule;
     }
