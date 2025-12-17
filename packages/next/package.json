@@ -7,19 +7,12 @@
     }
   },
   "dependencies": {
-    "@koine/browser": "*",
     "@koine/i18n": "*",
     "@koine/node": "*",
     "@koine/utils": "*"
   },
   "peerDependencies": {
     "next": "^13 || ^14 || ^15 || ^16",
-    "next-seo": "^6.4.0",
     "react": "^18 || ^19"
-  },
-  "peerDependenciesMeta": {
-    "next-seo": {
-      "optional": true
-    }
   }
 }
