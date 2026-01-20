@@ -2,7 +2,7 @@ import type { Options } from "./changeCaseHelpers";
 import { changeCaseNone } from "./changeCaseNone";
 
 /**
- * Convert a string to kebab case (`foo.bar`).
+ * Convert a string to kebab case (`foo-bar`).
  *
  * @category text
  * @category case

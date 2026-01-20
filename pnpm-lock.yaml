@@ -29,9 +29,6 @@ importers:
       next:
         specifier: ^16.0.10
         version: 16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)
-      next-seo:
-        specifier: ^7.0.1
-        version: 7.0.1(next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2))(react@19.1.0)
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -335,7 +332,7 @@ importers:
         version: 1.11.1
       '@koine/i18n':
         specifier: '*'
-        version: 2.0.0-beta.206(@swc/core@1.15.5(@swc/helpers@0.5.17))(esbuild@0.27.2)(next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.89.2))(react@19.2.3)
+        version: 2.0.0-beta.211(@swc/core@1.15.5(@swc/helpers@0.5.17))(esbuild@0.27.2)(next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.89.2))(react@19.2.3)
       simple-git:
         specifier: ^3.22.0
         version: 3.28.0
@@ -2051,11 +2048,11 @@ packages:
     peerDependencies:
       tslib: '2'
 
-  '@koine/dom@2.0.0-beta.206':
-    resolution: {integrity: sha512-EY3aP4knOW5Wi7Z59VFuZc/Dum+dLTHqSReyfwntDzUTwTTnvcFvyB/eZPJxad9mewGuU+6lquavgeodCuRfjw==}
+  '@koine/dom@2.0.0-beta.211':
+    resolution: {integrity: sha512-HovRgDqn39jbzqjtDBjtusjDFtblSAu/VuRpXDR01jxakINCLYWJUdSrUo1rEGjXz2LEVPK+xhLaaZf+/rh1xw==}
 
-  '@koine/i18n@2.0.0-beta.206':
-    resolution: {integrity: sha512-TOMzi/8PM3C4KwJTu+jSBkCGoha87OaOyFgt9bTgSXge7+p8ahH8xTMeMLTNcHSYm83+D2b1fVCUigbKlQlF8w==}
+  '@koine/i18n@2.0.0-beta.211':
+    resolution: {integrity: sha512-LzkqLgbuI73pn1WbmA+owsOAUdyDejiDtVm4ARBcP/29iGB9wBnei7XM+q00wNKiiLQhYdyu5mqdyuw7fQZ4wQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       next: ^13 || ^14 || ^15 || ^16
@@ -2066,11 +2063,11 @@ packages:
       react:
         optional: true
 
-  '@koine/node@2.0.0-beta.206':
-    resolution: {integrity: sha512-j7rCeIigcWhxP5nk7snOIxH4xkRBg5EbhyZJNwaQH114fwhPQuOg183RZAYpw2YfRCPFpht3Qu3lq+AwGdaajg==}
+  '@koine/node@2.0.0-beta.211':
+    resolution: {integrity: sha512-kxLdRa+gBf8Dv7SGyUQNCIUx+FwE5wjkA3UF+C1kPac3GVNJuN4xx2FoN/TtmxEHp820q+bmUw6mYi0eZGHT6A==}
 
-  '@koine/utils@2.0.0-beta.206':
-    resolution: {integrity: sha512-qHjYKP+wBpv4fgra4/LGORWvgGecPr0Twa0mYSzC21HTgUxeK5Xkg8JoS88GFEOy21zQPpLWchRk8O2sZgjxlw==}
+  '@koine/utils@2.0.0-beta.211':
+    resolution: {integrity: sha512-5WfZY8oPLdI+RCtXyVQNuM/E4AzMhy+tmv4yCR+/j19WgwtHtm10ehooNNfNxd4iAyN7TJAI/CwzVbNsTOGfEw==}
 
   '@kuus/yup@1.0.0-beta.7':
     resolution: {integrity: sha512-i8Gx8jI1FTGPcSFwY5BHVGA3Fafw2yWlJ+5F7AyMv2id7e3j9HMfGKTcBcKBV6RjHbCn93EKHdXa+CFmCDBUBA==}
@@ -7794,12 +7791,6 @@ packages:
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
 
-  next-seo@7.0.1:
-    resolution: {integrity: sha512-NxcnWaT7dLZdPjWOD6JZm1pUpJ1zxoDBOuXBR72fTTMqqO/bchcjkBJpx27MDACDJrIVwxfKPq5qGcv17qZiBQ==}
-    peerDependencies:
-      next: '>=13.4.0'
-      react: '>=18.2.0'
-
   next@16.0.10:
     resolution: {integrity: sha512-RtWh5PUgI+vxlV3HdR+IfWA1UUHu0+Ram/JBO4vWB54cVPentCD0e+lxyAYEsDTqGGMg7qpjhKh6dc6aW7W/sA==}
     engines: {node: '>=20.9.0'}
@@ -12723,15 +12714,15 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@koine/dom@2.0.0-beta.206':
+  '@koine/dom@2.0.0-beta.211':
     dependencies:
-      '@koine/utils': 2.0.0-beta.206
+      '@koine/utils': 2.0.0-beta.211
 
-  '@koine/i18n@2.0.0-beta.206(@swc/core@1.15.5(@swc/helpers@0.5.17))(esbuild@0.27.2)(next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.89.2))(react@19.2.3)':
+  '@koine/i18n@2.0.0-beta.211(@swc/core@1.15.5(@swc/helpers@0.5.17))(esbuild@0.27.2)(next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(sass@1.89.2))(react@19.2.3)':
     dependencies:
-      '@koine/dom': 2.0.0-beta.206
-      '@koine/node': 2.0.0-beta.206
-      '@koine/utils': 2.0.0-beta.206
+      '@koine/dom': 2.0.0-beta.211
+      '@koine/node': 2.0.0-beta.211
+      '@koine/utils': 2.0.0-beta.211
       comment-json: 4.5.0
       consola: 3.4.2
       glob: 11.1.0
@@ -12748,12 +12739,12 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@koine/node@2.0.0-beta.206':
+  '@koine/node@2.0.0-beta.211':
     dependencies:
-      '@koine/utils': 2.0.0-beta.206
+      '@koine/utils': 2.0.0-beta.211
       glob: 11.1.0
 
-  '@koine/utils@2.0.0-beta.206':
+  '@koine/utils@2.0.0-beta.211':
     dependencies:
       type-fest: 5.3.1
 
@@ -20080,11 +20071,6 @@ snapshots:
   negotiator@0.6.4: {}
 
   neo-async@2.6.2: {}
-
-  next-seo@7.0.1(next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2))(react@19.1.0):
-    dependencies:
-      next: 16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)
-      react: 19.1.0
 
   next@16.0.10(@babel/core@7.28.5)(babel-plugin-macros@3.1.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2):
     dependencies:
