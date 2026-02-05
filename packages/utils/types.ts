@@ -30,6 +30,22 @@ export type TestType<
 > = RightImplementation | WrongImplementation;
 
 /**
+ * Type to test that two unions are exactly the same
+ *
+ * @category type
+ * @example
+ * 
+ * ```ts
+ * type _Test = TestType<TestIsEqualUnion<"a" | "b", "a" | "b" | "c">>;
+ * ```
+ */
+export type TestIsEqualUnion<A, B> = [A] extends [B]
+  ? [B] extends [A]
+    ? true
+    : false
+  : false;
+
+/**
  * Whatever that in javascript returns `false` when checked in an `if` condition
  *
  * @category type
