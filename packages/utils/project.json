@@ -25,6 +25,7 @@
           "packages/utils/changeCaseCapital.ts",
           "packages/utils/changeCaseConstant.ts",
           "packages/utils/changeCaseDot.ts",
+          "packages/utils/changeCaseEnvVarName.ts",
           "packages/utils/changeCaseHelpers.ts",
           "packages/utils/changeCaseKebab.ts",
           "packages/utils/changeCaseNone.ts",

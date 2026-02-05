@@ -12,6 +12,7 @@ export { capitalize } from "./capitalize";
 export { changeCaseCamel } from "./changeCaseCamel";
 export { changeCaseConstant } from "./changeCaseConstant";
 export { changeCaseDot } from "./changeCaseDot";
+export { changeCaseEnvVarName } from "./changeCaseEnvVarName";
 export { changeCaseKebab } from "./changeCaseKebab";
 export { changeCasePascal } from "./changeCasePascal";
 export { changeCasePath } from "./changeCasePath";
@@ -206,6 +207,7 @@ export type {
   RequiredObjectDeep,
   Reverse,
   TestType,
+  TestIsEqualUnion,
   OverloadsToTuple,
 } from "./types";
 
