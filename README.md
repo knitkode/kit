@@ -22,7 +22,7 @@ npm i @koine/i18n
 
 ## Dev notes
 
-To publish from local machine with npm CLI first set a granular token which skips 2FA: `npm config set //registry.npmjs.org/:_authToken="YOUR_TOKEN_HERE"`
+To publish from local machine with npm CLI first create a granular token which skips 2FA at [npmjs.com/settings/{username}/tokens/](https://www.npmjs.com/settings/kuus/tokens/) and set it on your machine with: `npm config set //registry.npmjs.org/:_authToken="YOUR_TOKEN_HERE"`
 
 ## Github actions
 
