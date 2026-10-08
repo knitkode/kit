@@ -1,6 +1,6 @@
 {
   "name": "@knitkode/utils",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Tree-shakeable TypeScript utilities: type guards, object and array helpers, case conversion, URL and cookie helpers.",
   "keywords": [
     "knitkode",
