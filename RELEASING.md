@@ -42,15 +42,15 @@ Repository admins need to do these steps once. The first release has an extra bo
 
 1. Make sure the [`knitkode` npm organization](https://www.npmjs.com/org/knitkode) exists and that you can publish to it.
 2. **First release only (bootstrap).**
-   1. On npmjs.com, create a granular access token: read and write access to the `@knitkode` scope, _Bypass two-factor authentication_ enabled, shortest expiration available.
-   2. Save it as the `NPM_TOKEN` secret of the `npm` environment (or of the repository).
+   1. On npmjs.com, create a granular access token: read and write access to the `@knitkode` scope, _Bypass two-factor authentication_ enabled, shortest expiration available. npm warns that bypass tokens are risky and points to trusted publishing: that is expected, trusted publishing can't be set up before the packages exist.
+   2. Save it as the `NPM_TOKEN` secret of the `npm` environment, never of the repository, so only the `publish` job on `main` can read it: `gh secret set NPM_TOKEN --env npm -R knitkode/kit`.
    3. Merge the Version Packages PR for `3.0.0`. The `publish` job uses the token, still with provenance.
 3. **Trusted publishing.** For each of the six packages, open _Settings → Trusted publishing_ on npmjs.com and add a GitHub Actions publisher:
    - organization or user: `knitkode`
    - repository: `kit`
    - workflow filename: `release.yml`
    - environment: `npm`
-4. Delete the `NPM_TOKEN` secret and revoke the token. From now on npm authenticates the `publish` job through OIDC. Optionally, set each package to _Require two-factor authentication and disallow tokens_.
+4. Delete the secret (`gh secret delete NPM_TOKEN --env npm -R knitkode/kit`) and revoke the token on npmjs.com. From now on npm authenticates the `publish` job through OIDC. Optionally, set each package to _Require two-factor authentication and disallow tokens_.
 
 npm is phasing out 2FA-bypass tokens for direct publishing (around January 2027). Do the bootstrap before then, or publish the first version by hand with 2FA.
 
