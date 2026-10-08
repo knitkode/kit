@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { debounce as _debounce } from "@koine/utils";
-import { listenResize, listenResizeDebounced } from "@koine/dom";
+import { listenResize, listenResizeDebounced } from "@knitkode/dom";
+import { debounce as _debounce } from "@knitkode/utils";
 
 /**
  * # Use `window` size

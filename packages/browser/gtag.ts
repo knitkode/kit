@@ -1,4 +1,4 @@
-import { isUndefined, noop } from "@koine/utils";
+import { isUndefined, noop } from "@knitkode/utils";
 
 /**
  * @category analytics-google

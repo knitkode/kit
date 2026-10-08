@@ -7,7 +7,7 @@ export let addClass = <T extends Element = HTMLElement>(
 ) => {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
-      console.warn("[@koine/dom:addClass] unexisting DOM element");
+      console.warn("[@knitkode/dom:addClass] unexisting DOM element");
       return;
     }
   }

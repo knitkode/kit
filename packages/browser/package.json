@@ -1,14 +1,67 @@
 {
-  "name": "@koine/browser",
+  "name": "@knitkode/browser",
+  "version": "2.0.0",
+  "description": "Browser helpers: URL search and hash navigation, storage clients, gtag, device detection, zoned dates.",
+  "keywords": [
+    "knitkode",
+    "browser",
+    "url",
+    "navigation",
+    "storage",
+    "gtag",
+    "typescript"
+  ],
+  "homepage": "https://github.com/knitkode/kit/tree/main/packages/browser#readme",
+  "bugs": {
+    "url": "https://github.com/knitkode/kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knitkode/kit.git",
+    "directory": "packages/browser"
+  },
+  "license": "MIT",
+  "author": "KnitKode",
   "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./createStorage": "./dist/createStorage.js",
+    "./getZonedDate": "./dist/getZonedDate.js",
+    "./gtag": "./dist/gtag.js",
+    "./gtagPageview": "./dist/gtagPageview.js",
+    "./isIE": "./dist/isIE.js",
+    "./isMobile": "./dist/isMobile.js",
+    "./isWindowInsideIframe": "./dist/isWindowInsideIframe.js",
+    "./listenUrlSearch": "./dist/listenUrlSearch.js",
+    "./listenUrlSearchParams": "./dist/listenUrlSearchParams.js",
+    "./navigateToHash": "./dist/navigateToHash.js",
+    "./navigateToHashParams": "./dist/navigateToHashParams.js",
+    "./navigateToMergedHashParams": "./dist/navigateToMergedHashParams.js",
+    "./navigateToMergedParams": "./dist/navigateToMergedParams.js",
+    "./navigateToParams": "./dist/navigateToParams.js",
+    "./navigateToUrl": "./dist/navigateToUrl.js",
+    "./navigateWithoutUrlParam": "./dist/navigateWithoutUrlParam.js",
+    "./redirectTo": "./dist/redirectTo.js",
+    "./storage": "./dist/storage.js",
+    "./storageClient": "./dist/storageClient.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@koine/dom": "*",
-    "@koine/utils": "*",
+    "@knitkode/dom": "workspace:^",
+    "@knitkode/utils": "workspace:^",
     "date-fns-tz": "^3.2.0"
   },
-  "peerDependenciesMeta": {
-    "date-fns-tz": {
-      "optional": true
-    }
+  "publishConfig": {
+    "access": "public"
   }
 }

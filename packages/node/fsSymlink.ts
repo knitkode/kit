@@ -2,7 +2,7 @@ import { existsSync, lstatSync } from "node:fs";
 import { mkdir, rm, symlink } from "node:fs/promises";
 import { join } from "node:path";
 import { glob } from "glob";
-import { isString } from "@koine/utils";
+import { isString } from "@knitkode/utils";
 
 type SymlinkExtendedOptions = {
   /**

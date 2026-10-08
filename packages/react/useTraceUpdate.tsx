@@ -15,7 +15,7 @@ export let useTraceUpdate = (props: any) => {
     }, {});
     if (Object.keys(changedProps).length > 0) {
       console.info(
-        "[@koine/react:useTraceUpdate] changed props:",
+        "[@knitkode/react:useTraceUpdate] changed props:",
         changedProps,
       );
     }

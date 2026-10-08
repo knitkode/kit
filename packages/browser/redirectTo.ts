@@ -2,7 +2,7 @@ import {
   type AnyQueryParams,
   buildUrlQueryString,
   isBrowser,
-} from "@koine/utils";
+} from "@knitkode/utils";
 
 /**
  * Redirect to url with params {optionally}, removes eventual trailing question

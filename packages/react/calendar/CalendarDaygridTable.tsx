@@ -1,7 +1,7 @@
 import { eachWeekOfInterval } from "date-fns/eachWeekOfInterval";
-import { useEffect, useMemo, useState } from "react";
+import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useSwipeable } from "react-swipeable";
-import type { KoineComponent, KoineComponentProps } from "../types";
+import type { KitComponent, KitComponentProps } from "../types";
 import {
   CalendarDaygridCell,
   type CalendarDaygridCellComponents,
@@ -17,9 +17,13 @@ import type {
 import { useDateLocale } from "./useDateLocale";
 import { processEventsInView } from "./utils";
 
-export type CalendarDaygridTableBodyCellProps = CalendarViewDayProps;
+export type CalendarDaygridTableBodyCellProps = CalendarViewDayProps & {
+  children?: ReactNode;
+};
 
-export type CalendarDaygridTableBodyCellDateProps = CalendarViewDayProps;
+export type CalendarDaygridTableBodyCellDateProps = CalendarViewDayProps & {
+  children?: ReactNode;
+};
 
 function getView(range: CalendarRange) {
   const [start, end] = range;
@@ -31,7 +35,7 @@ function getView(range: CalendarRange) {
   };
 }
 
-export type KoineCalendarDaygridTableProps = {
+export type KitCalendarDaygridTableProps = {
   maxEvents?: CalendarDaygridCellProps["maxEvents"];
   locale: string;
   events: CalendarEventsMap;
@@ -49,20 +53,20 @@ export type KoineCalendarDaygridTableProps = {
   | "calendarsMap"
 >;
 
-export type CalendarDaygridTableProps = KoineComponentProps<
-  KoineCalendarDaygridTableProps,
+export type CalendarDaygridTableProps = KitComponentProps<
+  KitCalendarDaygridTableProps,
   {
-    Table?: KoineComponent;
-    TableHead?: KoineComponent;
-    TableHeadCell?: KoineComponent;
-    TableBody?: KoineComponent;
-    TableBodyCell?: KoineComponent<CalendarDaygridTableBodyCellProps>;
-    TableBodyCellDate?: KoineComponent<CalendarDaygridTableBodyCellDateProps>;
-    TableBodyRow?: KoineComponent;
+    Table?: KitComponent;
+    TableHead?: KitComponent;
+    TableHeadCell?: KitComponent;
+    TableBody?: KitComponent;
+    TableBodyCell?: KitComponent<CalendarDaygridTableBodyCellProps>;
+    TableBodyCellDate?: KitComponent<CalendarDaygridTableBodyCellDateProps>;
+    TableBodyRow?: KitComponent;
   } & CalendarDaygridCellComponents
 >;
 
-export let KoineCalendarDaygridTable = ({
+export let KitCalendarDaygridTable = ({
   locale: localeCode,
   handlePrev,
   handleNext,
@@ -91,7 +95,7 @@ export let KoineCalendarDaygridTable = ({
   CellEventStart,
 }: // ...props
 CalendarDaygridTableProps) => {
-  const restKoine = {
+  const restKit = {
     Cell,
     CellOverflow,
     CellEvent,
@@ -136,33 +140,42 @@ CalendarDaygridTableProps) => {
         </tr>
       </TableHead>
       <TableBody>
-        {weeksEvents.map((week) => (
-          <TableBodyRow {...week.props}>
-            {week.days.map((day) => (
-              <TableBodyCell {...day.props}>
-                <TableBodyCellDate {...day.props}>
-                  {day.label}
-                </TableBodyCellDate>
-                {day.events.length > 0 && (
-                  <CalendarDaygridCell
-                    {...{
-                      eventClicked,
-                      setEventClicked,
-                      eventHovered,
-                      setEventHovered,
-                      view,
-                      maxEvents,
-                      events: day.events,
-                      timestamp: day.timestamp,
-                      calendarsMap,
-                    }}
-                    {...restKoine}
-                  />
-                )}
-              </TableBodyCell>
-            ))}
-          </TableBodyRow>
-        ))}
+        {weeksEvents.map((week) => {
+          // React wants `key` as its own prop: inside a spread it warns and may drop it
+          const { key: weekKey, ...weekProps } = week.props;
+
+          return (
+            <TableBodyRow key={weekKey} {...weekProps}>
+              {week.days.map((day) => {
+                const { key: dayKey, ...dayProps } = day.props;
+
+                return (
+                  <TableBodyCell key={dayKey} {...dayProps}>
+                    <TableBodyCellDate {...dayProps}>
+                      {day.label}
+                    </TableBodyCellDate>
+                    {day.events.length > 0 && (
+                      <CalendarDaygridCell
+                        {...{
+                          eventClicked,
+                          setEventClicked,
+                          eventHovered,
+                          setEventHovered,
+                          view,
+                          maxEvents,
+                          events: day.events,
+                          timestamp: day.timestamp,
+                          calendarsMap,
+                        }}
+                        {...restKit}
+                      />
+                    )}
+                  </TableBodyCell>
+                );
+              })}
+            </TableBodyRow>
+          );
+        })}
       </TableBody>
     </Table>
   );

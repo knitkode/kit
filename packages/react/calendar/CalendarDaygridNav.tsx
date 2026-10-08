@@ -1,9 +1,9 @@
 import { format } from "date-fns/format";
-import type { KoineComponent, KoineComponentProps } from "../types";
+import type { KitComponent, KitComponentProps } from "../types";
 import type { CalendarRange, CalendarView } from "./types";
 import { useDateLocale } from "./useDateLocale";
 
-export type KoineCalendarDaygridNavProps = {
+export type KitCalendarDaygridNavProps = {
   locale: string;
   range: CalendarRange;
   view: CalendarView;
@@ -19,21 +19,21 @@ export type CalendarDaygridNavTitleProps = {
   formatted: string;
 };
 
-export type CalendarDaygridNavProps = KoineComponentProps<
-  KoineCalendarDaygridNavProps,
+export type CalendarDaygridNavProps = KitComponentProps<
+  KitCalendarDaygridNavProps,
   {
-    NavRoot?: KoineComponent;
-    NavTitle?: KoineComponent<CalendarDaygridNavTitleProps>;
-    NavBtns?: KoineComponent;
-    NavBtnPrev?: KoineComponent;
-    NavBtnNext?: KoineComponent;
-    NavBtnToday?: KoineComponent;
-    NavBtnViewMonth?: KoineComponent;
-    NavBtnViewWeek?: KoineComponent;
+    NavRoot?: KitComponent;
+    NavTitle?: KitComponent<CalendarDaygridNavTitleProps>;
+    NavBtns?: KitComponent;
+    NavBtnPrev?: KitComponent;
+    NavBtnNext?: KitComponent;
+    NavBtnToday?: KitComponent;
+    NavBtnViewMonth?: KitComponent;
+    NavBtnViewWeek?: KitComponent;
   }
 >;
 
-export let KoineCalendarDaygridNav = ({
+export let KitCalendarDaygridNav = ({
   range,
   view,
   todayInView,

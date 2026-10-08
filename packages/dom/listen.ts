@@ -1,6 +1,6 @@
 import {
-  type EventCallback,
   activeEvents,
+  type EventCallback,
   eventHandler,
 } from "./_listen-delegation";
 import { on } from "./on";

@@ -4,7 +4,7 @@
 export let removeClass = <T extends Element>(el?: T, className = "") => {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
-      console.log("[@koine/dom:removeClass] unexisting DOM element");
+      console.log("[@knitkode/dom:removeClass] unexisting DOM element");
       return;
     }
   }

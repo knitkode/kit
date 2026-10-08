@@ -1,3 +1,4 @@
+export type { EventCallback, ListenEvent } from "./_listen-delegation";
 export { addClass } from "./addClass";
 export { calculateFixedOffset } from "./calculateFixedOffset";
 export { createElement } from "./createElement";
@@ -23,6 +24,7 @@ export { isHidden } from "./isHidden";
 export { isInViewport } from "./isInViewport";
 export { isNodeList } from "./isNodeList";
 export { isTotallyScrolled } from "./isTotallyScrolled";
+export { listen } from "./listen";
 export { listenLoaded } from "./listenLoaded";
 export { listenOnce } from "./listenOnce";
 export { listenResize } from "./listenResize";
@@ -31,22 +33,20 @@ export { listenResizeThrottled } from "./listenResizeThrottled";
 export { listenScroll } from "./listenScroll";
 export { listenScrollDebounced } from "./listenScrollDebounced";
 export { listenScrollThrottled } from "./listenScrollThrottled";
-export { listen } from "./listen";
 export { off } from "./off";
-export { once } from "./once";
-export { onClickOutside } from "./onClickOutside";
 export { on } from "./on";
+export { onClickOutside } from "./onClickOutside";
+export { once } from "./once";
 export { removeClass } from "./removeClass";
 export { scrollTo } from "./scrollTo";
 export { setDataAttr } from "./setDataAttr";
 export { setVendorCSS } from "./setVendorCSS";
 export { siblings } from "./siblings";
 export { toArray } from "./toArray";
-export { unlisten } from "./unlisten";
-
 export type {
+  AnyDOMEvent,
   AnyDOMEventTarget,
   AnyDOMEventTargetLoose,
   AnyDOMEventType,
-  AnyDOMEvent,
 } from "./types";
+export { unlisten } from "./unlisten";

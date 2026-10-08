@@ -1,4 +1,4 @@
-import { vitestSetNodeEnv } from "@koine/test/vitest";
+import { vitestSetNodeEnv } from "@knitkode/test/vitest";
 import { serializeCookie } from "./serializeCookie";
 
 describe("serializeCookie", () => {

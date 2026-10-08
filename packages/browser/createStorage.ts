@@ -1,11 +1,11 @@
+import { on } from "@knitkode/dom";
 import {
   decode,
   encode,
   isBrowser,
   isNullOrUndefined,
   noop,
-} from "@koine/utils";
-import { on } from "@koine/dom";
+} from "@knitkode/utils";
 import { storage } from "./storage";
 
 /**
@@ -53,7 +53,7 @@ export let createStorage = <T extends CreateStorageConfig>(
       if (!isBrowser) {
         if (process.env["NODE_ENV"] === "development") {
           console.log(
-            `[@koine/utils:createStorage] attempt to use 'getAll' outside of browser.`,
+            `[@knitkode/utils:createStorage] attempt to use 'getAll' outside of browser.`,
           );
         }
         return {} as T;
@@ -90,7 +90,7 @@ export let createStorage = <T extends CreateStorageConfig>(
       if (process.env["NODE_ENV"] === "development") {
         if (!isBrowser) {
           console.log(
-            `[@koine/utils:createStorage] attempt to use 'setMany' outside of browser.`,
+            `[@knitkode/utils:createStorage] attempt to use 'setMany' outside of browser.`,
           );
         }
       }
@@ -124,7 +124,7 @@ export let createStorage = <T extends CreateStorageConfig>(
       if (process.env["NODE_ENV"] === "development") {
         if (!isBrowser) {
           console.log(
-            `[@koine/utils:createStorage] attempt to use 'clear' outside of browser.`,
+            `[@knitkode/utils:createStorage] attempt to use 'clear' outside of browser.`,
           );
         }
       }
@@ -149,7 +149,7 @@ export let createStorage = <T extends CreateStorageConfig>(
       if (!isBrowser) {
         if (process.env["NODE_ENV"] === "development") {
           console.log(
-            `[@koine/utils:createStorage] attempt to use 'watch' outside of browser.`,
+            `[@knitkode/utils:createStorage] attempt to use 'watch' outside of browser.`,
           );
         }
         return noop;

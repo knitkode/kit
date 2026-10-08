@@ -1,4 +1,4 @@
-import { isServer } from "@koine/utils";
+import { isServer } from "@knitkode/utils";
 
 /**
  * @category detect

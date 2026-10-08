@@ -1,4 +1,4 @@
-import { noop } from "@koine/utils";
+import { noop } from "@knitkode/utils";
 import { off } from "./off";
 import type {
   AnyDOMEvent,
@@ -40,7 +40,7 @@ export function on<
 ) {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
-      console.warn("[@koine/dom:on] unexisting DOM element");
+      console.warn("[@knitkode/dom:on] unexisting DOM element");
     }
   }
   if (el) {

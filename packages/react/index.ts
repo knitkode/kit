@@ -6,19 +6,20 @@ export {
 } from "./createUseMediaQueryWidth";
 export {
   type ExtendableComponent,
+  extendComponent,
   type OverridableComponents,
   type WithComponents,
-  extendComponent,
 } from "./extendComponent";
 export { FaviconTags, type FaviconTagsProps } from "./FaviconTags";
-export { mergeRefs } from "./mergeRefs";
 export { Meta, type MetaProps } from "./Meta";
+export { mergeRefs } from "./mergeRefs";
 export { NoJs, type NoJsProps } from "./NoJs";
 export type { Polymorphic } from "./Polymorphic";
+export type { KitComponent, KitComponentProps } from "./types";
 export {
-  useAsyncFn,
   type UseAsyncFnReturn,
   type UseAsyncState,
+  useAsyncFn,
 } from "./useAsyncFn";
 export { useFirstMountState } from "./useFirstMountState";
 export { useFixedOffset } from "./useFixedOffset";
@@ -27,14 +28,14 @@ export { useInterval } from "./useInterval";
 export { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 export { useKeyUp } from "./useKeyUp";
 export {
-  useMeasure,
   type UseMeasureOptions,
   type UseMeasureReturn,
+  useMeasure,
 } from "./useMeasure";
 export { useMountedState } from "./useMountedState";
 export {
-  useNavigateAway,
   type UseNavigateAwayHandler,
+  useNavigateAway,
 } from "./useNavigateAway";
 export { usePrevious } from "./usePrevious";
 export { usePreviousRef } from "./usePreviousRef";
@@ -46,4 +47,3 @@ export { useSpinDelay } from "./useSpinDelay";
 export { useTraceUpdate } from "./useTraceUpdate";
 export { useUpdateEffect } from "./useUpdateEffect";
 export { useWindowSize } from "./useWindowSize";
-export type { KoineComponentProps, KoineComponent } from "./types";

@@ -1,8 +1,56 @@
 {
-  "name": "@koine/node",
+  "name": "@knitkode/node",
+  "version": "2.0.0",
+  "description": "Node.js helpers: file system utilities, dependency version lookup and SWC modularize-imports transforms.",
+  "keywords": [
+    "knitkode",
+    "node",
+    "fs",
+    "swc",
+    "typescript"
+  ],
+  "homepage": "https://github.com/knitkode/kit/tree/main/packages/node#readme",
+  "bugs": {
+    "url": "https://github.com/knitkode/kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knitkode/kit.git",
+    "directory": "packages/node"
+  },
+  "license": "MIT",
+  "author": "KnitKode",
   "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./fsFindUpSync": "./dist/fsFindUpSync.js",
+    "./fsMoveAndRestoreTemporaryPaths": "./dist/fsMoveAndRestoreTemporaryPaths.js",
+    "./fsMoveAndRestoreTemporaryPathsSync": "./dist/fsMoveAndRestoreTemporaryPathsSync.js",
+    "./fsSymlink": "./dist/fsSymlink.js",
+    "./fsWrite": "./dist/fsWrite.js",
+    "./fsWriteSync": "./dist/fsWriteSync.js",
+    "./getDependencyVersion": "./dist/getDependencyVersion.js",
+    "./swc": "./dist/swc.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
-    "@koine/utils": "*",
+    "@knitkode/utils": "workspace:^",
     "glob": "^11.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

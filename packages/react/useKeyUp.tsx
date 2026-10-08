@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { on } from "@koine/dom";
+import { on } from "@knitkode/dom";
 
 export let useKeyUp = (
   callback: (event: KeyboardEvent) => void,

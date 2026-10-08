@@ -1,10 +1,19 @@
 {
-  "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": "@changesets/cli/changelog",
+  "$schema": "https://unpkg.com/@changesets/config@4/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "knitkode/kit" }],
   "commit": false,
-  "fixed": [],
+  "fixed": [
+    [
+      "@knitkode/api",
+      "@knitkode/browser",
+      "@knitkode/dom",
+      "@knitkode/node",
+      "@knitkode/react",
+      "@knitkode/utils"
+    ]
+  ],
   "linked": [],
-  "access": "restricted",
+  "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": []

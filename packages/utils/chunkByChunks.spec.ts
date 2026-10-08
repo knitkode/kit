@@ -32,11 +32,7 @@ describe("chunkByChunks", () => {
   it("should divide the array into unbalanced chunks when len % nrOfChunks !== 0 and balanced is false", () => {
     const arr = [1, 2, 3, 4, 5, 6, 7];
     const result = chunkByChunks(arr, 3, false);
-    expect(result).toEqual([
-      [1, 2, 3],
-      [4, 5, 6],
-      [7],
-    ]);
+    expect(result).toEqual([[1, 2, 3], [4, 5, 6], [7]]);
   });
 
   it("should handle edge case when array has exactly one element", () => {
@@ -56,7 +52,12 @@ describe("chunkByChunks", () => {
       [4, 5, 6],
       [7, 8, 9],
     ]);
-    expect(chunkByChunks(arr, 4)).toEqual([[1, 2], [3, 4], [5, 6], [7, 8, 9]]);
+    expect(chunkByChunks(arr, 4)).toEqual([
+      [1, 2],
+      [3, 4],
+      [5, 6],
+      [7, 8, 9],
+    ]);
     expect(chunkByChunks(arr, 5)).toEqual([
       [1, 2],
       [3, 4],

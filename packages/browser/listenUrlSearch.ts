@@ -1,5 +1,5 @@
-import { isBrowser } from "@koine/utils";
-import { on } from "@koine/dom";
+import { on } from "@knitkode/dom";
+import { isBrowser } from "@knitkode/utils";
 
 type Extension = {
   /**

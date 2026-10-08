@@ -11,7 +11,7 @@ import type { Api } from "../types";
 type MutationRequestMethod = Exclude<Api.RequestMethod, "get">;
 type MutationHookName = Exclude<keyof Api.HooksMapsByName, "use">;
 
-type KoineApiMethodHookSWR<
+type KitApiMethodHookSWR<
   THookName extends MutationHookName,
   TEndpoints extends Api.Endpoints,
 > = <
@@ -92,7 +92,7 @@ export let createSwrMutationApi = <TEndpoints extends Api.Endpoints>(
   ...args: Parameters<typeof createApi>
 ) => {
   const api = createApi<TEndpoints>(...args) as Api.Client<TEndpoints> & {
-    [HookName in MutationHookName]: KoineApiMethodHookSWR<HookName, TEndpoints>;
+    [HookName in MutationHookName]: KitApiMethodHookSWR<HookName, TEndpoints>;
   } & {
     use: ReturnType<typeof createUseApi<TEndpoints>>;
   };
@@ -107,7 +107,7 @@ export let createSwrMutationApi = <TEndpoints extends Api.Endpoints>(
       api[hookName] = createUseMutationApi<TEndpoints, TMethod>(
         api,
         method,
-      ) as KoineApiMethodHookSWR<typeof hookName, TEndpoints>;
+      ) as KitApiMethodHookSWR<typeof hookName, TEndpoints>;
     },
   );
 

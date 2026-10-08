@@ -3,7 +3,7 @@ import type {
   // LiteralUnion,
   // OverloadsToTuple,
   PickStartsWith,
-} from "@koine/utils";
+} from "@knitkode/utils";
 
 export type AnyWindowEventType = AnyDOMEventType<typeof window>;
 

@@ -1,6 +1,6 @@
 import {
-  type Options,
   lowerFactory,
+  type Options,
   splitPrefixSuffix,
 } from "./changeCaseHelpers";
 

@@ -1,4 +1,4 @@
-import { throttle } from "@koine/utils";
+import { throttle } from "@knitkode/utils";
 import { listenResize } from "./listenResize";
 
 /**

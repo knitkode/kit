@@ -26,7 +26,7 @@ export let setCookie = <T extends string = string>(
 
   if (isUndefined(document)) {
     if (process.env["NODE_ENV"] === "development") {
-      console.warn("[@koine/utils:setCookie] document is undefined");
+      console.warn("[@knitkode/utils:setCookie] document is undefined");
     }
     return undefined;
   }

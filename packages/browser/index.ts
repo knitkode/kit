@@ -1,7 +1,7 @@
-export { createStorage, type CreateStorageConfig } from "./createStorage";
+export { type CreateStorageConfig, createStorage } from "./createStorage";
 export { getZonedDate } from "./getZonedDate";
 export { gtag } from "./gtag";
-export { gtagPageview, type GtmPageviewArgs } from "./gtagPageview";
+export { type GtmPageviewArgs, gtagPageview } from "./gtagPageview";
 export { isIE } from "./isIE";
 export { isMobile } from "./isMobile";
 export { isWindowInsideIframe } from "./isWindowInsideIframe";
@@ -14,6 +14,6 @@ export { navigateToMergedParams } from "./navigateToMergedParams";
 export { navigateToParams } from "./navigateToParams";
 export { navigateToUrl } from "./navigateToUrl";
 export { navigateWithoutUrlParam } from "./navigateWithoutUrlParam";
-export { storage } from "./storage";
 export { redirectTo } from "./redirectTo";
-export { storageClient, type StorageClientConfig } from "./storageClient";
+export { storage } from "./storage";
+export { type StorageClientConfig, storageClient } from "./storageClient";

@@ -1,7 +1,95 @@
 {
-  "name": "@koine/dom",
+  "name": "@knitkode/dom",
+  "version": "2.0.0",
+  "description": "Tiny, tree-shakeable DOM helpers: selectors, event delegation, scroll and resize listeners, measurements.",
+  "keywords": [
+    "knitkode",
+    "dom",
+    "events",
+    "delegation",
+    "scroll",
+    "resize",
+    "typescript"
+  ],
+  "homepage": "https://github.com/knitkode/kit/tree/main/packages/dom#readme",
+  "bugs": {
+    "url": "https://github.com/knitkode/kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knitkode/kit.git",
+    "directory": "packages/dom"
+  },
+  "license": "MIT",
+  "author": "KnitKode",
   "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./addClass": "./dist/addClass.js",
+    "./calculateFixedOffset": "./dist/calculateFixedOffset.js",
+    "./createElement": "./dist/createElement.js",
+    "./dom": "./dist/dom.js",
+    "./domAll": "./dist/domAll.js",
+    "./domEach": "./dist/domEach.js",
+    "./emitEvent": "./dist/emitEvent.js",
+    "./escapeSelector": "./dist/escapeSelector.js",
+    "./exists": "./dist/exists.js",
+    "./forEach": "./dist/forEach.js",
+    "./getDataAttr": "./dist/getDataAttr.js",
+    "./getDocumentHeight": "./dist/getDocumentHeight.js",
+    "./getHeight": "./dist/getHeight.js",
+    "./getListeners": "./dist/getListeners.js",
+    "./getOffset": "./dist/getOffset.js",
+    "./getOffsetTop": "./dist/getOffsetTop.js",
+    "./getOffsetTopSlim": "./dist/getOffsetTopSlim.js",
+    "./getScrollbarWidth": "./dist/getScrollbarWidth.js",
+    "./getStyleValue": "./dist/getStyleValue.js",
+    "./getVisualBackgroundColor": "./dist/getVisualBackgroundColor.js",
+    "./injectCss": "./dist/injectCss.js",
+    "./isHidden": "./dist/isHidden.js",
+    "./isInViewport": "./dist/isInViewport.js",
+    "./isNodeList": "./dist/isNodeList.js",
+    "./isTotallyScrolled": "./dist/isTotallyScrolled.js",
+    "./listen": "./dist/listen.js",
+    "./listenLoaded": "./dist/listenLoaded.js",
+    "./listenOnce": "./dist/listenOnce.js",
+    "./listenResize": "./dist/listenResize.js",
+    "./listenResizeDebounced": "./dist/listenResizeDebounced.js",
+    "./listenResizeThrottled": "./dist/listenResizeThrottled.js",
+    "./listenScroll": "./dist/listenScroll.js",
+    "./listenScrollDebounced": "./dist/listenScrollDebounced.js",
+    "./listenScrollThrottled": "./dist/listenScrollThrottled.js",
+    "./off": "./dist/off.js",
+    "./on": "./dist/on.js",
+    "./once": "./dist/once.js",
+    "./onClickOutside": "./dist/onClickOutside.js",
+    "./removeClass": "./dist/removeClass.js",
+    "./scrollTo": "./dist/scrollTo.js",
+    "./setDataAttr": "./dist/setDataAttr.js",
+    "./setVendorCSS": "./dist/setVendorCSS.js",
+    "./siblings": "./dist/siblings.js",
+    "./toArray": "./dist/toArray.js",
+    "./types": "./dist/types.js",
+    "./unlisten": "./dist/unlisten.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@koine/utils": "*"
+    "@knitkode/utils": "workspace:^"
+  },
+  "devDependencies": {
+    "@knitkode/test": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

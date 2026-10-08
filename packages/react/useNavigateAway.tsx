@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { on } from "@koine/dom";
+import { on } from "@knitkode/dom";
 
 /**
  * @return A custom error message (most browser will ignore it), or just a

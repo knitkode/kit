@@ -19,9 +19,10 @@ type ClassedAugmentedProps<Props> = Props & {
   ref?: React.Ref<any>;
 };
 
-type ClassedFinalProps<Props, Component> = Component extends React.HTMLElementType
-  ? React.HTMLProps<Component> & ClassedAugmentedProps<Props>
-  : ClassedAugmentedProps<Props>;
+type ClassedFinalProps<Props, Component> =
+  Component extends React.HTMLElementType
+    ? React.HTMLProps<Component> & ClassedAugmentedProps<Props>
+    : ClassedAugmentedProps<Props>;
 
 /**
  * This utility allows to extend a component a là `styled-components` but for

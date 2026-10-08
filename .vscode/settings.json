@@ -1,14 +1,5 @@
 {
-  "files.exclude": {
-    "actions/**/*.{js,json,txt}": true
-    // @see https://github.com/microsoft/vscode/issues/869#issuecomment-255660177
-    // "**/*.js": { "when": "$(basename).ts" },
-    // "**/*.d.ts": { "when": "$(basename).ts" }
-  },
-  "search.exclude": {
-    "**/__mocks__": true
-  },
-  "window.title": "${dirty} KnitKode/koine - ${activeFolderMedium}",
+  "window.title": "${dirty} KnitKode/kit - ${activeFolderMedium}",
   "workbench.colorCustomizations": {
     "activityBar.background": "#000",
     "activityBar.foreground": "#fff"
@@ -19,12 +10,13 @@
     "twix\\([\\s\\S]*?`([^`]*)`\\s?\\)"
   ],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.validate": ["json"],
-  "eslint.useFlatConfig": true,
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports.biome": "explicit",
+    "source.fixAll.biome": "explicit"
+  },
   "files.associations": {
-    "tsconfig.*.json": "jsonc",
-    "tsconfig.json": "jsonc",
-    "nx.json": "jsonc",
-    "project.json": "jsonc"
+    "tsconfig*.json": "jsonc",
+    "turbo.json": "jsonc"
   }
 }

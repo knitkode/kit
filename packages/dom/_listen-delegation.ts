@@ -7,7 +7,7 @@
  *
  * @fileoverview
  */
-import { isString } from "@koine/utils";
+import { isString } from "@knitkode/utils";
 import { escapeSelector } from "./escapeSelector";
 import type {
   AnyDOMEvent,
@@ -16,14 +16,14 @@ import type {
 } from "./types";
 
 /**
- * @internal
+ * Callback signature accepted by `listen`, `listenOnce` and `unlisten`.
  */
 export type EventCallback<
   TTarget extends AnyDOMEventTarget = AnyDOMEventTarget,
 > = (event: AnyDOMEvent<TTarget, any>, desiredTarget: TTarget) => any;
 
 /**
- * @internal
+ * A registered listener, as returned by `getListeners`.
  */
 export type ListenEvent = {
   selector: string;

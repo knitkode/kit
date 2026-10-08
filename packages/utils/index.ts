@@ -1,9 +1,240 @@
-export { accentsSets, type AccentsSet } from "./accentsSets";
+// type-fest start
+/**
+ * @borrows type-fest@v5.1.0
+ *
+ * These types should not be documented by using [`excludeExternals` TypeDoc flag](https://typedoc.org/options/input/#excludeexternals)
+ */
+export type {
+  AbstractClass,
+  AbstractConstructor,
+  AllExtend,
+  AllExtendOptions,
+  AllUnionFields,
+  Alphanumeric,
+  And,
+  Arrayable,
+  ArrayIndices,
+  ArraySlice,
+  ArraySplice,
+  ArrayTail,
+  ArrayValues,
+  Asyncify,
+  AsyncReturnType,
+  CamelCase,
+  CamelCasedProperties,
+  CamelCasedPropertiesDeep,
+  CamelCaseOptions,
+  Class,
+  ConditionalExcept,
+  ConditionalKeys,
+  ConditionalPick,
+  ConditionalPickDeep,
+  ConditionalPickDeepOptions,
+  ConditionalSimplify,
+  ConditionalSimplifyDeep,
+  Constructor,
+  DelimiterCase,
+  DelimiterCasedProperties,
+  DelimiterCasedPropertiesDeep,
+  DigitCharacter,
+  DistributedOmit,
+  DistributedPick,
+  EmptyObject,
+  Entries,
+  Entry,
+  Exact,
+  Except,
+  ExceptOptions,
+  ExcludeRestElement,
+  ExcludeStrict,
+  ExtendsStrict,
+  ExtractRestElement,
+  ExtractStrict,
+  FindGlobalInstanceType,
+  FindGlobalType,
+  Finite,
+  FixedLengthArray,
+  Float,
+  Get,
+  GetOptions,
+  GetTagMetadata,
+  GlobalThis,
+  GreaterThan,
+  GreaterThanOrEqual,
+  HasOptionalKeys,
+  HasReadonlyKeys,
+  HasRequiredKeys,
+  HasWritableKeys,
+  If,
+  IfAny,
+  IfEmptyObject,
+  IfNever,
+  IfNull,
+  IfUnknown,
+  Includes,
+  IntClosedRange,
+  Integer,
+  IntRange,
+  InvariantOf,
+  IsAny,
+  IsBooleanLiteral,
+  IsEmptyObject,
+  IsEqual,
+  IsFloat,
+  IsInteger,
+  IsLiteral,
+  IsLowercase,
+  IsNegative,
+  IsNever,
+  IsNull,
+  IsNullable,
+  IsNumericLiteral,
+  IsOptional,
+  IsOptionalKeyOf,
+  IsReadonlyKeyOf,
+  IsRequiredKeyOf,
+  IsStringLiteral,
+  IsSymbolLiteral,
+  IsTuple,
+  IsTupleOptions,
+  IsUndefined,
+  IsUnion,
+  IsUnknown,
+  IsUppercase,
+  IsWritableKeyOf,
+  IterableElement,
+  Join,
+  JsonArray,
+  Jsonifiable,
+  Jsonify,
+  JsonObject,
+  JsonPrimitive,
+  JsonValue,
+  KebabCase,
+  KebabCasedProperties,
+  KebabCasedPropertiesDeep,
+  KeyAsString,
+  KeysOfUnion,
+  LastArrayElement,
+  LessThan,
+  LessThanOrEqual,
+  LiteralToPrimitive,
+  LiteralToPrimitiveDeep,
+  LiteralUnion,
+  LowercaseLetter,
+  Merge,
+  MergeDeep,
+  MergeDeepOptions,
+  MergeExclusive,
+  MultidimensionalArray,
+  MultidimensionalReadonlyArray,
+  Negative,
+  NegativeFloat,
+  NegativeInfinity,
+  NegativeInteger,
+  NonEmptyObject,
+  NonEmptyString,
+  NonEmptyTuple,
+  NonNegative,
+  NonNegativeInteger,
+  OmitDeep,
+  OmitIndexSignature,
+  Opaque,
+  OptionalKeysOf,
+  Or,
+  OverrideProperties,
+  PackageJson,
+  PartialDeep,
+  PartialDeepOptions,
+  PartialOnUndefinedDeep,
+  PartialOnUndefinedDeepOptions,
+  PascalCase,
+  PascalCasedProperties,
+  PascalCasedPropertiesDeep,
+  Paths,
+  PathsOptions,
+  PickDeep,
+  PickIndexSignature,
+  PositiveInfinity,
+  Primitive,
+  Promisable,
+  ReadonlyDeep,
+  ReadonlyKeysOf,
+  ReadonlyTuple,
+  RemovePrefix,
+  RemovePrefixOptions,
+  Replace,
+  ReplaceOptions,
+  RequireAllOrNone,
+  RequireAtLeastOne,
+  RequiredDeep,
+  RequiredKeysOf,
+  RequireExactlyOne,
+  RequireOneOrNone,
+  Schema,
+  SchemaOptions,
+  ScreamingSnakeCase,
+  SetFieldType,
+  SetFieldTypeOptions,
+  SetNonNullable,
+  SetNonNullableDeep,
+  SetOptional,
+  SetParameterType,
+  SetReadonly,
+  SetRequired,
+  SetRequiredDeep,
+  SetReturnType,
+  SharedUnionFields,
+  SharedUnionFieldsDeep,
+  SharedUnionFieldsDeepOptions,
+  Simplify,
+  SimplifyDeep,
+  SingleKeyObject,
+  SnakeCase,
+  SnakeCasedProperties,
+  SnakeCasedPropertiesDeep,
+  Split,
+  SplitOnRestElement,
+  SplitOptions,
+  Spread,
+  Stringified,
+  StringRepeat,
+  StringSlice,
+  StructuredCloneable,
+  Subtract,
+  Sum,
+  Tagged,
+  TaggedUnion,
+  Trim,
+  TsConfigJson,
+  TupleOf,
+  TupleToObject,
+  TupleToUnion,
+  TypedArray,
+  UndefinedOnPartialDeep,
+  UnionToIntersection,
+  UnionToTuple,
+  UnknownArray,
+  UnknownMap,
+  UnknownRecord,
+  UnknownSet,
+  UnwrapOpaque,
+  UnwrapTagged,
+  UppercaseLetter,
+  ValueOf,
+  Words,
+  WordsOptions,
+  Writable,
+  WritableDeep,
+  WritableKeysOf,
+  Xor,
+} from "type-fest";
+export { type AccentsSet, accentsSets } from "./accentsSets";
 export { addOrReplaceAtIdx } from "./addOrReplaceAtIdx";
 export { areEqual } from "./areEqual";
 export { arrayFilterFalsy } from "./arrayFilterFalsy";
 export { arrayFindLastIndex } from "./arrayFindLastIndex";
-export { arrayOfAll, type ArrayOfAll } from "./arrayOfAll";
+export { type ArrayOfAll, arrayOfAll } from "./arrayOfAll";
 export { arraySum } from "./arraySum";
 export { arrayToLookup } from "./arrayToLookup";
 export { arrayUniqueByProperties } from "./arrayUniqueByProperties";
@@ -22,7 +253,7 @@ export { changeCaseTrain } from "./changeCaseTrain";
 export { chunkByChunks } from "./chunkByChunks";
 export { chunkBySize } from "./chunkBySize";
 export { clamp } from "./clamp";
-export { clsx, type ClsxClassValue } from "./clsx";
+export { type ClsxClassValue, clsx } from "./clsx";
 export { convertRange } from "./convertRange";
 export {
   type CookieAttributesClient,
@@ -30,15 +261,15 @@ export {
 } from "./cookie";
 export { createConsole } from "./createConsole";
 export { createPalette } from "./createPalette";
-export { debounce } from "./debounce";
-export { debounceRaf } from "./debounceRaf";
-export {
-  debouncePromise,
-  type DebounceOptions,
-  type DebouncedFunction,
-} from "./debouncePromise";
-export { decode } from "./decode";
 export { Defer, type Deferred } from "./Defer";
+export { debounce } from "./debounce";
+export {
+  type DebouncedFunction,
+  type DebounceOptions,
+  debouncePromise,
+} from "./debouncePromise";
+export { debounceRaf } from "./debounceRaf";
+export { decode } from "./decode";
 export { Emitter } from "./Emitter";
 export { encode } from "./encode";
 export { ensureInt } from "./ensureInt";
@@ -60,12 +291,12 @@ export { getParamAmong } from "./getParamAmong";
 export { getParamAsInt } from "./getParamAsInt";
 export { getParamAsString } from "./getParamAsString";
 export {
-  type AnyClass,
   type AnyAsyncFunction,
+  type AnyClass,
   type AnyFunction,
+  getType,
   type PlainObject,
   type TypeGuard,
-  getType,
 } from "./getType";
 export { getUrlHashParams } from "./getUrlHashParams";
 export { getUrlHashPathname } from "./getUrlHashPathname";
@@ -97,8 +328,8 @@ export { isInt } from "./isInt";
 export { isMap } from "./isMap";
 export { isNaNValue } from "./isNaNValue";
 export { isNegativeNumber } from "./isNegativeNumber";
-export { isNullOrUndefined } from "./isNullOrUndefined";
 export { isNull } from "./isNull";
+export { isNullOrUndefined } from "./isNullOrUndefined";
 export { isNumber } from "./isNumber";
 export { isNumericLiteral } from "./isNumericLiteral";
 export { isObject } from "./isObject";
@@ -128,23 +359,23 @@ export { mbToBytes } from "./mbToBytes";
 export { mergeUrlQueryParams } from "./mergeUrlQueryParams";
 export { moveSortableArrayItemByKey } from "./moveSortableArrayItemByKey";
 export { noop } from "./noop";
-export { normaliseUrlPathname } from "./normaliseUrlPathname";
 export { normaliseUrl } from "./normaliseUrl";
+export { normaliseUrlPathname } from "./normaliseUrlPathname";
 export { objectEntries } from "./objectEntries";
 export { objectFlat } from "./objectFlat";
 export { objectFlip } from "./objectFlip";
 export { objectKeys } from "./objectKeys";
 export { objectKeysMap } from "./objectKeysMap";
-export { objectPick } from "./objectPick";
 export { objectMerge } from "./objectMerge";
 export { objectMergeArrayFn } from "./objectMergeArrayFn";
-export { objectMergeCreate, type ObjectMerge } from "./objectMergeCreate";
+export { type ObjectMerge, objectMergeCreate } from "./objectMergeCreate";
 export { objectMergeFn } from "./objectMergeFn";
 export {
-  objectMergeWithDefaults,
   type ObjectMergeWithDefaults,
+  objectMergeWithDefaults,
 } from "./objectMergeWithDefaults";
 export { objectOmit } from "./objectOmit";
+export { objectPick } from "./objectPick";
 export { objectSort } from "./objectSort";
 export { objectSortByKeysMatching } from "./objectSortByKeysMatching";
 export { objectSwap } from "./objectSwap";
@@ -179,266 +410,33 @@ export { toRgba } from "./toRgba";
 export { transformToUrlPathname } from "./transformToUrlPathname";
 export { truncate } from "./truncate";
 export { tryUntil } from "./tryUntil";
-export { uid } from "./uid";
-export { updateLinkParams } from "./updateLinkParams";
-export { updateUrlQueryParams } from "./updateUrlQueryParams";
-export { uppercase } from "./uppercase";
-export {
-  urlSearchParamsSerializer,
-  type UrlSearchParamSerializer,
-} from "./urlSearchParamsSerializer";
-export { uuid } from "./uuid";
-export { uuidNumeric } from "./uuidNumeric";
-export { wait } from "./wait";
-
 export type {
-  ExactlyAs,
   AnythingFalsy,
+  ExactlyAs,
   FlatObjectFirstLevel,
+  KeysOfValue,
   KeysStartsWith,
   KeysTailsStartsWith,
-  KeysOfValue,
   NonNullableObjectDeep,
   NullableObjectDeep,
   OmitNever,
+  OverloadsToTuple,
   PickStartsWith,
   PickStartsWithTails,
   RequiredNonNullableObjectDeep,
   RequiredObjectDeep,
   Reverse,
-  TestType,
   TestIsEqualUnion,
-  OverloadsToTuple,
+  TestType,
 } from "./types";
-
-// type-fest start
-/**
- * @borrows type-fest@v5.1.0
- *
- * These types should not be documented by using [`excludeExternals` TypeDoc flag](https://typedoc.org/options/input/#excludeexternals)
- */
-export type {
-  Primitive,
-  TypedArray,
-  Class,
-  Constructor,
-  AbstractClass,
-  AbstractConstructor,
-  JsonObject,
-  JsonArray,
-  JsonPrimitive,
-  JsonValue,
-  UppercaseLetter,
-  LowercaseLetter,
-  DigitCharacter,
-  Alphanumeric,
-  KeysOfUnion,
-  DistributedOmit,
-  DistributedPick,
-  EmptyObject,
-  IsEmptyObject,
-  IfEmptyObject,
-  NonEmptyObject,
-  NonEmptyString,
-  UnknownRecord,
-  UnknownArray,
-  UnknownSet,
-  UnknownMap,
-  Except,
-  ExceptOptions,
-  TaggedUnion,
-  Writable,
-  WritableDeep,
-  Merge,
-  MergeDeep,
-  MergeDeepOptions,
-  MergeExclusive,
-  RequireAtLeastOne,
-  RequireExactlyOne,
-  RequireAllOrNone,
-  RequireOneOrNone,
-  SingleKeyObject,
-  OmitIndexSignature,
-  PickIndexSignature,
-  PartialDeep,
-  PartialDeepOptions,
-  RequiredDeep,
-  PickDeep,
-  OmitDeep,
-  PartialOnUndefinedDeep,
-  PartialOnUndefinedDeepOptions,
-  UndefinedOnPartialDeep,
-  ReadonlyDeep,
-  LiteralUnion,
-  Promisable,
-  Arrayable,
-  Opaque,
-  UnwrapOpaque,
-  Tagged,
-  GetTagMetadata,
-  UnwrapTagged,
-  InvariantOf,
-  SetOptional,
-  SetReadonly,
-  SetRequired,
-  SetRequiredDeep,
-  SetNonNullable,
-  SetNonNullableDeep,
-  ValueOf,
-  AsyncReturnType,
-  ConditionalExcept,
-  ConditionalKeys,
-  ConditionalPick,
-  ConditionalPickDeep,
-  ConditionalPickDeepOptions,
-  UnionToIntersection,
-  Stringified,
-  StringSlice,
-  FixedLengthArray,
-  MultidimensionalArray,
-  MultidimensionalReadonlyArray,
-  IterableElement,
-  Entry,
-  Entries,
-  SetReturnType,
-  SetParameterType,
-  Asyncify,
-  Simplify,
-  SimplifyDeep,
-  Jsonify,
-  Jsonifiable,
-  StructuredCloneable,
-  Schema,
-  SchemaOptions,
-  LiteralToPrimitive,
-  LiteralToPrimitiveDeep,
-  PositiveInfinity,
-  NegativeInfinity,
-  Finite,
-  Integer,
-  Float,
-  NegativeFloat,
-  Negative,
-  NonNegative,
-  NegativeInteger,
-  NonNegativeInteger,
-  IsNegative,
-  GreaterThan,
-  GreaterThanOrEqual,
-  LessThan,
-  LessThanOrEqual,
-  Sum,
-  Subtract,
-  KeyAsString,
-  Exact,
-  ReadonlyTuple,
-  OverrideProperties,
-  OptionalKeysOf,
-  IsOptionalKeyOf,
-  HasOptionalKeys,
-  RequiredKeysOf,
-  IsRequiredKeyOf,
-  HasRequiredKeys,
-  ReadonlyKeysOf,
-  IsReadonlyKeyOf,
-  HasReadonlyKeys,
-  WritableKeysOf,
-  IsWritableKeyOf,
-  HasWritableKeys,
-  Spread,
-  SplitOnRestElement,
-  ExtractRestElement,
-  ExcludeRestElement,
-  IsInteger,
-  IsFloat,
-  TupleToObject,
-  TupleToUnion,
-  UnionToTuple,
-  IntRange,
-  IntClosedRange,
-  IsEqual,
-  IsLiteral,
-  IsStringLiteral,
-  IsNumericLiteral,
-  IsBooleanLiteral,
-  IsSymbolLiteral,
-  IsAny,
-  IfAny,
-  IsNever,
-  IfNever,
-  IsUnknown,
-  IfUnknown,
-  IsTuple,
-  IsTupleOptions,
-  ArrayIndices,
-  ArrayValues,
-  ArraySlice,
-  ArraySplice,
-  ArrayTail,
-  SetFieldType,
-  SetFieldTypeOptions,
-  Paths,
-  PathsOptions,
-  AllUnionFields,
-  SharedUnionFields,
-  SharedUnionFieldsDeep,
-  SharedUnionFieldsDeepOptions,
-  IsNull,
-  IfNull,
-  IsUndefined,
-  And,
-  Or,
-  Xor,
-  AllExtend,
-  AllExtendOptions,
-  NonEmptyTuple,
-  FindGlobalInstanceType,
-  FindGlobalType,
-  If,
-  IsUnion,
-  IsLowercase,
-  IsUppercase,
-  IsOptional,
-  IsNullable,
-  TupleOf,
-  CamelCase,
-  CamelCaseOptions,
-  CamelCasedProperties,
-  CamelCasedPropertiesDeep,
-  KebabCase,
-  KebabCasedProperties,
-  KebabCasedPropertiesDeep,
-  PascalCase,
-  PascalCasedProperties,
-  PascalCasedPropertiesDeep,
-  SnakeCase,
-  SnakeCasedProperties,
-  SnakeCasedPropertiesDeep,
-  ScreamingSnakeCase,
-  DelimiterCase,
-  DelimiterCasedProperties,
-  DelimiterCasedPropertiesDeep,
-  Join,
-  Split,
-  SplitOptions,
-  Words,
-  WordsOptions,
-  Trim,
-  Replace,
-  ReplaceOptions,
-  StringRepeat,
-  Includes,
-  Get,
-  GetOptions,
-  LastArrayElement,
-  ConditionalSimplify,
-  ConditionalSimplifyDeep,
-  RemovePrefix,
-  RemovePrefixOptions,
-  GlobalThis,
-  PackageJson,
-  TsConfigJson,
-  ExtendsStrict,
-  ExtractStrict,
-  ExcludeStrict
-} from "type-fest";
+export { uid } from "./uid";
+export { updateLinkParams } from "./updateLinkParams";
+export { updateUrlQueryParams } from "./updateUrlQueryParams";
+export { uppercase } from "./uppercase";
+export {
+  type UrlSearchParamSerializer,
+  urlSearchParamsSerializer,
+} from "./urlSearchParamsSerializer";
+export { uuid } from "./uuid";
+export { uuidNumeric } from "./uuidNumeric";
+export { wait } from "./wait";

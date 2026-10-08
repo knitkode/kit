@@ -1,7 +1,7 @@
-import type { KoineComponent, KoineComponentProps } from "../types";
+import type { KitComponent, KitComponentProps } from "../types";
 import type { CalendarsMap } from "./types";
 
-export type KoineCalendarLegendProps = {
+export type KitCalendarLegendProps = {
   toggleCalendarVisibility: (id: string) => void;
   calendarsMap: CalendarsMap;
 };
@@ -12,17 +12,17 @@ export type CalendarLegendItemProps = React.ComponentPropsWithoutRef<"div"> & {
   disabled: boolean;
 };
 
-export type CalendarLegendProps = KoineComponentProps<
-  KoineCalendarLegendProps,
+export type CalendarLegendProps = KitComponentProps<
+  KitCalendarLegendProps,
   {
-    LegendItem?: KoineComponent<CalendarLegendItemProps>;
-    LegendItemStatus?: KoineComponent;
-    LegendItemLabel?: KoineComponent;
-    LegendItemEvents?: KoineComponent;
+    LegendItem?: KitComponent<CalendarLegendItemProps>;
+    LegendItemStatus?: KitComponent;
+    LegendItemLabel?: KitComponent;
+    LegendItemEvents?: KitComponent;
   }
 >;
 
-export let KoineCalendarLegend = ({
+export let KitCalendarLegend = ({
   calendarsMap = {},
   toggleCalendarVisibility,
   LegendItem = "div",

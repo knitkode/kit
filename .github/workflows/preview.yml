@@ -1,0 +1,53 @@
+# Installable preview builds of every pull request and `main` commit via
+# https://pkg.pr.new (nothing is published to npm). Requires the pkg.pr.new
+# GitHub App to be installed on the repository.
+name: Preview
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUSKY: 0
+
+jobs:
+  preview:
+    name: Publish preview packages
+    if: github.repository == 'knitkode/kit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish previews
+        run: >
+          pnpm exec pkg-pr-new publish --pnpm --packageManager=pnpm,npm
+          ./packages/api ./packages/browser ./packages/dom
+          ./packages/node ./packages/react ./packages/utils

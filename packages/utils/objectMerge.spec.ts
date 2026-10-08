@@ -1,5 +1,4 @@
-import { expectTypeOf } from "expect-type";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import * as starImport from "./fixtures";
 import isArray from "./isArray";
 import { objectMerge } from "./objectMerge";
@@ -178,6 +177,7 @@ describe("objectMerge", () => {
         (obj as any)[key] += val;
         return true;
       }
+      return false;
     });
     expect(ext({ cost: 15 }, { cost: 10 })).toEqual({ cost: 25 });
   });
@@ -231,6 +231,7 @@ describe("objectMerge", () => {
         obj[key] = namespace + ":" + [...val, ...obj[key]].sort().join(",");
         return true;
       }
+      return false;
     });
 
     const obj1 = { modules: ["A"], foo: { bar: { modules: ["X"] } } };

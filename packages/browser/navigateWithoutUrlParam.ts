@@ -1,4 +1,4 @@
-import { type AnyQueryParams, getUrlQueryParams } from "@koine/utils";
+import { type AnyQueryParams, getUrlQueryParams } from "@knitkode/utils";
 import { navigateToParams } from "./navigateToParams";
 
 /**

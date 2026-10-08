@@ -2,7 +2,7 @@ import {
   type AnyQueryParams,
   getUrlHashParams,
   mergeUrlQueryParams,
-} from "@koine/utils";
+} from "@knitkode/utils";
 import { navigateToHashParams } from "./navigateToHashParams";
 
 /**

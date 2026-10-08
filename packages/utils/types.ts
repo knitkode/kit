@@ -1,4 +1,4 @@
-import type { Replace, Simplify, Exact } from "type-fest";
+import type { Exact, Replace, Simplify } from "type-fest";
 
 // export type AssertTrue<T extends true> = T;
 
@@ -34,7 +34,7 @@ export type TestType<
  *
  * @category type
  * @example
- * 
+ *
  * ```ts
  * type _Test = TestType<TestIsEqualUnion<"a" | "b", "a" | "b" | "c">>;
  * ```
@@ -222,13 +222,13 @@ export type OmitNever<T> = {
 
 export type OverloadsToTuple<T> = OverloadsToTuple5<T>;
 
-// prettier-ignore
+// biome-ignore format: one line per overload arity
 type OverloadsToTuple5<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; (...args: infer P3): infer R3; (...args: infer P4): infer R4; (...args: infer P5): infer R5; } ? [(...args: P1) => R1, (...args: P2) => R2, (...args: P3) => R3, (...args: P4) => R4, (...args: P5) => R5] : OverloadsToTuple4<T>;
-// prettier-ignore
+// biome-ignore format: one line per overload arity
 type OverloadsToTuple4<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; (...args: infer P3): infer R3; (...args: infer P4): infer R4; } ? [(...args: P1) => R1, (...args: P2) => R2, (...args: P3) => R3, (...args: P4) => R4] : OverloadsToTuple3<T>;
-// prettier-ignore
+// biome-ignore format: one line per overload arity
 type OverloadsToTuple3<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; (...args: infer P3): infer R3; } ? [(...args: P1) => R1, (...args: P2) => R2, (...args: P3) => R3] : OverloadsToTuple2<T>;
-// prettier-ignore
+// biome-ignore format: one line per overload arity
 type OverloadsToTuple2<T> = T extends { (...args: infer P1): infer R1; (...args: infer P2): infer R2; } ? [(...args: P1) => R1, (...args: P2) => R2] : OverloadsToTuple1<T>;
-// prettier-ignore
+// biome-ignore format: one line per overload arity
 type OverloadsToTuple1<T> = T extends { (...args: infer P1): infer R1; } ? [(...args: P1) => R1] : never;

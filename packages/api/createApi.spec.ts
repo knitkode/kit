@@ -1,5 +1,9 @@
-import { vitestSetNodeEnv } from "@koine/test/vitest";
+import { vitestSetNodeEnv } from "@knitkode/test/vitest";
 import { createApi } from "./createApi";
+import type { Api } from "./types";
+
+// the processors are generic, the mocks below only need to match at runtime
+type Processors = Required<Api.ClientOptions>;
 
 describe("createApi", () => {
   const apiName = "testApi";
@@ -77,7 +81,7 @@ describe("createApi", () => {
     const processReq = vitest.fn(() => ["modified-url", {}, {}, {}, {}]);
     const api = createApi(apiName, baseUrl, {
       fetchFn: mockFetch,
-      processReq,
+      processReq: processReq as unknown as Processors["processReq"],
     });
     await api.get("test-endpoint");
     expect(processReq).toHaveBeenCalled();
@@ -94,7 +98,7 @@ describe("createApi", () => {
     });
     const api = createApi(apiName, baseUrl, {
       fetchFn: mockFetch,
-      processRes,
+      processRes: processRes as unknown as Processors["processRes"],
     });
     const result = await api.get("test-endpoint");
     expect(processRes).toHaveBeenCalled();
@@ -108,7 +112,7 @@ describe("createApi", () => {
     );
     const api = createApi(apiName, baseUrl, {
       fetchFn: mockFetch,
-      processErr,
+      processErr: processErr as unknown as Processors["processErr"],
     });
     mockFetch.mockRejectedValue(new Error(errorMessage));
     const result = await api.get("test-endpoint");

@@ -11,7 +11,7 @@ export let getVisualBackgroundColor = (elem?: null | Element): string => {
 
   const bg = window.getComputedStyle(elem).backgroundColor;
 
-  if (!bg || (bg === transparent || bg === transparentIE11)) {
+  if (!bg || bg === transparent || bg === transparentIE11) {
     const parent = elem.parentElement;
     if (parent) {
       return getVisualBackgroundColor(parent);

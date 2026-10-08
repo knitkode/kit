@@ -1,4 +1,4 @@
-import { debounce } from "@koine/utils";
+import { debounce } from "@knitkode/utils";
 import { listenScroll } from "./listenScroll";
 
 /**

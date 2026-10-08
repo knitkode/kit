@@ -1,10 +1,9 @@
 import { useState } from "react";
 import {
   type GetMediaQueryWidthResolversBreakpoints,
-  type Split,
   getMediaQueryWidthResolvers,
   isUndefined,
-} from "@koine/utils";
+} from "@knitkode/utils";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 type MediaQueryRule = "min" | "max" | "up" | "down" | "between" | "only";
@@ -43,7 +42,10 @@ export let createUseMediaQueryWidth = <
     const definition = media.substring(
       1,
     ) as _MediaQuerWidthDefExplicit<TBreakpoints>;
-    let [rule, ruleBreakpoint] = definition.split("-") as [MediaQueryRule, string];
+    let [rule, ruleBreakpoint] = definition.split("-") as [
+      MediaQueryRule,
+      string,
+    ];
     // let [rule, ruleBreakpoint] = definition.split("-") as Split<
     //   _MediaQuerWidthDefExplicit<TBreakpoints>,
     //   "-"
@@ -103,7 +105,7 @@ export let createUseMediaQueryWidth = <
 //// ---------------------------------------------------------------------------
 
 // import { useState, useIsomorphicLayoutEffect, useMemo } from "react";
-// import { type Split, isBrowser } from "@koine/utils";
+// import { type Split, isBrowser } from "@knitkode/utils";
 // import { breakpoints as themeBreakpoints } from "@/config/theme/breakpoints";
 // import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect"
 

@@ -1,5 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# node tools/hooks/pre-commit.js && npx --no-install lint-staged
-# npx --no-install lint-staged
+pnpm exec lint-staged

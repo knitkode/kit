@@ -1,4 +1,4 @@
-import { vitestSetNodeEnv } from "@koine/test/vitest";
+import { vitestSetNodeEnv } from "@knitkode/test/vitest";
 import { on } from "./on";
 
 describe("on", () => {
@@ -60,14 +60,16 @@ describe("on", () => {
   });
 
   test("logs a warning when trying to add a listener to a non-existing element in development mode", () => {
-    const consoleSpy = vitest.spyOn(console, "warn").mockImplementation();
+    const consoleSpy = vitest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
     const invalidElement = null;
 
     // @ts-expect-error test wrong implementation
     on(invalidElement, "click", vitest.fn());
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "[@koine/dom:on] unexisting DOM element",
+      "[@knitkode/dom:on] unexisting DOM element",
     );
 
     consoleSpy.mockRestore(); // Clean up the spy

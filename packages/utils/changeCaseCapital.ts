@@ -1,7 +1,7 @@
 import {
-  type Options,
   capitalCaseTransformFactory,
   lowerFactory,
+  type Options,
   splitPrefixSuffix,
   upperFactory,
 } from "./changeCaseHelpers";

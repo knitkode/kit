@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { noop } from "@koine/utils";
+import { noop } from "@knitkode/utils";
 
 /**
  * @borrows [dan abramov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)

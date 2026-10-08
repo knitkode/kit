@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { noop } from "@koine/utils";
-import { listenScroll } from "@koine/dom";
+import { listenScroll } from "@knitkode/dom";
+import { noop } from "@knitkode/utils";
 
 export let useScrollThreshold = (
   threshold?: number,

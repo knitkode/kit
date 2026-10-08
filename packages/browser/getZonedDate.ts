@@ -1,5 +1,5 @@
 import { toZonedTime } from "date-fns-tz";
-import { isBrowser } from "@koine/utils";
+import { isBrowser } from "@knitkode/utils";
 
 /**
  * It returns a `Date` object from a date `string` adjusted on the user timeZone,
@@ -24,7 +24,7 @@ export let getZonedDate = (dateString = "", timeZone?: string) => {
     } catch (e) {
       if (process.env["NODE_ENV"] === "development") {
         console.warn(
-          "[@koine/browser:getZonedDate] failed reading timeZone, error",
+          "[@knitkode/browser:getZonedDate] failed reading timeZone, error",
           e,
         );
       }

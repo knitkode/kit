@@ -2,7 +2,7 @@ import {
   type AnyQueryParams,
   buildUrlQueryString,
   isBrowser,
-} from "@koine/utils";
+} from "@knitkode/utils";
 import { navigateToUrl } from "./navigateToUrl";
 
 /**

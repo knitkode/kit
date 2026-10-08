@@ -18,7 +18,7 @@ export let off = <
 ) => {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
-      console.warn("[@koine/dom:off] unexisting DOM element");
+      console.warn("[@knitkode/dom:off] unexisting DOM element");
     }
   }
   if (el) el.removeEventListener(type, handler as any, options);

@@ -2,7 +2,7 @@ import {
   type AnyQueryParams,
   getUrlQueryParams,
   mergeUrlQueryParams,
-} from "@koine/utils";
+} from "@knitkode/utils";
 import { navigateToParams } from "./navigateToParams";
 
 /**

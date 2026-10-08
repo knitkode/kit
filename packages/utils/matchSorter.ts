@@ -492,15 +492,14 @@ const defaultKeyAttributes = {
 let getKeyAttributes = <ItemType>(key: KeyOption<ItemType>): KeyAttributes =>
   isString(key) ? defaultKeyAttributes : { ...defaultKeyAttributes, ...key };
 
-export { matchSorter, defaultBaseSortFn };
-
 export type {
-  MatchSorterOptions,
+  KeyAttributes,
   KeyAttributesOptions,
   KeyOption,
-  KeyAttributes,
+  MatchSorterOptions,
   RankingInfo,
   ValueGetterKey,
 };
+export { defaultBaseSortFn, matchSorter };
 
 export default matchSorter;

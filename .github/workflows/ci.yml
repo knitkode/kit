@@ -1,222 +1,93 @@
-# The goal is to let this action deploy libs for npm
-# from https://github.com/e-square-io/nx-github-actions/blob/main/.github/workflows/main.yml
-# About th authentication through a Github App
-# see https://dev.to/dtinth/authenticating-as-a-github-app-in-a-github-actions-workflow-27co
 name: CI
 
 on:
+  pull_request:
   push:
     branches:
-      # - main
-      - production
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  # git hooks are for local commits only
+  HUSKY: 0
 
 jobs:
-  setup:
-    name: Setup
-    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, 'chore(release)') }}
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    outputs:
-      hasChanges: ${{ steps.affected.outputs.hasChanges }}
-      matrix: ${{ steps.affected.outputs.matrix }}
+    timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      # FIXME: this should not be needed, @see
-      # https://github.com/bahmutov/npm-install/issues/103#issuecomment-931226602
-      # https://github.com/vercel/next.js/issues/30731#issuecomment-983753570
-      - name: Upgrade NPM
-        run: npm install -g npm
-
-      - name: Cache npm
-        uses: actions/cache@v2
-        with:
-          path: .npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-            ${{ runner.os }}-
-
-      - name: Install Dependencies
-        run: npm ci --cache .npm
-
-      - name: Calculate affected
-        uses: e-square-io/nx-affected-matrix@v2
-        id: affected
-        with:
-          # targets: 'test,build'
-          targets: "build"
-          maxDistribution: "10"
-
-  execute:
-    name: ${{ matrix.target }} (${{ matrix.distribution }})
-    if: ${{ needs.setup.outputs.hasChanges }}
-    needs: [setup]
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJSON(needs.setup.outputs.matrix) }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      # FIXME: this should not be needed, @see
-      # https://github.com/bahmutov/npm-install/issues/103#issuecomment-931226602
-      # https://github.com/vercel/next.js/issues/30731#issuecomment-983753570
-      - name: Upgrade NPM
-        run: npm install -g npm
-
-      - name: Cache npm
-        uses: actions/cache@v2
-        with:
-          path: .npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-
-            ${{ runner.os }}-
-
-      - name: Install Dependencies
-        run: npm ci --cache .npm
-
-      - name: Run semantic-release locally
-        id: release
-        if: ${{ matrix.target == 'build' }}
-        uses: ridedott/release-me-action@master
-        with:
-          release-branches: '["main"]'
-          node-module: true
-          dry-run: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Update package.json version
-        if: ${{ matrix.target == 'build' && steps.release.outputs.released }}
-        run: |
-          for path in ./packages/*; do
-            if [[ -f "$path/package.json" ]]; then
-              (cd $path && npm version --no-git-tag-version ${{ steps.release.outputs.version }})
-            fi
-          done
-
-      - name: Execute target
-        uses: e-square-io/nx-distributed-task@v2
-        id: run
-        with:
-          nxCloud: true
-          target: ${{ matrix.target }}
-          projects: ${{ matrix.projects }}
-
-  # coverage:
-  #   name: Publish coverage
-  #   runs-on: ubuntu-latest
-  #   needs: [setup, execute]
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Download artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: test
-
-  #     - uses: codecov/codecov-action@v1
-  #       with:
-  #         directory: ./coverage/packages/*
-
-  release:
-    name: Release version
-    if: ${{ needs.setup.outputs.hasChanges }}
-    runs-on: ubuntu-latest
-    needs: [setup, execute]
-    outputs:
-      released: ${{ steps.release.outputs.released }}
-      version: ${{ steps.release.outputs.version }}
-      major: ${{ steps.release.outputs.major }}
-      minor: ${{ steps.release.outputs.minor }}
-      patch: ${{ steps.release.outputs.patch }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Check out repo
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
-          fetch-depth: 0
 
-      - name: Obtain GitHub App Installation Access Token
-        id: githubAppAuth
-        run: |
-          TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.GH_APP_CREDENTIALS_TOKEN }})"
-          echo "::add-mask::$TOKEN"
-          echo "::set-output name=token::$TOKEN"
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
 
-      - name: Run semantic-release
-        id: release
-        uses: ridedott/release-me-action@master
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          release-branches: '["main"]'
-          node-module: true
-        env:
-          GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          node-version: 24
+          cache: pnpm
 
-      - name: Update git tags
-        if: ${{ steps.release.outputs.released }}
-        run: |
-          git config --global hub.protocol https
-          git config user.name knitkode
-          git config user.email knitkode@gmail.com
-          git remote set-url origin "https://x-access-token:$GITHUB_TOKEN@github.com/knitkode/koine.git"
-          git remote set-url --push origin "https://x-access-token:$GITHUB_TOKEN@github.com/knitkode/koine.git"
-          git tag -fa v${{ steps.release.outputs.major }} -m "Release v${{ steps.release.outputs.major }}"
-          git tag -fa v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }} -m "Release v${{ steps.release.outputs.major }}.${{ steps.release.outputs.minor }}"
-          git push -f --tags
-        env:
-          GITHUB_TOKEN: ${{ steps.githubAppAuth.outputs.token }}
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-  publish:
-    name: Publish
-    if: ${{ needs.release.outputs.released }}
+      - name: Biome (format, lint, imports)
+        run: pnpm exec biome ci .
+
+      - name: Typecheck tooling
+        run: pnpm exec tsc -p tsconfig.json
+
+  test:
+    name: Build, typecheck, test (Node ${{ matrix.node }})
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        package: ["api", "dom", "react", "next", "utils"]
-    needs: [setup, execute, release]
+        node: [22, 24]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Check out repo
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
-          fetch-depth: 0
 
-      - name: Obtain GitHub App Installation Access Token
-        id: githubAppAuth
-        run: |
-          TOKEN="$(npx obtain-github-app-installation-access-token ci ${{ secrets.GH_APP_CREDENTIALS_TOKEN }})"
-          echo "::add-mask::$TOKEN"
-          echo "::set-output name=token::$TOKEN"
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v6
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          name: build
+          node-version: ${{ matrix.node }}
+          cache: pnpm
 
-      - name: Publish lib @koine/${{ matrix.package }}
-        if: ${{ contains(needs.setup.outputs.matrix, matrix.package) }}
-        uses: JS-DevTools/npm-publish@v1
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # tsdown also runs publint and arethetypeswrong on every package
+      - name: Build and typecheck
+        run: pnpm exec turbo run build typecheck
+
+      # tsdown regenerates each package's `exports`: a diff means a new or
+      # removed entry point was not committed
+      - name: Check package exports are up to date
+        run: git diff --exit-code -- 'packages/*/package.json'
+
+      - name: Test
+        run: pnpm exec turbo run test -- --coverage
+
+      - name: Upload coverage
+        if: matrix.node == 24
+        uses: actions/upload-artifact@v7
         with:
-          package: ./dist/${{ matrix.package }}/package.json
-          access: public
-          token: ${{ secrets.NPM_TOKEN }}
+          name: coverage
+          path: packages/*/coverage
+          if-no-files-found: ignore

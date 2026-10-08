@@ -1,6 +1,6 @@
 import {
-  type EventCallback,
   activeEvents,
+  type EventCallback,
   eventHandler,
   getIndex,
 } from "./_listen-delegation";

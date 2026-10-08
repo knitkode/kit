@@ -1,6 +1,13 @@
 {
-  "name": "@koine/test",
-  "sideEffects": false,
+  "name": "@knitkode/test",
+  "version": "0.0.0",
   "private": true,
-  "dependencies": {}
+  "description": "Internal test helpers shared by the @knitkode/* packages (never published).",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./index.ts",
+    "./jest": "./jest.ts",
+    "./vitest": "./vitest.ts"
+  }
 }

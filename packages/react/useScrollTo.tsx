@@ -1,4 +1,4 @@
-import { isBrowser } from "@koine/utils";
+import { isBrowser } from "@knitkode/utils";
 
 // import useHeader from "./Header/useHeader";
 

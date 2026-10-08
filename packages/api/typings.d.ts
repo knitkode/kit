@@ -1,13 +1,13 @@
-declare namespace Koine.Api {
-  type Endpoints = import("./types").Api.Endpoints;
+declare namespace Kit.Api {
+  type Endpoints = import("./types.js").Api.Endpoints;
   type GenerateGetShortcuts<E extends Endpoints> =
-    import("./types").Api.Generate.GetShortcuts<E>;
+    import("./types.js").Api.Generate.GetShortcuts<E>;
   type GeneratePostShortcuts<E extends Endpoints> =
-    import("./types").Api.Generate.PostShortcuts<E>;
+    import("./types.js").Api.Generate.PostShortcuts<E>;
   type GenerateRequestShortcuts<E extends Endpoints> =
-    import("./types").Api.Generate.RequestShortcuts<E>;
+    import("./types.js").Api.Generate.RequestShortcuts<E>;
   type GenerateResponseShortcuts<E extends Endpoints> =
-    import("./types").Api.Generate.ResponseShortcuts<E>;
+    import("./types.js").Api.Generate.ResponseShortcuts<E>;
   type GenerateResultShortcuts<E extends Endpoints> =
-    import("./types").Api.Generate.ResultShortcuts<E>;
+    import("./types.js").Api.Generate.ResultShortcuts<E>;
 }

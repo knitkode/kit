@@ -10,7 +10,7 @@ describe("listenUrlSearch", () => {
 
 // declare const history: HistoryExtended;
 // // Mocking the external dependencies
-// vitest.mock('@koine/utils', () => ({
+// vitest.mock('@knitkode/utils', () => ({
 //   isBrowser: true, // or false depending on what you want to test
 // }));
 

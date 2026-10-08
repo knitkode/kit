@@ -1,4 +1,7 @@
 packages:
-  # disabled
-  # - "packages/*"
-  - "packages/i18n/actions"
+  - "packages/*"
+
+ignoredBuiltDependencies:
+  - "@parcel/watcher"
+  - esbuild
+  - sharp

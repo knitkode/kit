@@ -1,5 +1,5 @@
 import { type ObjectShape, object } from "@kuus/yup";
-import { decode, encode, isUndefined } from "@koine/utils";
+import { decode, encode, isUndefined } from "@knitkode/utils";
 
 /**
  * Encode form

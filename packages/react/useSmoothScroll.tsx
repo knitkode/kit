@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { isNumber } from "@koine/utils";
-import { getOffsetTopSlim, scrollTo } from "@koine/dom";
+import { getOffsetTopSlim, scrollTo } from "@knitkode/dom";
+import { isNumber } from "@knitkode/utils";
 import { useFixedOffset } from "./useFixedOffset";
 
 /**

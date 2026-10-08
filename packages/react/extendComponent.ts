@@ -1,4 +1,4 @@
-import { type JSX, createElement } from "react";
+import { createElement, type JSX } from "react";
 
 export type ExtendableComponent<Props = any> =
   | React.ForwardRefExoticComponent<Props>

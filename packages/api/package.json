@@ -1,25 +1,55 @@
 {
-  "name": "@koine/api",
+  "name": "@knitkode/api",
+  "version": "2.0.0",
+  "description": "Type-safe API client factory with optional SWR hooks and Next.js API response helpers.",
+  "keywords": [
+    "knitkode",
+    "api",
+    "fetch",
+    "client",
+    "swr",
+    "nextjs",
+    "typescript"
+  ],
+  "homepage": "https://github.com/knitkode/kit/tree/main/packages/api#readme",
+  "bugs": {
+    "url": "https://github.com/knitkode/kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knitkode/kit.git",
+    "directory": "packages/api"
+  },
+  "license": "MIT",
+  "author": "KnitKode",
   "sideEffects": false,
+  "type": "module",
   "exports": {
+    ".": "./dist/index.js",
+    "./ApiError": "./dist/ApiError.js",
+    "./createApi": "./dist/createApi.js",
+    "./createApiResultFail": "./dist/createApiResultFail.js",
+    "./createApiResultOk": "./dist/createApiResultOk.js",
+    "./next": "./dist/next.js",
+    "./swr": "./dist/swr.js",
+    "./swr-mutation": "./dist/swr-mutation.js",
+    "./types": "./dist/types.js",
+    "./package.json": "./package.json",
     "./typings": {
-      "types": "./typings.d.ts"
-    },
-    "./swr/createSwrApi": {
-      "module": "./swr/createSwrApi.esm.js",
-      "types": "./swr/createSwrApi.d.ts",
-      "import": "./swr/createSwrApi.esm.js",
-      "default": "./swr/createSwrApi.cjs.js"
-    },
-    "./swr-mutation/createSwrApi": {
-      "module": "./swr-mutation/createSwrMutationApi.esm.js",
-      "types": "./swr-mutation/createSwrMutationApi.d.ts",
-      "import": "./swr-mutation/createSwrMutationApi.esm.js",
-      "default": "./swr-mutation/createSwrMutationApi.cjs.js"
+      "types": "./dist/typings.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@koine/utils": "*"
+    "@knitkode/utils": "workspace:^"
   },
   "peerDependencies": {
     "next": "^13 || ^14 || ^15 || ^16",
@@ -32,5 +62,15 @@
     "swr": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@knitkode/test": "workspace:*",
+    "next": "^16.0.10",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "swr": "^2.3.3"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

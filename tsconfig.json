@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  "include": ["tools/**/*.ts", "vitest.shared.ts", "packages/*/*.config.ts"],
+  "compilerOptions": {
+    "allowImportingTsExtensions": true
+  }
+}

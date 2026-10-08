@@ -1,56 +1,57 @@
-# Koine
+# kit
 
-This project was generated using [Nx](https://nx.dev).
+[![CI](https://github.com/knitkode/kit/actions/workflows/ci.yml/badge.svg)](https://github.com/knitkode/kit/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+
+Opinionated, tree-shakeable TypeScript libraries for building web apps fast, published under the [`@knitkode`](https://www.npmjs.com/org/knitkode) npm scope.
+
+| Package                                  | Version                                                                                                    | Description                                                                         |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [`@knitkode/utils`](./packages/utils)     | [![npm](https://img.shields.io/npm/v/@knitkode/utils)](https://www.npmjs.com/package/@knitkode/utils)       | Type guards, object and array helpers, case conversion, URL and cookie helpers      |
+| [`@knitkode/dom`](./packages/dom)         | [![npm](https://img.shields.io/npm/v/@knitkode/dom)](https://www.npmjs.com/package/@knitkode/dom)           | Selectors, event delegation, scroll and resize listeners, measurements              |
+| [`@knitkode/browser`](./packages/browser) | [![npm](https://img.shields.io/npm/v/@knitkode/browser)](https://www.npmjs.com/package/@knitkode/browser)   | URL search and hash navigation, storage clients, gtag, device detection             |
+| [`@knitkode/react`](./packages/react)     | [![npm](https://img.shields.io/npm/v/@knitkode/react)](https://www.npmjs.com/package/@knitkode/react)       | Hooks and components, a headless calendar and form antispam                         |
+| [`@knitkode/api`](./packages/api)         | [![npm](https://img.shields.io/npm/v/@knitkode/api)](https://www.npmjs.com/package/@knitkode/api)           | Type-safe API client with optional SWR hooks and Next.js helpers                    |
+| [`@knitkode/node`](./packages/node)       | [![npm](https://img.shields.io/npm/v/@knitkode/node)](https://www.npmjs.com/package/@knitkode/node)         | File system helpers, dependency version lookup, SWC transforms                      |
 
 ## Getting started
 
+Install only the packages you need:
+
 ```bash
-npm i @koine/next
-# or
-npm i @koine/react
-# or
-npm i @koine/utils
-# or
-npm i @koine/api
-# or
-npm i @koine/browser
-# or
-npm i @koine/dom
-# or
-npm i @koine/i18n
+pnpm add @knitkode/utils
+# or: npm install @knitkode/utils
 ```
 
-## Dev notes
+Import from the package root, or from a module subpath to load just that module:
 
-To publish from local machine with npm CLI first create a granular token which skips 2FA at [npmjs.com/settings/{username}/tokens/](https://www.npmjs.com/settings/kuus/tokens/) and set it on your machine with: `npm config set //registry.npmjs.org/:_authToken="YOUR_TOKEN_HERE"`
+```ts
+import { debounce, slugify } from "@knitkode/utils";
+import { isFullString } from "@knitkode/utils/isFullString";
+```
 
-## Github actions
+Every package lists its entry points in its own README.
 
-- See this [discussion](https://github.com/orgs/community/discussions/24990) and the [`CodeQL` action repo](https://github.com/github/codeql-action) regarding the ability to publish multiple actions from the same monorepo.
+### Requirements
 
-## Nxplugins used
+- **ES modules only.** Bundlers need no configuration. Node.js can `import` the packages, and `require()` them from 20.19 / 22.12.
+- **TypeScript** (types are included): use `"moduleResolution": "bundler"`, `"node16"` or `"nodenext"`.
+- `@knitkode/node` requires Node.js 22 or later.
 
-- [@jscutlery/semver](https://github.com/jscutlery/semver)
+## Versioning and releases
 
-### Folder organization
+All `@knitkode/*` packages share one version number and follow [semantic versioning](https://semver.org): `@knitkode/react@3.2.0` is meant to be used with `@knitkode/utils@3.2.0`. Every package has its own `CHANGELOG.md`, and each release is listed on the [GitHub releases page](https://github.com/knitkode/kit/releases). Releases are published from CI with [npm provenance](https://docs.npmjs.com/generating-provenance-statements).
 
-Deep import paths considered as public and safe always need a folder with an `index.ts` file (see e.g. the [`@koine/next/app` folder](./packages/next/app/)). Once bundled these folders will contain an automatically generated `package.json` file that will help bundlers getting the right `cjs`/`esm` version of the file and correctly applying tree shaking.
+Each pull request also gets installable preview builds from [pkg.pr.new](https://pkg.pr.new), linked in a PR comment.
 
-> Most problems solved by this structure emerged in the `@koine/next` package when using the `app` and `document` wrapper. Without this structure [next.js](https://nextjs.org/) was not compiling the files correctly. Same for all components, the best _tree-shaked_ output is obtained with the `esm` as in the current folder organization, inspired by [`@mui` packages](https://github.com/mui/material-ui) build output.
+## Upgrading from `@koine/*`
 
-### Logging
+These packages were published as `@koine/*` up to `2.0.0-beta.217`. Internationalization has moved to the separate Koine project. See the [migration guide](./docs/migrating-to-v3.md).
 
-Use `console.log` only for internal development, all other _public_ logging should use either `console.info`, `console.warn` or `console.error`. Their messages should always follow this syntax `[@koine/{package}:{function}] some details`. Most of the time these logging should be wrapped in an `if` condition to be eliminated in production code (`if (process.env["NODE_ENV"] === "development") { ... }`).
+## Contributing
 
-### React components structure
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the development setup and [RELEASING.md](./RELEASING.md) for how releases work.
 
-- About the react component object dot notation (e.g. `Dialog.Root`) see [@headless-ui technique](https://github.com/tailwindlabs/headlessui/blob/main/packages/%40headlessui-react/src/components/dialog/dialog.tsx#L550)
+## License
 
-- About storybook having problmes to generate docs from props @see:
-  - https://github.com/storybookjs/storybook/issues/5073
-  - https://github.com/storybookjs/storybook/issues/12292
-
-### Optimization
-
-- TODO: check wether deep default imports from `react-use` affect tree shaking
-- TODO: look whether adding functions from [ts-is-present](https://github.com/robertmassaioli/ts-is-present) lib to `@koine/utils`
+[MIT](./LICENSE) © Alessandro Sansottera (KnitKode)

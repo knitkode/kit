@@ -1,4 +1,3 @@
-
 import { isInViewport } from "./isInViewport";
 
 describe("isInViewport", () => {

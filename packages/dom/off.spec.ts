@@ -1,4 +1,4 @@
-import { vitestSetNodeEnv } from "@koine/test/vitest";
+import { vitestSetNodeEnv } from "@knitkode/test/vitest";
 import { off } from "./off";
 
 describe("off", () => {
@@ -50,14 +50,16 @@ describe("off", () => {
   });
 
   test("logs a warning when trying to remove a listener from a non-existing element in development mode", () => {
-    const consoleSpy = vitest.spyOn(console, "warn").mockImplementation();
+    const consoleSpy = vitest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
     const invalidElement = null;
 
     // @ts-expect-error test wrong implementation
     off(invalidElement, "click", vitest.fn());
 
     expect(consoleSpy).toHaveBeenCalledWith(
-      "[@koine/dom:off] unexisting DOM element",
+      "[@knitkode/dom:off] unexisting DOM element",
     );
 
     consoleSpy.mockRestore(); // Clean up the spy

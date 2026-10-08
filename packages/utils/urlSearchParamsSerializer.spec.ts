@@ -1,5 +1,5 @@
 import urlSearchParamsSerializer, {
-  UrlSearchParamSerializer,
+  type UrlSearchParamSerializer,
 } from "./urlSearchParamsSerializer";
 
 describe("urlSearchParamsSerializer", () => {

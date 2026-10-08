@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useReducer, useState } from "react";
-import type { KoineCalendarDaygridNavProps } from "./CalendarDaygridNav";
-import type { KoineCalendarDaygridTableProps } from "./CalendarDaygridTable";
-import type { KoineCalendarLegendProps } from "./CalendarLegend";
+import type { KitCalendarDaygridNavProps } from "./CalendarDaygridNav";
+import type { KitCalendarDaygridTableProps } from "./CalendarDaygridTable";
+import type { KitCalendarLegendProps } from "./CalendarLegend";
 import { getCalendarsEventsFromGoogle } from "./calendar-api-google";
 import type {
   CalendarEvent,
   CalendarEventsMap,
   CalendarRange,
-  CalendarView,
   Calendars,
   CalendarsMap,
+  CalendarView,
 } from "./types";
 import {
   getEndDate,
@@ -256,7 +256,7 @@ export let useCalendar = ({
     setEventClicked,
     eventHovered,
     setEventHovered,
-    getDaygridNavProps: (): KoineCalendarDaygridNavProps => ({
+    getDaygridNavProps: (): KitCalendarDaygridNavProps => ({
       locale,
       handlePrev,
       handleNext,
@@ -266,7 +266,7 @@ export let useCalendar = ({
       range,
       view,
     }),
-    getDaygridTableProps: (): KoineCalendarDaygridTableProps => ({
+    getDaygridTableProps: (): KitCalendarDaygridTableProps => ({
       locale,
       events,
       eventClicked,
@@ -279,7 +279,7 @@ export let useCalendar = ({
       range,
       view,
     }),
-    getLegendProps: (): KoineCalendarLegendProps => ({
+    getLegendProps: (): KitCalendarLegendProps => ({
       calendarsMap,
       toggleCalendarVisibility,
     }),

@@ -1,10 +1,10 @@
 import { Fragment, useState } from "react";
-import type { KoineComponent, KoineComponentProps } from "../types";
+import type { KitComponent, KitComponentProps } from "../types";
 import type {
+  CalendarsMap,
   CalendarView,
   CalendarViewDayProps,
   CalendarViewEvent,
-  CalendarsMap,
 } from "./types";
 import type { UseCalendarReturn } from "./useCalendar";
 import { getDisplayTime } from "./utils";
@@ -23,7 +23,7 @@ const IconExpand = (props: React.ComponentPropsWithoutRef<"svg">) => {
   );
 };
 
-export type KoineCalendarDaygridCellProps = {
+export type KitCalendarDaygridCellProps = {
   eventClicked?: UseCalendarReturn["eventClicked"];
   setEventClicked: UseCalendarReturn["setEventClicked"];
   eventHovered?: UseCalendarReturn["eventHovered"];
@@ -55,16 +55,16 @@ export type CalendarDaygridCellEventProps =
 export type CalendarDaygridCellEventBtnProps = CalendarDaygridCellEventProps;
 
 export type CalendarDaygridCellComponents = {
-  Cell?: KoineComponent;
-  CellOverflow?: KoineComponent;
-  CellEvent?: KoineComponent<CalendarDaygridCellEventProps>;
-  CellEventBtn?: KoineComponent<CalendarDaygridCellEventBtnProps>;
-  CellEventTitle?: KoineComponent;
-  CellEventStart?: KoineComponent;
+  Cell?: KitComponent;
+  CellOverflow?: KitComponent;
+  CellEvent?: KitComponent<CalendarDaygridCellEventProps>;
+  CellEventBtn?: KitComponent<CalendarDaygridCellEventBtnProps>;
+  CellEventTitle?: KitComponent;
+  CellEventStart?: KitComponent;
 };
 
-export type CalendarDaygridCellProps = KoineComponentProps<
-  KoineCalendarDaygridCellProps,
+export type CalendarDaygridCellProps = KitComponentProps<
+  KitCalendarDaygridCellProps,
   CalendarDaygridCellComponents
 >;
 

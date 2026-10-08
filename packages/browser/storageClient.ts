@@ -1,4 +1,4 @@
-import { isBrowser, isString } from "@koine/utils";
+import { isBrowser, isString } from "@knitkode/utils";
 
 /**
  * @category storage
@@ -29,7 +29,7 @@ export let storageClient = <
       : () => {
           if (process.env["NODE_ENV"] === "development") {
             console.warn(
-              `[@koine/utils:storageClient]: ${
+              `[@knitkode/utils:storageClient]: ${
                 useSessionStorage ? "sessionStorage" : "localStorage"
               } does not exists outside of browser.`,
             );
@@ -49,7 +49,7 @@ export let storageClient = <
     if (process.env["NODE_ENV"] === "development") {
       if (!isBrowser) {
         console.log(
-          `[@koine/utils:storage] called 'get' outside of browser with default value '${JSON.stringify(
+          `[@knitkode/utils:storage] called 'get' outside of browser with default value '${JSON.stringify(
             defaultValue,
           )}'.`,
         );
@@ -69,7 +69,7 @@ export let storageClient = <
 
           // if (process.env["NODE_ENV"] === "development") {
           //   console.warn(
-          //     `[@koine/utils:storage]: 'get' failed to parse stored value as JSON. Plain '${stored}' value is returned.`
+          //     `[@knitkode/utils:storage]: 'get' failed to parse stored value as JSON. Plain '${stored}' value is returned.`
           //   );
           // }
         }
@@ -89,7 +89,7 @@ export let storageClient = <
     if (process.env["NODE_ENV"] === "development") {
       if (!isBrowser) {
         console.log(
-          `[@koine/utils:storage] called 'set' outside of browser does not work.`,
+          `[@knitkode/utils:storage] called 'set' outside of browser does not work.`,
         );
       }
     }
@@ -103,7 +103,7 @@ export let storageClient = <
         nativeMethod("s", key, transformedValue);
       } catch (_e) {
         if (process.env["NODE_ENV"] === "development") {
-          console.warn(`[@koine/utils:createStorage]: 'set' error.`, _e);
+          console.warn(`[@knitkode/utils:createStorage]: 'set' error.`, _e);
         }
       }
     }
@@ -113,7 +113,7 @@ export let storageClient = <
     if (process.env["NODE_ENV"] === "development") {
       if (!isBrowser) {
         console.log(
-          `[@koine/utils:storage] called 'remove' outside of browser does not work.`,
+          `[@knitkode/utils:storage] called 'remove' outside of browser does not work.`,
         );
       }
     }
@@ -123,7 +123,7 @@ export let storageClient = <
         nativeMethod("r", key);
       } catch (_e) {
         if (process.env["NODE_ENV"] === "development") {
-          console.warn(`[@koine/utils:createStorage]: 'remove' error.`, _e);
+          console.warn(`[@knitkode/utils:createStorage]: 'remove' error.`, _e);
         }
       }
     }
@@ -141,7 +141,7 @@ export let storageClient = <
     if (process.env["NODE_ENV"] === "development") {
       if (!isBrowser) {
         console.log(
-          `[@koine/utils:storage] called 'has' outside of browser with default value '${JSON.stringify(
+          `[@knitkode/utils:storage] called 'has' outside of browser with default value '${JSON.stringify(
             defaultValue,
           )}'.`,
         );

@@ -1,7 +1,7 @@
 import {
-  type PascalCaseOptions,
   capitalCaseTransformFactory,
   lowerFactory,
+  type PascalCaseOptions,
   pascalCaseTransformFactory,
   splitPrefixSuffix,
   upperFactory,

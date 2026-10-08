@@ -84,9 +84,11 @@ export const urlSearchParamsSerializer = <
     /**
      * Serialize state to URL search params
      */
-    toUrl: (data: {
-      [Key in keyof Serializers]?: Serializers[Key][1];
-    }) => {
+    toUrl: (
+      data: {
+        [Key in keyof Serializers]?: Serializers[Key][1];
+      },
+    ) => {
       const out: Record<string, string> = {};
       for (const key in defaults) {
         const [paramKey, defaultValue, , toUrl] = serializers[key];

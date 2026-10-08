@@ -1,4 +1,4 @@
-import type { FlatObjectFirstLevel } from "@koine/utils";
+import type { FlatObjectFirstLevel } from "@knitkode/utils";
 import {
   type SwcTransform,
   type SwcTransformingLib,

@@ -1,4 +1,4 @@
-import { debounce } from "@koine/utils";
+import { debounce } from "@knitkode/utils";
 import { listenResize } from "./listenResize";
 
 /**
@@ -12,7 +12,7 @@ export let listenResizeDebounced = (
 ) => listenResize(debounce(...args), el);
 
 // EXP: with too complex overload signature...
-// import { debounce, isUndefined } from "@koine/utils";
+// import { debounce, isUndefined } from "@knitkode/utils";
 // import { listenResize } from "./listenResize";
 
 // /**

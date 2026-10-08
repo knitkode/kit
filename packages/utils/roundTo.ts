@@ -30,7 +30,7 @@ export let roundTo = (num: number, decimals = 2): string => {
 
   if (process.env["NODE_ENV"] === "development") {
     console.warn(
-      "[@koine/utils] math:roundTo -> given not a finite number as first arg",
+      "[@knitkode/utils] math:roundTo -> given not a finite number as first arg",
     );
   }
   return "";

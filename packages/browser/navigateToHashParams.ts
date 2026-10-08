@@ -2,7 +2,7 @@ import {
   type AnyQueryParams,
   buildUrlQueryString,
   getUrlHashPathname,
-} from "@koine/utils";
+} from "@knitkode/utils";
 
 /**
  * It updates the `location.hash` with the given query params, it uses `location.hash`

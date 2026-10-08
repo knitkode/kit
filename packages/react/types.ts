@@ -1,9 +1,9 @@
 import type { JSX } from "react";
 
-export type KoineComponentProps<BaseComponentProps, ExtendableProps> =
+export type KitComponentProps<BaseComponentProps, ExtendableProps> =
   BaseComponentProps & ExtendableProps;
 
-export type KoineComponent<Props = any> =
+export type KitComponent<Props = any> =
   | string
   | React.ForwardRefExoticComponent<Props>
   | React.ExoticComponent<Props>

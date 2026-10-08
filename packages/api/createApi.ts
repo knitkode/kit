@@ -3,7 +3,7 @@ import {
   buildUrlQueryString,
   errorToString,
   isFullObject,
-} from "@koine/utils";
+} from "@knitkode/utils";
 import type { Api } from "./types";
 
 let apiMethods = [

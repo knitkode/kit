@@ -1,7 +1,7 @@
 /**
  * A simple shortcut for `Object.keys(object).map((key) => ...)` with typed
  * `key/value`.
- * 
+ *
  * @category object
  */
 export let objectKeysMap = <T extends object, TReturn>(

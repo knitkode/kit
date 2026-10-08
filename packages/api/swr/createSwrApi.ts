@@ -5,7 +5,7 @@ import useSWR, {
   type SWRConfiguration,
   type SWRResponse,
 } from "swr";
-import { isFunction } from "@koine/utils";
+import { isFunction } from "@knitkode/utils";
 import { createApi } from "../createApi";
 import type { Api } from "../types";
 

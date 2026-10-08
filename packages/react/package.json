@@ -1,9 +1,75 @@
 {
-  "name": "@koine/react",
+  "name": "@knitkode/react",
+  "version": "2.0.0",
+  "description": "React hooks and components: scroll, resize and measure hooks, polymorphic helpers, a headless calendar and form antispam.",
+  "keywords": [
+    "knitkode",
+    "react",
+    "hooks",
+    "components",
+    "calendar",
+    "typescript"
+  ],
+  "homepage": "https://github.com/knitkode/kit/tree/main/packages/react#readme",
+  "bugs": {
+    "url": "https://github.com/knitkode/kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knitkode/kit.git",
+    "directory": "packages/react"
+  },
+  "license": "MIT",
+  "author": "KnitKode",
   "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./calendar": "./dist/calendar.js",
+    "./classed": "./dist/classed.js",
+    "./createUseMediaQueryWidth": "./dist/createUseMediaQueryWidth.js",
+    "./extendComponent": "./dist/extendComponent.js",
+    "./FaviconTags": "./dist/FaviconTags.js",
+    "./forms": "./dist/forms.js",
+    "./mergeRefs": "./dist/mergeRefs.js",
+    "./Meta": "./dist/Meta.js",
+    "./NoJs": "./dist/NoJs.js",
+    "./Polymorphic": "./dist/Polymorphic.js",
+    "./types": "./dist/types.js",
+    "./useAsyncFn": "./dist/useAsyncFn.js",
+    "./useFirstMountState": "./dist/useFirstMountState.js",
+    "./useFixedOffset": "./dist/useFixedOffset.js",
+    "./useFocus": "./dist/useFocus.js",
+    "./useInterval": "./dist/useInterval.js",
+    "./useIsomorphicLayoutEffect": "./dist/useIsomorphicLayoutEffect.js",
+    "./useKeyUp": "./dist/useKeyUp.js",
+    "./useMeasure": "./dist/useMeasure.js",
+    "./useMountedState": "./dist/useMountedState.js",
+    "./useNavigateAway": "./dist/useNavigateAway.js",
+    "./usePrevious": "./dist/usePrevious.js",
+    "./usePreviousRef": "./dist/usePreviousRef.js",
+    "./useScrollPosition": "./dist/useScrollPosition.js",
+    "./useScrollThreshold": "./dist/useScrollThreshold.js",
+    "./useScrollTo": "./dist/useScrollTo.js",
+    "./useSmoothScroll": "./dist/useSmoothScroll.js",
+    "./useSpinDelay": "./dist/useSpinDelay.js",
+    "./useTraceUpdate": "./dist/useTraceUpdate.js",
+    "./useUpdateEffect": "./dist/useUpdateEffect.js",
+    "./useWindowSize": "./dist/useWindowSize.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
-    "@koine/dom": "*",
-    "@koine/utils": "*"
+    "@knitkode/dom": "workspace:^",
+    "@knitkode/utils": "workspace:^"
   },
   "peerDependencies": {
     "@kuus/yup": "1.0.0-beta.7",
@@ -20,9 +86,18 @@
     },
     "react-swipeable": {
       "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
     }
+  },
+  "devDependencies": {
+    "@kuus/yup": "1.0.0-beta.7",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "date-fns": "^4.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-swipeable": "^7.0.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

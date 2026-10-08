@@ -1,5 +1,1 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-# FIXME: disabled commitlint until https://github.com/alessandrojcm/commitlint-pre-commit-hook/issues/63
-# npx --no-install commitlint --edit $1
+pnpm exec commitlint --edit "$1"

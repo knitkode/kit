@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { isBrowser } from "@koine/utils";
-import { listenScroll } from "@koine/dom";
+import { listenScroll } from "@knitkode/dom";
+import { isBrowser } from "@knitkode/utils";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 type Position = {

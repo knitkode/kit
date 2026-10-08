@@ -1,11 +1,11 @@
 import { useRef } from "react";
-import { debounce } from "@koine/utils";
 import {
   calculateFixedOffset,
   domEach,
   injectCss,
   listenResizeDebounced,
-} from "@koine/dom";
+} from "@knitkode/dom";
+import { debounce } from "@knitkode/utils";
 import { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 
 const inject = (value: number) => {
