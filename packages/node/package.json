@@ -1,6 +1,6 @@
 {
   "name": "@knitkode/node",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Node.js helpers: file system utilities, dependency version lookup and SWC modularize-imports transforms.",
   "keywords": [
     "knitkode",
