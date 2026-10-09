@@ -8,7 +8,8 @@ import { isBrowser } from "./isBrowser";
  *
  */
 export let isExternalUrl = (url: string, currentUrl?: string) => {
-  const reg = /https?:\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i;
+  // the host (without port) of an absolute http(s) URL, `localhost` included
+  const reg = /^https?:\/\/((?:[\w-]+\.)*[\w-]+)(?::\d+)?(?:[/?#]|$)/i;
   const urlMatches = reg.exec(url);
 
   // if no matches are found it means we either have an invalid URL, a relative
@@ -17,9 +18,12 @@ export let isExternalUrl = (url: string, currentUrl?: string) => {
     return false;
   }
 
-  currentUrl = currentUrl || isBrowser ? location.href : "";
+  const base = currentUrl || (isBrowser ? location.href : "");
+  const baseHost = base ? reg.exec(base)?.[1] : undefined;
 
-  return currentUrl ? reg.exec(currentUrl)?.[1] !== urlMatches[1] : true;
+  return baseHost
+    ? baseHost.toLowerCase() !== urlMatches[1].toLowerCase()
+    : true;
 };
 
 export default isExternalUrl;

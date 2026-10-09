@@ -78,14 +78,14 @@ export let createApi = <TEndpoints extends Api.Endpoints>(
         } = options || {};
         let { params, json, query } = options || {};
 
-        let url = `${baseUrl}/${endpoint + "".replace(/^\/*/, "")}`;
+        let url = `${baseUrl.replace(/\/+$/, "")}/${endpoint.replace(/^\/+/, "")}`;
         let requestInit: RequestInit = {
           method: method.toUpperCase(),
           ...request,
           headers: {
             "content-type": "application/json",
-            ...headers,
             ...headersBase,
+            ...headers,
           },
         };
 

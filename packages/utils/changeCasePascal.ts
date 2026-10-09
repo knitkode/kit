@@ -8,7 +8,7 @@ import {
 } from "./changeCaseHelpers";
 
 /**
- * Convert a string to camel case (`FooBar`).
+ * Convert a string to pascal case (`FooBar`).
  *
  * @category text
  * @category case

@@ -14,7 +14,7 @@ import { removeAccents } from "./removeAccents";
 export let slugify = (text: string, separator = "-") =>
   removeAccents(
     text.toString().toLowerCase().trim(),
-    accentsSets.concat([["-", "[·/_,:;']"]]),
+    accentsSets.concat([["-", "·/_,:;'"]]),
   )
     // it used to be:
     // .replace(/[^\w-]+/g, "") // remove all non-word chars

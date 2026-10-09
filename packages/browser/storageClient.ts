@@ -59,11 +59,11 @@ export let storageClient = <
     if (isBrowser) {
       let stored = nativeMethod("g", key);
 
-      if (stored) {
+      // `getItem` gives `null` for missing keys, an empty string is a value
+      if (stored !== null) {
         stored = transform ? transform(stored) : stored;
         try {
-          const parsed = JSON.parse(stored);
-          if (parsed) value = parsed;
+          value = JSON.parse(stored);
         } catch (_e) {
           value = stored;
 

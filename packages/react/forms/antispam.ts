@@ -34,6 +34,11 @@ export let encodeForm = <T extends ObjectShape = ObjectShape>(
 };
 
 /**
+ * Whether the name is made of `encode`d characters only
+ */
+const isEncodedName = (name: string) => /^(?:\d{3}|u\d{7})+$/.test(name);
+
+/**
  * Decode form data
  *
  * This function is meant to be used inside an api endpoint to gather an encoded
@@ -51,19 +56,20 @@ export let decodeForm = <
   const json = {};
 
   for (const encodedName in formData) {
-    const decodedName = decode(encodedName);
     // always add underscore prefixed names as they are treated as internal
     // private inputs outside of the honeypot system, normalise them here removing
     // the underscore prefix
     if (encodedName.startsWith("_")) {
       // @ts-expect-error nevermind
       json[encodedName.substring(1)] = formData[encodedName];
+      continue;
     }
+    // the plain names are the honeypot inputs, only the encoded ones hold data
+    if (!isEncodedName(encodedName)) continue;
+
+    const decodedName = decode(encodedName);
     // if the decoded `name` is empty and the encoded `name` is defined honeypot passed
-    else if (
-      !isUndefined(formData[encodedName]) &&
-      formData[decodedName] === ""
-    ) {
+    if (!isUndefined(formData[encodedName]) && formData[decodedName] === "") {
       // @ts-expect-error nevermind
       json[decodedName] = formData[encodedName];
     }

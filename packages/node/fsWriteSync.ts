@@ -12,8 +12,8 @@ import { dirname } from "node:path";
 export function fsWriteSync(filepath: string, content: string, eol = true) {
   mkdirSync(dirname(filepath), { recursive: true });
 
-  // remove empty first line
-  content = content.replace(/^\s*/m, "");
+  // remove the empty lines at the beginning
+  content = content.replace(/^\s*\n/, "");
 
   writeFileSync(filepath, content);
 

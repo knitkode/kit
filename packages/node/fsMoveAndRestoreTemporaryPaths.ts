@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { copyFile, mkdir, realpath, rm } from "node:fs/promises";
+import { cp, mkdir, realpath, rename, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 
@@ -31,6 +31,26 @@ export type FsMoveAndRestoreTemporaryPathsOptions = {
   tmpDir?: string;
 };
 
+/**
+ * Rename, or copy and delete when the paths are on different file systems
+ * (renaming across devices fails with `EXDEV`, e.g. towards the OS temp folder)
+ */
+async function move(from: string, to: string) {
+  await mkdir(dirname(to), { recursive: true });
+  try {
+    await rename(from, to);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "EXDEV") throw error;
+    await cp(from, to, { recursive: true });
+    await rm(from, { force: true, recursive: true });
+  }
+}
+
+/**
+ * Move the given paths out of `destination` into a temporary folder, run the
+ * callback, then move them back. The paths are restored even when the callback
+ * throws (the error is re-thrown afterwards).
+ */
 export async function fsMoveAndRestoreTemporaryPaths(
   options: FsMoveAndRestoreTemporaryPathsOptions,
 ) {
@@ -42,34 +62,34 @@ export async function fsMoveAndRestoreTemporaryPaths(
     tmpDir = randomUUID(),
   } = options;
 
-  if (!paths.length) await callback();
+  if (!paths.length) {
+    await callback();
+    return;
+  }
 
   // @see https://www.npmjs.com/package/temp-dir
   // @see https://www.npmjs.com/package/temp-write
   const tmp = join(await realpath(tmpdir()), tmpRoot, tmpDir);
+  const moved: (readonly [temporaryPath: string, restorePath: string])[] = [];
 
-  const pathsInfo = await Promise.all(
-    paths.map(async (target) => {
+  try {
+    for (const target of paths) {
       const temporaryPath = join(tmp, target);
       const restorePath = join(destination, target);
 
-      await mkdir(dirname(temporaryPath), { recursive: true });
-      await copyFile(restorePath, temporaryPath);
+      await move(restorePath, temporaryPath);
+      moved.push([temporaryPath, restorePath]);
+    }
 
-      return [temporaryPath, restorePath] as const;
-    }),
-  );
+    await callback();
+  } finally {
+    for (const [temporaryPath, restorePath] of moved) {
+      await rm(restorePath, { force: true, recursive: true });
+      await move(temporaryPath, restorePath);
+    }
 
-  await callback();
-
-  await Promise.all(
-    pathsInfo.map(async ([temporaryPath, restorePath]) => {
-      await mkdir(dirname(restorePath), { recursive: true });
-      await copyFile(temporaryPath, restorePath);
-    }),
-  );
-
-  await rm(tmp, { force: true, recursive: true });
+    await rm(tmp, { force: true, recursive: true });
+  }
 }
 
 export default fsMoveAndRestoreTemporaryPaths;

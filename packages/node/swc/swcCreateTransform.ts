@@ -20,14 +20,13 @@ export type SwcTransformingLib = {
 export type SwcTransform<
   Path extends string,
   Flat extends undefined | boolean = false,
-> = Record<
-  `${Path}/?(((\\$*\\w*)?/?)*)`,
-  {
-    transform: Flat extends true
-      ? `${Path}/{{member}}`
-      : `${Path}/{{ matches.[1] }}/{{member}}`;
-  }
->;
+> = Record<Path, { transform: `${Path}/{{member}}` }> &
+  (Flat extends true
+    ? unknown
+    : Record<
+        `${Path}/(((\\$*\\w*)?/?)*)`,
+        { transform: `${Path}/{{ matches.[1] }}/{{member}}` }
+      >);
 
 /**
  * @category swc
@@ -45,7 +44,10 @@ export function swcCreateTransform<TLib extends SwcTransformingLib>(lib: TLib) {
   }
 
   return {
-    [`${path}/?(((\\$*\\w*)?/?)*)`]: {
+    // the root import gets its own key: with an empty sub path the nested
+    // template would give `path//member`
+    [path]: { transform: `${path}/{{member}}` },
+    [`${path}/(((\\$*\\w*)?/?)*)`]: {
       transform: `${path}/{{ matches.[1] }}/{{member}}`,
     },
   } as SwcTransform<typeof path, false>;

@@ -1,9 +1,7 @@
-import { isUndefined } from "./isUndefined";
-
 /**
  * @category ssr
  * @category is
  */
-export let isServerNow = () => isUndefined(window);
+export let isServerNow = () => typeof window === "undefined";
 
 export default isServerNow;

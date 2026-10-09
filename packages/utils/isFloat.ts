@@ -6,6 +6,6 @@ import { isNumber } from "./isNumber";
  * @category is
  */
 export let isFloat = (payload: any): payload is number =>
-  isNumber(payload) && payload % 1 !== 0;
+  isNumber(payload) && Number.isFinite(payload) && payload % 1 !== 0;
 
 export default isFloat;

@@ -1,9 +1,7 @@
-import { isUndefined } from "./isUndefined";
-
 /**
  * @category ssr
  * @category is
  */
-export let isBrowserNow = () => !isUndefined(window);
+export let isBrowserNow = () => typeof window !== "undefined";
 
 export default isBrowserNow;

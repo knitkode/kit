@@ -65,7 +65,7 @@ export let createStorage = <T extends CreateStorageConfig>(
 
         if (!isNullOrUndefined(value)) {
           all[key] = value;
-        } else if (defaultValue) {
+        } else if (defaultValue !== undefined) {
           // NOTE: without the assertion typedoc does not compile
           all[key] = defaultValue as T[Extract<keyof T, string>];
         }

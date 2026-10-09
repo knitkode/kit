@@ -35,7 +35,7 @@ export function fsFindUpSync(
   const { root } = parse(directory);
   stopAt = resolve(directory, toPath(stopAt) ?? root);
 
-  while (directory && directory !== stopAt && directory !== root) {
+  while (directory) {
     const filePath = isAbsolute(name) ? name : join(directory, name);
 
     try {
@@ -49,6 +49,8 @@ export function fsFindUpSync(
     } catch {
       // do nothing
     }
+
+    if (directory === stopAt || directory === root) break;
 
     directory = dirname(directory);
   }

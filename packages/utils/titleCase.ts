@@ -10,7 +10,7 @@ export let titleCase = (input?: null | string) =>
   input
     ? input
         .replace(
-          /\w\S*/g,
+          /[\p{L}\p{N}_]\S*/gu,
           (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase(),
         )
         .replace(/\s+/g, " ")

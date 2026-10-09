@@ -32,8 +32,8 @@ import { dirname } from "node:path";
 export async function fsWrite(filepath: string, content: string, eol = true) {
   await mkdir(dirname(filepath), { recursive: true });
 
-  // remove empty first line
-  content = content.replace(/^\s*/m, "");
+  // remove the empty lines at the beginning
+  content = content.replace(/^\s*\n/, "");
 
   await writeFile(filepath, content);
 

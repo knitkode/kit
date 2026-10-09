@@ -7,7 +7,7 @@ import {
 } from "./changeCaseHelpers";
 
 /**
- * Convert a string to sentence case (`Foo Bar`).
+ * Convert a string to capital case (`Foo Bar`).
  *
  * @category text
  * @category case
