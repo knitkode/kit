@@ -23,7 +23,7 @@
     "clean": "rm -rf .turbo coverage packages/*/dist packages/*/coverage packages/*/.turbo"
   },
   "devDependencies": {
-    "@arethetypeswrong/core": "^0.18.2",
+    "@arethetypeswrong/core": "^0.18.5",
     "@biomejs/biome": "^2.5.15",
     "@changesets/changelog-github": "^1.0.1",
     "@changesets/cli": "^3.0.3",
@@ -32,7 +32,7 @@
     "@types/node": "^24.19.1",
     "@vitest/coverage-v8": "^4.1.11",
     "husky": "^9.1.7",
-    "jsdom": "^27.3.0",
+    "jsdom": "^27.4.0",
     "lint-staged": "^17.6.0",
     "pkg-pr-new": "^0.0.90",
     "publint": "^0.3.25",
