@@ -5,3 +5,9 @@ ignoredBuiltDependencies:
   - "@parcel/watcher"
   - esbuild
   - sharp
+
+# Only install versions published at least 3 days ago (value in minutes): a
+# compromised release is usually caught and pulled within that window. It also
+# matches Dependabot's default 3 days cooldown, so the lockfile never holds a
+# version too new for Dependabot to install.
+minimumReleaseAge: 4320

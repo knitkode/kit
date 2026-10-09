@@ -11,6 +11,8 @@ pnpm install
 pnpm verify   # lint, build, typecheck and test everything, like CI
 ```
 
+pnpm only installs dependency versions published at least 3 days ago (`minimumReleaseAge` in `pnpm-workspace.yaml`). If you really need a fresher release, add the package to `minimumReleaseAgeExclude` there.
+
 | Script                     | What it does                                                    |
 | -------------------------- | --------------------------------------------------------------- |
 | `pnpm build`               | Build every package with [tsdown](https://tsdown.dev) (via Turborepo) |
