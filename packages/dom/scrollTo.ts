@@ -6,7 +6,7 @@ import { on } from "./on";
  *
  * @borrows https://stackoverflow.com/a/55686711/1938970
  *
- * @param offset - offset to scroll to
+ * @param destination - offset to scroll to
  * @param callback - callback function
  * @param [fallbackTimeout] - this appears to be needed in some hard to reproduce scenario on safari, where the callback seem to be never called
  * @param [behavior="smooth"]

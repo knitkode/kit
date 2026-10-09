@@ -7,7 +7,7 @@
  */
 
 /**
- * @categroy functionn
+ * @category function
  */
 export type DebounceOptions<Result> = {
   isImmediate?: boolean;
@@ -16,7 +16,7 @@ export type DebounceOptions<Result> = {
 };
 
 /**
- * @category functionn
+ * @category function
  */
 export interface DebouncedFunction<
   Args extends any[],

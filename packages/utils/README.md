@@ -1,6 +1,7 @@
 # @knitkode/utils
 
 [![npm](https://img.shields.io/npm/v/@knitkode/utils)](https://www.npmjs.com/package/@knitkode/utils)
+[![API reference](https://img.shields.io/badge/docs-API%20reference-blue)](https://knitkode.github.io/kit/modules/_knitkode_utils.html)
 
 Tree-shakeable TypeScript utilities for everyday web development: type guards, object and array helpers, string case conversion, URL, cookie and timing helpers. It also re-exports [type-fest](https://github.com/sindresorhus/type-fest) types.
 

@@ -27,32 +27,51 @@ pnpm changeset pre exit         # the next Version Packages PR is the stable rel
 
 See the [Changesets prerelease guide](https://changesets.dev/guide/prereleases) for the details.
 
-## One-time setup
+## Repository setup
 
-Repository admins need to do these steps once. The first release has an extra bootstrap step, because npm can only configure trusted publishing for packages that already exist.
+These settings are already in place. They're listed here so they can be checked or recreated.
 
 ### GitHub
 
-1. **Settings → Actions → General**: enable _Allow GitHub Actions to create and approve pull requests_. The Version Packages PR needs it.
-2. **Settings → Environments**: create an environment named `npm`, optionally with required reviewers.
-3. Install the [pkg.pr.new GitHub App](https://github.com/apps/pkg-pr-new) on `knitkode/kit`. Without it the Preview workflow fails.
-4. Optional: pull requests opened by the default `GITHUB_TOKEN` don't trigger CI, so the Version Packages PR shows no checks. The Release workflow re-runs the full verify gate before publishing anyway. If you want checks on that PR too, pass a GitHub App token to the `version` job ([how](https://changesets.dev/guide/automating#run-github-actions-for-version-prs)).
+- **Settings → Actions → General**: _Allow GitHub Actions to create and approve pull requests_ is enabled (the Version Packages PR needs it) and the default workflow token is read-only (each workflow declares its own permissions).
+- **Settings → Environments**: the `npm` environment only accepts deployments from `main`. Add required reviewers to it to approve each publish by hand.
+- **Settings → Pages**: the source is _GitHub Actions_, used by the [Docs](.github/workflows/docs.yml) workflow.
+- The [pkg.pr.new GitHub App](https://github.com/apps/pkg-pr-new) is installed. Without it the Preview workflow fails.
+- No secrets: npm authenticates the `publish` job through OIDC.
+- Pull requests opened by the default `GITHUB_TOKEN` don't trigger CI, so the Version Packages PR shows failed or missing checks. The Release workflow re-runs the full verify gate before publishing anyway. If you want real checks on that PR, pass a GitHub App token to the `version` job ([how](https://changesets.dev/guide/automating#run-github-actions-for-version-prs)).
 
 ### npm
 
-1. Make sure the [`knitkode` npm organization](https://www.npmjs.com/org/knitkode) exists and that you can publish to it.
-2. **First release only (bootstrap).**
-   1. On npmjs.com, create a granular access token: read and write access to the `@knitkode` scope, _Bypass two-factor authentication_ enabled, shortest expiration available. npm warns that bypass tokens are risky and points to trusted publishing: that is expected, trusted publishing can't be set up before the packages exist.
-   2. Save it as the `NPM_TOKEN` secret of the `npm` environment, never of the repository, so only the `publish` job on `main` can read it: `gh secret set NPM_TOKEN --env npm -R knitkode/kit`.
-   3. Merge the Version Packages PR for `3.0.0`. The `publish` job uses the token, still with provenance.
-3. **Trusted publishing.** For each of the six packages, open _Settings → Trusted publishing_ on npmjs.com and add a GitHub Actions publisher:
-   - organization or user: `knitkode`
-   - repository: `kit`
-   - workflow filename: `release.yml`
-   - environment: `npm`
-4. Delete the secret (`gh secret delete NPM_TOKEN --env npm -R knitkode/kit`) and revoke the token on npmjs.com. From now on npm authenticates the `publish` job through OIDC. Optionally, set each package to _Require two-factor authentication and disallow tokens_.
+Each package on npmjs.com has a trusted publisher (_Settings → Trusted publishing_) of type GitHub Actions:
 
-npm is phasing out 2FA-bypass tokens for direct publishing (around January 2027). Do the bootstrap before then, or publish the first version by hand with 2FA.
+- organization or user: `knitkode`
+- repository: `kit`
+- workflow filename: `release.yml`
+- environment: `npm`
+- allowed actions: `npm publish` only (Changesets can't drive staged publishing yet, and the workflow never runs `npm dist-tag`)
+
+Renaming `release.yml` or the `npm` environment breaks publishing until the trusted publishers are updated.
+
+### Adding a package
+
+npm can only attach a trusted publisher to a package that already exists, so a new `@knitkode/<name>` needs one manual publish first:
+
+1. Publish a placeholder from your machine, authenticating with your own 2FA:
+
+   ```bash
+   mkdir /tmp/placeholder && cd /tmp/placeholder
+   echo '{ "name": "@knitkode/<name>", "version": "0.0.0-bootstrap", "description": "Placeholder, install a real version", "license": "MIT" }' > package.json
+   npm publish --access public --tag bootstrap
+   ```
+
+2. Add the trusted publisher described above to the new package.
+3. Add the package to the `fixed` group in [.changeset/config.json](.changeset/config.json), to [typedoc.config.js](typedoc.config.js), to the [Preview](.github/workflows/preview.yml) workflow and to the table in [README.md](README.md).
+4. Release it with a changeset as usual, then clean up the placeholder:
+
+   ```bash
+   npm dist-tag rm @knitkode/<name> bootstrap
+   npm deprecate @knitkode/<name>@0.0.0-bootstrap "Placeholder, install a real version"
+   ```
 
 ### Retiring `@koine/*`
 
@@ -67,5 +86,7 @@ done
 ## When something goes wrong
 
 - **The publish job failed** (npm outage, auth error): fix the cause and re-run the failed jobs of that workflow run. `changeset publish` skips versions that are already on npm, so a partial publish is completed on re-run.
+- **npm answers `E404 Not Found - PUT`**: npm rejected the authentication for that package. Check that its trusted publisher matches the repository, `release.yml` and the `npm` environment exactly.
+- **Packages are missing on npm right after a successful publish**: brand new packages can take a few minutes to appear in the registry.
 - **CI fails on the Version Packages PR**: push a fix to `main`, the PR is regenerated.
 - **A broken version was published**: don't unpublish. Merge a fix with a `patch` changeset and release again. If needed, `npm deprecate @knitkode/<name>@<version> "<reason>"`.

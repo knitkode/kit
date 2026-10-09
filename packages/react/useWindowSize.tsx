@@ -5,7 +5,8 @@ import { debounce as _debounce } from "@knitkode/utils";
 /**
  * # Use `window` size
  *
- * @param args Optionally pass {@link _debounce} arguments (`wait` and `immediate`)
+ * @param wait Optional `debounce` wait in milliseconds
+ * @param immediate Optional `debounce` immediate flag
  *
  * @returns An array with:
  * 1) _width_: using `window.innerWidth`

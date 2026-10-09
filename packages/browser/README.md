@@ -1,6 +1,7 @@
 # @knitkode/browser
 
 [![npm](https://img.shields.io/npm/v/@knitkode/browser)](https://www.npmjs.com/package/@knitkode/browser)
+[![API reference](https://img.shields.io/badge/docs-API%20reference-blue)](https://knitkode.github.io/kit/modules/_knitkode_browser.html)
 
 Browser helpers: URL search and hash navigation through the History API, typed `localStorage`/`sessionStorage` clients, Google gtag helpers, device detection and timezone-aware dates.
 

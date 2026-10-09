@@ -4,6 +4,7 @@
 # - pending changesets: open or update the "Version Packages" pull request
 # - no changesets but unpublished versions (that PR was just merged): verify,
 #   pack and publish to npm with provenance, then tag and create GitHub releases
+#   and deploy the API reference to GitHub Pages
 #
 # Only the `publish` job can mint an OIDC token (npm trusted publishing).
 name: Release
@@ -130,6 +131,8 @@ jobs:
     runs-on: ubuntu-latest
     # add required reviewers to this environment to gate every publish
     environment: npm
+    outputs:
+      published: ${{ steps.publish.outputs.published }}
     permissions:
       contents: write
       id-token: write
@@ -146,23 +149,29 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24
-          registry-url: https://registry.npmjs.org
           package-manager-cache: false
 
-      # trusted publishing needs npm >= 11.5.1
+      # trusted publishing needs npm >= 11.5.1 (pnpm publishes through npm)
       - name: Update npm
         run: npm install --global npm@11
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # npm authenticates through OIDC with the trusted publisher configured on
+      # each package (no token) and attaches provenance automatically
       - name: Publish packages
+        id: publish
         uses: changesets/action/publish@v2
         with:
           pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}
-        env:
-          # Only for the very first release, before trusted publishing can be
-          # configured on npm: remove the `NPM_TOKEN` secret afterwards and
-          # npm authenticates with OIDC (see RELEASING.md).
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: "true"
+
+  docs:
+    name: Deploy API reference
+    needs: publish
+    if: needs.publish.outputs.published == 'true'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/docs.yml

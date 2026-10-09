@@ -1,6 +1,7 @@
 # @knitkode/dom
 
 [![npm](https://img.shields.io/npm/v/@knitkode/dom)](https://www.npmjs.com/package/@knitkode/dom)
+[![API reference](https://img.shields.io/badge/docs-API%20reference-blue)](https://knitkode.github.io/kit/modules/_knitkode_dom.html)
 
 Tiny, tree-shakeable DOM helpers: selectors, event listeners and delegation, scroll and resize listeners, element measurements and class/attribute helpers.
 

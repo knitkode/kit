@@ -1,6 +1,7 @@
 # @knitkode/api
 
 [![npm](https://img.shields.io/npm/v/@knitkode/api)](https://www.npmjs.com/package/@knitkode/api)
+[![API reference](https://img.shields.io/badge/docs-API%20reference-blue)](https://knitkode.github.io/kit/modules/_knitkode_api.html)
 
 A small, type-safe API client built on `fetch`: describe your endpoints once and get typed `get`/`post`/`put`/`patch`/`delete` methods, optional [SWR](https://swr.vercel.app) hooks and Next.js API route helpers.
 

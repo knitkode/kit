@@ -84,6 +84,10 @@ jobs:
       - name: Test
         run: pnpm exec turbo run test -- --coverage
 
+      - name: Check API reference
+        if: matrix.node == 24
+        run: pnpm exec typedoc --emit none
+
       - name: Upload coverage
         if: matrix.node == 24
         uses: actions/upload-artifact@v7

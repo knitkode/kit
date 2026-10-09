@@ -1,7 +1,7 @@
 # kit
 
 [![CI](https://github.com/knitkode/kit/actions/workflows/ci.yml/badge.svg)](https://github.com/knitkode/kit/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/knitkode/kit/blob/main/LICENSE)
 
 Opinionated, tree-shakeable TypeScript libraries for building web apps fast, published under the [`@knitkode`](https://www.npmjs.com/org/knitkode) npm scope.
 
@@ -30,7 +30,7 @@ import { debounce, slugify } from "@knitkode/utils";
 import { isFullString } from "@knitkode/utils/isFullString";
 ```
 
-Every package lists its entry points in its own README.
+Every package lists its entry points in its own README, and the [API reference](https://knitkode.github.io/kit/) documents every function and type.
 
 ### Requirements
 

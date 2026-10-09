@@ -1,5 +1,5 @@
 /**
- * @file
+ * @module
  *
  * Same as [is-what](https://github.com/mesqueeb/is-what) plus:
  *

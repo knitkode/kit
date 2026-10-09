@@ -21,6 +21,7 @@ pnpm only installs dependency versions published at least 3 days ago (`minimumRe
 | `pnpm test:coverage`       | Same, with coverage reports in `packages/*/coverage`            |
 | `pnpm typecheck`           | Type-check every package, specs included                        |
 | `pnpm lint` / `lint:fix`   | Check / fix formatting, lint rules and import order with [Biome](https://biomejs.dev) |
+| `pnpm docs`                | Build the [API reference](https://knitkode.github.io/kit/) with [TypeDoc](https://typedoc.org) into `api-docs/` |
 | `pnpm changeset`           | Describe your change for the next release                       |
 | `pnpm codegen:type-fest`   | Refresh the `type-fest` re-exports of `@knitkode/utils`          |
 

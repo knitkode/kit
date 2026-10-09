@@ -20,3 +20,4 @@ coverage
 # system files
 .DS_Store
 Thumbs.db
+api-docs

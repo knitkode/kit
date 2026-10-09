@@ -6,7 +6,14 @@
  * root level (no exports from nested folders), `false` or `undefined` otherwise
  */
 export type SwcTransformingLib = {
+  /**
+   * e.g. `@myorg/mylib` or `@/myprojectlib`
+   */
   path: string;
+  /**
+   * Pass `true` for packages where all consumable exports are at the root
+   * level (no exports from nested folders)
+   */
   flat?: boolean;
 };
 
@@ -26,9 +33,7 @@ export type SwcTransform<
  * @category swc
  *
  * @see {@link https://rregex.dev/ rust regex playground}
- * @param path e.g. `@myorg/mylib` or `@/myprojectlib`
- * @param flat Pass `true` for packages where all consumable exports are at the
- * root level (no exports from nested folders)
+ * @param lib The library to transform, see {@link SwcTransformingLib}
  */
 export function swcCreateTransform<TLib extends SwcTransformingLib>(lib: TLib) {
   const { path, flat } = lib;

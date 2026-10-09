@@ -1,6 +1,7 @@
 # @knitkode/node
 
 [![npm](https://img.shields.io/npm/v/@knitkode/node)](https://www.npmjs.com/package/@knitkode/node)
+[![API reference](https://img.shields.io/badge/docs-API%20reference-blue)](https://knitkode.github.io/kit/modules/_knitkode_node.html)
 
 Node.js helpers: file system utilities (write, find-up, symlinks, temporary moves), installed dependency version lookup and SWC modularize-imports transforms for `@knitkode/*` packages.
 

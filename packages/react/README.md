@@ -1,6 +1,7 @@
 # @knitkode/react
 
 [![npm](https://img.shields.io/npm/v/@knitkode/react)](https://www.npmjs.com/package/@knitkode/react)
+[![API reference](https://img.shields.io/badge/docs-API%20reference-blue)](https://knitkode.github.io/kit/modules/_knitkode_react.html)
 
 React hooks and components: window size, scroll and measure hooks, polymorphic component helpers, `<Meta>`/`<FaviconTags>`/`<NoJs>`, a headless daygrid calendar and a form antispam helper.
 

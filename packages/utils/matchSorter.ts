@@ -9,7 +9,6 @@
  *
  * TODO: turn objects into arrays for smaller output?
  *
- * @name match-sorter
  * @borrows [kentcdodds/match-sorter](https://github.com/kentcdodds/match-sorter)
  */
 import { isString } from "./isString";

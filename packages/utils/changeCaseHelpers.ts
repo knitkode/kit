@@ -1,5 +1,5 @@
 /**
- * @file
+ * @module
  *
  * @borrows [blakeembrey/change-case](https://github.com/blakeembrey/change-case)
  */

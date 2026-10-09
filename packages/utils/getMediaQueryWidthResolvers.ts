@@ -50,7 +50,6 @@ export let getMediaQueryWidthResolvers = <
 
   /**
    * It behaves the same as `min`
-   * @inheritdoc {max}
    */
   const up = min;
 
