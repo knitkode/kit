@@ -68,4 +68,7 @@ describe("arrayToLookup", () => {
       [sym1]: 1,
     });
   });
+  it("returns an empty object when called without arguments", () => {
+    expect(arrayToLookup()).toEqual({});
+  });
 });

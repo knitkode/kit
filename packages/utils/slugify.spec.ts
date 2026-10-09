@@ -60,4 +60,63 @@ describe("slugify", () => {
   test("converts mixed-case letters to lowercase", () => {
     expect(slugify("HELLO World")).toBe("hello-world");
   });
+
+  test.each([
+    ["Crème Brûlée", "creme-brulee"],
+    ["Straße", "strasse"],
+    ["Ĳssel", "ijssel"],
+    ["smørrebrød", "smorrebrod"],
+  ])("removes accents from %j", (input, expected) => {
+    expect(slugify(input)).toBe(expected);
+  });
+
+  test.each([
+    ["foo/bar:baz;qux", "foo-bar-baz-qux"],
+    ["it's", "it-s"],
+    ["a·b", "a-b"],
+    ["50% off", "50-off"],
+    ["email@example.com", "email-example-com"],
+    ["tabs\tand\nnewlines", "tabs-and-newlines"],
+  ])(
+    "replaces punctuation and whitespace in %j with dashes",
+    (input, expected) => {
+      expect(slugify(input)).toBe(expected);
+    },
+  );
+
+  test("keeps numbers", () => {
+    expect(slugify("Top 10 Tips for 2024")).toBe("top-10-tips-for-2024");
+  });
+
+  test("trims dashes and spaces from both ends", () => {
+    expect(slugify("  --Hello World--  ")).toBe("hello-world");
+    expect(slugify("...Hello...")).toBe("hello");
+  });
+
+  test("returns an empty string when there is nothing to keep", () => {
+    expect(slugify("!!!")).toBe("");
+    expect(slugify("   ")).toBe("");
+  });
+
+  test("supports any separator, including an empty one", () => {
+    expect(slugify("Hello World Again", "")).toBe("helloworldagain");
+    expect(slugify("Hello World Again", ".")).toBe("hello.world.again");
+    expect(slugify("Hello, World!", "__")).toBe("hello__world");
+  });
+
+  test("is idempotent", () => {
+    const slug = slugify("À la carte! Yes, please!");
+    expect(slugify(slug)).toBe(slug);
+  });
+
+  it.each([
+    ["foo_bar", "foo-bar"],
+    ["snake_case_title", "snake-case-title"],
+    ["a·b/c,d:e;f'g", "a-b-c-d-e-f-g"],
+  ])(
+    "replaces punctuation and underscores with dashes: %j",
+    (input, expected) => {
+      expect(slugify(input)).toBe(expected);
+    },
+  );
 });

@@ -30,4 +30,31 @@ describe("isAbsoluteUrl", () => {
     );
     expect(isAbsoluteUrl("mailto:user@domain.com")).toBe(true);
   });
+
+  it.each([
+    "HTTPS://EXAMPLE.COM",
+    "tel:+390000000",
+    "data:text/plain;base64,SGVsbG8=",
+    "javascript:void(0)",
+    "svn+ssh://example.com/repo",
+    "chrome-extension://abcdef/page.html",
+    "urn:isbn:0451450523",
+    "a.b-c+d:rest",
+  ])("returns true for a url with a scheme: %s", (url) => {
+    expect(isAbsoluteUrl(url)).toBe(true);
+  });
+
+  it.each([
+    "//example.com/protocol-relative",
+    "./relative",
+    "../parent",
+    "#hash",
+    "?query=1",
+    "1http://example.com",
+    "-scheme:rest",
+    "+scheme:rest",
+    " https://example.com",
+  ])("returns false for a url without a valid scheme: %s", (url) => {
+    expect(isAbsoluteUrl(url)).toBe(false);
+  });
 });

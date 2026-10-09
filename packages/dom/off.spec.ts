@@ -83,4 +83,56 @@ describe("off", () => {
     button.click();
     expect(mockHandler).toHaveBeenCalledTimes(1); // Should not be called again
   });
+
+  test("only removes the given handler", () => {
+    const removed = vitest.fn();
+    const kept = vitest.fn();
+    button.addEventListener("click", removed);
+    button.addEventListener("click", kept);
+
+    off(button, "click", removed);
+    button.click();
+
+    expect(removed).not.toHaveBeenCalled();
+    expect(kept).toHaveBeenCalledTimes(1);
+  });
+
+  test("does not remove a capture listener without the capture option", () => {
+    const mockHandler = vitest.fn();
+    button.addEventListener("click", mockHandler, true);
+
+    off(button, "click", mockHandler);
+    button.click();
+    expect(mockHandler).toHaveBeenCalledTimes(1);
+
+    off(button, "click", mockHandler, true);
+    button.click();
+    expect(mockHandler).toHaveBeenCalledTimes(1);
+  });
+
+  test("removes listeners from the window", () => {
+    const mockHandler = vitest.fn();
+    window.addEventListener("resize", mockHandler);
+
+    off(window, "resize", mockHandler);
+    window.dispatchEvent(new Event("resize"));
+
+    expect(mockHandler).not.toHaveBeenCalled();
+  });
+});
+
+describe("off outside development", () => {
+  vitestSetNodeEnv("production");
+
+  test("silently ignores a non-existing element", () => {
+    const consoleSpy = vitest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    // @ts-expect-error test wrong implementation
+    expect(() => off(undefined, "click", vitest.fn())).not.toThrow();
+    expect(consoleSpy).not.toHaveBeenCalled();
+
+    consoleSpy.mockRestore();
+  });
 });

@@ -37,4 +37,14 @@ describe("objectSwap", () => {
     const expectedOutput = { "1": "a", "2": "b", [symA]: "c" };
     expect(objectSwap(input)).toEqual(expectedOutput);
   });
+
+  test("returns an empty object when called without arguments", () => {
+    expect(objectSwap()).toEqual({});
+  });
+
+  test("does not mutate the input", () => {
+    const input = { a: "1" };
+    objectSwap(input);
+    expect(input).toEqual({ a: "1" });
+  });
 });

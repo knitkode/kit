@@ -37,4 +37,32 @@ describe("titleCase", () => {
     expect(titleCase("hello world 2023")).toBe("Hello World 2023");
     expect(titleCase("the year is 2023")).toBe("The Year Is 2023");
   });
+
+  test("capitalises single letters", () => {
+    expect(titleCase("a")).toBe("A");
+    expect(titleCase("a b c")).toBe("A B C");
+  });
+
+  test("normalises tabs and newlines to single spaces", () => {
+    expect(titleCase("hello\tworld\nagain")).toBe("Hello World Again");
+  });
+
+  test("returns an empty string for whitespace only input", () => {
+    expect(titleCase("   ")).toBe("");
+  });
+
+  test("only capitalises the first character of each word", () => {
+    expect(titleCase("o'neil")).toBe("O'neil");
+    expect(titleCase("2nd place")).toBe("2nd Place");
+    expect(titleCase("mcDONALD")).toBe("Mcdonald");
+  });
+
+  it.each([
+    ["élan vital", "Élan Vital"],
+    ["über alles", "Über Alles"],
+    ["ÉCOLE normale", "École Normale"],
+    ["2nd place", "2nd Place"],
+  ])("capitalises words starting with any letter: %j", (input, expected) => {
+    expect(titleCase(input)).toBe(expected);
+  });
 });

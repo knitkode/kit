@@ -1,142 +1,150 @@
+import { type HistoryExtended, listenUrlSearch } from "./listenUrlSearch";
+
+/**
+ * Change the URL bypassing the patched `history` methods, as the browser does
+ * when navigating back and forward
+ */
+const nativeReplaceState = (url: string) => {
+  History.prototype.replaceState.call(history, null, "", url);
+};
+
 describe("listenUrlSearch", () => {
-  it("should be tested", () => {
-    expect("").toBe("");
+  const unlisteners: (() => void)[] = [];
+
+  const listen = (handler: Parameters<typeof listenUrlSearch>[0]) => {
+    const unlisten = listenUrlSearch(handler);
+    unlisteners.push(unlisten);
+    return unlisten;
+  };
+
+  beforeEach(() => {
+    // patch `history` first, so that the tracked URL search follows the reset
+    listenUrlSearch(() => {})();
+    history.replaceState(null, "", "/");
+  });
+
+  afterEach(() => {
+    for (const unlisten of unlisteners.splice(0)) unlisten();
+  });
+
+  it("calls the handler when `pushState` changes the URL search", () => {
+    const handler = vi.fn();
+    listen(handler);
+
+    history.pushState(null, "", "/?a=1");
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler).toHaveBeenCalledWith("", "?a=1");
+  });
+
+  it("calls the handler when `replaceState` changes the URL search", () => {
+    history.replaceState(null, "", "/?a=1");
+    const handler = vi.fn();
+    listen(handler);
+
+    history.replaceState(null, "", "/?a=2");
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(handler).toHaveBeenCalledWith("?a=1", "?a=2");
+  });
+
+  it("calls the handler on `popstate` events", () => {
+    history.replaceState(null, "", "/?a=1");
+    const handler = vi.fn();
+    listen(handler);
+
+    nativeReplaceState("/?a=back");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    expect(handler).toHaveBeenCalledWith("?a=1", "?a=back");
+  });
+
+  it("does not call the handler when the URL search does not change", () => {
+    history.replaceState(null, "", "/page?a=1");
+    const handler = vi.fn();
+    listen(handler);
+
+    history.pushState(null, "", "/other?a=1");
+    history.replaceState(null, "", "/other?a=1#hash");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  it("keeps track of the previous URL search across changes", () => {
+    const handler = vi.fn();
+    listen(handler);
+
+    history.pushState(null, "", "/?a=1");
+    history.pushState(null, "", "/?a=2");
+    history.pushState(null, "", "/");
+
+    expect(handler.mock.calls).toEqual([
+      ["", "?a=1"],
+      ["?a=1", "?a=2"],
+      ["?a=2", ""],
+    ]);
+  });
+
+  it("calls all the registered handlers", () => {
+    const handler1 = vi.fn();
+    const handler2 = vi.fn();
+    listen(handler1);
+    listen(handler2);
+
+    history.pushState(null, "", "/?a=1");
+
+    expect(handler1).toHaveBeenCalledWith("", "?a=1");
+    expect(handler2).toHaveBeenCalledWith("", "?a=1");
+  });
+
+  it("registers the same handler only once", () => {
+    const handler = vi.fn();
+    listen(handler);
+    listen(handler);
+
+    history.pushState(null, "", "/?a=1");
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect((history as HistoryExtended).__.h.size).toBe(1);
+  });
+
+  it("returns a function that removes the handler", () => {
+    const handler = vi.fn();
+    const otherHandler = vi.fn();
+    const unlisten = listen(handler);
+    listen(otherHandler);
+
+    history.pushState(null, "", "/?a=1");
+    unlisten();
+    history.pushState(null, "", "/?a=2");
+
+    expect(handler).toHaveBeenCalledTimes(1);
+    expect(otherHandler).toHaveBeenCalledTimes(2);
+  });
+
+  it("patches the `history` methods only once", () => {
+    listen(vi.fn());
+    const { pushState, replaceState } = history;
+    const addEventListener = vi.spyOn(window, "addEventListener");
+
+    listen(vi.fn());
+
+    expect(history.pushState).toBe(pushState);
+    expect(history.replaceState).toBe(replaceState);
+    expect(addEventListener).not.toHaveBeenCalled();
+    addEventListener.mockRestore();
+  });
+
+  it("keeps the `history` methods working", () => {
+    listen(vi.fn());
+
+    expect(history.pushState({ a: 1 }, "", "/pushed?a=1")).toBeUndefined();
+    expect(location.pathname).toBe("/pushed");
+    expect(history.state).toEqual({ a: 1 });
+
+    history.replaceState({ b: 2 }, "", "/replaced?b=2");
+    expect(location.pathname).toBe("/replaced");
+    expect(history.state).toEqual({ b: 2 });
   });
 });
-// TODO: mock browser globals correctly
-// import { listenUrlSearch, type HistoryExtended } from './listenUrlSearch';
-
-// declare const window: Window;
-
-// declare const history: HistoryExtended;
-// // Mocking the external dependencies
-// vitest.mock('@knitkode/utils', () => ({
-//   isBrowser: true, // or false depending on what you want to test
-// }));
-
-// describe('listenUrlSearch', () => {
-//   let originalPushState: (...args: string[]) => void;
-//   let originalReplaceState: (...args: string[]) => void;
-//   let originalLocation: Window["location"];
-//   let runHandlers: () => void;
-
-//   beforeEach(() => {
-//     // Backup original functions
-//     originalPushState = history.pushState;
-//     originalReplaceState = history.replaceState;
-//     originalLocation = window.location;
-
-//     // @ts-expect-error Create a mock for location.search
-//     delete window.location;
-//     window.location = {
-//       search: '',
-//     } as Window["location"];
-
-//     // Create the runHandlers function to call directly
-//     runHandlers = vitest.fn();
-
-//     // Mock the extendHistoryMethod
-//     vitest.spyOn(window.history, 'pushState').mockImplementation((...args) => {
-//       runHandlers();
-//       return originalPushState.apply(history, args);
-//     });
-//     vitest.spyOn(window.history, 'replaceState').mockImplementation((...args) => {
-//       runHandlers();
-//       return originalReplaceState.apply(history, args);
-//     });
-//   });
-
-//   afterEach(() => {
-//     // Restore original functions and location
-//     history.pushState = originalPushState;
-//     history.replaceState = originalReplaceState;
-//     window.location = originalLocation;
-//     vitest.clearAllMocks(); // Clear mocks for each test
-//   });
-
-//   it('should register a new handler and invoke it when the URL search changes', () => {
-//     const handler = vitest.fn();
-//     listenUrlSearch(handler);
-
-//     // Simulate a change in location.search
-//     window.location.search = '?new=value';
-//     window.history.pushState({}, '');
-
-//     expect(handler).toHaveBeenCalledWith('', '?new=value');
-//   });
-
-//   it('should not invoke the handler if the URL search has not changed', () => {
-//     const handler = vitest.fn();
-//     listenUrlSearch(handler);
-
-//     // Simulate no change in location.search
-//     window.location.search = '';
-//     window.history.pushState({}, '');
-
-//     expect(handler).not.toHaveBeenCalled();
-//   });
-
-//   it('should allow multiple handlers to be registered', () => {
-//     const handler1 = vitest.fn();
-//     const handler2 = vitest.fn();
-//     listenUrlSearch(handler1);
-//     listenUrlSearch(handler2);
-
-//     // Simulate a change in location.search
-//     window.location.search = '?new=value';
-//     window.history.pushState({}, '');
-
-//     expect(handler1).toHaveBeenCalledWith('', '?new=value');
-//     expect(handler2).toHaveBeenCalledWith('', '?new=value');
-//   });
-
-//   it('should deregister a handler', () => {
-//     const handler = vitest.fn();
-//     const deregister = listenUrlSearch(handler);
-
-//     // Simulate a change in location.search
-//     window.location.search = '?new=value';
-//     window.history.pushState({}, '');
-
-//     expect(handler).toHaveBeenCalled();
-
-//     // Deregister the handler
-//     deregister();
-
-//     // Simulate another change in location.search
-//     window.location.search = '?new=value2';
-//     window.history.pushState({}, '');
-
-//     expect(handler).toHaveBeenCalledTimes(1); // Should only have been called once
-//   });
-
-//   it('should correctly handle the popstate event', () => {
-//     const handler = vitest.fn();
-//     listenUrlSearch(handler);
-
-//     // Simulate a popstate event
-//     window.location.search = '?popstate=value';
-//     window.dispatchEvent(new Event('popstate'));
-
-//     expect(handler).toHaveBeenCalledWith('', '?popstate=value');
-//   });
-
-//   it('should not register the handler if it already exists', () => {
-//     const handler = vitest.fn();
-//     const deregister = listenUrlSearch(handler);
-//     listenUrlSearch(handler); // Registering the same handler again
-
-//     expect((history.__.h.size)).toBe(1); // Should still be 1
-
-//     deregister();
-//     expect((history.__.h.size)).toBe(0); // Should now be deregistered
-//   });
-
-//   it('should set up the history extension only once', () => {
-//     const handler = vitest.fn();
-//     listenUrlSearch(handler);
-//     listenUrlSearch(handler); // Call again
-
-//     expect((history.__.h.size)).toBe(1); // Still only one handler
-//   });
-// });

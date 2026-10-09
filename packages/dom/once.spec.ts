@@ -53,30 +53,63 @@ describe("once", () => {
     expect(mockHandler).toHaveBeenCalledTimes(1); // Should not increase
   });
 
-  // test("does nothing when the element does not exist", () => {
-  //   const mockHandler = vitest.fn();
-  //   const invalidElement = null; // Simulate non-existing element
+  test("passes the event to the handler", () => {
+    const mockHandler = vitest.fn();
 
-  //   // Call `once` with a non-existing element
-  //   // @ts-expect-error test wrong implementation
-  //   once(invalidElement, "click", mockHandler);
+    once(button, "click", mockHandler);
+    button.click();
 
-  //   // Ensure the handler is still not called
-  //   button.click();
-  //   expect(mockHandler).not.toHaveBeenCalled();
-  // });
+    expect(mockHandler).toHaveBeenCalledWith(expect.any(MouseEvent));
+    expect(mockHandler.mock.calls[0]?.[0].target).toBe(button);
+  });
 
-  // test("logs a warning when trying to add a listener to a non-existing element in development mode", () => {
-  //   const consoleSpy = vitest.spyOn(console, "warn").mockImplementation(() => {});
-  //   const invalidElement = null;
+  test("returns a function that removes the listener before it runs", () => {
+    const mockHandler = vitest.fn();
 
-  //   // @ts-expect-error test wrong implementation
-  //   once(invalidElement, "click", vitest.fn());
+    const unbind = once(button, "click", mockHandler);
+    unbind();
+    button.click();
 
-  //   expect(consoleSpy).toHaveBeenCalledWith(
-  //     "[@knitkode/dom:on] unexisting DOM element",
-  //   );
+    expect(mockHandler).not.toHaveBeenCalled();
+  });
 
-  //   consoleSpy.mockRestore(); // Clean up the spy
-  // });
+  test("works with the window", () => {
+    const mockHandler = vitest.fn();
+
+    once(window, "resize", mockHandler);
+    window.dispatchEvent(new Event("resize"));
+    window.dispatchEvent(new Event("resize"));
+
+    expect(mockHandler).toHaveBeenCalledTimes(1);
+  });
+
+  test("does not affect other listeners of the same event", () => {
+    const other = vitest.fn();
+    button.addEventListener("click", other);
+
+    once(button, "click", vitest.fn());
+    button.click();
+    button.click();
+
+    expect(other).toHaveBeenCalledTimes(2);
+  });
+
+  test("warns and returns a noop when the element does not exist", () => {
+    const consoleSpy = vitest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+    const mockHandler = vitest.fn();
+
+    // @ts-expect-error test wrong implementation
+    const unbind = once(null, "click", mockHandler);
+    button.click();
+
+    expect(mockHandler).not.toHaveBeenCalled();
+    expect(unbind()).toBeUndefined();
+    expect(consoleSpy).toHaveBeenCalledWith(
+      "[@knitkode/dom:on] unexisting DOM element",
+    );
+
+    consoleSpy.mockRestore();
+  });
 });

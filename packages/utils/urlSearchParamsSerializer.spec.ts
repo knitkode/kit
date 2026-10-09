@@ -175,7 +175,64 @@ describe("urlSearchParamsSerializer", () => {
       });
     });
   });
+
+  describe("names", () => {
+    it("lists the URL param names without prefix", () => {
+      const { names } = urlSearchParamsSerializer(serializers);
+      expect(names).toEqual(["paramOne", "paramTwo", "paramThree"]);
+    });
+
+    it("lists the URL param names with prefix", () => {
+      const { names } = urlSearchParamsSerializer(serializers, "p");
+      expect(names).toEqual(["p_paramOne", "p_paramTwo", "p_paramThree"]);
+    });
+  });
+
+  describe("toUrl omissions", () => {
+    const optionalSerializers = {
+      query: createSerializableParam(
+        "q",
+        "",
+        (v) => v,
+        (v) => v,
+      ),
+      page: createSerializableParam(
+        "p",
+        null as null | number,
+        (v) => parseInt(v, 10),
+        (v) => (v ? String(v) : ""),
+      ),
+    };
+
+    it("omits the params that serialize to an empty string", () => {
+      const { toUrl } = urlSearchParamsSerializer(optionalSerializers);
+      expect(toUrl({})).toEqual({});
+      expect(toUrl({ query: "", page: null })).toEqual({});
+      expect(toUrl({ query: "shoes" })).toEqual({ q: "shoes" });
+    });
+
+    it("falls back to the default when a value is nullish", () => {
+      const toUrlSpy = vi.fn((v: number) => String(v));
+      const { toUrl } = urlSearchParamsSerializer({
+        size: createSerializableParam("s", 10, Number, toUrlSpy),
+      });
+      // @ts-expect-error null is not a valid value, testing the runtime fallback
+      expect(toUrl({ size: null })).toEqual({ s: "10" });
+      expect(toUrlSpy).toHaveBeenCalledWith(10);
+    });
+
+    it("round trips the state through URLSearchParams", () => {
+      const { toUrl, fromUrl } = urlSearchParamsSerializer(
+        optionalSerializers,
+        "list",
+      );
+      const params = new URLSearchParams(toUrl({ query: "red", page: 3 }));
+      expect(params.toString()).toBe("list_q=red&list_p=3");
+      expect(fromUrl(params)).toEqual({ query: "red", page: 3 });
+    });
+  });
 });
+
 // const curatorAspects = urlSearchParamsSerializer({
 //   screen: ["s" as const, "products" as CuratorScreen, (v) => v, (v) => v],
 //   productId: ["pid" as const, null as null | string, (v) => v, (v) => v],

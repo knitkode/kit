@@ -93,4 +93,23 @@ describe("throttle", () => {
   afterEach(() => {
     vitest.clearAllTimers();
   });
+  test("calls the function with the call-site context when none is provided", () => {
+    const mockFn = vitest.fn();
+    const throttledFn = throttle(mockFn, 1000);
+    const context = { custom: "context" };
+
+    throttledFn.call(context);
+
+    expect(mockFn.mock.contexts[0]).toBe(context);
+  });
+
+  test("returns a timer on the first call and nothing while throttled", () => {
+    const throttledFn = throttle(vitest.fn(), 1000);
+
+    expect(throttledFn()).toBeDefined();
+    expect(throttledFn()).toBeUndefined();
+
+    vitest.advanceTimersByTime(1000);
+    expect(throttledFn()).toBeDefined();
+  });
 });

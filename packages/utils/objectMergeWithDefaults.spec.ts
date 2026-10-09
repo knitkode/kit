@@ -66,4 +66,46 @@ describe("objectMergeWithDefaults", () => {
       e: {},
     } satisfies typeof res);
   });
+
+  it("returns the defaults as they are when no overrides are given", () => {
+    const defaults = { a: "a", b: { c: "c" } };
+    expect(objectMergeWithDefaults(defaults)).toBe(defaults);
+    expect(objectMergeWithDefaults(defaults, undefined)).toBe(defaults);
+  });
+
+  it("does not mutate the defaults when overriding existing keys", () => {
+    const defaults = { a: "a", b: { c: "c", d: "d" } };
+    const res = objectMergeWithDefaults(defaults, { a: "a1", b: { c: "c1" } });
+    expect(res).toEqual({ a: "a1", b: { c: "c1", d: "d" } });
+    expect(defaults).toEqual({ a: "a", b: { c: "c", d: "d" } });
+  });
+
+  it("merges deeply nested objects", () => {
+    const res = objectMergeWithDefaults(
+      { a: { b: { c: "c", d: "d" } } },
+      { a: { b: { d: "d1", e: "e" } } },
+    );
+    expect(res).toEqual({ a: { b: { c: "c", d: "d1", e: "e" } } });
+  });
+
+  it("keeps 'null' overrides from deleting keys unless 'deleteIfNull' is set", () => {
+    expect(
+      objectMergeWithDefaults({ a: "a", b: "b" }, { b: null }, false),
+    ).toEqual({ a: "a", b: "b" });
+  });
+
+  it("does not delete keys whose override is 'undefined' even with 'deleteIfNull'", () => {
+    expect(
+      objectMergeWithDefaults({ a: "a", b: "b" }, { b: undefined }, true),
+    ).toEqual({ a: "a", b: "b" });
+  });
+
+  it("keeps falsy but defined override values", () => {
+    expect(
+      objectMergeWithDefaults(
+        { a: "a", b: 1, c: true },
+        { a: "", b: 0, c: false },
+      ),
+    ).toEqual({ a: "", b: 0, c: false });
+  });
 });

@@ -39,4 +39,32 @@ describe("toNumber", () => {
     expect(toNumber("abc", 5)).toBe(5);
     expect(toNumber("NaN", 8)).toBe(8);
   });
+
+  test("returns Infinity untouched", () => {
+    expect(toNumber(Number.POSITIVE_INFINITY)).toBe(Number.POSITIVE_INFINITY);
+    expect(toNumber(Number.NEGATIVE_INFINITY, 1)).toBe(
+      Number.NEGATIVE_INFINITY,
+    );
+  });
+
+  test("parses strings with surrounding whitespace", () => {
+    expect(toNumber("  42  ")).toBe(42);
+    expect(toNumber("\n-1.5\t")).toBe(-1.5);
+  });
+
+  test("parses the leading number of a string", () => {
+    expect(toNumber("12px")).toBe(12);
+    expect(toNumber("3.5rem", 1)).toBe(3.5);
+  });
+
+  test("parses exponent and decimal-only notations", () => {
+    expect(toNumber("1e3")).toBe(1000);
+    expect(toNumber(".5")).toBe(0.5);
+    expect(toNumber("0")).toBe(0);
+  });
+
+  test("returns 0 for invalid strings without a fallback", () => {
+    expect(toNumber("abc")).toBe(0);
+    expect(toNumber("px12")).toBe(0);
+  });
 });

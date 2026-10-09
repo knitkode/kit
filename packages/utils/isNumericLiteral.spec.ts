@@ -17,7 +17,7 @@ describe("isNumericLiteral", () => {
     expect(isNumericLiteral("-12.34")).toBe(true);
   });
 
-  test("should return false for zero", () => {
+  test("should return true for zero", () => {
     expect(isNumericLiteral("0")).toBe(true);
   });
 
@@ -59,5 +59,34 @@ describe("isNumericLiteral", () => {
     expect(isNumericLiteral(" 123 ")).toBe(false);
     expect(isNumericLiteral("-456 ")).toBe(false);
     expect(isNumericLiteral(" 78.90")).toBe(false);
+  });
+
+  test("should return true for explicitly signed numbers", () => {
+    expect(isNumericLiteral("+5")).toBe(true);
+    expect(isNumericLiteral("+1.5")).toBe(true);
+  });
+
+  test("should return true for numbers with leading zeros", () => {
+    expect(isNumericLiteral("007")).toBe(true);
+    expect(isNumericLiteral("0.5")).toBe(true);
+  });
+
+  test("should return false for comma decimal separators", () => {
+    expect(isNumericLiteral("1,5")).toBe(false);
+    expect(isNumericLiteral("1,000")).toBe(false);
+  });
+
+  test("should return false for multiple signs", () => {
+    expect(isNumericLiteral("--1")).toBe(false);
+    expect(isNumericLiteral("+-1")).toBe(false);
+    expect(isNumericLiteral("1-")).toBe(false);
+  });
+
+  test("should narrow the type to a numeric template literal", () => {
+    const payload: string = "12";
+    if (isNumericLiteral(payload)) {
+      expectTypeOf(payload).toEqualTypeOf<`${number}`>();
+    }
+    expect(isNumericLiteral(payload)).toBe(true);
   });
 });

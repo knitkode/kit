@@ -58,4 +58,30 @@ describe("getVisualBackgroundColor", () => {
     const result = getVisualBackgroundColor(null);
     expect(result).toBe("#fff");
   });
+
+  test("returns #fff if the element is undefined", () => {
+    expect(getVisualBackgroundColor()).toBe("#fff");
+  });
+
+  test("returns #fff for a detached element without background", () => {
+    const detached = document.createElement("div");
+    expect(getVisualBackgroundColor(detached)).toBe("#fff");
+  });
+
+  test("looks into the parents when the color is the `transparent` keyword", () => {
+    const grandchild = document.querySelector(".grandchild") as HTMLDivElement;
+    const parent = document.querySelector(".parent") as HTMLDivElement;
+    const realGetComputedStyle = window.getComputedStyle.bind(window);
+    const spy = vitest
+      .spyOn(window, "getComputedStyle")
+      .mockImplementation((elem) =>
+        elem === parent
+          ? realGetComputedStyle(elem)
+          : ({ backgroundColor: "transparent" } as CSSStyleDeclaration),
+      );
+
+    expect(getVisualBackgroundColor(grandchild)).toBe("rgb(255, 0, 0)");
+
+    spy.mockRestore();
+  });
 });

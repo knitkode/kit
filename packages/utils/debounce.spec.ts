@@ -64,4 +64,53 @@ describe("debounce", () => {
     debouncedFn();
     expect(mockFunction).toHaveBeenCalledTimes(0);
   });
+  test("calls the function with the arguments of the last call", () => {
+    const debouncedFn = debounce(mockFunction, 100);
+
+    debouncedFn("first", 1);
+    debouncedFn("last", 2);
+    vitest.advanceTimersByTime(100);
+
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+    expect(mockFunction).toHaveBeenCalledWith("last", 2);
+  });
+
+  test("restarts the wait on every call", () => {
+    const debouncedFn = debounce(mockFunction, 100);
+
+    debouncedFn();
+    vitest.advanceTimersByTime(80);
+    debouncedFn();
+    vitest.advanceTimersByTime(80);
+    expect(mockFunction).not.toHaveBeenCalled();
+
+    vitest.advanceTimersByTime(20);
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+  });
+
+  test("calls again after the wait time has elapsed", () => {
+    const debouncedFn = debounce(mockFunction, 100);
+
+    debouncedFn(1);
+    vitest.advanceTimersByTime(100);
+    debouncedFn(2);
+    vitest.advanceTimersByTime(100);
+
+    expect(mockFunction.mock.calls).toEqual([[1], [2]]);
+  });
+
+  test("in immediate mode it ignores the calls within the wait time", () => {
+    const debouncedFn = debounce(mockFunction, 100, true);
+
+    debouncedFn("a");
+    vitest.advanceTimersByTime(80);
+    debouncedFn("b");
+    vitest.advanceTimersByTime(80);
+    debouncedFn("c");
+    expect(mockFunction.mock.calls).toEqual([["a"]]);
+
+    vitest.advanceTimersByTime(100);
+    debouncedFn("d");
+    expect(mockFunction.mock.calls).toEqual([["a"], ["d"]]);
+  });
 });

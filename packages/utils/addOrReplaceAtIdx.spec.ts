@@ -65,4 +65,18 @@ describe("addOrReplaceAtIdx", () => {
     const result = addOrReplaceAtIdx(input, newItem, 1);
     expect(result).toEqual([{ id: 1 }, { id: 3 }]);
   });
+  it("should add an item to the end if the index is negative", () => {
+    expect(addOrReplaceAtIdx(["a", "b"], "c", -1)).toEqual(["a", "b", "c"]);
+  });
+
+  it("should add an item to the end if the index equals the length", () => {
+    expect(addOrReplaceAtIdx(["a", "b"], "c", 2)).toEqual(["a", "b", "c"]);
+  });
+
+  it("should not mutate the given array", () => {
+    const input = ["a", "b"];
+    addOrReplaceAtIdx(input, "c", 0);
+    addOrReplaceAtIdx(input, "d");
+    expect(input).toEqual(["a", "b"]);
+  });
 });

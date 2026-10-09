@@ -1,1 +1,19 @@
-export { default } from "../../vitest.shared";
+import { defineConfig, mergeConfig } from "vitest/config";
+import shared from "../../vitest.shared";
+
+export default mergeConfig(
+  shared,
+  defineConfig({
+    test: {
+      coverage: {
+        // CI fails below these: raise them as coverage grows (CONTRIBUTING.md)
+        thresholds: {
+          statements: 98,
+          branches: 95,
+          functions: 94,
+          lines: 98,
+        },
+      },
+    },
+  }),
+);

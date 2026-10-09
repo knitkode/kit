@@ -40,4 +40,20 @@ describe("truncate", () => {
     const result = truncate("Hello...", 5);
     expect(result).toBe("Hello...");
   });
+
+  test("returns only the ellipsis when length is 0", () => {
+    expect(truncate("Hello", 0)).toBe("...");
+  });
+
+  test("truncates when the string is one character too long", () => {
+    expect(truncate("Hello!", 5)).toBe("Hello...");
+  });
+
+  test("keeps whitespace at the truncation point", () => {
+    expect(truncate("Hello world", 6)).toBe("Hello ...");
+  });
+
+  test("handles accented characters", () => {
+    expect(truncate("Crème brûlée", 5)).toBe("Crème...");
+  });
 });

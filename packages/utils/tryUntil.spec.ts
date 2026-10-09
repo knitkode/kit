@@ -85,4 +85,42 @@ describe("tryUntil", () => {
 
     expect(resolveFn).not.toHaveBeenCalled();
   });
+  it("should stop polling once resolved", () => {
+    const testFn = vitest
+      .fn()
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(false)
+      .mockReturnValue(true);
+    const resolveFn = vitest.fn();
+
+    tryUntil(testFn, 10000, 100, resolveFn);
+    vitest.advanceTimersByTime(1000);
+
+    expect(testFn).toHaveBeenCalledTimes(3);
+    expect(resolveFn).toHaveBeenCalledTimes(1);
+  });
+
+  it("should stop polling once rejected", () => {
+    const testFn = vitest.fn(() => false);
+    const rejectFn = vitest.fn();
+
+    tryUntil(testFn, 250, 100, vitest.fn(), rejectFn);
+    vitest.advanceTimersByTime(300);
+    const callsAtRejection = testFn.mock.calls.length;
+    vitest.advanceTimersByTime(1000);
+
+    expect(rejectFn).toHaveBeenCalledTimes(1);
+    expect(testFn).toHaveBeenCalledTimes(callsAtRejection);
+  });
+
+  it("should not test before the first interval", () => {
+    const testFn = vitest.fn(() => true);
+    const resolveFn = vitest.fn();
+
+    tryUntil(testFn, 1000, 100, resolveFn);
+    vitest.advanceTimersByTime(99);
+
+    expect(testFn).not.toHaveBeenCalled();
+    expect(resolveFn).not.toHaveBeenCalled();
+  });
 });

@@ -49,4 +49,59 @@ describe("hashAny", () => {
     expect(hashAny(func)).toMatch(/\d+~/);
     // expect(hashAny(error)).toBe(error.toString()); // Error should hash to its string representation
   });
+
+  test("hashing objects with an exact output", () => {
+    expect(hashAny({ a: 1, b: "x" })).toBe('#b:"x",a:1,');
+    expect(hashAny([1, "a", true, null])).toBe('@1,"a",true,null,');
+  });
+
+  test("hashing other primitives", () => {
+    expect(hashAny(Number.NaN)).toBe("NaN");
+    expect(hashAny(-0)).toBe("0");
+    expect(hashAny(BigInt(10))).toBe("10");
+    expect(hashAny(false)).toBe("false");
+    expect(hashAny("")).toBe('""');
+  });
+
+  test("hashing regular expressions", () => {
+    expect(hashAny(/ab+c/gi)).toBe("/ab+c/gi");
+  });
+
+  test("distinguishes numbers from numeric strings", () => {
+    expect(hashAny(1)).not.toBe(hashAny("1"));
+    expect(hashAny([1])).not.toBe(hashAny(["1"]));
+  });
+
+  test("hashing objects with the same content gives the same hash", () => {
+    expect(hashAny({ a: [1, { b: 2 }] })).toBe(hashAny({ a: [1, { b: 2 }] }));
+    expect(hashAny(new Date(0))).toBe(hashAny(new Date(0)));
+  });
+
+  test("hashing objects with different content gives different hashes", () => {
+    expect(hashAny({ a: 1 })).not.toBe(hashAny({ a: 2 }));
+    expect(hashAny({ a: 1 })).not.toBe(hashAny({ b: 1 }));
+    expect(hashAny([1, 2])).not.toBe(hashAny([2, 1]));
+  });
+
+  test("ignores undefined object values but not undefined array items", () => {
+    expect(hashAny({ a: 1, b: undefined })).toBe(hashAny({ a: 1 }));
+    expect(hashAny([undefined])).toBe("@undefined,");
+    expect(hashAny([1, undefined])).not.toBe(hashAny([1]));
+  });
+
+  test("returns the same hash for the same reference", () => {
+    const obj = { a: 1 };
+    const map = new Map([["a", 1]]);
+    expect(hashAny(obj)).toBe(hashAny(obj));
+    expect(hashAny(map)).toBe(hashAny(map));
+  });
+
+  test("hashing non plain objects by identity", () => {
+    const fn1 = () => 1;
+    const fn2 = () => 1;
+    expect(hashAny(new Map())).toMatch(/^\d+~$/);
+    expect(hashAny(new Set([1]))).toMatch(/^\d+~$/);
+    expect(hashAny(new Set([1]))).not.toBe(hashAny(new Set([1])));
+    expect(hashAny(fn1)).not.toBe(hashAny(fn2));
+  });
 });

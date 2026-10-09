@@ -73,4 +73,27 @@ describe("buildUrlQueryString", () => {
   //   });
   //   expect(result).toBe("?key2=value2"); // Should ignore objects
   // });
+  it("should stringify numbers and booleans", () => {
+    expect(buildUrlQueryString({ page: 2, draft: true })).toBe(
+      "?page=2&draft=true",
+    );
+  });
+
+  it("should keep falsy but defined values", () => {
+    expect(buildUrlQueryString({ a: 0, b: false, c: "" })).toBe(
+      "?a=0&b=false&c=",
+    );
+  });
+
+  it("should encode each array value", () => {
+    expect(buildUrlQueryString({ tags: ["a b", "c&d", 3] })).toBe(
+      "?tags=a%20b&tags=c%26d&tags=3",
+    );
+  });
+
+  it("should combine array and scalar values in key order", () => {
+    expect(buildUrlQueryString({ a: "1", b: ["2", "3"], c: "4" })).toBe(
+      "?a=1&b=2&b=3&c=4",
+    );
+  });
 });

@@ -10,6 +10,48 @@ describe("isInViewport", () => {
 
   afterEach(() => {
     document.body.removeChild(element);
+    vitest.restoreAllMocks();
+  });
+
+  const stubRect = (rect: {
+    top: number;
+    left: number;
+    bottom: number;
+    right: number;
+  }) => {
+    vitest
+      .spyOn(element as HTMLElement, "getBoundingClientRect")
+      .mockReturnValue({ ...rect } as DOMRect);
+  };
+
+  test("returns true when element edges lie exactly on the viewport bounds", () => {
+    stubRect({
+      top: 0,
+      left: 0,
+      bottom: window.innerHeight,
+      right: window.innerWidth,
+    });
+    expect(isInViewport(element)).toBe(true);
+  });
+
+  test("falls back to the document element size when window size is not available", () => {
+    vitest.spyOn(window, "innerHeight", "get").mockReturnValue(0);
+    vitest.spyOn(window, "innerWidth", "get").mockReturnValue(0);
+    vitest
+      .spyOn(document.documentElement, "clientHeight", "get")
+      .mockReturnValue(500);
+    vitest
+      .spyOn(document.documentElement, "clientWidth", "get")
+      .mockReturnValue(400);
+
+    stubRect({ top: 10, left: 10, bottom: 450, right: 350 });
+    expect(isInViewport(element)).toBe(true);
+
+    stubRect({ top: 10, left: 10, bottom: 550, right: 350 });
+    expect(isInViewport(element)).toBe(false);
+
+    stubRect({ top: 10, left: 10, bottom: 450, right: 450 });
+    expect(isInViewport(element)).toBe(false);
   });
 
   test("returns true when element is fully within the viewport", () => {

@@ -67,3 +67,39 @@ describe("chunkByChunks", () => {
     ]);
   });
 });
+
+describe("chunkByChunks (more cases)", () => {
+  it("returns no chunks for an empty array", () => {
+    expect(chunkByChunks([], 3)).toEqual([]);
+  });
+
+  it("keeps every item and the order in balanced mode", () => {
+    const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const result = chunkByChunks(arr, 4, true);
+    expect(result).toEqual([
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8],
+      [9, 10],
+    ]);
+    expect(result.flat()).toEqual(arr);
+  });
+
+  it("creates the requested number of chunks in balanced mode", () => {
+    expect(chunkByChunks([1, 2, 3, 4, 5], 4, true)).toEqual([
+      [1, 2],
+      [3],
+      [4],
+      [5],
+    ]);
+  });
+
+  it("puts the remainder in the last chunk in unbalanced mode", () => {
+    expect(chunkByChunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4)).toEqual([
+      [1, 2, 3],
+      [4, 5, 6],
+      [7, 8, 9],
+      [10],
+    ]);
+  });
+});

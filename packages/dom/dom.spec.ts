@@ -66,4 +66,29 @@ describe("dom", () => {
     );
     expect(result.classList.contains("my-section-2:")).toBe(true);
   });
+
+  test("returns the first match only", () => {
+    const result = dom("span");
+    expect(result.id).toBe("test-id");
+  });
+
+  test("falls back to the document when parent is null", () => {
+    const result = dom("#test-id", null);
+    expect(result.id).toBe("test-id");
+  });
+
+  test("accepts the document as parent", () => {
+    const result = dom("#test-id", document);
+    expect(result.id).toBe("test-id");
+  });
+
+  test("allows pseudo-classes when avoidEscape is true", () => {
+    const result = dom(".another-section span:first-child", container, true);
+    expect(result.classList.contains("my-section-2:")).toBe(true);
+  });
+
+  test("treats colons as part of the class name when avoidEscape is false", () => {
+    const result = dom(".another-section span:first-child", container);
+    expect(result).toBeNull();
+  });
 });

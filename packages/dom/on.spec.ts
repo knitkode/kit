@@ -85,4 +85,56 @@ describe("on", () => {
 
     expect(mockHandler).toHaveBeenCalledTimes(1);
   });
+
+  test("passes the event to the handler", () => {
+    const mockHandler = vitest.fn();
+
+    on(button, "click", mockHandler);
+    button.click();
+
+    expect(mockHandler).toHaveBeenCalledWith(expect.any(MouseEvent));
+    expect(mockHandler.mock.calls[0]?.[0].target).toBe(button);
+  });
+
+  test("forwards the options to addEventListener", () => {
+    const mockHandler = vitest.fn();
+
+    on(button, "click", mockHandler, { once: true });
+    button.click();
+    button.click();
+
+    expect(mockHandler).toHaveBeenCalledTimes(1);
+  });
+
+  test("registers the listener in the capture phase with `true` as options", () => {
+    const calls: string[] = [];
+    const parent = document.createElement("div");
+    parent.appendChild(button);
+    document.body.appendChild(parent);
+
+    on(button, "click", () => calls.push("target"));
+    on(parent, "click", () => calls.push("parent bubble"));
+    on(parent, "click", () => calls.push("parent capture"), true);
+    button.click();
+
+    expect(calls).toEqual(["parent capture", "target", "parent bubble"]);
+  });
+});
+
+describe("on outside development", () => {
+  vitestSetNodeEnv("production");
+
+  test("silently returns a noop for a non-existing element", () => {
+    const consoleSpy = vitest
+      .spyOn(console, "warn")
+      .mockImplementation(() => {});
+
+    // @ts-expect-error test wrong implementation
+    const unbind = on(undefined, "click", vitest.fn());
+
+    expect(unbind()).toBeUndefined();
+    expect(consoleSpy).not.toHaveBeenCalled();
+
+    consoleSpy.mockRestore();
+  });
 });

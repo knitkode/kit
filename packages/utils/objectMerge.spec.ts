@@ -273,4 +273,13 @@ describe("objectMerge", () => {
       },
     });
   });
+  it("should skip '__proto__' keys of nested objects", () => {
+    const malicious = JSON.parse(
+      '{"__proto__": {"polluted": true}, "safe": 1}',
+    );
+    const result = objectMerge({ nested: malicious }, { nested: { other: 2 } });
+    expect(result.nested).toEqual({ safe: 1, other: 2 });
+    expect(Object.getPrototypeOf(result.nested)).toBe(Object.prototype);
+    expect(({} as Record<string, unknown>)["polluted"]).toBe(undefined);
+  });
 });

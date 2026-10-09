@@ -26,4 +26,26 @@ describe("uuid", () => {
     expect(result[14]).toBe("4"); // UUID version should be 4
     expect(["8", "9", "a", "b"]).toContain(result[19]); // UUID variant should be one of 8, 9, a, or b
   });
+
+  describe("with a stubbed Math.random", () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    test("uses Math.random once per random hex digit", () => {
+      const random = vi.spyOn(Math, "random").mockReturnValue(0.5);
+      uuid();
+      expect(random).toHaveBeenCalledTimes(31);
+    });
+
+    test.each([
+      [0, "00000000-0000-4000-8000-000000000000"],
+      [0.5, "88888888-8888-4888-8888-888888888888"],
+      [0.2, "33333333-3333-4333-b333-333333333333"],
+      [0.999999, "ffffffff-ffff-4fff-bfff-ffffffffffff"],
+    ])("maps Math.random() = %d to %s", (value, expected) => {
+      vi.spyOn(Math, "random").mockReturnValue(value);
+      expect(uuid()).toBe(expected);
+    });
+  });
 });

@@ -25,6 +25,8 @@ pnpm only installs dependency versions published at least 3 days ago (`minimumRe
 | `pnpm changeset`           | Describe your change for the next release                       |
 | `pnpm codegen:type-fest`   | Refresh the `type-fest` re-exports of `@knitkode/utils`          |
 
+CI runs the tests with coverage and fails below the minimums set in each package's `vitest.config.ts`. When your tests raise the coverage, raise those minimums too.
+
 Turborepo caches task results, so commands only re-run for packages whose inputs changed. Use `--force` to bypass the cache.
 
 To try a change in another project before it's released, every pull request gets installable [pkg.pr.new](https://pkg.pr.new) builds, linked in a PR comment.
