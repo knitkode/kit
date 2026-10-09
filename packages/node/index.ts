@@ -4,4 +4,7 @@ export { fsMoveAndRestoreTemporaryPathsSync } from "./fsMoveAndRestoreTemporaryP
 export { fsSymlink } from "./fsSymlink";
 export { fsWrite } from "./fsWrite";
 export { fsWriteSync } from "./fsWriteSync";
-export { getDependencyVersion } from "./getDependencyVersion";
+export {
+  type GetDependencyVersionOptions,
+  getDependencyVersion,
+} from "./getDependencyVersion";

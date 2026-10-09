@@ -23,6 +23,8 @@ await fsWrite("./generated/routes.ts", "export const routes = [];");
 
 getDependencyVersion("react"); // e.g. [19, 1, 0]
 getDependencyVersion("react", "major"); // e.g. 19
+// resolves from the current working directory unless told otherwise
+getDependencyVersion("next", { from: "./apps/web" });
 ```
 
 ## Entry points

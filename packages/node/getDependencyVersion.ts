@@ -1,11 +1,22 @@
 import { readFileSync } from "node:fs";
 import { createRequire } from "node:module";
-import { dirname } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { fsFindUpSync } from "./fsFindUpSync";
 
-const require = createRequire(import.meta.url);
-
 type PackageJson = { name?: string; version?: string };
+
+type VersionPart = "major" | "minor" | "patch";
+
+export type GetDependencyVersionOptions = {
+  /**
+   * The directory to resolve the dependency from, usually the root of the
+   * project that installed it.
+   *
+   * @default process.cwd()
+   */
+  from?: string | URL;
+};
 
 /**
  * `@scope/name/sub/path` -> `@scope/name`, `name/sub/path` -> `name`
@@ -21,7 +32,10 @@ const getPackageName = (specifier: string) =>
  * Dual packages often ship nested ones (e.g. `dist/commonjs/package.json`)
  * that only set the module `type`, so the first one found is not enough.
  */
-function readDependencyVersion(dependencyName: string) {
+function readDependencyVersion(dependencyName: string, from: string | URL) {
+  const fromDir = resolve(from instanceof URL ? fileURLToPath(from) : from);
+  // the file does not need to exist, it only sets where resolution starts
+  const require = createRequire(join(fromDir, "noop.js"));
   const packageName = getPackageName(dependencyName);
   let fallbackVersion: string | undefined;
   let packageJsonPath = fsFindUpSync("package.json", {
@@ -45,18 +59,38 @@ function readDependencyVersion(dependencyName: string) {
   return fallbackVersion;
 }
 
-export function getDependencyVersion(dependencyName: string): number[];
+/**
+ * Get the installed version of a dependency, as `[major, minor, patch]` or as
+ * one of those numbers. It returns `-1` values when the dependency cannot be
+ * resolved.
+ *
+ * @example
+ * ```ts
+ * getDependencyVersion("react"); // e.g. [19, 1, 0]
+ * getDependencyVersion("react", "major"); // e.g. 19
+ * getDependencyVersion("next", { from: "./apps/web" });
+ * ```
+ */
 export function getDependencyVersion(
   dependencyName: string,
-  type: "major" | "minor" | "patch",
+  options?: GetDependencyVersionOptions,
+): number[];
+export function getDependencyVersion(
+  dependencyName: string,
+  type: VersionPart,
+  options?: GetDependencyVersionOptions,
 ): number;
 export function getDependencyVersion(
   dependencyName: string,
-  type?: "major" | "minor" | "patch",
+  typeOrOptions?: VersionPart | GetDependencyVersionOptions,
+  maybeOptions?: GetDependencyVersionOptions,
 ): number[] | number {
+  const type = typeof typeOrOptions === "string" ? typeOrOptions : undefined;
+  const { from = process.cwd() } =
+    (typeof typeOrOptions === "object" ? typeOrOptions : maybeOptions) || {};
   let numbers: number[] | null = null;
   try {
-    const version = readDependencyVersion(dependencyName);
+    const version = readDependencyVersion(dependencyName, from);
 
     if (version) {
       numbers = version.split(".").map((part) => parseInt(part, 10));
