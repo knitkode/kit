@@ -1,6 +1,6 @@
 {
   "name": "@knitkode/react",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "React hooks and components: scroll, resize and measure hooks, polymorphic helpers, a headless calendar and form antispam.",
   "keywords": [
     "knitkode",
