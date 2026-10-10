@@ -1,5 +1,3 @@
-import { isUndefined } from "./isUndefined";
-
 declare let __webpack_nonce__: string;
 
 /**
@@ -7,6 +5,6 @@ declare let __webpack_nonce__: string;
  * @see https://github.com/styled-components/styled-components/blob/main/packages/styled-components/src/utils/nonce.ts
  */
 export let getNonce = () =>
-  isUndefined(__webpack_nonce__) ? null : __webpack_nonce__;
+  typeof __webpack_nonce__ === "undefined" ? null : __webpack_nonce__;
 
 export default getNonce;

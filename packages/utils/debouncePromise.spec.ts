@@ -122,6 +122,71 @@ describe("debouncePromise", () => {
       expect(fn).toHaveBeenCalledTimes(1);
     });
 
+    it("settles the calls made during the wait with the result of the immediate call", async () => {
+      let n = 0;
+      const fn = vi.fn((value: string) => `${value}${++n}`);
+      const callback = vi.fn();
+      const debounced = debouncePromise(fn, 100, {
+        isImmediate: true,
+        callback,
+      });
+
+      const first = debounced("a");
+      vi.advanceTimersByTime(50);
+      const second = debounced("b");
+      vi.advanceTimersByTime(50);
+      const third = debounced("c");
+      vi.advanceTimersByTime(100);
+
+      await expect(Promise.all([first, second, third])).resolves.toEqual([
+        "a1",
+        "a1",
+        "a1",
+      ]);
+      expect(fn).toHaveBeenCalledTimes(1);
+      expect(callback).toHaveBeenCalledTimes(1);
+
+      await expect(debounced("d")).resolves.toBe("d2");
+    });
+
+    it("keeps the calls made during the wait pending until the wait ends", async () => {
+      const debounced = debouncePromise((value: number) => value, 100, {
+        isImmediate: true,
+      });
+      const settled = vi.fn();
+
+      debounced(1);
+      debounced(2).then(settled);
+      await vi.advanceTimersByTimeAsync(99);
+      expect(settled).not.toHaveBeenCalled();
+
+      await vi.advanceTimersByTimeAsync(1);
+      expect(settled).toHaveBeenCalledWith(1);
+    });
+
+    it("rejects the calls made during the wait when cancelled", async () => {
+      const debounced = debouncePromise((value: number) => value, 100, {
+        isImmediate: true,
+      });
+
+      await expect(debounced(1)).resolves.toBe(1);
+      const pending = debounced(2);
+      debounced.cancel("cancelled");
+
+      await expect(pending).rejects.toBe("cancelled");
+    });
+
+    it("calls the function right away again after a cancel", async () => {
+      const fn = vi.fn((value: number) => value);
+      const debounced = debouncePromise(fn, 100, { isImmediate: true });
+
+      await expect(debounced(1)).resolves.toBe(1);
+      debounced.cancel();
+
+      await expect(debounced(2)).resolves.toBe(2);
+      expect(fn).toHaveBeenCalledTimes(2);
+    });
+
     it("calls the function right away again after the wait time", async () => {
       const fn = vi.fn((value: number) => value);
       const debounced = debouncePromise(fn, 100, { isImmediate: true });

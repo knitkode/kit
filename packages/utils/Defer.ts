@@ -2,6 +2,7 @@
  * @category async
  */
 export type Deferred<T> = Promise<T> & {
+  promise: Promise<T>;
   resolve: (value: T | PromiseLike<T>) => void; // PromiseConstructor["resolve"];
   reject: (value: T | PromiseLike<T>) => void; // PromiseConstructor["reject"];
   // then: Promise<T>["then"];
@@ -20,14 +21,8 @@ export type Deferred<T> = Promise<T> & {
  * deferred.then(handleSuccess, handleError);
  * ```
  */
-export function Defer<T>(
-  this: Promise<T> & {
-    promise: Promise<T>;
-    resolve: (value: T | PromiseLike<T>) => void;
-    reject: (value: T | PromiseLike<T>) => void;
-  },
-) {
-  const self = this || ({} as typeof this);
+export function Defer<T = void>(this: Deferred<T> | void) {
+  const self = (this || {}) as Deferred<T>;
   const p = (self.promise = new Promise<T>((resolve, reject) => {
     self.resolve = resolve;
     self.reject = reject;
@@ -37,7 +32,7 @@ export function Defer<T>(
   // if (p.finally) {
   //   self.finally = p.finally.bind(p);
   // }
-  return self as Deferred<T>;
+  return self;
 }
 
 export default Defer;

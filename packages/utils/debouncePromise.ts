@@ -55,6 +55,9 @@ export let debouncePromise = <
   let lastInvokeTime = Date.now();
 
   let promises: DebouncedPromise<ReturnType<F>>[] = [];
+  // the last result, with `isImmediate` the calls made during the wait settle
+  // with the result of the immediate call
+  let result: ReturnType<F>;
 
   function nextInvokeTimeout() {
     if (maxWait !== undefined) {
@@ -78,11 +81,11 @@ export let debouncePromise = <
         timeoutId = undefined;
         lastInvokeTime = Date.now();
         if (!isImmediate) {
-          const result = func.apply(context, args);
+          result = func.apply(context, args);
           callback && callback(result);
-          promises.forEach(({ resolve }) => resolve(result));
-          promises = [];
         }
+        promises.forEach(({ resolve }) => resolve(result));
+        promises = [];
       };
 
       const shouldCallNow = isImmediate && timeoutId === undefined;
@@ -94,7 +97,7 @@ export let debouncePromise = <
       timeoutId = setTimeout(invokeFunction, nextInvokeTimeout());
 
       if (shouldCallNow) {
-        const result = func.apply(context, args);
+        result = func.apply(context, args);
         callback && callback(result);
         return resolve(result);
       }
@@ -105,6 +108,8 @@ export let debouncePromise = <
   debouncedFunction.cancel = function (reason?: any) {
     if (timeoutId !== undefined) {
       clearTimeout(timeoutId);
+      // so that with `isImmediate` the next call is immediate again
+      timeoutId = undefined;
     }
     promises.forEach(({ reject }) => reject(reason));
     promises = [];

@@ -25,6 +25,10 @@ describe("removeUrlQueryParams", () => {
     expect(removeUrlQueryParams("/p?q=a%20b&x=1", ["x"])).toBe("/p?q=a%20b");
   });
 
+  it("keeps the encoded keys as they are", () => {
+    expect(removeUrlQueryParams("/p?a%20b=1&x=1", ["x"])).toBe("/p?a%20b=1");
+  });
+
   it("returns the URL untouched when it has no query string", () => {
     expect(removeUrlQueryParams("https://example.com/p", ["a"])).toBe(
       "https://example.com/p",

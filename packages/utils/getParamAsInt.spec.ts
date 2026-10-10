@@ -28,6 +28,12 @@ describe("getParamAsInt", () => {
     expect(getParamAsInt([], -1)).toBe(-1);
   });
 
+  it("returns the fallback when the param is not a number", () => {
+    expect(getParamAsInt("abc")).toBeNull();
+    expect(getParamAsInt("abc", 3)).toBe(3);
+    expect(getParamAsInt(["x1", "2"], 0)).toBe(0);
+  });
+
   it("ignores the fallback when the param is present", () => {
     expect(getParamAsInt("8", 1)).toBe(8);
   });

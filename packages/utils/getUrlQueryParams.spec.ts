@@ -23,6 +23,21 @@ describe("getUrlQueryParams", () => {
     });
   });
 
+  it("ignores the hash", () => {
+    expect(getUrlQueryParams("?x=1#hash")).toEqual({ x: "1" });
+    expect(
+      getUrlQueryParams("https://example.com/page?x=1&y=2#/route?z=3"),
+    ).toEqual({ x: "1", y: "2" });
+    expect(getUrlQueryParams("https://example.com/page?#hash")).toEqual({});
+  });
+
+  it("decodes the keys", () => {
+    expect(getUrlQueryParams("?a%20b=1&c%5B%5D=2")).toEqual({
+      "a b": "1",
+      "c[]": "2",
+    });
+  });
+
   it("keeps empty values", () => {
     expect(getUrlQueryParams("?a=&b=1")).toEqual({ a: "", b: "1" });
   });

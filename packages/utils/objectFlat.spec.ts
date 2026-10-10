@@ -39,6 +39,14 @@ describe("objectFlat", () => {
     expect(objectFlat({ a: {}, b: 1 })).toEqual({ b: 1 });
   });
 
+  it("keeps null values instead of recursing into them", () => {
+    expect(objectFlat({ a: null })).toEqual({ a: null });
+    expect(objectFlat({ a: { b: null, c: 1 } })).toEqual({
+      "a.b": null,
+      "a.c": 1,
+    });
+  });
+
   it("returns an empty object for an empty input", () => {
     expect(objectFlat({})).toEqual({});
   });

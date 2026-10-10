@@ -20,7 +20,7 @@ export let objectFlat = <
       keyof TReturn,
       string
     >;
-    if (typeof obj[key] === "object") {
+    if (obj[key] && typeof obj[key] === "object") {
       acc = {
         ...acc,
         ...objectFlat(obj[key] as TInput, delimiter, propName),

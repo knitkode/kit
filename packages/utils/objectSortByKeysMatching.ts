@@ -12,11 +12,9 @@ import { objectSort } from "./objectSort";
 export let objectSortByKeysMatching = <T extends object>(
   data: T,
   keyMatch: keyof T,
-) => objectSort(data, ([a], [b]) => (a === keyMatch ? -1 : a.localeCompare(b)));
-// Object.fromEntries(
-//   Object.entries(data).sort(([a], [b]) =>
-//     a === keyMatch ? -1 : a.localeCompare(b),
-//   ),
-// );
+) =>
+  objectSort(data, ([a], [b]) =>
+    a === keyMatch ? -1 : b === keyMatch ? 1 : a.localeCompare(b),
+  );
 
 export default objectSortByKeysMatching;

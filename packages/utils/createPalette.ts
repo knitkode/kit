@@ -49,7 +49,11 @@ export let createPalette = <
     {} as Record<`${TName}-${TShades[number][0]}`, string>,
   );
 
-  return [map as TMap, tailwindPalette, Object.values<TColor>(map)] as const;
+  return [
+    map as TMap,
+    tailwindPalette,
+    shades.map((def) => def[1] as TColor),
+  ] as const;
 };
 
 export default createPalette;

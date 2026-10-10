@@ -19,6 +19,13 @@ describe("chunkBySize", () => {
     expect(chunkBySize(arr, size)).toEqual(expected);
   });
 
+  it.each([0, -1, 0.5, Number.NaN])(
+    "returns the whole array as a single chunk for a size of %d",
+    (size) => {
+      expect(chunkBySize([1, 2, 3], size)).toEqual([[1, 2, 3]]);
+    },
+  );
+
   it("does not mutate the given array", () => {
     const arr = ["a", "b", "c"];
     chunkBySize(arr, 2);

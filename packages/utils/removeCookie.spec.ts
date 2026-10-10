@@ -1,5 +1,6 @@
 import { readCookie } from "./readCookie";
 import { removeCookie } from "./removeCookie";
+import { setCookie } from "./setCookie";
 
 const clearCookies = () => {
   for (const cookie of document.cookie.split("; ")) {
@@ -16,12 +17,28 @@ describe("removeCookie", () => {
     vi.restoreAllMocks();
   });
 
-  it("clears the value of the cookie", () => {
+  it("removes the cookie", () => {
     document.cookie = "a=1; path=/";
     document.cookie = "b=2; path=/";
     removeCookie("a");
-    expect(readCookie("a")).toBeFalsy();
+    expect(readCookie("a")).toBeUndefined();
     expect(readCookie("b")).toBe("2");
+    expect(document.cookie).toBe("b=2");
+  });
+
+  it("removes a cookie written by setCookie", () => {
+    setCookie("a", "1");
+    removeCookie("a");
+    expect(readCookie("a")).toBeUndefined();
+    expect(document.cookie).toBe("");
+  });
+
+  it("writes an expiry date in the past", () => {
+    const setter = vi.spyOn(document, "cookie", "set");
+    removeCookie("a");
+    const expires = setter.mock.calls[0][0].match(/; expires=([^;]+)/)?.[1];
+    expect(expires).toMatch(/ GMT$/);
+    expect(new Date(expires as string).getTime()).toBeLessThan(Date.now());
   });
 
   it("targets the root path by default", () => {

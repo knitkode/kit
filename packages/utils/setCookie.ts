@@ -1,6 +1,5 @@
 import { type CookieAttributesClient, defaultAttributesClient } from "./cookie";
 import { isNumber } from "./isNumber";
-import { isUndefined } from "./isUndefined";
 
 let converterWrite = (value: string) => {
   return encodeURIComponent(value).replace(
@@ -24,7 +23,7 @@ export let setCookie = <T extends string = string>(
     ...restAttrs,
   };
 
-  if (isUndefined(document)) {
+  if (typeof document === "undefined") {
     if (process.env["NODE_ENV"] === "development") {
       console.warn("[@knitkode/utils:setCookie] document is undefined");
     }
@@ -43,27 +42,21 @@ export let setCookie = <T extends string = string>(
     .replace(/[()]/g, escape);
 
   let stringifiedAttributes = "";
-  for (const name in attributes) {
-    const attrName = name as keyof CookieAttributesClient;
-    if (!attributes[attrName]) {
-      continue;
+  for (const attrName in cleanedAttrs) {
+    const attrValue = cleanedAttrs[attrName as keyof typeof cleanedAttrs];
+    if (attrValue) {
+      stringifiedAttributes +=
+        "; " +
+        attrName +
+        // Considers RFC 6265 section 5.2:
+        // ...
+        // 3.  If the remaining unparsed-attributes contains a %x3B (";")
+        //     character:
+        // Consume the characters of the unparsed-attributes up to,
+        // not including, the first %x3B (";") character.
+        // ...
+        (attrValue === true ? "" : "=" + String(attrValue).split(";")[0]);
     }
-
-    stringifiedAttributes += "; " + attrName;
-
-    if (attributes[attrName] === true) {
-      continue;
-    }
-
-    // Considers RFC 6265 section 5.2:
-    // ...
-    // 3.  If the remaining unparsed-attributes contains a %x3B (";")
-    //     character:
-    // Consume the characters of the unparsed-attributes up to,
-    // not including, the first %x3B (";") character.
-    // ...
-    stringifiedAttributes +=
-      "=" + (String(attributes[attrName]) as string).split(";")[0];
   }
 
   return (document.cookie =

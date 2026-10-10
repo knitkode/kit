@@ -14,7 +14,7 @@ export let throttle = <TFn extends Function, TContext>(
   return function (this: TContext, ...args: any[]) {
     context = context || this;
     if (!wait) {
-      fn.apply(context, ...args);
+      fn.apply(context, args);
       wait = true;
       return setTimeout(function () {
         wait = false;

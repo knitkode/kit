@@ -23,6 +23,31 @@ describe("removeDuplicatesByKey", () => {
     expect(removeDuplicatesByKey(undefined, "id")).toEqual([]);
   });
 
+  it("compares the values strictly, without converting them to strings", () => {
+    const input = [{ id: 1 }, { id: "1" }, { id: 1 }];
+    expect(removeDuplicatesByKey(input, "id")).toEqual([
+      { id: 1 },
+      { id: "1" },
+    ]);
+  });
+
+  it("compares object values by reference", () => {
+    const ref = {};
+    const input = [{ v: ref }, { v: {} }, { v: ref }];
+    expect(removeDuplicatesByKey(input, "v")).toEqual([input[0], input[1]]);
+  });
+
+  it("keeps the items whose value is an Object prototype property name", () => {
+    const input = [
+      { n: "toString" },
+      { n: "constructor" },
+      { n: "__proto__" },
+      { n: "x" },
+      { n: "toString" },
+    ];
+    expect(removeDuplicatesByKey(input, "n")).toEqual(input.slice(0, 4));
+  });
+
   it("does not mutate the given array", () => {
     const input = [{ id: 1 }, { id: 1 }];
     removeDuplicatesByKey(input, "id");

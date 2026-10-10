@@ -32,4 +32,14 @@ describe("arrayOfAll", () => {
       ArrayOfAll<["pear", "apple", "kiwi"], Fruit>
     >().toEqualTypeOf<"Incomplete">();
   });
+
+  it("ArrayOfAll resolves to 'Incomplete' for a list missing some members", () => {
+    expectTypeOf<
+      ArrayOfAll<["pear", "apple"], Fruit>
+    >().toEqualTypeOf<"Incomplete">();
+    expectTypeOf<ArrayOfAll<[], Fruit>>().toEqualTypeOf<"Incomplete">();
+    expectTypeOf<
+      ArrayOfAll<readonly ["orange", "pear", "apple", "pear"], Fruit>
+    >().toEqualTypeOf<true>();
+  });
 });

@@ -9,6 +9,13 @@ describe("getUrlHashPathname", () => {
     ["#/products/shoes", "products/shoes"],
     ["#/products?color=red", "products"],
     ["#/", ""],
+    ["#foo", "foo"],
+    ["#foo/bar?x=1", "foo/bar"],
+    ["#//a", "a"],
+    ["#///a/b", "a/b"],
+    ["/a", "a"],
+    ["#", ""],
+    ["#?x=1", ""],
   ])("extracts the pathname of %j", (hash, expected) => {
     expect(getUrlHashPathname(hash)).toBe(expected);
   });

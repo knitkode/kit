@@ -31,6 +31,12 @@ describe("updateUrlQueryParams", () => {
     expect(updateUrlQueryParams("/p", { q: "a b&c" })).toBe("/p?q=a%20b%26c");
   });
 
+  it("keeps the encoded keys as they are", () => {
+    expect(updateUrlQueryParams("/p?a%20b=1", { c: "2" })).toBe(
+      "/p?a%20b=1&c=2",
+    );
+  });
+
   it("returns the URL untouched without new params", () => {
     expect(updateUrlQueryParams("/p")).toBe("/p");
     expect(updateUrlQueryParams("/p?a=1")).toBe("/p?a=1");

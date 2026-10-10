@@ -1,6 +1,7 @@
 /**
  * Remove duplicated array objects, equality is determined by a strict (`===`)
- * comparison of each object's given key
+ * comparison of each object's given key (as in a `Set`, `NaN` values are
+ * considered equal to each other)
  *
  * @category array
  */
@@ -10,18 +11,8 @@ export let removeDuplicatesByKey = <
   array: T[] = [] as T[],
   key: keyof T,
 ) => {
-  const keysMap = {} as Record<T[keyof T], boolean>;
-  const output: T[] = [];
-
-  for (let i = 0; i < array.length; i++) {
-    const item = array[i];
-    if (!keysMap[item[key]]) {
-      output.push(item);
-      keysMap[item[key]] = true;
-    }
-  }
-
-  return output;
+  const seen = new Set();
+  return array.filter((item) => !seen.has(item[key]) && seen.add(item[key]));
 };
 
 export default removeDuplicatesByKey;

@@ -15,6 +15,21 @@ describe("objectSortByKeysMatching", () => {
     expect(Object.keys(result)).toEqual(["a", "b", "c"]);
   });
 
+  it.each([
+    [{ m: 1, a: 2 }, "m", ["m", "a"]],
+    [{ b: 1, z: 2, a: 3 }, "z", ["z", "a", "b"]],
+    [{ c: 1, m: 2, b: 3, a: 4 }, "m", ["m", "a", "b", "c"]],
+  ] as const)(
+    "sorts %j with %j first and then the rest alphabetically",
+    (data, keyMatch, expected) => {
+      expect(
+        Object.keys(
+          objectSortByKeysMatching(data, keyMatch as keyof typeof data),
+        ),
+      ).toEqual(expected);
+    },
+  );
+
   it("returns a new object", () => {
     const input = { b: 1, a: 2 };
     expect(objectSortByKeysMatching(input, "a")).not.toBe(input);

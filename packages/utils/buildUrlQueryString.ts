@@ -21,10 +21,10 @@ export let buildUrlQueryString = <T extends AnyQueryParams>(params: T) => {
     const value = params[key];
     if (isArray(value)) {
       for (let i = 0; i < value.length; i++) {
-        output += `${key}=${encodeURIComponent(value[i] + "")}&`;
+        output += `${encodeURIComponent(key)}=${encodeURIComponent(value[i] + "")}&`;
       }
     } else if (!isNull(value) && !isUndefined(value)) {
-      output += `${key}=${encodeURIComponent(value + "")}&`;
+      output += `${encodeURIComponent(key)}=${encodeURIComponent(value + "")}&`;
     }
   }
 

@@ -91,6 +91,12 @@ describe("buildUrlQueryString", () => {
     );
   });
 
+  it("should encode the keys", () => {
+    expect(
+      buildUrlQueryString({ "a b": "1", "c&d=e": "2", "tags[]": ["x", "y"] }),
+    ).toBe("?a%20b=1&c%26d%3De=2&tags%5B%5D=x&tags%5B%5D=y");
+  });
+
   it("should combine array and scalar values in key order", () => {
     expect(buildUrlQueryString({ a: "1", b: ["2", "3"], c: "4" })).toBe(
       "?a=1&b=2&b=3&c=4",

@@ -100,6 +100,36 @@ describe("objectMergeWithDefaults", () => {
     ).toEqual({ a: "a", b: "b" });
   });
 
+  it("does not mutate the defaults when adding nested objects", () => {
+    const defaults: { a: number; b?: { c: number } } = { a: 1 };
+    const res = objectMergeWithDefaults(defaults, { b: { c: 1 } });
+    expect(res).toEqual({ a: 1, b: { c: 1 } });
+    expect(defaults).toEqual({ a: 1 });
+    expect(defaults).not.toHaveProperty("b");
+  });
+
+  it("does not mutate nested defaults", () => {
+    const defaults = { a: { b: { c: 1 } } };
+    objectMergeWithDefaults(defaults, { a: { b: { d: 2 } } });
+    expect(defaults).toEqual({ a: { b: { c: 1 } } });
+  });
+
+  it("removes nested default values when 'overrides' wants it", () => {
+    const res = objectMergeWithDefaults(
+      { a: { b: 1, c: 2 } } as const,
+      { a: { b: null } } as const,
+      true,
+    );
+    expect(res).toEqual({ a: { c: 2 } } satisfies typeof res);
+    expectTypeOf(res).toEqualTypeOf<{ a: { c: 2 } }>();
+  });
+
+  it("keeps nested null overrides from deleting keys unless 'deleteIfNull' is set", () => {
+    expect(
+      objectMergeWithDefaults({ a: { b: 1, c: 2 } }, { a: { b: null } }),
+    ).toEqual({ a: { b: 1, c: 2 } });
+  });
+
   it("keeps falsy but defined override values", () => {
     expect(
       objectMergeWithDefaults(

@@ -34,18 +34,14 @@ type CookieAttributes = {
 
   /**
    * A Boolean indicating if the cookie transmission requires a
-   * secure protocol (https).
-   *
-   * @default "true"
+   * secure protocol (https). Not set by default.
    */
   secure?: boolean | undefined;
 
   /**
    * Asserts that a cookie must not be sent with cross-origin requests,
    * providing some protection against cross-site request forgery
-   * attacks (CSRF)
-   *
-   * @default "strict"
+   * attacks (CSRF). Not set by default, browsers then treat it as `lax`.
    */
   sameSite?: "strict" | "Strict" | "lax" | "Lax" | "none" | "None" | undefined;
 

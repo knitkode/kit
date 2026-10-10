@@ -94,6 +94,52 @@ describe("chunkByChunks (more cases)", () => {
     ]);
   });
 
+  it("creates the requested number of chunks in unbalanced mode", () => {
+    expect(chunkByChunks([1, 2, 3, 4, 5], 4)).toEqual([[1], [2], [3], [4, 5]]);
+    expect(chunkByChunks([1, 2, 3, 4, 5, 6, 7], 5)).toEqual([
+      [1],
+      [2],
+      [3],
+      [4],
+      [5, 6, 7],
+    ]);
+  });
+
+  it("uses the largest size that leaves items for the last chunk in unbalanced mode", () => {
+    const arr = Array.from({ length: 14 }, (_, i) => i + 1);
+    expect(chunkByChunks(arr, 6)).toEqual([
+      [1, 2],
+      [3, 4],
+      [5, 6],
+      [7, 8],
+      [9, 10],
+      [11, 12, 13, 14],
+    ]);
+  });
+
+  it("gives each item its own chunk when there are less items than chunks", () => {
+    expect(chunkByChunks([1, 2, 3], 4)).toEqual([[1], [2], [3]]);
+    expect(chunkByChunks([1, 2, 3], 4, true)).toEqual([[1], [2], [3]]);
+  });
+
+  it("always returns the requested number of non empty chunks when there are enough items", () => {
+    for (let len = 2; len <= 30; len++) {
+      const arr = Array.from({ length: len }, (_, i) => i);
+      for (let nrOfChunks = 2; nrOfChunks <= len; nrOfChunks++) {
+        for (const balanced of [false, true]) {
+          const result = chunkByChunks(arr, nrOfChunks, balanced);
+          expect(result).toHaveLength(nrOfChunks);
+          expect(result.flat()).toEqual(arr);
+          expect(result.every((chunk) => chunk.length > 0)).toBe(true);
+          if (!balanced) {
+            const sizes = new Set(result.slice(0, -1).map((c) => c.length));
+            expect(sizes.size).toBe(1);
+          }
+        }
+      }
+    }
+  });
+
   it("puts the remainder in the last chunk in unbalanced mode", () => {
     expect(chunkByChunks([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4)).toEqual([
       [1, 2, 3],

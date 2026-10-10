@@ -26,6 +26,16 @@ describe("createPalette", () => {
     expect(colors).toEqual(["#eef", "#33f", "#002"]);
   });
 
+  it("keeps the order of the given shades in the list of colors", () => {
+    const [, , colors] = createPalette("x", [
+      [200, "#b"],
+      [100, "#a"],
+      [900, "#c"],
+      [50, "#d"],
+    ] as const);
+    expect(colors).toEqual(["#b", "#a", "#c", "#d"]);
+  });
+
   it("handles an empty list of shades", () => {
     expect(createPalette("empty", [])).toEqual([{}, {}, []]);
   });

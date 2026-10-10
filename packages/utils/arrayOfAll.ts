@@ -27,11 +27,10 @@ export let arrayOfAll =
  * type Check_AreAllListed = AssertTrue<ArrayOfAll<typeof myList, MyUnion>>;
  * ```
  */
-export type ArrayOfAll<
-  List extends unknown[] | readonly unknown[],
-  Union,
-> = List[number] extends Union
-  ? Union extends List[number]
+export type ArrayOfAll<List extends unknown[] | readonly unknown[], Union> = [
+  List[number],
+] extends [Union]
+  ? [Union] extends [List[number]]
     ? true
     : "Incomplete"
   : "Incomplete";

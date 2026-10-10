@@ -103,6 +103,24 @@ describe("throttle", () => {
     expect(mockFn.mock.contexts[0]).toBe(context);
   });
 
+  test("calls the function with the given arguments", () => {
+    const mockFn = vitest.fn();
+    const throttledFn = throttle(mockFn, 1000);
+
+    throttledFn(1, 2);
+
+    expect(mockFn).toHaveBeenCalledWith(1, 2);
+  });
+
+  test("passes an array argument as it is", () => {
+    const mockFn = vitest.fn();
+    const throttledFn = throttle(mockFn, 1000);
+
+    throttledFn([1, 2], "b");
+
+    expect(mockFn).toHaveBeenCalledWith([1, 2], "b");
+  });
+
   test("returns a timer on the first call and nothing while throttled", () => {
     const throttledFn = throttle(vitest.fn(), 1000);
 

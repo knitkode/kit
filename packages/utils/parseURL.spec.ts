@@ -28,6 +28,14 @@ describe("parseURL", () => {
     });
   });
 
+  it("parses a port without path", () => {
+    expect(parseURL("https://example.com:8080")).toMatchObject({
+      host: "example.com:8080",
+      port: "8080",
+      pathname: "",
+    });
+  });
+
   it("parses the root path", () => {
     expect(parseURL("https://example.com/")).toMatchObject({
       pathname: "/",
@@ -44,10 +52,15 @@ describe("parseURL", () => {
     });
   });
 
-  it.each(["ftp://example.com", "/relative/path", "example.com", ""])(
-    "returns null for %j",
-    (url) => {
-      expect(parseURL(url)).toBeNull();
-    },
-  );
+  it.each([
+    "ftp://example.com",
+    "/relative/path",
+    "example.com",
+    "",
+    "https://example.com:port",
+    "https://example.com:",
+    "https://example.com:8080:9090/a",
+  ])("returns null for %j", (url) => {
+    expect(parseURL(url)).toBeNull();
+  });
 });

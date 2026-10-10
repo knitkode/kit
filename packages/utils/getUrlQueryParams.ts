@@ -16,7 +16,7 @@ export let getUrlQueryParams = <T extends NonNullable<AnyQueryParams>>(
 ) => {
   let params = {};
   const search = url
-    ? url.split("?")?.[1]
+    ? url.split("?")[1]?.split("#")[0]
     : isBrowser
       ? location.search.substring(1)
       : "";
@@ -30,8 +30,10 @@ export let getUrlQueryParams = <T extends NonNullable<AnyQueryParams>>(
     const paramsAsObj = `{"${search
       .replace(/&/g, '","')
       .replace(/=/g, '":"')}"}`;
-    params = JSON.parse(paramsAsObj, (key, value) =>
-      key === "" ? value : decodeURIComponent(value),
+    params = Object.fromEntries(
+      Object.entries<string>(JSON.parse(paramsAsObj)).map((entry) =>
+        entry.map(decodeURIComponent),
+      ),
     );
   } catch (_e) {
     // do nothing or warn on process.env["NODE_ENV"] === "development"

@@ -109,12 +109,10 @@ export let objectMergeWithDefaults = <
           const keyOverrides = _key as Extract<keyof O, string>;
 
           if (isObject(overrides[keyOverrides])) {
-            if (!defaults[keyDefaults]) {
-              defaults[keyDefaults] = {} as any;
-            }
             result[keyDefaults] = objectMergeWithDefaults(
-              defaults[keyDefaults] as D,
+              (defaults[keyDefaults] || {}) as D,
               overrides[keyOverrides] as O,
+              deleteIfNull,
             );
           } else {
             const overrideValue = overrides[keyOverrides];

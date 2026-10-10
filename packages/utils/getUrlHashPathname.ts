@@ -6,6 +6,6 @@
  * @category location
  */
 export let getUrlHashPathname = (hash = "") =>
-  (hash || location.hash).split("?")[0].replace(/^#\//, "");
+  (hash || location.hash).split("?")[0].replace(/^#?\/*/, "");
 
 export default getUrlHashPathname;
