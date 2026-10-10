@@ -11,6 +11,17 @@ Releases are automated with [Changesets](https://changesets.dev) and GitHub Acti
 - **Least privilege.** Only the `publish` job can mint the OIDC token npm uses for [trusted publishing](https://docs.npmjs.com/trusted-publishers), and it runs in the `npm` environment. Add required reviewers to that environment to approve each publish by hand.
 - **Previews without npm.** The [Preview](.github/workflows/preview.yml) workflow publishes every PR and `main` commit to [pkg.pr.new](https://pkg.pr.new), so changes can be installed and tested before a release.
 
+## Versioning policy
+
+kit stays on its current major version (3.x) for as long as possible, ideally forever. Every release is a `minor` (new features) or a `patch` (fixes), never a `major`:
+
+- **Never remove or rename** a module, an export, a prop or an option. Deprecate it instead: keep it working, mark it with a `@deprecated` JSDoc tag that points to the replacement, and mention it in the changeset.
+- **Only add**: new modules and exports, new optional parameters and options whose defaults keep the current behaviour. Change a signature by adding an overload, not by replacing it.
+- **Widen dependency ranges, don't drop them**: support a new React or Next.js major next to the old ones (`^18 || ^19 || ^20`), and keep the Node.js requirement of `@knitkode/node` as it is.
+- **Bug fixes can change behaviour** that was wrong, but say so in the changeset, with the old and the new behaviour.
+
+`pnpm check:stable` ([tools/check-stable-major.mjs](tools/check-stable-major.mjs)), part of `pnpm verify` and of CI, fails when a changeset asks for a `major` bump or when an entry point published on npm is missing from a package. Types and individual exports are not checked automatically: review those changes with the policy above in mind.
+
 ## Prereleases
 
 To ship a series of prereleases (e.g. `3.1.0-next.0`, `3.1.0-next.1`) on the `next` npm dist-tag:

@@ -46,6 +46,10 @@ jobs:
       - name: Typecheck tooling
         run: pnpm exec tsc -p tsconfig.json
 
+      # kit stays on its major: no major changeset, no removed entry point
+      - name: Check for breaking changes
+        run: pnpm check:stable
+
   test:
     name: Build, typecheck, test (Node ${{ matrix.node }})
     runs-on: ubuntu-latest

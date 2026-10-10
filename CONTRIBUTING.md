@@ -69,7 +69,7 @@ On every build tsdown also runs [publint](https://publint.dev) and [Are the type
   pnpm changeset
   ```
 
-  Pick the bump type with [semver](https://semver.org) in mind and write the summary for users of the package: it ends up verbatim in the changelog. A bot comment on the pull request tells you whether one is present. Changes that don't need a release (docs, tests, tooling) can skip it, or use `pnpm changeset --empty`.
+  Pick the bump type with [semver](https://semver.org) in mind, `minor` or `patch` only: kit doesn't make breaking changes (see the [versioning policy](./RELEASING.md#versioning-policy)) and write the summary for users of the package: it ends up verbatim in the changelog. A bot comment on the pull request tells you whether one is present. Changes that don't need a release (docs, tests, tooling) can skip it, or use `pnpm changeset --empty`.
 
 See [RELEASING.md](./RELEASING.md) for what happens after merging.
 

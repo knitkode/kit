@@ -40,7 +40,7 @@ Every package lists its entry points in its own README, and the [API reference](
 
 ## Versioning and releases
 
-All `@knitkode/*` packages share one version number and follow [semantic versioning](https://semver.org): `@knitkode/react@3.2.0` is meant to be used with `@knitkode/utils@3.2.0`. Every package has its own `CHANGELOG.md`, and each release is listed on the [GitHub releases page](https://github.com/knitkode/kit/releases). Releases are published from CI with [npm provenance](https://docs.npmjs.com/generating-provenance-statements).
+kit intends to stay on its current major version: no breaking changes, deprecations instead (see the [versioning policy](./RELEASING.md#versioning-policy)). All `@knitkode/*` packages share one version number and follow [semantic versioning](https://semver.org): `@knitkode/react@3.2.0` is meant to be used with `@knitkode/utils@3.2.0`. Every package has its own `CHANGELOG.md`, and each release is listed on the [GitHub releases page](https://github.com/knitkode/kit/releases). Releases are published from CI with [npm provenance](https://docs.npmjs.com/generating-provenance-statements).
 
 Each pull request also gets installable preview builds from [pkg.pr.new](https://pkg.pr.new), linked in a PR comment.
 
