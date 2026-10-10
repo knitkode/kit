@@ -1,4 +1,4 @@
-import { type EventCallback, getRunTarget } from "./_listen-delegation";
+import type { EventCallback } from "./_listen-delegation";
 import { listen } from "./listen";
 import type { AnyWindowEventType } from "./types";
 import { unlisten } from "./unlisten";
@@ -16,11 +16,14 @@ export let listenOnce = (
   types: string,
   selector: string,
   callback: EventCallback,
-) =>
-  listen(types as AnyWindowEventType, selector, function temp(event) {
-    const target = getRunTarget(event.target as HTMLElement, selector);
-    callback(event, target || window);
+) => {
+  const temp: EventCallback = (event, target) => {
+    callback(event, target);
     unlisten(types as AnyWindowEventType, selector, temp);
-  });
+  };
+  // lets `unlisten` find this listener from the original callback too
+  (temp as any).o = callback;
+  listen(types as AnyWindowEventType, selector, temp);
+};
 
 export default listenOnce;

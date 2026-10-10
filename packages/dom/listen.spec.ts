@@ -172,6 +172,72 @@ describe("listen", () => {
     },
   );
 
+  test.each([
+    ["window", window],
+    ["document", document],
+  ])(
+    "does not match the %s as event target with a selector string",
+    (_label, eventTarget) => {
+      const onError = vi.fn((event: ErrorEvent) => event.preventDefault());
+      window.addEventListener("error", onError);
+      const callback = vi.fn();
+      const onWindow = vi.fn();
+      listen("resize", ".btn", callback);
+      listen("resize", "*", onWindow);
+
+      eventTarget.dispatchEvent(new Event("resize"));
+      window.removeEventListener("error", onError);
+
+      expect(callback).not.toHaveBeenCalled();
+      expect(onWindow).toHaveBeenCalledWith(expect.any(Event), window);
+      expect(onError).not.toHaveBeenCalled();
+    },
+  );
+
+  test("skips the listeners unlistened by a previous one during the same event", () => {
+    const calls: string[] = [];
+    const second = () => calls.push("second");
+    listen("click", ".btn", () => {
+      calls.push("first");
+      unlisten("click", ".btn", second);
+    });
+    listen("click", ".btn", second);
+    listen("click", ".btn", () => calls.push("third"));
+
+    $("#btn").click();
+
+    expect(calls).toEqual(["first", "third"]);
+  });
+
+  test("skips the remaining listeners when all of them are unlistened during the event", () => {
+    const calls: string[] = [];
+    listen("click", ".btn", () => {
+      calls.push("first");
+      unlisten("click", "", () => {});
+    });
+    listen("click", ".btn", () => calls.push("second"));
+
+    $("#btn").click();
+
+    expect(calls).toEqual(["first"]);
+  });
+
+  test("does not call the listeners added during the same event", () => {
+    const calls: string[] = [];
+    const later = () => calls.push("later");
+    listen("click", ".btn", () => {
+      calls.push("first");
+      listen("click", ".btn", later);
+    });
+
+    $("#btn").click();
+    expect(calls).toEqual(["first"]);
+
+    // the `later` added by the first click runs, the one added now does not
+    $("#btn").click();
+    expect(calls).toEqual(["first", "first", "later"]);
+  });
+
   test("does not register anything without a selector", () => {
     expect(listen("click", "", vi.fn())).toBeUndefined();
     expect(getListeners()).toEqual({});
@@ -212,6 +278,24 @@ describe("listen", () => {
       $("#outside").click();
 
       expect(callback).not.toHaveBeenCalled();
+    });
+
+    test("ignores events targeting the window or the document", () => {
+      const onError = vi.fn((event: ErrorEvent) => event.preventDefault());
+      window.addEventListener("error", onError);
+      const callback = vi.fn();
+      const onWindow = vi.fn();
+      // @ts-expect-error the selector is typed as a string only
+      listen("resize", $("#btn"), callback);
+      listen("resize", "*", onWindow);
+
+      window.dispatchEvent(new Event("resize"));
+      document.dispatchEvent(new Event("resize"));
+      window.removeEventListener("error", onError);
+
+      expect(callback).not.toHaveBeenCalled();
+      expect(onWindow).toHaveBeenCalledTimes(2);
+      expect(onError).not.toHaveBeenCalled();
     });
 
     test("passes the window or the document when given as selector", () => {

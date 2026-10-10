@@ -39,7 +39,8 @@ export let activeEvents: Partial<Record<AnyWindowEventType, ListenEvent[]>> =
   {};
 
 /**
- * Get the index for the listener
+ * Get the index for the listener, matching the callback by reference or, for
+ * `listenOnce` wrappers, by the original callback they hold in `o`
  *
  * @internal
  */
@@ -47,16 +48,12 @@ export let getIndex = (
   arr: ListenEvent[],
   selector: string,
   callback: EventCallback,
-) => {
-  for (let i = 0; i < arr.length; i++) {
-    if (
-      arr[i].selector === selector &&
-      arr[i].callback.toString() === callback.toString()
-    )
-      return i;
-  }
-  return -1;
-};
+) =>
+  arr.findIndex(
+    ({ selector: s, callback: c }) =>
+      s === selector &&
+      (c === callback || (callback && (c as any).o === callback)),
+  );
 
 /**
  * Check if the listener callback should run or not
@@ -69,7 +66,7 @@ export let getIndex = (
 export let getRunTarget = (
   target: HTMLElement,
   selector: string | (Window & typeof globalThis) | Document | Element,
-): AnyDOMEventTarget | null | false => {
+): AnyDOMEventTarget | null | undefined | false => {
   // @ts-expect-error FIXME: type
   if (["*", "window", window].includes(selector)) {
     return window;
@@ -85,8 +82,9 @@ export let getRunTarget = (
   )
     return document;
 
+  // the target can be the `window` or the `document`, which never match
   if (isString(selector)) {
-    return target.closest<HTMLElement>(escapeSelector(selector));
+    return target.closest?.<HTMLElement>(escapeSelector(selector));
   }
 
   // @ts-expect-error FIXME: type
@@ -95,7 +93,7 @@ export let getRunTarget = (
       return target;
     }
     // @ts-expect-error FIXME: type
-    if (selector.contains(target)) {
+    if (target.nodeType && selector.contains(target)) {
       return selector as HTMLElement;
     }
     return false;
@@ -110,17 +108,13 @@ export let getRunTarget = (
  * @internal
  */
 export let eventHandler = <T extends Event>(event: T) => {
-  // if (!activeEvents[event.type]) return;
-  activeEvents[event.type as keyof typeof activeEvents]?.forEach(
-    function (listener) {
-      const target = getRunTarget(
-        event.target as HTMLElement,
-        listener.selector,
-      );
-      if (!target) {
-        return;
-      }
-      listener.callback(event, target);
-    },
-  );
+  const type = event.type as keyof typeof activeEvents;
+  // loop over a copy as listeners can unlisten while running (`listenOnce`
+  // does), but like the DOM skip the ones removed before their turn
+  activeEvents[type]?.slice().forEach((listener) => {
+    const target =
+      activeEvents[type]?.includes(listener) &&
+      getRunTarget(event.target as HTMLElement, listener.selector);
+    if (target) listener.callback(event, target);
+  });
 };

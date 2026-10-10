@@ -43,19 +43,19 @@ export let unlisten = <
     // if event type doesn't exist, bail
     if (!events) return;
 
-    // If it's the last event of it's type, remove entirely
-    if (events.length < 2 || !selector) {
-      delete activeEvents[type];
-      off(window, type, eventHandler, true);
-      return;
+    // Without a selector remove all the listeners, otherwise the matching one
+    if (!selector) events.length = 0;
+    else {
+      // FIXME: remove assertion, fix type
+      const index = getIndex(events, selector, callback as never);
+      if (index > -1) events.splice(index, 1);
     }
 
-    // Otherwise, remove event
-    // FIXME: remove assertion, fix type
-    const index = getIndex(events, selector, callback as never);
-    if (index < 0) return;
-
-    activeEvents[type]!.splice(index, 1);
+    // If no listener of this type is left, remove the type entirely
+    if (!events.length) {
+      delete activeEvents[type];
+      off(window, type, eventHandler, true);
+    }
   });
 };
 

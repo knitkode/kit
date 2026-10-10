@@ -81,4 +81,25 @@ describe("getOffset", () => {
 
     expect(getOffset($("#target"))).toEqual({ top: 150, left: 25 });
   });
+
+  test("ignores the scroll of the element itself", () => {
+    layout($("#target"), {
+      offsetTop: 30,
+      offsetLeft: 12,
+      scrollTop: 50,
+      scrollLeft: 7,
+      offsetParent: $("#container"),
+    });
+    layout($("#container"), {
+      offsetTop: 100,
+      offsetLeft: 10,
+      scrollTop: 20,
+      scrollLeft: 4,
+    });
+    layout($("#wrapper"), { offsetTop: 40, scrollTop: 300 });
+
+    expect(getOffset($("#target"))).toEqual({ top: 110, left: 18 });
+    expect(getOffset($("#container"))).toEqual({ top: 100, left: 10 });
+    expect(getOffset($("#wrapper"))).toEqual({ top: 40, left: 0 });
+  });
 });

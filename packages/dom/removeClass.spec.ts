@@ -24,6 +24,17 @@ describe("removeClass", () => {
     expect(el.className).toBe("a b");
   });
 
+  test.each([
+    ["without", undefined],
+    ["with an empty", ""],
+  ])("does nothing %s class name", (_label, className) => {
+    const el = document.createElement("div");
+    el.className = "a";
+
+    expect(() => removeClass(el, className)).not.toThrow();
+    expect(el.className).toBe("a");
+  });
+
   test("works with non HTML elements", () => {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("class", "icon active");
@@ -36,16 +47,15 @@ describe("removeClass", () => {
   describe("in development", () => {
     vitestSetNodeEnv("development");
 
-    test("reports and bails out when the element does not exist", () => {
+    test("warns and bails out when the element does not exist", () => {
       const log = vi.spyOn(console, "log").mockImplementation(() => {});
       const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
 
       expect(removeClass(undefined, "active")).toBeUndefined();
-
-      const messages = [...log.mock.calls, ...warn.mock.calls].flat();
-      expect(messages).toContain(
+      expect(warn).toHaveBeenCalledWith(
         "[@knitkode/dom:removeClass] unexisting DOM element",
       );
+      expect(log).not.toHaveBeenCalled();
     });
   });
 

@@ -3,7 +3,7 @@
  */
 export let addClass = <T extends Element = HTMLElement>(
   el?: T,
-  className = "",
+  className?: string,
 ) => {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
@@ -11,7 +11,7 @@ export let addClass = <T extends Element = HTMLElement>(
       return;
     }
   }
-  if (el) el.classList.add(className);
+  if (el && className) el.classList.add(className);
 };
 
 export default addClass;

@@ -59,6 +59,22 @@ describe("on", () => {
     expect(mockHandler).toHaveBeenCalledTimes(1); // Should not be called again
   });
 
+  test.each([
+    ["`true`", true],
+    ["`{ capture: true, passive: true }`", { capture: true, passive: true }],
+  ])(
+    "returns an unbinding function that removes a listener added with %s as options",
+    (_label, options) => {
+      const mockHandler = vitest.fn();
+
+      const unbind = on(button, "click", mockHandler, options);
+      unbind();
+      button.click();
+
+      expect(mockHandler).not.toHaveBeenCalled();
+    },
+  );
+
   test("logs a warning when trying to add a listener to a non-existing element in development mode", () => {
     const consoleSpy = vitest
       .spyOn(console, "warn")

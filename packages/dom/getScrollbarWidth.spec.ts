@@ -22,4 +22,19 @@ describe("getScrollbarWidth", () => {
 
     expect(getScrollbarWidth()).toBe(0);
   });
+
+  test.each([
+    [300, 285, 15],
+    [300, 300, 0],
+  ])(
+    "returns the scrollbar width of an element %i wide with a client width of %i",
+    (offsetWidth, clientWidth, expected) => {
+      const el = document.createElement("div");
+      vi.spyOn(window, "innerWidth", "get").mockReturnValue(1024);
+      vi.spyOn(el, "offsetWidth", "get").mockReturnValue(offsetWidth);
+      vi.spyOn(el, "clientWidth", "get").mockReturnValue(clientWidth);
+
+      expect(getScrollbarWidth(el)).toBe(expected);
+    },
+  );
 });

@@ -3,26 +3,21 @@ import { listenScrollThrottled } from "./listenScrollThrottled";
 describe("listenScrollThrottled", () => {
   const scroll = (target: EventTarget) =>
     target.dispatchEvent(new Event("scroll"));
-  const spyOnAddEventListener = () => vi.spyOn(window, "addEventListener");
-  let addEventListener: ReturnType<typeof spyOnAddEventListener>;
+  let unbind: () => void = () => {};
 
   beforeEach(() => {
     vi.useFakeTimers();
-    addEventListener = spyOnAddEventListener();
   });
 
   afterEach(() => {
-    // remove the window listeners directly, with the options they were added with
-    for (const [type, listener, options] of addEventListener.mock.calls) {
-      window.removeEventListener(type, listener, options);
-    }
-    vi.restoreAllMocks();
+    unbind();
+    unbind = () => {};
     vi.useRealTimers();
   });
 
   test("calls the handler at most once per limit while the window scrolls", () => {
     const handler = vi.fn();
-    listenScrollThrottled(undefined, handler, 100);
+    unbind = listenScrollThrottled(undefined, handler, 100);
 
     scroll(window);
     scroll(window);
@@ -36,7 +31,7 @@ describe("listenScrollThrottled", () => {
   test("calls the handler with the given context", () => {
     const context = { name: "ctx" };
     let receivedThis: unknown;
-    listenScrollThrottled(
+    unbind = listenScrollThrottled(
       undefined,
       function (this: unknown) {
         receivedThis = this;
@@ -53,7 +48,7 @@ describe("listenScrollThrottled", () => {
   test("listens to the given element", () => {
     const handler = vi.fn();
     const el = document.createElement("div");
-    listenScrollThrottled(el, handler, 100);
+    unbind = listenScrollThrottled(el, handler, 100);
 
     scroll(window);
     expect(handler).not.toHaveBeenCalled();
@@ -61,5 +56,24 @@ describe("listenScrollThrottled", () => {
     scroll(el);
     scroll(el);
     expect(handler).toHaveBeenCalledTimes(1);
+  });
+
+  test("returns a function that removes the listener", () => {
+    const handler = vi.fn();
+    listenScrollThrottled(undefined, handler, 100)();
+
+    scroll(window);
+
+    expect(handler).not.toHaveBeenCalled();
+  });
+
+  test("passes the scroll event to the handler", () => {
+    const handler = vi.fn();
+    unbind = listenScrollThrottled(undefined, handler, 100);
+    const event = new Event("scroll");
+
+    window.dispatchEvent(event);
+
+    expect(handler).toHaveBeenCalledWith(event);
   });
 });

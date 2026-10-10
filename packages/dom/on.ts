@@ -46,7 +46,8 @@ export function on<
   if (el) {
     el.addEventListener(type, handler as never, options);
     // @ ts-expect-error Type instantiation too deep
-    return () => off(el as never, type as never, handler as never);
+    return () =>
+      off(el as never, type as never, handler as never, options as never);
   }
 
   return noop;

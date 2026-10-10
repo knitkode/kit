@@ -2,7 +2,7 @@ import { on } from "./on";
 import type { AnyDOMEventTargetLoose } from "./types";
 
 /**
- * Listen element's (`window` by default) _scroll_ event
+ * Listen element's (`window` by default) _resize_ event
  *
  * @returns An automatic unbinding function to run to deregister the listener upon call
  */

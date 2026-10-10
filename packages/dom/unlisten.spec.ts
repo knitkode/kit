@@ -4,18 +4,12 @@ import type { AnyWindowEventType } from "./types";
 import { unlisten } from "./unlisten";
 
 describe("unlisten", () => {
-  // `unlisten` matches callbacks by their source, so every callback here has
-  // a distinct body
   const calls: string[] = [];
-  function onA() {
-    calls.push("a");
-  }
-  function onB() {
-    calls.push("b");
-  }
-  function onKey() {
-    calls.push("key");
-  }
+  // the callbacks share their source: `unlisten` matches them by reference
+  const track = (name: string) => () => calls.push(name);
+  const onA = track("a");
+  const onB = track("b");
+  const onKey = track("key");
 
   const $ = (selector: string) => {
     const el = document.querySelector<HTMLElement>(selector);
@@ -128,6 +122,70 @@ describe("unlisten", () => {
 
     expect(calls).toEqual(["a", "b"]);
     expect(getListeners().click).toHaveLength(2);
+  });
+
+  test("does nothing when the only listener of the type does not match", () => {
+    const removeEventListener = vi.spyOn(window, "removeEventListener");
+    listen("click", ".a", onA);
+
+    unlisten("click", ".b", onB);
+    unlisten("click", ".a", onB);
+    $("#a").click();
+
+    expect(calls).toEqual(["a"]);
+    expect(getListeners()).toEqual({
+      click: [{ selector: ".a", callback: onA }],
+    });
+    expect(removeEventListener).not.toHaveBeenCalled();
+  });
+
+  test("does nothing without a callback", () => {
+    listen("click", ".a", onA);
+    listen("click", ".b", onB);
+
+    // @ts-expect-error the callback is required
+    unlisten("click", ".a", undefined);
+
+    expect(getListeners().click).toHaveLength(2);
+  });
+
+  test("tells apart different callbacks with the same source", () => {
+    const first = track("first");
+    const second = track("second");
+    listen("click", ".a", first);
+    listen("click", ".a", second);
+
+    unlisten("click", ".a", second);
+    $("#a").click();
+
+    expect(calls).toEqual(["first"]);
+    expect(getListeners()).toEqual({
+      click: [{ selector: ".a", callback: first }],
+    });
+  });
+
+  test("tells apart different mock functions", () => {
+    const first = vi.fn();
+    const second = vi.fn();
+    listen("click", ".a", first);
+    listen("click", ".a", second);
+
+    unlisten("click", ".a", second);
+    $("#a").click();
+
+    expect(first).toHaveBeenCalledTimes(1);
+    expect(second).not.toHaveBeenCalled();
+  });
+
+  test("removes the first listener registered with the same selector and callback", () => {
+    listen("click", ".a", onA);
+    listen("click", ".a", onA);
+
+    unlisten("click", ".a", onA);
+    $("#a").click();
+
+    expect(calls).toEqual(["a"]);
+    expect(getListeners().click).toHaveLength(1);
   });
 
   test("removes every listener of the type when the selector is empty", () => {

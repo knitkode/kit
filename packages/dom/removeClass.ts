@@ -1,14 +1,14 @@
 /**
  * Remove class shortcut
  */
-export let removeClass = <T extends Element>(el?: T, className = "") => {
+export let removeClass = <T extends Element>(el?: T, className?: string) => {
   if (process.env["NODE_ENV"] === "development") {
     if (!el) {
-      console.log("[@knitkode/dom:removeClass] unexisting DOM element");
+      console.warn("[@knitkode/dom:removeClass] unexisting DOM element");
       return;
     }
   }
-  if (el) el.classList.remove(className);
+  if (el && className) el.classList.remove(className);
 };
 
 export default removeClass;

@@ -95,4 +95,58 @@ describe("listenOnce", () => {
     expect(calls).toEqual(["regular", "once", "regular"]);
     expect(getListeners().click).toHaveLength(1);
   });
+
+  test("does not skip the listener registered after it", () => {
+    const calls: string[] = [];
+    listenOnce("click", ".btn", () => calls.push("once"));
+    listen("click", ".btn", () => calls.push("regular"));
+
+    $("#btn").click();
+    expect(calls).toEqual(["once", "regular"]);
+
+    $("#btn").click();
+    expect(calls).toEqual(["once", "regular", "regular"]);
+  });
+
+  test("runs every once listener of the same selector on the first event", () => {
+    const calls: string[] = [];
+    listenOnce("click", ".btn", () => calls.push("a"));
+    listenOnce("click", ".btn", () => calls.push("b"));
+
+    $("#btn").click();
+    expect(calls).toEqual(["a", "b"]);
+    expect(getListeners()).toEqual({});
+  });
+
+  test("unregisters only itself when the same callback is also listened", () => {
+    const callback = vi.fn();
+    listen("click", ".btn", callback);
+    listenOnce("click", ".btn", callback);
+
+    $("#btn").click();
+    $("#btn").click();
+
+    expect(callback).toHaveBeenCalledTimes(3);
+    expect(getListeners()).toEqual({
+      click: [{ selector: ".btn", callback }],
+    });
+  });
+
+  test("can be unlistened with the original callback before it runs", () => {
+    const regular = vi.fn();
+    const a = vi.fn();
+    const b = vi.fn();
+    listen("click", ".btn", regular);
+    listenOnce("click", ".btn", a);
+    listenOnce("click", ".btn", b);
+
+    unlisten("click", ".btn", b);
+    $("#btn").click();
+    $("#btn").click();
+
+    expect(regular).toHaveBeenCalledTimes(2);
+    expect(a).toHaveBeenCalledTimes(1);
+    expect(b).not.toHaveBeenCalled();
+    expect(getListeners().click).toHaveLength(1);
+  });
 });

@@ -73,6 +73,32 @@ describe("once", () => {
     expect(mockHandler).not.toHaveBeenCalled();
   });
 
+  test.each([
+    ["`true`", true],
+    ["`{ capture: true }`", { capture: true }],
+  ])(
+    "calls a listener added with %s as options only once",
+    (_label, options) => {
+      const mockHandler = vitest.fn();
+
+      once(button, "click", mockHandler, options);
+      button.click();
+      button.click();
+
+      expect(mockHandler).toHaveBeenCalledTimes(1);
+    },
+  );
+
+  test("returns a function that removes a capture listener before it runs", () => {
+    const mockHandler = vitest.fn();
+
+    const unbind = once(button, "click", mockHandler, true);
+    unbind();
+    button.click();
+
+    expect(mockHandler).not.toHaveBeenCalled();
+  });
+
   test("works with the window", () => {
     const mockHandler = vitest.fn();
 

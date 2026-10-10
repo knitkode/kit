@@ -53,8 +53,20 @@ describe("isNodeList", () => {
     expect(isNodeList(value)).toBe(false);
   });
 
-  test("returns false for an object whose first item is not a node", () => {
+  test("returns false for array-like plain objects", () => {
+    expect(isNodeList({ length: 0 })).toBe(false);
+    expect(isNodeList({ length: 1, 0: document.body })).toBe(false);
     expect(isNodeList({ length: 1, 0: "li" })).toBe(false);
-    expect(isNodeList({ length: 1, 0: { nodeType: 0 } })).toBe(false);
+  });
+
+  test("returns false for a fake NodeList without nodes", () => {
+    const fake = (props: object) => ({
+      [Symbol.toStringTag]: "NodeList",
+      ...props,
+    });
+
+    expect(isNodeList(fake({}))).toBe(false);
+    expect(isNodeList(fake({ length: 1, 0: "li" }))).toBe(false);
+    expect(isNodeList(fake({ length: 1, 0: { nodeType: 0 } }))).toBe(false);
   });
 });

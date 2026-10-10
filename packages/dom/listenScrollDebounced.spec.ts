@@ -3,26 +3,21 @@ import { listenScrollDebounced } from "./listenScrollDebounced";
 describe("listenScrollDebounced", () => {
   const scroll = (target: EventTarget) =>
     target.dispatchEvent(new Event("scroll"));
-  const spyOnAddEventListener = () => vi.spyOn(window, "addEventListener");
-  let addEventListener: ReturnType<typeof spyOnAddEventListener>;
+  let unbind: () => void = () => {};
 
   beforeEach(() => {
     vi.useFakeTimers();
-    addEventListener = spyOnAddEventListener();
   });
 
   afterEach(() => {
-    // remove the window listeners directly, with the options they were added with
-    for (const [type, listener, options] of addEventListener.mock.calls) {
-      window.removeEventListener(type, listener, options);
-    }
-    vi.restoreAllMocks();
+    unbind();
+    unbind = () => {};
     vi.useRealTimers();
   });
 
   test("calls the handler once after a burst of window scrolls", () => {
     const handler = vi.fn();
-    listenScrollDebounced(undefined, handler, 100);
+    unbind = listenScrollDebounced(undefined, handler, 100);
 
     scroll(window);
     vi.advanceTimersByTime(60);
@@ -36,7 +31,7 @@ describe("listenScrollDebounced", () => {
 
   test("calls the handler at the start of the burst when immediate is true", () => {
     const handler = vi.fn();
-    listenScrollDebounced(undefined, handler, 100, true);
+    unbind = listenScrollDebounced(undefined, handler, 100, true);
 
     scroll(window);
     scroll(window);
@@ -49,7 +44,7 @@ describe("listenScrollDebounced", () => {
   test("listens to the given element", () => {
     const handler = vi.fn();
     const el = document.createElement("div");
-    listenScrollDebounced(el, handler, 50);
+    unbind = listenScrollDebounced(el, handler, 50);
 
     scroll(window);
     vi.advanceTimersByTime(50);
@@ -59,5 +54,15 @@ describe("listenScrollDebounced", () => {
     scroll(el);
     vi.advanceTimersByTime(50);
     expect(handler).toHaveBeenCalledTimes(1);
+  });
+
+  test("returns a function that removes the listener", () => {
+    const handler = vi.fn();
+    listenScrollDebounced(undefined, handler, 100)();
+
+    scroll(window);
+    vi.advanceTimersByTime(100);
+
+    expect(handler).not.toHaveBeenCalled();
   });
 });

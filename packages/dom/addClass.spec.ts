@@ -32,6 +32,17 @@ describe("addClass", () => {
     expect(el.className).toBe("active");
   });
 
+  test.each([
+    ["without", undefined],
+    ["with an empty", ""],
+  ])("does nothing %s class name", (_label, className) => {
+    const el = document.createElement("div");
+    el.className = "a";
+
+    expect(() => addClass(el, className)).not.toThrow();
+    expect(el.className).toBe("a");
+  });
+
   test("works with non HTML elements", () => {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 

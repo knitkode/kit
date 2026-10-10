@@ -4,15 +4,9 @@ import type { AnyWindowEventType } from "./types";
 import { unlisten } from "./unlisten";
 
 describe("getListeners", () => {
-  function onButtonClick() {
-    return "button";
-  }
-  function onLinkClick() {
-    return "link";
-  }
-  function onInputKeydown() {
-    return "input";
-  }
+  const onButtonClick = () => {};
+  const onLinkClick = () => {};
+  const onInputKeydown = () => {};
 
   afterEach(() => {
     for (const type of Object.keys(getListeners()) as AnyWindowEventType[]) {
@@ -74,5 +68,17 @@ describe("getListeners", () => {
     expect(getListeners().click).toEqual([
       { selector: ".button", callback: onButtonClick },
     ]);
+  });
+
+  test("returns copies of the listeners, detached from the registry", () => {
+    listen("click", ".button", onButtonClick);
+
+    const listeners = getListeners();
+    listeners.click?.push({ selector: ".link", callback: onLinkClick });
+    if (listeners.click?.[0]) listeners.click[0].selector = ".changed";
+
+    expect(getListeners()).toEqual({
+      click: [{ selector: ".button", callback: onButtonClick }],
+    });
   });
 });

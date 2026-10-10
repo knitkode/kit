@@ -23,7 +23,7 @@ export let once = <
   const handlerWrapper = (event: any) => {
     // @ ts-ignore Type instantiation too deep
     (handler as any)(event);
-    off(el, type, handlerWrapper);
+    off(el, type, handlerWrapper, options);
   };
 
   return on(el, type, handlerWrapper as any, options);

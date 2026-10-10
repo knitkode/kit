@@ -3,26 +3,20 @@ import { listenScroll } from "./listenScroll";
 describe("listenScroll", () => {
   const scroll = (target: EventTarget) =>
     target.dispatchEvent(new Event("scroll"));
-  const spyOnAddEventListener = () => vi.spyOn(window, "addEventListener");
-  let addEventListener: ReturnType<typeof spyOnAddEventListener>;
-
-  beforeEach(() => {
-    addEventListener = spyOnAddEventListener();
-  });
+  let unbind: () => void = () => {};
 
   afterEach(() => {
-    // remove the window listeners directly, with the options they were added with
-    for (const [type, listener, options] of addEventListener.mock.calls) {
-      window.removeEventListener(type, listener, options);
-    }
+    unbind();
+    unbind = () => {};
     vi.restoreAllMocks();
     document.body.innerHTML = "";
   });
 
   test("listens to the window scroll by default, in the capture phase and passively", () => {
+    const addEventListener = vi.spyOn(window, "addEventListener");
     const handler = vi.fn();
 
-    listenScroll(handler);
+    unbind = listenScroll(handler);
     scroll(window);
 
     expect(handler).toHaveBeenCalledTimes(1);
@@ -37,7 +31,7 @@ describe("listenScroll", () => {
     const el = document.createElement("div");
     document.body.appendChild(el);
 
-    listenScroll(handler);
+    unbind = listenScroll(handler);
     scroll(el);
 
     expect(handler).toHaveBeenCalledTimes(1);
@@ -46,7 +40,7 @@ describe("listenScroll", () => {
   test("falls back to the window when the element is falsy", () => {
     const handler = vi.fn();
 
-    listenScroll(handler, null);
+    unbind = listenScroll(handler, null);
     scroll(window);
 
     expect(handler).toHaveBeenCalledTimes(1);
@@ -56,11 +50,23 @@ describe("listenScroll", () => {
     const handler = vi.fn();
     const el = document.createElement("div");
 
-    listenScroll(handler, el);
+    unbind = listenScroll(handler, el);
     scroll(window);
     expect(handler).not.toHaveBeenCalled();
 
     scroll(el);
     expect(handler).toHaveBeenCalledTimes(1);
+  });
+
+  test("returns a function that removes the listener", () => {
+    const handler = vi.fn();
+    const el = document.createElement("div");
+
+    listenScroll(handler)();
+    listenScroll(handler, el)();
+    scroll(window);
+    scroll(el);
+
+    expect(handler).not.toHaveBeenCalled();
   });
 });
