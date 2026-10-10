@@ -110,8 +110,9 @@ describe("CalendarDaygridCell", () => {
     act(() => root.unmount());
     container.remove();
     // no React warnings (keys, unknown DOM props) should be logged
-    expect(consoleError).not.toHaveBeenCalled();
+    const errors = [...consoleError.mock.calls];
     consoleError.mockRestore();
+    expect(errors).toEqual([]);
   });
 
   it("renders the start time and the title of timed events", () => {
@@ -137,6 +138,51 @@ describe("CalendarDaygridCell", () => {
     expect(button?.style.overflow).toBe("hidden");
     expect(button?.style.whiteSpace).toBe("nowrap");
     expect(button?.style.textOverflow).toBe("ellipsis");
+  });
+
+  it("hides only the events of the hidden calendars", () => {
+    const home = { id: "home", color: "#0000ff", name: "Home" };
+    const events = [
+      makeEvent("a", { calendar: home }),
+      makeEvent("b", { top: 1 }),
+    ];
+    render({
+      events,
+      calendarsMap: { ...calendarsMap, home: { ...home, on: false } },
+    });
+
+    expect(getButtons().map((btn) => btn.style.display)).toEqual(["none", ""]);
+
+    // a new render with the visible calendar only
+    act(() => root.unmount());
+    root = createRoot(container);
+    render({ events: [makeEvent("c")] });
+
+    expect(getButtons()[0]?.style.display).toBe("");
+    expect(getButtons()[0]?.style.overflow).toBe("hidden");
+  });
+
+  it("shows the events of the calendars missing in the map", () => {
+    render({ events: [makeEvent("a")], calendarsMap: {} });
+
+    expect(getButtons()).toHaveLength(1);
+    expect(getButtons()[0]?.style.display).toBe("");
+  });
+
+  it("does not pass the transient props to the default DOM elements", () => {
+    render({
+      CellEvent: undefined,
+      CellEventBtn: undefined,
+      eventClicked: makeEvent("a"),
+      events: [
+        makePlaceholder(0),
+        makeEvent("a", { top: 1, isPast: true, $isToday: false }),
+        makeEvent("b", { top: 2, isPast: false, $isOutOfRange: true }),
+      ],
+    });
+
+    expect(container.querySelectorAll('[role="button"]')).toHaveLength(2);
+    expect(container.innerHTML).not.toContain("$");
   });
 
   it("passes the styling props to the event components", () => {
@@ -270,6 +316,20 @@ describe("CalendarDaygridCell", () => {
 
     expect(getButtons()).toHaveLength(5);
     expect(container.querySelector("svg")).toBeNull();
+  });
+
+  it("counts in the overflow the events it hides, not the placeholders", () => {
+    // the placeholder takes one of the two visible slots
+    const events = [
+      makePlaceholder(0),
+      ...["a", "b", "c"].map((uid, i) => makeEvent(uid, { top: i + 1 })),
+    ];
+    render({ events, maxEvents: 2 });
+
+    expect(getButtons().map((btn) => btn.textContent)).toEqual(["9:05Event a"]);
+    expect(container.querySelector("svg")?.parentElement?.textContent).toBe(
+      "2",
+    );
   });
 
   it("does not render the overflow when the events fit", () => {

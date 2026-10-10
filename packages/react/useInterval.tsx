@@ -5,10 +5,12 @@ import { noop } from "@knitkode/utils";
  * @borrows [dan abramov](https://overreacted.io/making-setinterval-declarative-with-react-hooks/)
  *
  * We just add `deps` array argument and typescript support
+ *
+ * @param delay The interval in milliseconds, `null` pauses it
  */
 export let useInterval = <T extends () => unknown>(
   callback: T,
-  delay: number,
+  delay: number | null,
   deps: unknown[] = [],
 ) => {
   const savedCallback = useRef<T>(null);

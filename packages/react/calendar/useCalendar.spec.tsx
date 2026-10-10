@@ -37,15 +37,17 @@ const googleEvent = (event: GoogleEventInput) => ({
 /** Google calendar API responses keyed by calendar id */
 let responses: Record<string, ReturnType<typeof googleEvent>[]> = {};
 
-const fetchMock = vi.fn(async (url: string, _init?: RequestInit) => {
-  const calendarId = new URL(url).searchParams.get("calendarId") ?? "";
-  return {
-    json: async () => ({
-      summary: `Remote ${calendarId}`,
-      items: responses[calendarId] ?? [],
-    }),
-  };
-});
+const fetchMock = vi.fn(
+  async (url: string, _init?: RequestInit): Promise<{ json(): unknown }> => {
+    const calendarId = new URL(url).searchParams.get("calendarId") ?? "";
+    return {
+      json: async () => ({
+        summary: `Remote ${calendarId}`,
+        items: responses[calendarId] ?? [],
+      }),
+    };
+  },
+);
 
 const getRequestParams = (call = 0) =>
   new URL(fetchMock.mock.calls[call]?.[0] ?? "").searchParams;
@@ -101,7 +103,7 @@ describe("useCalendar", () => {
   };
 
   beforeEach(() => {
-    // all day events dates are parsed as UTC, keep the timezone deterministic
+    // keep the timezone deterministic, the timed events are in UTC
     vi.stubEnv("TZ", "UTC");
     vi.useFakeTimers({ toFake: ["Date"], now: new Date(2026, 9, 15, 10) });
     vi.stubGlobal("fetch", fetchMock);
@@ -192,6 +194,47 @@ describe("useCalendar", () => {
 
       expect(nav().range[0]).toEqual(new Date(2026, 9, 1));
       expect(nav().todayInView).toBe(true);
+    });
+
+    it("switches to the week view of the displayed month", async () => {
+      await render();
+      await run(() => nav().handleNext());
+
+      await run(() => nav().handleView("week"));
+
+      // the week of November 1st
+      expect(nav().range[0]).toEqual(new Date(2026, 9, 26));
+      expect(nav().range[1].getTime()).toBe(
+        new Date(2026, 10, 1, 23, 59, 59, 999).getTime(),
+      );
+
+      await run(() => nav().handleView("month"));
+
+      expect(nav().range[0]).toEqual(new Date(2026, 10, 1));
+    });
+
+    it("switches to the month view of the displayed week", async () => {
+      await render({ view: "week" });
+      await run(() => nav().handleNext());
+      await run(() => nav().handleNext());
+      await run(() => nav().handleNext());
+
+      // from the week ending on Sunday November 8
+      expect(nav().range[0]).toEqual(new Date(2026, 10, 2));
+      await run(() => nav().handleView("month"));
+
+      expect(nav().range[0]).toEqual(new Date(2026, 10, 1));
+    });
+
+    it("does not mutate the given start", async () => {
+      const start = new Date(2026, 0, 15, 10, 30);
+      const end = new Date(2026, 0, 31, 23, 59, 59);
+      await render({ start, end });
+
+      await run(() => nav().handleView("week"));
+
+      expect(start).toEqual(new Date(2026, 0, 15, 10, 30));
+      expect(nav().range[0]).toEqual(new Date(2026, 0, 12));
     });
 
     it("switches between the month and the week views", async () => {
@@ -313,6 +356,57 @@ describe("useCalendar", () => {
       expect(event.description).toBe("");
     });
 
+    it("maps the all day events on their local date", async () => {
+      // west of UTC, where "2026-10-05" as UTC is still October 4th
+      vi.stubEnv("TZ", "America/New_York");
+      responses = {
+        work: [
+          googleEvent({
+            summary: "Holiday",
+            start: { date: "2026-10-05" },
+            end: { date: "2026-10-06" },
+          }),
+        ],
+      };
+
+      await render();
+      const event = eventByTitle("Holiday");
+
+      expect(new Date(2026, 9, 5).getTimezoneOffset()).toBe(240);
+      expect(event.start).toEqual(new Date(2026, 9, 5));
+      expect(event.end).toEqual(new Date(2026, 9, 5, 23, 59, 59));
+      expect(event.days).toEqual([day(2026, 9, 5)]);
+    });
+
+    it("maps the timed events on all the days they span", async () => {
+      responses = {
+        work: [
+          googleEvent({
+            summary: "Retreat",
+            start: { dateTime: "2026-10-05T10:00:00Z" },
+            end: { dateTime: "2026-10-07T09:00:00Z" },
+          }),
+          googleEvent({
+            summary: "Party",
+            created: "2026-09-02T08:00:00Z",
+            start: { dateTime: "2026-10-09T22:00:00Z" },
+            end: { dateTime: "2026-10-10T00:00:00Z" },
+          }),
+        ],
+      };
+
+      await render();
+
+      expect(eventByTitle("Retreat").days).toEqual([
+        day(2026, 9, 5),
+        day(2026, 9, 6),
+        day(2026, 9, 7),
+      ]);
+      // ending at midnight it does not take the day after
+      expect(eventByTitle("Party").days).toEqual([day(2026, 9, 9)]);
+      expect(eventByTitle("Party").multi).toBe(false);
+    });
+
     it("maps the multi days events", async () => {
       responses = {
         work: [
@@ -378,6 +472,75 @@ describe("useCalendar", () => {
 
       expect(calendar().getDaygridTableProps().events).toEqual({});
     });
+
+    it("calls `onError` with the error of each calendar that fails", async () => {
+      const offline = new Error("offline");
+      const invalid = { code: 400, message: "API key not valid" };
+      fetchMock.mockRejectedValueOnce(offline).mockResolvedValueOnce({
+        json: async () => ({ error: invalid }),
+      });
+      const onError = vi.fn();
+      responses = {
+        third: [
+          googleEvent({
+            summary: "Standup",
+            start: { dateTime: "2026-10-05T09:30:00Z" },
+            end: { dateTime: "2026-10-05T10:00:00Z" },
+          }),
+        ],
+      };
+
+      await render({
+        calendars: [...calendars, { id: "third", color: "#00ff00" }],
+        onError,
+      });
+
+      expect(onError).toHaveBeenCalledTimes(2);
+      expect(onError).toHaveBeenCalledWith(offline);
+      expect(onError).toHaveBeenCalledWith(invalid);
+      // the other calendars are loaded anyway
+      expect(eventByTitle("Standup").calendar.id).toBe("third");
+    });
+
+    it("keeps the given events along with the loaded ones", async () => {
+      responses = {
+        work: [
+          googleEvent({
+            summary: "Standup",
+            start: { dateTime: "2026-10-05T09:30:00Z" },
+            end: { dateTime: "2026-10-05T10:00:00Z" },
+          }),
+        ],
+      };
+      const given: CalendarEvent = {
+        calendar: calendars[1],
+        created: new Date(2026, 8, 1),
+        link: "",
+        title: "Given",
+        status: "confirmed",
+        start: new Date(2026, 9, 6),
+        end: new Date(2026, 9, 6, 23, 59, 59),
+        days: [day(2026, 9, 6)],
+        daysMap: { [day(2026, 9, 6)]: 1 },
+        multi: false,
+        color: "#0000ff",
+        allDay: true,
+        location: "",
+        description: "",
+        uid: "given",
+      };
+
+      await render({ events: { given } });
+
+      expect(calendar().getDaygridTableProps().events["given"]).toBe(given);
+      expect(eventByTitle("Standup").calendar.id).toBe("work");
+      expect(calendar().getLegendProps().calendarsMap["home"]?.events).toBe(1);
+
+      responses = {};
+      await run(() => nav().handleNext());
+
+      expect(calendar().getDaygridTableProps().events).toEqual({ given });
+    });
   });
 
   describe("calendars", () => {
@@ -388,6 +551,28 @@ describe("useCalendar", () => {
         work: { ...calendars[0], on: true, events: 0 },
         home: { ...calendars[1], on: true, events: 0 },
       });
+    });
+
+    it("names the calendars without a name after the remote calendar", async () => {
+      const unnamed = calendars.map(({ id, color }) => ({ id, color }));
+      responses = {
+        work: [
+          googleEvent({
+            summary: "Standup",
+            start: { dateTime: "2026-10-05T09:30:00Z" },
+            end: { dateTime: "2026-10-05T10:00:00Z" },
+          }),
+        ],
+      };
+
+      await render({ calendars: [unnamed[0], calendars[1]] });
+      const { calendarsMap } = calendar().getLegendProps();
+
+      expect(calendarsMap["work"]?.name).toBe("Remote work");
+      expect(calendarsMap["home"]?.name).toBe("Home");
+      expect(eventByTitle("Standup").calendar.name).toBe("Remote work");
+      // the given calendars are not mutated
+      expect(unnamed[0]).toEqual({ id: "work", color: "#ff0000" });
     });
 
     it("counts the events of each calendar", async () => {
@@ -496,6 +681,20 @@ describe("useCalendar", () => {
 
       expect(calendar().eventClicked).toBeNull();
       expect(calendar().eventHovered).toBeNull();
+    });
+
+    it("keeps them when going back to today from the current month", async () => {
+      withStandup();
+      await render();
+      const standup = eventByTitle("Standup");
+      select(standup);
+      // some milliseconds later
+      vi.setSystemTime(new Date(2026, 9, 15, 10, 0, 0, 250));
+
+      await run(() => nav().handleToday());
+
+      expect(calendar().eventClicked).toBe(standup);
+      expect(calendar().eventHovered).toBe(standup);
     });
 
     it("resets them when switching view", async () => {

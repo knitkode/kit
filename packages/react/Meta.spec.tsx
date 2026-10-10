@@ -34,12 +34,11 @@ describe("Meta", () => {
     );
   });
 
-  it("omits user-scalable=0 when zoom is enabled", () => {
+  it("omits maximum-scale=1 and user-scalable=0 when zoom is enabled", () => {
     const content = getViewportContent(renderToStaticMarkup(<Meta zoom />));
 
-    expect(content).toBe(
-      "width=device-width, initial-scale=1, maximum-scale=1",
-    );
+    expect(content).toBe("width=device-width, initial-scale=1");
+    expect(content).not.toContain("maximum-scale");
     expect(content).not.toContain("user-scalable");
   });
 });

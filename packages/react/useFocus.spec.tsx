@@ -1,4 +1,4 @@
-import { act } from "react";
+import { act, type RefObject } from "react";
 import { createRoot } from "react-dom/client";
 import { useFocus } from "./useFocus";
 
@@ -24,11 +24,8 @@ describe("useFocus", () => {
     let focus: () => void = () => {};
     const Probe = () => {
       const [ref, setFocus] = useFocus();
-      if (typeof setFocus === "function") focus = setFocus;
-      return typeof ref === "function" ? null : (
-        // @ts-expect-error the ref is typed for input, select and textarea at once so it fits none of them
-        <input ref={ref} />
-      );
+      focus = setFocus;
+      return <input ref={ref} />;
     };
     const root = createRoot(container);
     act(() => root.render(<Probe />));
@@ -50,7 +47,7 @@ describe("useFocus", () => {
     };
     const Probe = () => {
       const [, setFocus] = useFocus();
-      if (typeof setFocus === "function") focus = setFocus;
+      focus = setFocus;
       return <input />;
     };
     const root = createRoot(container);
@@ -59,6 +56,41 @@ describe("useFocus", () => {
     expect(() => focus()).not.toThrow();
     expect(document.activeElement).toBe(document.body);
 
+    act(() => root.unmount());
+  });
+
+  it("focuses the referenced element of the given type", () => {
+    let focus: () => void = () => {};
+    const Probe = () => {
+      const [ref, setFocus] = useFocus<HTMLSelectElement>();
+      focus = setFocus;
+      return <select ref={ref} />;
+    };
+    const root = createRoot(container);
+    act(() => root.render(<Probe />));
+
+    act(() => focus());
+
+    expect(document.activeElement).toBe(container.querySelector("select"));
+
+    act(() => root.unmount());
+  });
+
+  it("returns a tuple of an element ref and a focus function", () => {
+    const Probe = () => {
+      const input = useFocus();
+      const textarea = useFocus<HTMLTextAreaElement>();
+
+      expectTypeOf(input).toEqualTypeOf<
+        readonly [RefObject<HTMLInputElement | null>, () => void]
+      >();
+      expectTypeOf(textarea).toEqualTypeOf<
+        readonly [RefObject<HTMLTextAreaElement | null>, () => void]
+      >();
+      return null;
+    };
+    const root = createRoot(container);
+    act(() => root.render(<Probe />));
     act(() => root.unmount());
   });
 });

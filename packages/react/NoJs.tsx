@@ -5,7 +5,7 @@ export let NoJs = (_props: NoJsProps) => {
     <script
       id="no-js"
       dangerouslySetInnerHTML={{
-        __html: `document.querySelector("html").className=document.querySelector("html").className.replace(/no-js/,"") + "js";`,
+        __html: `(function(c){c.remove("no-js");c.add("js")})(document.documentElement.classList)`,
       }}
     ></script>
   );

@@ -50,10 +50,9 @@ export let createUseMediaQueryWidth = <
     //   _MediaQuerWidthDefExplicit<TBreakpoints>,
     //   "-"
     // >;
+    // the shorthand `@md` stands for `@min-md`
     if (isUndefined(ruleBreakpoint)) {
       ruleBreakpoint = rule;
-    }
-    if (isUndefined(rule)) {
       rule = "min";
     }
     // with the hook creator approach these breakpoint types cannot be deduced

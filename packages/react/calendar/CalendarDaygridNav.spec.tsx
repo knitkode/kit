@@ -67,14 +67,23 @@ describe("KitCalendarDaygridNav", () => {
   afterEach(() => {
     act(() => root.unmount());
     // no React warnings (act, unknown DOM props) should be logged
-    expect(consoleError).not.toHaveBeenCalled();
+    const errors = [...consoleError.mock.calls];
     consoleError.mockRestore();
+    expect(errors).toEqual([]);
   });
 
   it("renders the month and the year in month view", async () => {
     await render({});
 
     expect(getTitle()).toBe("October 2026");
+  });
+
+  it("renders the title in the default element", async () => {
+    await render({ NavTitle: undefined });
+    const title = container.querySelector("nav > div:last-child");
+
+    expect(title?.textContent).toBe("October 2026");
+    expect(title?.attributes).toHaveLength(0);
   });
 
   it("passes the range to the title", async () => {

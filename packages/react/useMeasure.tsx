@@ -7,8 +7,6 @@ import {
 } from "@knitkode/dom";
 import { debounce, noop } from "@knitkode/utils";
 
-let observer: ResizeObserver | undefined;
-
 interface RectReadOnly {
   readonly x: number;
   readonly y: number;
@@ -141,8 +139,9 @@ export let useMeasure = (options?: UseMeasureOptions): UseMeasureReturn => {
   function removeListeners() {
     const [, scrollContainers, resizeObserver] = state.current;
     if (scrollContainers) {
+      // `true` matches the `capture` the listeners are added with
       scrollContainers.forEach((element) =>
-        off(element, "scroll", scrollChange),
+        off(element, "scroll", scrollChange, true),
       );
       state.current[1] = null;
     }
@@ -153,23 +152,21 @@ export let useMeasure = (options?: UseMeasureOptions): UseMeasureReturn => {
     }
   }
 
-  // add scroll-listeners / observers
+  // add scroll-listeners / observers, each instance observes its own element
   function addListeners() {
     const [element, scrollContainers] = state.current;
     if (!element) return;
 
-    if (!observer && ResizeObserver) {
-      observer = new ResizeObserver(scrollChange);
-      state.current[2] = observer;
-      observer.observe(element);
-      if (scroll && scrollContainers) {
-        scrollContainers.forEach((scrollContainer) =>
-          on(scrollContainer, "scroll", scrollChange, {
-            capture: true,
-            passive: true,
-          }),
-        );
-      }
+    if (typeof ResizeObserver !== "undefined") {
+      (state.current[2] = new ResizeObserver(scrollChange)).observe(element);
+    }
+    if (scroll && scrollContainers) {
+      scrollContainers.forEach((scrollContainer) =>
+        on(scrollContainer, "scroll", scrollChange, {
+          capture: true,
+          passive: true,
+        }),
+      );
     }
   }
 

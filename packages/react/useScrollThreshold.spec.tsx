@@ -117,4 +117,17 @@ describe("useScrollThreshold", () => {
 
     expect(latest()).toBe(false);
   });
+
+  it("stops listening to the scroll after unmount", () => {
+    const callback = vi.fn();
+    render(50, callback);
+    scrollTo(100);
+    expect(callback).toHaveBeenCalled();
+
+    for (const unmount of unmounts.splice(0)) unmount();
+    callback.mockClear();
+    scrollTo(0);
+
+    expect(callback).not.toHaveBeenCalled();
+  });
 });

@@ -13,9 +13,36 @@ import {
 
 /** jsdom does not implement `ResizeObserver` */
 class FakeResizeObserver {
-  observe() {}
+  static instances: FakeResizeObserver[] = [];
+  observed: Element[] = [];
+  connected = true;
+
+  constructor(public callback: ResizeObserverCallback) {
+    FakeResizeObserver.instances.push(this);
+  }
+
+  observe(element: Element) {
+    this.observed.push(element);
+  }
+
   unobserve() {}
-  disconnect() {}
+
+  disconnect() {
+    this.connected = false;
+  }
+
+  /** The connected observers of the given element */
+  static of(element: Element | null) {
+    return FakeResizeObserver.instances.filter(
+      (observer) =>
+        observer.connected && element && observer.observed.includes(element),
+    );
+  }
+
+  /** Simulates a resize of the observed elements */
+  resize() {
+    this.callback([], this as unknown as ResizeObserver);
+  }
 }
 
 const zeroBounds = {
@@ -48,16 +75,20 @@ const getBoundingClientRect = vi.fn(
 
 const renderUseMeasure = (
   options?: UseMeasureOptions,
-  { attach = true } = {},
+  {
+    attach = true,
+    parent = document.body as HTMLElement,
+    hook = useMeasure,
+  } = {},
 ) => {
   const renders: UseMeasureReturn[] = [];
   const Probe = () => {
-    const measure = useMeasure(options);
+    const measure = hook(options);
     renders.push(measure);
     return <div ref={attach ? measure[0] : undefined} />;
   };
   const container = document.createElement("div");
-  document.body.append(container);
+  parent.append(container);
   const root = createRoot(container);
   act(() => root.render(<Probe />));
   const latest = () => {
@@ -79,6 +110,7 @@ const renderUseMeasure = (
 
 describe("useMeasure", () => {
   beforeEach(() => {
+    FakeResizeObserver.instances = [];
     vi.stubGlobal("ResizeObserver", FakeResizeObserver);
     vi.spyOn(Element.prototype, "getBoundingClientRect").mockImplementation(
       getBoundingClientRect,
@@ -174,6 +206,82 @@ describe("useMeasure", () => {
     act(() => vi.advanceTimersByTime(1));
     expect(bounds()).toMatchObject(createRect(10, -80, 300, 150));
     unmount();
+  });
+
+  it("re-measures when the element itself resizes", () => {
+    vi.useFakeTimers();
+    const { bounds, element, unmount } = renderUseMeasure();
+    const [observer] = FakeResizeObserver.of(element());
+
+    currentRect = createRect(10, 20, 120, 40);
+    act(() => {
+      observer?.resize();
+      vi.runAllTimers();
+    });
+
+    expect(bounds()).toMatchObject(createRect(10, 20, 120, 40));
+    unmount();
+  });
+
+  it("observes the element of each hook instance", () => {
+    const first = renderUseMeasure();
+    const second = renderUseMeasure();
+
+    expect(FakeResizeObserver.of(first.element())).toHaveLength(1);
+    expect(FakeResizeObserver.of(second.element())).toHaveLength(1);
+    first.unmount();
+    second.unmount();
+  });
+
+  it("disconnects the observer on unmount", () => {
+    const { element, unmount } = renderUseMeasure();
+    const el = element();
+    const [observer] = FakeResizeObserver.of(el);
+
+    unmount();
+
+    expect(observer?.connected).toBe(false);
+    expect(FakeResizeObserver.of(el)).toHaveLength(0);
+  });
+
+  it("still measures when ResizeObserver does not exist", async () => {
+    Reflect.deleteProperty(globalThis, "ResizeObserver");
+    // a fresh module, so that no state is left from the previous tests
+    vi.resetModules();
+    const hook = (await import("./useMeasure")).useMeasure;
+    vi.useFakeTimers();
+    const { bounds, unmount } = renderUseMeasure(undefined, { hook });
+
+    expect(bounds()).toMatchObject(createRect(10, 20, 300, 150));
+
+    currentRect = createRect(0, 0, 200, 100);
+    act(() => {
+      window.dispatchEvent(new Event("resize"));
+      vi.runAllTimers();
+    });
+
+    expect(bounds()).toMatchObject(createRect(0, 0, 200, 100));
+    unmount();
+  });
+
+  it("removes the scroll listeners it adds to the scroll containers", () => {
+    const parent = document.body.appendChild(document.createElement("div"));
+    parent.style.overflow = "auto";
+    const added = vi.spyOn(parent, "addEventListener");
+    const removed = vi.spyOn(parent, "removeEventListener");
+    const { unmount } = renderUseMeasure({ scroll: true }, { parent });
+    unmount();
+    parent.remove();
+
+    const scrollListeners = (spy: typeof added) =>
+      spy.mock.calls
+        .filter(([type]) => type === "scroll")
+        .map(([, listener, options]) => [
+          listener,
+          typeof options === "object" ? options.capture : options,
+        ]);
+    expect(scrollListeners(added).length).toBeGreaterThan(0);
+    expect(scrollListeners(removed)).toEqual(scrollListeners(added));
   });
 
   it("stops listening to window resize on unmount", () => {

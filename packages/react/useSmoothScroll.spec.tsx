@@ -152,6 +152,49 @@ describe("useSmoothScroll", () => {
     unmount();
   });
 
+  it("subtracts the fixed offset from the given position, as for elements", () => {
+    addFixedHeader(80);
+    const { scroll, unmount } = renderUseSmoothScroll();
+
+    scroll(500);
+
+    expect(windowScrollTo).toHaveBeenCalledWith({
+      top: 420,
+      behavior: "smooth",
+    });
+    unmount();
+  });
+
+  it("scrolls to the top and calls back despite the fixed offset", () => {
+    const callback = vi.fn();
+    addFixedHeader(80);
+    const { scroll, unmount } = renderUseSmoothScroll();
+
+    // the window is already at the top
+    scroll(0, 0, callback);
+
+    expect(windowScrollTo).toHaveBeenCalledWith({
+      top: 0,
+      behavior: "smooth",
+    });
+    expect(callback).toHaveBeenCalledTimes(1);
+    unmount();
+  });
+
+  it("does not scroll above the top for elements closer to it than the fixed offset", () => {
+    addFixedHeader(80);
+    addSection("intro", 30);
+    const { scroll, unmount } = renderUseSmoothScroll();
+
+    scroll("intro");
+
+    expect(windowScrollTo).toHaveBeenCalledWith({
+      top: 0,
+      behavior: "smooth",
+    });
+    unmount();
+  });
+
   it("ignores the fixed offset for positions when disregarding it", () => {
     addFixedHeader(80);
     const { scroll, unmount } = renderUseSmoothScroll(true);

@@ -1,4 +1,4 @@
-import { differenceInDays } from "date-fns/differenceInDays";
+import { differenceInCalendarDays } from "date-fns/differenceInCalendarDays";
 import { subDays } from "date-fns/subDays";
 import { arrayToLookup, isString, isUndefined } from "@knitkode/utils";
 import type {
@@ -40,6 +40,8 @@ type GoogleCalendar = {
   defaultReminders: object[];
   nextSyncToken: string;
   items: GoogleEvent[];
+  /** Instead of the calendar, e.g. when the API key or the calendar id is wrong */
+  error?: object;
 };
 
 /**
@@ -67,26 +69,35 @@ type GetCalendarsEventsFromGoogleOptions = {
   timeZone?: string;
   /** The calendars settings */
   calendars: Calendars;
+  /** Called with the error of each calendar whose events could not be loaded */
+  onError?: (e: any) => void;
 };
+
+/**
+ * Gets the events of all the calendars and the calendars names (the given
+ * `name` or the remote `summary`), the given calendars are not mutated
+ */
 
 export let getCalendarsEventsFromGoogle = async ({
   calendars,
   ...options
 }: GetCalendarsEventsFromGoogleOptions) => {
   const allEvents: CalendarEventsMap = {};
+  const names: Record<Calendar["id"], string> = {};
 
   await Promise.all(
     calendars.map(async (calendar) => {
-      const events = await getCalendarEventsFromGoogle({
+      const [events, name] = await getCalendarEventsFromGoogle({
         calendar,
         ...options,
       });
 
+      if (name) names[calendar.id] = name;
       addCalendarEvents(events, allEvents);
     }),
   );
 
-  return allEvents;
+  return [allEvents, names] as const;
 };
 
 type GetCalendarEventsFromGoogleOptions = Omit<
@@ -103,8 +114,10 @@ async function getCalendarEventsFromGoogle({
   timeZone = "",
   start,
   end,
+  onError,
 }: GetCalendarEventsFromGoogleOptions) {
   const events: CalendarEventsMap = {};
+  let name = calendar.name;
   const params = new URLSearchParams({
     calendarId: calendar.id,
     timeZone,
@@ -121,18 +134,28 @@ async function getCalendarEventsFromGoogle({
   try {
     const response = await fetch(url, { method: "GET" });
     const data = (await response.json()) as GoogleCalendar;
-    calendar.name = calendar.name || data.summary;
+    if (data.error) throw data.error;
+    name ||= data.summary;
+    // the events get a copy of the calendar with its name
+    calendar = { ...calendar, name };
 
     data.items.forEach((googleEvent) => {
       const event = transformCalendarEventFromGoogle(googleEvent, calendar);
       events[event.uid] = event;
     });
-  } catch (_e) {
-    // if (onError) onError(e);
+  } catch (e) {
+    if (onError) onError(e);
   }
 
-  return events;
+  return [events, name] as const;
 }
+
+/**
+ * All day events have a `date` without time: a local date, which `new Date`
+ * would read as UTC (the day before in the timezones west of UTC)
+ */
+let getDate = ({ date, dateTime }: GoogleDate) =>
+  new Date(date ? date + "T00:00" : dateTime);
 
 function transformCalendarEventFromGoogle(
   event: GoogleEvent,
@@ -142,8 +165,8 @@ function transformCalendarEventFromGoogle(
   const link = event.htmlLink;
   const title = event.summary;
   const status = event.status;
-  const start = new Date(event.start.date || event.start.dateTime);
-  let end = new Date(event.end.date || event.end.dateTime);
+  const start = getDate(event.start);
+  let end = getDate(event.end);
   const color = calendar.color;
   const allDay = isUndefined(event.end.dateTime) && isString(event.end.date);
   const location = event.location || "";
@@ -162,11 +185,12 @@ function transformCalendarEventFromGoogle(
 
   function getDays() {
     const from = new Date(start);
-    const to = new Date(end);
+    // count the calendar days, the end is exclusive: an event ending at
+    // midnight does not take the day after
+    const to = new Date(end.getTime() - 1);
     const days = [getEventTimestamp(from)];
 
-    while (differenceInDays(to, from)) {
-      // console.log(title, differenceInDays(to, from))
+    while (differenceInCalendarDays(to, from) > 0) {
       from.setDate(from.getDate() + 1);
       days.push(getEventTimestamp(from));
     }

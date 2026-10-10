@@ -15,7 +15,7 @@ import type {
   CalendarViewWeeks,
 } from "./types";
 import { useDateLocale } from "./useDateLocale";
-import { processEventsInView } from "./utils";
+import { getCustomProps, processEventsInView } from "./utils";
 
 export type CalendarDaygridTableBodyCellProps = CalendarViewDayProps & {
   children?: ReactNode;
@@ -133,7 +133,7 @@ CalendarDaygridTableProps) => {
       <TableHead>
         <tr>
           {days.map((day) => (
-            <TableHeadCell scope="column" key={day}>
+            <TableHeadCell scope="col" key={day}>
               {day}
             </TableHeadCell>
           ))}
@@ -150,8 +150,13 @@ CalendarDaygridTableProps) => {
                 const { key: dayKey, ...dayProps } = day.props;
 
                 return (
-                  <TableBodyCell key={dayKey} {...dayProps}>
-                    <TableBodyCellDate {...dayProps}>
+                  <TableBodyCell
+                    key={dayKey}
+                    {...getCustomProps(TableBodyCell, dayProps)}
+                  >
+                    <TableBodyCellDate
+                      {...getCustomProps(TableBodyCellDate, dayProps)}
+                    >
                       {day.label}
                     </TableBodyCellDate>
                     {day.events.length > 0 && (

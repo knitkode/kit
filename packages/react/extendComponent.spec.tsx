@@ -17,6 +17,22 @@ describe("extendComponent", () => {
     );
   });
 
+  it("renders the original component with the default props", () => {
+    const Extended = extendComponent(Badge, { tone: "info" });
+
+    expect(renderToStaticMarkup(<Extended>Alert</Extended>)).toBe(
+      '<span data-tone="info">Alert</span>',
+    );
+  });
+
+  it("uses the default props in place of undefined props", () => {
+    const Extended = extendComponent(Badge, { tone: "info" });
+
+    expect(renderToStaticMarkup(<Extended tone={undefined} />)).toBe(
+      '<span data-tone="info"></span>',
+    );
+  });
+
   it("returns a new component instead of mutating the original one", () => {
     const Extended = extendComponent(Badge, { tone: "info" });
 

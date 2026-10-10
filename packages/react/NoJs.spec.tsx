@@ -42,6 +42,25 @@ describe("NoJs", () => {
     expect(html.className).toBe("js");
   });
 
+  it("keeps the classes that follow no-js, separated from js", () => {
+    html.className = "no-js foo";
+
+    runScript();
+
+    expect(html.classList).toHaveLength(2);
+    expect(html.classList.contains("foo")).toBe(true);
+    expect(html.classList.contains("js")).toBe(true);
+  });
+
+  it("adds js once, keeping the other classes, without a no-js class", () => {
+    html.className = "foo";
+
+    runScript();
+    runScript();
+
+    expect(html.className).toBe("foo js");
+  });
+
   it("keeps the classes that precede no-js", () => {
     html.className = "theme-dark no-js";
 

@@ -2,6 +2,7 @@ import { format } from "date-fns/format";
 import type { KitComponent, KitComponentProps } from "../types";
 import type { CalendarRange, CalendarView } from "./types";
 import { useDateLocale } from "./useDateLocale";
+import { getCustomProps } from "./utils";
 
 export type KitCalendarDaygridNavProps = {
   locale: string;
@@ -91,7 +92,9 @@ export let KitCalendarDaygridNav = ({
           disabled={view === "week"}
         />
       </NavBtns>
-      <NavTitle range={range} formatted={formatted} />
+      <NavTitle {...getCustomProps(NavTitle, { range, formatted })}>
+        {formatted}
+      </NavTitle>
     </NavRoot>
   );
 };

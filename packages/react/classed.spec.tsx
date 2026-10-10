@@ -1,4 +1,11 @@
-import { act, createRef, memo, type ReactNode } from "react";
+import {
+  act,
+  type ComponentProps,
+  createRef,
+  memo,
+  type ReactNode,
+  type Ref,
+} from "react";
 import { createRoot } from "react-dom/client";
 import { renderToStaticMarkup } from "react-dom/server";
 import { classed } from "./classed";
@@ -79,6 +86,25 @@ describe("classed", () => {
     expect(el?.className).toBe("text-lg color-red");
   });
 
+  it("keeps the static part after the last interpolation", () => {
+    type Props = { $tone: string };
+    const Text = classed<Props, "span">("span")`a ${(props) => props.$tone} b`;
+
+    expect(toElement(renderToStaticMarkup(<Text $tone="X" />))?.className).toBe(
+      "a X b",
+    );
+  });
+
+  it('keeps the static part after the last interpolation in the `< class="..."` syntax', () => {
+    type Props = { $gap: number };
+    const Box = classed<Props, "div">("div")`< class="flex gap-${(props) =>
+      String(props.$gap)} grow">`;
+
+    expect(toElement(renderToStaticMarkup(<Box $gap={2} />))?.className).toBe(
+      "flex gap-2 grow",
+    );
+  });
+
   it("accepts string interpolations", () => {
     const base = "rounded";
     const Box = classed("div")`border ${base}`;
@@ -157,12 +183,7 @@ describe("classed", () => {
     const container = document.createElement("div");
     const root = createRoot(container);
 
-    act(() =>
-      root.render(
-        // @ts-expect-error classed types the ref as `Ref<"input">` (the tag name) instead of `Ref<HTMLInputElement>`
-        <Input ref={ref} defaultValue="hello" />,
-      ),
-    );
+    act(() => root.render(<Input ref={ref} defaultValue="hello" />));
 
     expect(ref.current).toBeInstanceOf(HTMLInputElement);
     expect(ref.current?.className).toBe("field");
@@ -170,5 +191,32 @@ describe("classed", () => {
 
     act(() => root.unmount());
     expect(ref.current).toBeNull();
+  });
+
+  it("types the ref and the event handlers with the element type", () => {
+    const Input = classed("input")`field`;
+    const values: string[] = [];
+    // focus only works on elements attached to the document
+    const container = document.body.appendChild(document.createElement("div"));
+    const root = createRoot(container);
+
+    expectTypeOf<ComponentProps<typeof Input>["ref"]>().toEqualTypeOf<
+      Ref<HTMLInputElement> | undefined
+    >();
+
+    act(() =>
+      root.render(
+        <Input
+          defaultValue="hello"
+          onFocus={(event) => values.push(event.currentTarget.value)}
+        />,
+      ),
+    );
+    act(() => container.querySelector("input")?.focus());
+
+    expect(values).toEqual(["hello"]);
+
+    act(() => root.unmount());
+    container.remove();
   });
 });

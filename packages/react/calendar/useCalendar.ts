@@ -26,7 +26,10 @@ export type UseCalendarProps = {
   calendars: Calendars;
   /** Fall back to `process.env.GOOGLE_CALENDAR_API_KEY */
   apiKey?: string;
-  /** The key is the event `uid` */
+  /**
+   * The key is the event `uid`, they are shown along with the ones loaded from
+   * the calendars
+   */
   events?: CalendarEventsMap;
   /** It defaults to the first of the current month */
   start?: Date;
@@ -42,6 +45,7 @@ export type UseCalendarProps = {
    * @see https://developers.google.com/calendar/api/v3/reference/events/list
    */
   timeZone?: string;
+  /** Called with the error of each calendar whose events could not be loaded */
   onError?: (e: any) => void;
 };
 
@@ -57,9 +61,15 @@ export type CalendarsUpdateActionVisibility = {
   payload: string | string[];
 };
 
+export type CalendarsUpdateActionNames = {
+  type: "names";
+  payload: Record<string, string>;
+};
+
 export type CalendarsUpdateAction =
   | CalendarsUpdateActionEvents
-  | CalendarsUpdateActionVisibility;
+  | CalendarsUpdateActionVisibility
+  | CalendarsUpdateActionNames;
 
 export let useCalendar = ({
   locale,
@@ -92,6 +102,17 @@ export let useCalendar = ({
             map[id] = {
               ...calendar,
               events: events[id] || 0,
+            };
+            return map;
+          }, {} as CalendarsMap);
+        }
+
+        case "names": {
+          const names = action.payload;
+          return Object.entries(state).reduce((map, [id, calendar]) => {
+            map[id] = {
+              ...calendar,
+              name: names[id] || calendar.name,
             };
             return map;
           }, {} as CalendarsMap);
@@ -162,22 +183,20 @@ export let useCalendar = ({
       start: Date,
       end: Date,
     ) => {
-      try {
-        const newEvents = await getCalendarsEventsFromGoogle({
-          apiKey,
-          calendars,
-          timeZone,
-          start,
-          end,
-        });
+      const [newEvents, names] = await getCalendarsEventsFromGoogle({
+        apiKey,
+        calendars,
+        timeZone,
+        start,
+        end,
+        onError,
+      });
 
-        // setEvents(mergeCalendarEvents(events, newEvents));
-        setEvents(newEvents);
-      } catch (e) {
-        if (onError) onError(e);
-      }
+      updateCalendars({ type: "names", payload: names });
+      // keep the given events along with the loaded ones
+      setEvents({ ...initialEvents, ...newEvents });
     },
-    [setEvents, apiKey, timeZone, onError],
+    [setEvents, apiKey, timeZone, onError, initialEvents],
   );
 
   const handleToday = useCallback(() => {
@@ -218,14 +237,17 @@ export let useCalendar = ({
 
   const handleView = useCallback(
     (newView: CalendarView) => {
-      const newStart = getStartDate(start, newView);
+      // from the displayed range: the week where it starts or the month where
+      // it ends (the month of the week's Sunday), so that switching from a
+      // month to the week view and back shows the same month
+      const newStart = getStartDate(range[newView === "week" ? 0 : 1], newView);
       const newEnd = getEndDate(newStart, newView);
       setRange([newStart, newEnd]);
       setView(newView);
       setEventClicked(null);
       setEventHovered(null);
     },
-    [start],
+    [range],
   );
 
   useEffect(() => {
@@ -244,7 +266,7 @@ export let useCalendar = ({
   // to a now hidden calendar
   useEffect(() => {
     if (eventClicked) {
-      if (!calendarsMap[eventClicked.calendar.id].on) {
+      if (calendarsMap[eventClicked.calendar.id]?.on === false) {
         setEventClicked(null);
       }
     }

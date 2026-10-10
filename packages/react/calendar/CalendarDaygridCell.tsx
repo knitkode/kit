@@ -7,7 +7,7 @@ import type {
   CalendarViewEvent,
 } from "./types";
 import type { UseCalendarReturn } from "./useCalendar";
-import { getDisplayTime } from "./utils";
+import { getCustomProps, getDisplayTime } from "./utils";
 
 /**
  * TODO: include in this lib utilities like in https://github.com/react-icons/react-icons/blob/master/packages/react-icons/src/iconBase.tsx
@@ -69,7 +69,7 @@ export type CalendarDaygridCellProps = KitComponentProps<
 >;
 
 /**
- * Style for button within a event cell
+ * Style for button within a event cell (never mutated, it is shared)
  *
  * Here we might differentiate week/month view where the first does not get
  * ellipsed btn texts, with `Start` as block element and underneath the `Title`
@@ -99,9 +99,11 @@ export let CalendarDaygridCell = ({
   CellEventStart = "span",
 }: CalendarDaygridCellProps) => {
   const [isExpanded, expand] = useState(false);
-  const eventsWithoutPlaceholders = events.filter(
-    (event) => !event.placeholder,
-  );
+  // the events hidden by the overflow, placeholders might take visible slots
+  const overflowing = events
+    .slice(maxEvents)
+    .filter((event) => !event.placeholder).length;
+  const placeholderProps = { $placeholder: true } as const;
 
   return (
     <Cell>
@@ -113,7 +115,7 @@ export let CalendarDaygridCell = ({
               onClick={() => expand(true)}
             >
               <IconExpand />
-              {eventsWithoutPlaceholders.length - maxEvents}
+              {overflowing}
             </CellOverflow>
           );
         }
@@ -122,11 +124,11 @@ export let CalendarDaygridCell = ({
         if (event.placeholder) {
           return (
             <Fragment key={event.key}>
-              <CellEvent $placeholder>
+              <CellEvent {...getCustomProps(CellEvent, placeholderProps)}>
                 <CellEventBtn
                   aria-hidden="true"
                   style={{ visibility: "hidden" }}
-                  $placeholder
+                  {...getCustomProps(CellEventBtn, placeholderProps)}
                 >
                   <CellEventTitle>&nbsp;</CellEventTitle>
                 </CellEventBtn>
@@ -141,11 +143,9 @@ export let CalendarDaygridCell = ({
           width: event.firstOfMulti ? `${100 * event.width}%` : "100%",
         } as const;
 
-        if (!calendarsMap[event.calendar.id].on) {
-          // @ts-expect-error nevermind
-          styleBtn.display = "none";
-        }
-
+        // hide the events of the hidden calendars, the calendars missing in the
+        // map are visible
+        const calendar = calendarsMap[event.calendar.id];
         const styledProps = {
           $view: view,
           $selected: eventClicked?.uid === event.uid,
@@ -157,11 +157,18 @@ export let CalendarDaygridCell = ({
 
         return (
           <Fragment key={event.key}>
-            <CellEvent style={styleEvent} {...styledProps}>
+            <CellEvent
+              style={styleEvent}
+              {...getCustomProps(CellEvent, styledProps)}
+            >
               <CellEventBtn
                 role="button"
-                style={styleBtn}
-                {...styledProps}
+                style={
+                  calendar && !calendar.on
+                    ? { ...styleBtn, display: "none" }
+                    : styleBtn
+                }
+                {...getCustomProps(CellEventBtn, styledProps)}
                 onClick={() =>
                   setEventClicked((prev) =>
                     prev?.uid === event.uid ? null : event,

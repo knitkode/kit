@@ -14,8 +14,15 @@ export let extendComponent = <
   defaultProps: DefaultProps,
 ) => {
   // FIXME: check if we need to forwardRef or not
-  const NewComponent = (props: React.ComponentProps<Component>) =>
-    createElement(component, props);
+  const NewComponent = (props: React.ComponentProps<Component>) => {
+    // apply the defaults here, React 19 JSX ignores the `defaultProps` of
+    // function components (we still assign them below for backwards compat)
+    const finalProps: Record<string, unknown> = { ...props };
+    for (const key in defaultProps) {
+      if (finalProps[key] === undefined) finalProps[key] = defaultProps[key];
+    }
+    return createElement(component, finalProps);
+  };
   // const NewComponent = forwardRef<React.ComponentProps<Component>, Component>(
   //   (props, ref) => createElement(component, { ...props, ref })
   // );

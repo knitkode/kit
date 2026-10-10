@@ -25,45 +25,26 @@ export let useFixedOffset = (selector?: string) => {
   const fixedOffset = useRef<number>(0);
 
   useIsomorphicLayoutEffect(() => {
-    const update = () => {
-      const newFixedOffset = calculateFixedOffset();
-      fixedOffset.current = newFixedOffset;
-      // inject this CSS make the hashed deeplinks position the scroll at the
-      // right offset
-      inject(newFixedOffset);
-    };
+    const fixedSelector = selector || "[data-fixed]";
+    // sum the height of all the fixed elements, not only of the resized ones
+    const calculate = () =>
+      (fixedOffset.current = calculateFixedOffset(fixedSelector));
+    // inject this CSS make the hashed deeplinks position the scroll at the
+    // right offset
+    const update = () => inject(calculate());
 
     update();
 
-    if (ResizeObserver) {
-      // const elements = domAll("[data-fixed]");
+    if (typeof ResizeObserver !== "undefined") {
+      // update the offset right away, debounce only the CSS injection
+      const injectDebounced = debounce(inject, 400);
+      const observer = new ResizeObserver(() => injectDebounced(calculate()));
 
-      const observer = new ResizeObserver((entries) => {
-        let newFixedOffset = 0;
+      domEach(fixedSelector, ($el) => observer.observe($el));
 
-        entries.forEach((entry) => {
-          newFixedOffset += entry.contentRect.height;
-        });
-        fixedOffset.current = newFixedOffset;
-        const updateOnResize = debounce(
-          () => inject(newFixedOffset),
-          400,
-          true,
-        );
-        updateOnResize();
-      });
-
-      domEach(selector || "[data-fixed]", ($el) => {
-        if (observer) observer.observe($el);
-      });
-
-      return () => {
-        observer?.disconnect();
-      };
-    } else {
-      const listener = listenResizeDebounced(0, update);
-      return listener;
+      return () => observer.disconnect();
     }
+    return listenResizeDebounced(0, update);
   }, [selector]);
 
   return fixedOffset;

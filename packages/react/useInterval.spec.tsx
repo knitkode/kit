@@ -7,7 +7,11 @@ import { useInterval } from "./useInterval";
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
-type Props = { callback: () => unknown; delay: number; deps?: unknown[] };
+type Props = {
+  callback: () => unknown;
+  delay: number | null;
+  deps?: unknown[];
+};
 
 const Probe = ({ callback, delay, deps }: Props) => {
   useInterval(callback, delay, deps);
@@ -93,16 +97,29 @@ describe("useInterval", () => {
     const callback = vi.fn();
     const root = createRoot(document.createElement("div"));
 
-    act(() =>
-      root.render(
-        // @ts-expect-error `delay` is typed as `number` although `null` pauses the interval
-        <Probe callback={callback} delay={null} />,
-      ),
-    );
+    act(() => root.render(<Probe callback={callback} delay={null} />));
     act(() => vi.advanceTimersByTime(1000));
 
     expect(callback).not.toHaveBeenCalled();
     expect(vi.getTimerCount()).toBe(0);
+
+    act(() => root.unmount());
+  });
+
+  it("pauses and resumes when the delay toggles between null and a number", () => {
+    const callback = vi.fn();
+    const root = createRoot(document.createElement("div"));
+
+    act(() => root.render(<Probe callback={callback} delay={100} />));
+    act(() => root.render(<Probe callback={callback} delay={null} />));
+    act(() => vi.advanceTimersByTime(500));
+
+    expect(callback).not.toHaveBeenCalled();
+
+    act(() => root.render(<Probe callback={callback} delay={100} />));
+    act(() => vi.advanceTimersByTime(100));
+
+    expect(callback).toHaveBeenCalledTimes(1);
 
     act(() => root.unmount());
   });

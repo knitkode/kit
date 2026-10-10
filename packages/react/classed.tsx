@@ -21,7 +21,8 @@ type ClassedAugmentedProps<Props> = Props & {
 
 type ClassedFinalProps<Props, Component> =
   Component extends React.HTMLElementType
-    ? React.HTMLProps<Component> & ClassedAugmentedProps<Props>
+    ? React.HTMLProps<React.ComponentRef<Component>> &
+        ClassedAugmentedProps<Props>
     : ClassedAugmentedProps<Props>;
 
 /**
@@ -54,7 +55,7 @@ export let classed = <Props, Component extends React.ElementType = any>(
     ...args: ((props: Props) => string)[] | string[]
   ) {
     const WrappedComponent = forwardRef<
-      Component,
+      React.ComponentRef<Component>,
       // Props
       ClassedFinalProps<Props, Component>
     >(function (props, ref) {
@@ -88,8 +89,9 @@ export let classed = <Props, Component extends React.ElementType = any>(
         }
       }
 
-      // get the tagged function string outcome
-      let className = argResolved || strings[0];
+      // get the tagged function string outcome, the static part after the last
+      // interpolation included (with no interpolations it is `strings[0]`)
+      let className = argResolved + strings[args.length];
       // check if we need to clean it or not from the optional structure `< class="..."`
       className = className.match(/class="([^"]*)/)?.[1] || className;
       // add the custom classes from props

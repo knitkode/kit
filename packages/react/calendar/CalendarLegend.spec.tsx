@@ -63,8 +63,9 @@ describe("KitCalendarLegend", () => {
   afterEach(() => {
     act(() => root.unmount());
     // no React warnings (keys, unknown DOM props) should be logged
-    expect(consoleError).not.toHaveBeenCalled();
+    const errors = [...consoleError.mock.calls];
     consoleError.mockRestore();
+    expect(errors).toEqual([]);
   });
 
   it("renders one item per calendar with its status, name and events count", () => {
@@ -93,6 +94,13 @@ describe("KitCalendarLegend", () => {
       empty: "true",
     });
     expect(home?.getAttribute("aria-disabled")).toBe("true");
+  });
+
+  it("does not pass the transient props to the default DOM element", () => {
+    render({ LegendItem: undefined });
+
+    expect(container.querySelectorAll("div")).toHaveLength(2);
+    expect(container.innerHTML).not.toContain("$");
   });
 
   it("toggles the visibility of the clicked calendar", () => {

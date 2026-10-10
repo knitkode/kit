@@ -52,6 +52,12 @@ const addFixedElement = (
   return element;
 };
 
+const setHeight = (element: HTMLElement, height: number) =>
+  Object.defineProperty(element, "offsetHeight", {
+    configurable: true,
+    value: height,
+  });
+
 const getInjectedCss = () =>
   document.getElementById("useFixedOffset")?.innerHTML;
 
@@ -133,14 +139,67 @@ describe("useFixedOffset", () => {
     unmount();
   });
 
-  it("updates the offset and the injected CSS when the element resizes", () => {
+  it("calculates the offset from the elements matching a custom selector", () => {
+    addFixedElement(50);
+    addFixedElement(40, { class: "hdr" });
+
+    const { offset, unmount } = renderUseFixedOffset(".hdr");
+
+    expect(offset()).toBe(40);
+    expect(getInjectedCss()).toBe("html{scroll-padding-top: 40px}");
+    unmount();
+  });
+
+  it("updates the offset right away and the injected CSS 400ms after the element resizes", () => {
+    vi.useFakeTimers();
     const header = addFixedElement(50);
     const { offset, unmount } = renderUseFixedOffset();
 
+    setHeight(header, 72);
     act(() => FakeResizeObserver.instances[0]?.resize([[header, 72]]));
 
     expect(offset()).toBe(72);
+    expect(getInjectedCss()).toBe("html{scroll-padding-top: 50px}");
+
+    act(() => vi.advanceTimersByTime(400));
     expect(getInjectedCss()).toBe("html{scroll-padding-top: 72px}");
+    unmount();
+  });
+
+  it("sums all the fixed elements when only some of them resize", () => {
+    vi.useFakeTimers();
+    const header = addFixedElement(50);
+    addFixedElement(30);
+    const { offset, unmount } = renderUseFixedOffset();
+
+    setHeight(header, 72);
+    act(() => {
+      FakeResizeObserver.instances[0]?.resize([[header, 72]]);
+      vi.runAllTimers();
+    });
+
+    expect(offset()).toBe(102);
+    expect(getInjectedCss()).toBe("html{scroll-padding-top: 102px}");
+    unmount();
+  });
+
+  it("debounces the CSS injection of consecutive resizes", () => {
+    vi.useFakeTimers();
+    const header = addFixedElement(50);
+    const { unmount } = renderUseFixedOffset();
+    const observer = FakeResizeObserver.instances[0];
+
+    setHeight(header, 60);
+    act(() => observer?.resize([[header, 60]]));
+    act(() => vi.advanceTimersByTime(300));
+    setHeight(header, 70);
+    act(() => observer?.resize([[header, 70]]));
+    act(() => vi.advanceTimersByTime(399));
+
+    expect(getInjectedCss()).toBe("html{scroll-padding-top: 50px}");
+
+    act(() => vi.advanceTimersByTime(1));
+    expect(getInjectedCss()).toBe("html{scroll-padding-top: 70px}");
     unmount();
   });
 
@@ -166,6 +225,24 @@ describe("useFixedOffset", () => {
     expect(first?.disconnect).toHaveBeenCalledTimes(1);
     expect(first?.observed).toEqual([header]);
     expect(second?.observed).toEqual([toolbar]);
+    unmount();
+  });
+
+  it("falls back to window resize when ResizeObserver does not exist", () => {
+    Reflect.deleteProperty(globalThis, "ResizeObserver");
+    vi.useFakeTimers();
+    const header = addFixedElement(50);
+    const { offset, unmount } = renderUseFixedOffset();
+    expect(offset()).toBe(50);
+
+    setHeight(header, 90);
+    act(() => {
+      window.dispatchEvent(new Event("resize"));
+      vi.runAllTimers();
+    });
+
+    expect(offset()).toBe(90);
+    expect(getInjectedCss()).toBe("html{scroll-padding-top: 90px}");
     unmount();
   });
 

@@ -4,10 +4,21 @@ import { isNumber } from "@knitkode/utils";
 import { useFixedOffset } from "./useFixedOffset";
 
 /**
+ * Smoothly scroll the window to a position or to an element, minus the height
+ * of the fixed elements (see `useFixedOffset`) so that they do not cover it.
  *
- * @param disregardAutomaticFixedOffset When the `to` scroll argument is a DOM
- * selector we will keep into account the _fixedOffset_ despite this option.
- * @returns
+ * The returned function accepts:
+ * - `to`: the position (in px from the top of the page) or the `id` of the
+ * element to scroll to
+ * - `customOffset`: added to the destination (e.g. `-20` to stop 20px before)
+ * - `callback`, `fallbackTimeout` and `behavior`: see `scrollTo` from
+ * `@knitkode/dom`
+ *
+ * The destination is never above the top of the page.
+ *
+ * @param disregardAutomaticFixedOffset Do not subtract the _fixedOffset_ from
+ * the `to` positions. When `to` is an element `id` we will keep into account
+ * the _fixedOffset_ despite this option.
  */
 export let useSmoothScroll = (disregardAutomaticFixedOffset?: boolean) => {
   const fixedOffset = useFixedOffset();
@@ -28,7 +39,7 @@ export let useSmoothScroll = (disregardAutomaticFixedOffset?: boolean) => {
       } else if (to) {
         const el = document.getElementById(to);
         if (el) {
-          top = getOffsetTopSlim(el) - fixedOffset.current;
+          top = getOffsetTopSlim(el);
           toIsElement = true;
         }
       }
@@ -36,12 +47,14 @@ export let useSmoothScroll = (disregardAutomaticFixedOffset?: boolean) => {
       if (isNumber(top)) {
         top =
           top +
-          (customOffset || 0) +
-          (disregardAutomaticFixedOffset || toIsElement
+          (customOffset || 0) -
+          (disregardAutomaticFixedOffset && !toIsElement
             ? 0
             : fixedOffset.current);
 
-        scrollTo(top, callback, fallbackTimeout, behavior);
+        // the window cannot scroll above the top, `scrollTo` would otherwise
+        // never call back
+        scrollTo(Math.max(0, top), callback, fallbackTimeout, behavior);
       }
     },
     [disregardAutomaticFixedOffset, fixedOffset],

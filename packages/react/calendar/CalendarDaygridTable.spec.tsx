@@ -17,6 +17,19 @@ import type { CalendarEvent, CalendarEventsMap, CalendarsMap } from "./types";
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
 ).IS_REACT_ACT_ENVIRONMENT = true;
 
+/**
+ * Spies the React warnings, the returned function restores the console and
+ * returns them
+ */
+const spyWarnings = () => {
+  const spies = [vi.spyOn(console, "error"), vi.spyOn(console, "warn")];
+  return () => {
+    const calls = spies.flatMap((spy) => [...spy.mock.calls]);
+    for (const spy of spies) spy.mockRestore();
+    return calls;
+  };
+};
+
 // the hook dynamically imports the date-fns locale, preload it so that it
 // resolves within the `act()` scopes of the tests
 beforeAll(async () => {
@@ -24,10 +37,8 @@ beforeAll(async () => {
 });
 
 describe("KitCalendarDaygridTable", () => {
-  it("renders the month weeks and days without React key warnings", async () => {
-    const consoleError = vi
-      .spyOn(console, "error")
-      .mockImplementation(() => {});
+  it("renders the month weeks and days without React warnings", async () => {
+    const getWarnings = spyWarnings();
     const container = document.createElement("div");
     const root = createRoot(container);
 
@@ -50,14 +61,11 @@ describe("KitCalendarDaygridTable", () => {
 
     expect(container.querySelectorAll("tbody tr")).toHaveLength(5);
     expect(container.querySelectorAll("tbody td")).toHaveLength(35);
-
-    const keyWarnings = consoleError.mock.calls.filter((args) =>
-      args.some((arg) => String(arg).includes("key")),
-    );
-    expect(keyWarnings).toEqual([]);
+    // the `$` transient props are not passed to the default DOM elements
+    expect(container.innerHTML).not.toContain("$");
 
     act(() => root.unmount());
-    consoleError.mockRestore();
+    expect(getWarnings()).toEqual([]);
   });
 
   describe("with events", () => {
@@ -140,7 +148,7 @@ describe("KitCalendarDaygridTable", () => {
 
     let container: HTMLDivElement;
     let root: Root;
-    let consoleError: ReturnType<typeof vi.spyOn>;
+    let getWarnings: ReturnType<typeof spyWarnings>;
 
     const render = async (props: Partial<CalendarDaygridTableProps> = {}) => {
       const allProps: CalendarDaygridTableProps = {
@@ -198,7 +206,7 @@ describe("KitCalendarDaygridTable", () => {
 
     beforeEach(() => {
       vi.useFakeTimers({ toFake: ["Date"], now: new Date(2026, 9, 15, 12) });
-      consoleError = vi.spyOn(console, "error");
+      getWarnings = spyWarnings();
       container = document.createElement("div");
       document.body.append(container);
       root = createRoot(container);
@@ -209,8 +217,7 @@ describe("KitCalendarDaygridTable", () => {
       container.remove();
       vi.useRealTimers();
       // no React warnings (keys, act, unknown DOM props) should be logged
-      expect(consoleError).not.toHaveBeenCalled();
-      consoleError.mockRestore();
+      expect(getWarnings()).toEqual([]);
     });
 
     it("renders the abbreviated week days of the locale from Monday", async () => {
@@ -219,6 +226,16 @@ describe("KitCalendarDaygridTable", () => {
       expect(
         [...container.querySelectorAll("thead th")].map((th) => th.textContent),
       ).toEqual(["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]);
+    });
+
+    it("scopes the head cells to their column", async () => {
+      await render();
+
+      expect(
+        [...container.querySelectorAll("thead th")].map((th) =>
+          th.getAttribute("scope"),
+        ),
+      ).toEqual(Array(7).fill("col"));
     });
 
     it("renders the given day labels", async () => {
@@ -422,6 +439,48 @@ describe("KitCalendarDaygridTable", () => {
       expect(getCellEvents(getCell(8))).toEqual(["_", "Long"]);
     });
 
+    it("keeps the rows of the multi days events started on a previous day", async () => {
+      // the timed event starts on Monday along with "Long", "Short" starts the
+      // day after: it must not take the row of the timed event
+      await render({
+        events: toEventsMap(
+          makeEvent("Long", new Date(2026, 9, 5), new Date(2026, 9, 7)),
+          makeEvent("Short", new Date(2026, 9, 6), new Date(2026, 9, 7)),
+          makeEvent(
+            "Timed",
+            new Date(2026, 9, 5, 10),
+            new Date(2026, 9, 7, 10),
+            { allDay: false },
+          ),
+        ),
+      });
+
+      expect(getCellEvents(getCell(5))).toEqual(["Long", "Timed"]);
+      expect(getCellEvents(getCell(6))).toEqual(["Long", "Timed", "Short"]);
+      expect(getCellEvents(getCell(7))).toEqual(["Long", "Timed", "Short"]);
+      expect(getCellEvent(5, "Timed")?.style.width).toBe("300%");
+      expect(getCellEvent(6, "Short")?.style.width).toBe("200%");
+    });
+
+    it("keeps a multi days event on the first row", async () => {
+      // "Holiday" sorts before "Timed" (all day), but starts the day after
+      await render({
+        events: toEventsMap(
+          makeEvent(
+            "Timed",
+            new Date(2026, 9, 5, 10),
+            new Date(2026, 9, 6, 10),
+            { allDay: false },
+          ),
+          makeEvent("Holiday", new Date(2026, 9, 6), new Date(2026, 9, 7)),
+        ),
+      });
+
+      expect(getCellEvents(getCell(5))).toEqual(["Timed"]);
+      expect(getCellEvents(getCell(6))).toEqual(["Timed", "Holiday"]);
+      expect(getCellEvents(getCell(7))).toEqual(["_", "Holiday"]);
+    });
+
     it("flags the past events", async () => {
       await render({
         events: toEventsMap(
@@ -489,6 +548,55 @@ describe("KitCalendarDaygridTable", () => {
       expect(getCell(6)?.querySelector("svg")?.parentElement?.textContent).toBe(
         "2",
       );
+    });
+
+    it("renders the events with the default components without React warnings", async () => {
+      const review = makeEvent(
+        "Review",
+        new Date(2026, 9, 6),
+        new Date(2026, 9, 6),
+      );
+      await render({
+        TableBodyCell: undefined,
+        TableBodyCellDate: undefined,
+        CellEvent: undefined,
+        CellEventBtn: undefined,
+        CellEventTitle: undefined,
+        eventClicked: review,
+        events: toEventsMap(
+          review,
+          makeEvent("Trip", new Date(2026, 9, 14), new Date(2026, 9, 16)),
+          makeEvent(
+            "Late",
+            new Date(2026, 9, 20, 18),
+            new Date(2026, 9, 20, 19),
+            { allDay: false },
+          ),
+        ),
+      });
+
+      expect(
+        [...container.querySelectorAll('[role="button"]')].map(
+          (btn) => btn.textContent,
+        ),
+      ).toEqual(["Review", "Trip", "Trip", "Trip", "18:00Late"]);
+      // the `$` transient props are not passed to the default DOM elements
+      expect(container.innerHTML).not.toContain("$");
+    });
+
+    it("renders the events without the calendars map", async () => {
+      await render({
+        calendarsMap: undefined,
+        events: toEventsMap(
+          makeEvent("Review", new Date(2026, 9, 6), new Date(2026, 9, 6)),
+        ),
+      });
+
+      expect(getCellEvents(getCell(6))).toEqual(["Review"]);
+      expect(
+        getCell(6)?.querySelector<HTMLElement>('[role="button"]')?.style
+          .display,
+      ).toBe("");
     });
 
     it("renders with the custom table components", async () => {

@@ -1,5 +1,6 @@
 import type { KitComponent, KitComponentProps } from "../types";
 import type { CalendarsMap } from "./types";
+import { getCustomProps } from "./utils";
 
 export type KitCalendarLegendProps = {
   toggleCalendarVisibility: (id: string) => void;
@@ -44,8 +45,10 @@ export let KitCalendarLegend = ({
         <LegendItem
           key={"CalendarLegend." + id}
           onClick={() => toggleCalendarVisibility(id)}
-          $color={calendar.color}
-          $empty={calendar.events === 0}
+          {...getCustomProps(LegendItem, {
+            $color: calendar.color,
+            $empty: calendar.events === 0,
+          })}
           disabled={calendar.events === 0}
         >
           <LegendItemStatus>

@@ -114,6 +114,8 @@ describe("createUseMediaQueryWidth", () => {
 
   describe("in the browser", () => {
     it.each<[Media, string]>([
+      ["@md", "(min-width: 768px)"],
+      ["@lg", "(min-width: 1024px)"],
       ["@min-md", "(min-width: 768px)"],
       ["@up-sm", "(min-width: 640px)"],
       ["@max-md", "(max-width: 767.98px)"],
