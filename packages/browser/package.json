@@ -1,6 +1,6 @@
 {
   "name": "@knitkode/browser",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Browser helpers: URL search and hash navigation, storage clients, gtag, device detection, zoned dates.",
   "keywords": [
     "knitkode",

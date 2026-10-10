@@ -1,5 +1,13 @@
 # @knitkode/api
 
+## 3.0.1
+
+### Patch Changes
+
+- [`113cd75`](https://github.com/knitkode/kit/commit/113cd754ba6cf9497752643541defcceebf34a95) Thanks [@kuus](https://github.com/kuus)! - Fix the requests URL, which got a double slash with an endpoint starting with `/` or a base URL ending with one, and let the headers passed to a request override the client ones (the client headers used to win).
+- Updated dependencies [[`113cd75`](https://github.com/knitkode/kit/commit/113cd754ba6cf9497752643541defcceebf34a95), [`89e3ba6`](https://github.com/knitkode/kit/commit/89e3ba66f33f8b5c8b7ecc2350d5dadbfd6bc143), [`b131ad6`](https://github.com/knitkode/kit/commit/b131ad61ba1956a5efb1f2a0ad00c76870da8899)]:
+  - @knitkode/utils@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,5 +1,14 @@
 # @knitkode/browser
 
+## 3.0.1
+
+### Patch Changes
+
+- [`113cd75`](https://github.com/knitkode/kit/commit/113cd754ba6cf9497752643541defcceebf34a95) Thanks [@kuus](https://github.com/kuus)! - Fix `navigateToHash`, which doubled the `?` of the current query string (`/page??a=1#hash`), and make the storage helpers (`storageClient`, `storage`, `createStorage`) return stored falsy values (`0`, `false`, `""`) instead of `null` or the default, and apply falsy defaults in `getAll`.
+- Updated dependencies [[`a04e3ff`](https://github.com/knitkode/kit/commit/a04e3ffbd88d6ee664b3e22546c2e6d66bdd851a), [`113cd75`](https://github.com/knitkode/kit/commit/113cd754ba6cf9497752643541defcceebf34a95), [`89e3ba6`](https://github.com/knitkode/kit/commit/89e3ba66f33f8b5c8b7ecc2350d5dadbfd6bc143), [`b131ad6`](https://github.com/knitkode/kit/commit/b131ad61ba1956a5efb1f2a0ad00c76870da8899)]:
+  - @knitkode/dom@3.0.1
+  - @knitkode/utils@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

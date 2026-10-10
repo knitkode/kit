@@ -1,5 +1,20 @@
 # @knitkode/node
 
+## 3.0.1
+
+### Patch Changes
+
+- [`1ad3640`](https://github.com/knitkode/kit/commit/1ad3640499d3efd829475f90409d56f19b503573) Thanks [@kuus](https://github.com/kuus)! - `getDependencyVersion` accepts a `{ from }` option with the directory to resolve the dependency from, e.g. `getDependencyVersion("next", { from: "./apps/web" })` or `getDependencyVersion("next", "major", { from })`. By default it now resolves from the current working directory instead of from where `@knitkode/node` is installed, so it finds the project's own dependencies with strict `node_modules` layouts such as pnpm's.
+
+- [`113cd75`](https://github.com/knitkode/kit/commit/113cd754ba6cf9497752643541defcceebf34a95) Thanks [@kuus](https://github.com/kuus)! - Fix several helpers:
+  
+  - `fsMoveAndRestoreTemporaryPaths` and `fsMoveAndRestoreTemporaryPathsSync` move the paths out of the destination while the callback runs (they used to copy them), always restore them, even when the callback throws or a path is missing, and run the callback once when there are no paths (it used to run twice).
+  - `fsFindUpSync` also searches the `stopAt` directory and the file system root.
+  - `fsWrite` and `fsWriteSync` only drop the leading blank lines, keeping the indentation of the first line.
+  - `swcCreateTransform` maps root imports of nested libraries without a double slash (`@org/ui/Button`, it used to give `@org/ui//Button`), and `swcTransformsKit` only rewrites root imports, the sub paths of the `@knitkode/*` packages being entry points already.
+- Updated dependencies [[`113cd75`](https://github.com/knitkode/kit/commit/113cd754ba6cf9497752643541defcceebf34a95), [`89e3ba6`](https://github.com/knitkode/kit/commit/89e3ba66f33f8b5c8b7ecc2350d5dadbfd6bc143), [`b131ad6`](https://github.com/knitkode/kit/commit/b131ad61ba1956a5efb1f2a0ad00c76870da8899)]:
+  - @knitkode/utils@3.0.1
+
 ## 3.0.0
 
 ### Major Changes

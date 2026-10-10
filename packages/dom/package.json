@@ -1,6 +1,6 @@
 {
   "name": "@knitkode/dom",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Tiny, tree-shakeable DOM helpers: selectors, event delegation, scroll and resize listeners, measurements.",
   "keywords": [
     "knitkode",
