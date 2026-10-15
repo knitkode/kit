@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@knitkode/utils": "workspace:^",
-    "glob": "^11.0.0"
+    "glob": "^13.0.6"
   },
   "publishConfig": {
     "access": "public"
